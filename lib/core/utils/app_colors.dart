@@ -1,0 +1,16 @@
+import 'package:flutter/material.dart';
+
+
+class AppColor {
+  static Color typography1 = Color(0xFF333333);
+
+  static Color border1 = Color(0xFFDDDEE0);
+
+  static Color button1 = Color(0xFF90A4AE);
+
+  static Color background1 = Color(0xFFEFEBEB);
+  static Color background2 = Color(0xFFF4F6F7);
+
+  static Color iconColor1 = Color(0xFF545454);
+
+}
