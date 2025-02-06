@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:get/get.dart';
 import 'package:med_meet_flutter/core/constants/svg_assets.dart';
-import 'package:med_meet_flutter/core/helpers/route.dart';
 
 class BottomNavigation extends StatelessWidget {
   final Function(int) onChanged;

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:med_meet_flutter/core/components/bottom_navigation.dart';
-import 'package:med_meet_flutter/features/message_calls/components/message_tile.dart';
+import 'package:med_meet_flutter/views/message_calls/components/message_tile.dart';
 
 class MessagesView extends StatelessWidget {
   const MessagesView({super.key});
@@ -32,9 +31,6 @@ class MessagesView extends StatelessWidget {
             MessageTile(),
           ],
         ),
-      ),
-      bottomNavigationBar: BottomNavigation(
-        menuIndex: 2,
       ),
     );
   }

@@ -19,6 +19,8 @@ import 'package:med_meet_flutter/views/home/user/home_user.dart';
 import 'package:med_meet_flutter/views/home/user/search_user.dart';
 import 'package:med_meet_flutter/views/home/user/specialty_list_user.dart';
 import 'package:med_meet_flutter/views/home/user/specialty_user.dart';
+import 'package:med_meet_flutter/views/message_calls/chat_screen.dart';
+import 'package:med_meet_flutter/views/message_calls/messages.dart';
 
 enum OTPTYPE { doctor, forgetPass, user }
 
