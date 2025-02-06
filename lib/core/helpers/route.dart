@@ -21,6 +21,7 @@ import 'package:med_meet_flutter/views/home/user/specialty_list_user.dart';
 import 'package:med_meet_flutter/views/home/user/specialty_user.dart';
 import 'package:med_meet_flutter/views/message_calls/chat_screen.dart';
 import 'package:med_meet_flutter/views/message_calls/messages.dart';
+import 'package:med_meet_flutter/views/profile/user/user_personal_information.dart';
 
 enum OTPTYPE { doctor, forgetPass, user }
 
@@ -52,6 +53,9 @@ class AppRoutes {
   // Messages feature
   static String messages = "/messages";
   static String chatScreen = "/chatscreen";
+
+  // Profile
+  static String userProfileInformation = '/user_profile_information';
 
   static List<GetPage> pages = [
     GetPage(name: app, page: () => const App()),
@@ -89,5 +93,8 @@ class AppRoutes {
         page: () => const MessagesView(),
         transition: Transition.noTransition),
     GetPage(name: chatScreen, page: () => const ChatScreenView()),
+
+    // Profile
+    GetPage(name: userProfileInformation, page: ()=> const UserPersonalInformation()),
   ];
 }

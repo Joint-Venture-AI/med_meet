@@ -15,5 +15,5 @@ class AppColors {
 
   static Color iconColor1 = Color(0xFF545454);
 
-  static Color scaffoldBackgroundColor = const Color(0xFFf6fafc);
+  static Color scaffoldBackgroundColor = const Color(0xFFf2f5f7);
 }

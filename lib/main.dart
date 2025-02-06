@@ -18,6 +18,9 @@ void main() {
       minTextAdapt: true,
       builder: (_, child) {
         return GetMaterialApp(
+          theme: ThemeData(
+            scaffoldBackgroundColor: AppColors.scaffoldBackgroundColor,
+          ),
           getPages: AppRoutes.pages,
           initialRoute: AppRoutes.app,
         );

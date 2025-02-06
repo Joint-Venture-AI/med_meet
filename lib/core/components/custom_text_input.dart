@@ -8,7 +8,7 @@ import 'package:med_meet_flutter/core/utils/app_typography.dart';
 class CustomTextInput extends StatelessWidget {
   const CustomTextInput({
     super.key,
-    required this.title,
+    this.title,
     required this.hintText,
     this.isPassword = false,
     this.isPhone = false,
@@ -19,7 +19,7 @@ class CustomTextInput extends StatelessWidget {
     this.endIconButton,
   });
 
-  final String title;
+  final String? title;
   final String hintText;
   final bool isPassword;
   final bool isPhone;
@@ -39,7 +39,7 @@ class CustomTextInput extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          if (renderTitle) Text(title, style: AppTypography.bodyText1Black),
+          if (renderTitle && title != null) Text(title!, style: AppTypography.bodyText1Black),
           if (renderTitle)
             SizedBox(
               height: 8.h,
