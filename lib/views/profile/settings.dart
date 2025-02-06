@@ -1,0 +1,110 @@
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:med_meet_flutter/core/components/custom_app_bar.dart';
+import 'package:med_meet_flutter/core/helpers/route.dart';
+import 'package:med_meet_flutter/core/utils/uitls.dart';
+import 'package:med_meet_flutter/models/options.dart';
+
+class Settings extends StatelessWidget {
+  const Settings({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    var options = [
+      Options(
+        name: "Change Password",
+        icon: "assets/svg/change_password.svg",
+        link: AppRoutes.changePassword,
+      ),
+      Options(
+        name: "Privacy Policy",
+        icon: "assets/svg/privacy_policy.svg",
+        link: AppRoutes.privaryPolicy,
+      ),
+      Options(
+        name: "Terms of Services",
+        icon: "assets/svg/terms_of_services.svg",
+        link: AppRoutes.termsOfServices,
+      ),
+      Options(
+        name: "About Us",
+        icon: "assets/svg/about_us.svg",
+        link: AppRoutes.aboutUs,
+      ),
+      Options(
+          name: "Delete Account",
+          icon: "assets/svg/delete_account.svg",
+          link: null),
+    ];
+
+    return Scaffold(
+      body: Column(
+        children: [
+          CustomAppBar(
+            title: "Settings",
+          ),
+          Expanded(
+            child: SingleChildScrollView(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 24,
+                ),
+                child: Column(
+                  spacing: 16,
+                  children: [
+                    // const SizedBox(
+                    //   height: 4,
+                    // ),
+                    ...options.map(
+                      (e) {
+                        return GestureDetector(
+                          onTap: () {
+                            if (e.link != null) {
+                              Get.toNamed(e.link!);
+                            }
+                          },
+                          child: Container(
+                            padding: EdgeInsets.all(12),
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(8),
+                            ),
+                            child: Row(
+                              children: [
+                                svgViewer(
+                                  asset: e.icon!,
+                                  color: Color(0xff545454),
+                                ),
+                                const SizedBox(
+                                  width: 8,
+                                ),
+                                Text(
+                                  e.name,
+                                  style: TextStyle(
+                                    color: Color(0xff545454),
+                                    fontSize: 14,
+                                  ),
+                                ),
+                                const Spacer(),
+                                if (e.name != "Delete Account")
+                                  Transform.flip(
+                                    flipX: true,
+                                    child: svgViewer(
+                                        asset: "assets/svg/arrow_back.svg"),
+                                  ),
+                              ],
+                            ),
+                          ),
+                        );
+                      },
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}

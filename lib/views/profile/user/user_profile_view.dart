@@ -17,7 +17,11 @@ class UserProfileView extends StatelessWidget {
         link: AppRoutes.userProfileInformation,
       ),
       Options(name: "Medical Records", icon: "assets/svg/medical_records.svg"),
-      Options(name: "Settings", icon: "assets/svg/settings.svg"),
+      Options(
+        name: "Settings",
+        icon: "assets/svg/settings.svg",
+        link: AppRoutes.settings,
+      ),
       Options(name: "Logout", icon: "assets/svg/logout.svg"),
     ];
 
@@ -59,7 +63,9 @@ class UserProfileView extends StatelessWidget {
                       isDark: false,
                       hasLeading: false,
                     ),
-                    const SizedBox(height: 36,),
+                    const SizedBox(
+                      height: 36,
+                    ),
                     ClipOval(
                       child: Image.asset(
                         "assets/images/profile_pic.jfif",
@@ -115,7 +121,7 @@ class UserProfileView extends StatelessWidget {
                     (e) {
                       var isLastElement =
                           (options.indexOf(e) == options.length - 1);
-    
+
                       return GestureDetector(
                         onTap: () {
                           if (e.link != null) {
@@ -143,12 +149,9 @@ class UserProfileView extends StatelessWidget {
                             children: [
                               if (e.icon != null)
                                 Padding(
-                                  padding:
-                                      const EdgeInsets.only(right: 12.0),
+                                  padding: const EdgeInsets.only(right: 12.0),
                                   child: svgViewer(
-                                      asset: e.icon!,
-                                      height: 18,
-                                      width: 18),
+                                      asset: e.icon!, height: 18, width: 18),
                                 ),
                               Text(
                                 e.name,
