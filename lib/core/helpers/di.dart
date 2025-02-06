@@ -14,11 +14,6 @@ Future<Map<String, Map<String, String>>> init() async {
   final sharedPreferences = await SharedPreferences.getInstance();
   Get.lazyPut(() => sharedPreferences);
 
-  // Repository
-  // Get.lazyPut(() => ThemeController(sharedPreferences: Get.find()));
-  // Get.lazyPut(() => LocalizationController(sharedPreferences: Get.find()));
-  // Get.lazyPut(() => HomeController());
-  // Get.lazyPut(() => CommunityGroupController());
 
   //Retrieving localized data
   Map<String, Map<String, String>> languages = {};

@@ -5,7 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:get/get.dart';
 import 'package:med_meet_flutter/core/constants/image_assets.dart';
-import 'package:med_meet_flutter/features/auth/controllers/splash_controller.dart';
+import 'package:med_meet_flutter/views/auth/controllers/splash_controller.dart';
 import 'package:med_meet_flutter/core/utils/app_typography.dart';
 
 class SplashView extends StatelessWidget {

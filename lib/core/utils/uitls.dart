@@ -15,10 +15,3 @@ Widget svgViewer({
         color != null ? ColorFilter.mode(color, BlendMode.srcIn) : null,
   );
 }
-
-const TextStyle kTextStyle = TextStyle(
-  fontFamily: "Khula",
-  color: Color(0xff222222),
-  fontSize: 16,
-  fontWeight: FontWeight.w600,
-);
