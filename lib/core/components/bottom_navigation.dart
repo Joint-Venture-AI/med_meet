@@ -5,8 +5,10 @@ import 'package:med_meet_flutter/core/constants/svg_assets.dart';
 import 'package:med_meet_flutter/core/helpers/route.dart';
 
 class BottomNavigation extends StatelessWidget {
-  const BottomNavigation({super.key, required this.menuIndex});
+  final Function(int) onChanged;
   final int menuIndex;
+  const BottomNavigation(
+      {super.key, required this.menuIndex, required this.onChanged});
 
   @override
   Widget build(BuildContext context) {
@@ -46,28 +48,7 @@ class BottomNavigation extends StatelessWidget {
           label: 'Profile',
         ),
       ],
-      onTap: (int index) {
-        switch (index) {
-          case 0:
-            Get.offAllNamed(AppRoutes.homeUser);
-            break; // Important: Don't forget the break statement
-
-          // case 1:
-          //   Get.offAllNamed(AppRoutes.APPOINT_USER);
-          //   break;
-
-          case 2:
-            Get.offAllNamed(AppRoutes.messages);
-            break;
-
-          // case 3:
-          //   Get.offAllNamed(AppRoutes.PROFILE_USER);
-          //   break;
-          default: // Optional: Handle cases outside 0-3
-
-            break;
-        }
-      },
+      onTap: onChanged,
     );
   }
 }

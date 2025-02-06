@@ -1,29 +1,30 @@
 import 'package:get/get.dart';
-import 'package:med_meet_flutter/features/auth/views/doctor/doctor_details_auth.dart';
-import 'package:med_meet_flutter/features/auth/views/doctor/sign_up.dart';
-import 'package:med_meet_flutter/features/auth/views/doctor/verify_progress_doctor.dart';
-import 'package:med_meet_flutter/features/auth/views/forgot_password.dart';
-import 'package:med_meet_flutter/features/auth/views/new_password.dart';
-import 'package:med_meet_flutter/features/auth/views/select_country_screen.dart';
-import 'package:med_meet_flutter/features/auth/views/sign_in.dart';
-import 'package:med_meet_flutter/features/auth/views/splash_screen.dart';
-import 'package:med_meet_flutter/features/auth/views/user/complete_profile.dart';
-import 'package:med_meet_flutter/features/auth/views/user/sign_up.dart';
-import 'package:med_meet_flutter/features/auth/views/verify_otp.dart';
-import 'package:med_meet_flutter/features/doctor_or_patient.dart';
-import 'package:med_meet_flutter/features/home/notification.dart';
-import 'package:med_meet_flutter/features/home/user/doctors_details_user.dart';
-import 'package:med_meet_flutter/features/home/user/doctors_list_user.dart';
-import 'package:med_meet_flutter/features/home/user/home_user.dart';
-import 'package:med_meet_flutter/features/home/user/search_user.dart';
-import 'package:med_meet_flutter/features/home/user/specialty_list_user.dart';
-import 'package:med_meet_flutter/features/home/user/specialty_user.dart';
-import 'package:med_meet_flutter/features/message_calls/chat_screen.dart';
-import 'package:med_meet_flutter/features/message_calls/messages.dart';
+import 'package:med_meet_flutter/app.dart';
+import 'package:med_meet_flutter/views/auth/views/doctor/doctor_details_auth.dart';
+import 'package:med_meet_flutter/views/auth/views/doctor/sign_up.dart';
+import 'package:med_meet_flutter/views/auth/views/doctor/verify_progress_doctor.dart';
+import 'package:med_meet_flutter/views/auth/views/forgot_password.dart';
+import 'package:med_meet_flutter/views/auth/views/new_password.dart';
+import 'package:med_meet_flutter/views/auth/views/select_country_screen.dart';
+import 'package:med_meet_flutter/views/auth/views/sign_in.dart';
+import 'package:med_meet_flutter/views/auth/views/splash_screen.dart';
+import 'package:med_meet_flutter/views/auth/views/user/complete_profile.dart';
+import 'package:med_meet_flutter/views/auth/views/user/sign_up.dart';
+import 'package:med_meet_flutter/views/auth/views/verify_otp.dart';
+import 'package:med_meet_flutter/views/doctor_or_patient.dart';
+import 'package:med_meet_flutter/views/home/notification.dart';
+import 'package:med_meet_flutter/views/home/user/doctors_details_user.dart';
+import 'package:med_meet_flutter/views/home/user/doctors_list_user.dart';
+import 'package:med_meet_flutter/views/home/user/home_user.dart';
+import 'package:med_meet_flutter/views/home/user/search_user.dart';
+import 'package:med_meet_flutter/views/home/user/specialty_list_user.dart';
+import 'package:med_meet_flutter/views/home/user/specialty_user.dart';
 
 enum OTPTYPE { doctor, forgetPass, user }
 
 class AppRoutes {
+  static String app = '/app';
+
   // Auth feature
   static String splashScreen = "/splash_screen";
   static String selectCountryScreen = "/select_country_screen";
@@ -51,6 +52,8 @@ class AppRoutes {
   static String chatScreen = "/chatscreen";
 
   static List<GetPage> pages = [
+    GetPage(name: app, page: () => const App()),
+
     // Auth feature
     GetPage(name: splashScreen, page: () => const SplashView()),
     GetPage(name: selectCountryScreen, page: () => const SelectCountryScreen()),

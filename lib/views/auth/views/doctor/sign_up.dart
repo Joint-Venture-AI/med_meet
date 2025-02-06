@@ -3,11 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:med_meet_flutter/core/helpers/route.dart';
-import 'package:med_meet_flutter/features/auth/auth_components/circular_checkbox.dart';
+import 'package:med_meet_flutter/views/auth/auth_components/circular_checkbox.dart';
 import 'package:med_meet_flutter/core/components/custom_button.dart';
 import 'package:med_meet_flutter/core/components/custom_text_input.dart';
 import 'package:med_meet_flutter/core/utils/app_typography.dart';
-import 'package:med_meet_flutter/features/auth/controllers/check_box_controller.dart';
+import 'package:med_meet_flutter/views/auth/controllers/check_box_controller.dart';
 
 class SingupDoctorView extends StatelessWidget {
   const SingupDoctorView({super.key});

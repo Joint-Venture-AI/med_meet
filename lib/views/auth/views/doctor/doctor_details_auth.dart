@@ -16,7 +16,7 @@ import 'package:med_meet_flutter/core/constants/svg_assets.dart';
 import 'package:med_meet_flutter/core/helpers/route.dart';
 import 'package:med_meet_flutter/core/utils/app_colors.dart';
 import 'package:med_meet_flutter/core/utils/app_typography.dart';
-import 'package:med_meet_flutter/features/auth/controllers/image_picker_controller.dart';
+import 'package:med_meet_flutter/views/auth/controllers/image_picker_controller.dart';
 
 class DoctorDetailsAuthView extends StatelessWidget {
   const DoctorDetailsAuthView({super.key});

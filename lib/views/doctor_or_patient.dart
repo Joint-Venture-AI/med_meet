@@ -18,7 +18,7 @@ class DoctorOrPatient extends StatelessWidget {
           ),
           ElevatedButton(
             onPressed: () {
-              Get.toNamed(AppRoutes.homeUser);
+              Get.toNamed(AppRoutes.app);
             },
             child: Text('User'),
           ),
