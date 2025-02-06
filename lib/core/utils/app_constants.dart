@@ -1,5 +1,6 @@
 // ignore_for_file: non_constant_identifier_names, constant_identifier_names
 import 'package:med_meet_flutter/models/language_model.dart';
+import 'package:med_meet_flutter/models/options.dart';
 
 class AppConstants {
   static String APPNAME = "ZenActive";
@@ -51,4 +52,20 @@ class AppConstants {
   static String SPLASH_HEADER = "Achieve Your Fitness Goals!";
   static String SPLASH_SUB_HEADER =
       "Track your progress, take on challenges, and connect with a community of achievers";
+
+  static List<Options> userProfileOptions = [
+    Options(name: "Personal Information", icon: "assets/svg/personal_information.svg"),
+    Options(name: "Medical Records", icon: "assets/svg/medical_records.svg"),
+    Options(name: "Settings", icon: "assets/svg/settings.svg"),
+    Options(name: "Logout", icon: "assets/svg/logout.svg"),
+  ];
+  static List<Options> doctorProfileOptions = [
+    Options(name: "Personal Information", icon: "assets/svg/personal_information.svg"),
+    Options(name: "Doctor Details", icon: "assets/svg/medical_records.svg"),
+    Options(name: "Schedule", icon: "assets/svg/schedule.svg"),
+    Options(name: "Earnings", icon: "assets/svg/earnings.svg"),
+    Options(name: "Reviews", icon: "assets/svg/reviews.svg"),
+    Options(name: "Settings", icon: "assets/svg/settings.svg"),
+    Options(name: "Logout", icon: "assets/svg/logout.svg"),
+  ];
 }
