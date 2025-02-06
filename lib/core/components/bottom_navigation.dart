@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/get.dart';
 import 'package:med_meet_flutter/core/constants/svg_assets.dart';
+import 'package:med_meet_flutter/core/helpers/route.dart';
 
 class BottomNavigation extends StatelessWidget {
   const BottomNavigation({super.key, required this.menuIndex});
@@ -45,26 +47,26 @@ class BottomNavigation extends StatelessWidget {
         ),
       ],
       onTap: (int index) {
-        // switch (index) {
-        //   case 0:
-        //     Get.offAllNamed(Routes.HOME_USER);
-        //     break; // Important: Don't forget the break statement
+        switch (index) {
+          case 0:
+            Get.offAllNamed(AppRoutes.homeUser);
+            break; // Important: Don't forget the break statement
 
-        //   case 1:
-        //     Get.offAllNamed(Routes.APPOINT_USER);
-        //     break;
+          // case 1:
+          //   Get.offAllNamed(AppRoutes.APPOINT_USER);
+          //   break;
 
-        //   case 2:
-        //     Get.offAllNamed(Routes.MESSAGE);
-        //     break;
+          case 2:
+            Get.offAllNamed(AppRoutes.messages);
+            break;
 
-        //   case 3:
-        //     Get.offAllNamed(Routes.PROFILE_USER);
-        //     break;
-        //   default: // Optional: Handle cases outside 0-3
-        //     print("Invalid index: $index");
-        //     break;
-        // }
+          // case 3:
+          //   Get.offAllNamed(AppRoutes.PROFILE_USER);
+          //   break;
+          default: // Optional: Handle cases outside 0-3
+
+            break;
+        }
       },
     );
   }

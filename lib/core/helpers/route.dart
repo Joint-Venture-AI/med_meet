@@ -18,6 +18,8 @@ import 'package:med_meet_flutter/features/home/user/home_user.dart';
 import 'package:med_meet_flutter/features/home/user/search_user.dart';
 import 'package:med_meet_flutter/features/home/user/specialty_list_user.dart';
 import 'package:med_meet_flutter/features/home/user/specialty_user.dart';
+import 'package:med_meet_flutter/features/message_calls/chat_screen.dart';
+import 'package:med_meet_flutter/features/message_calls/messages.dart';
 
 enum OTPTYPE { doctor, forgetPass, user }
 
@@ -44,6 +46,9 @@ class AppRoutes {
   static String specialtyListUser = "/specialty_lsit";
   static String doctorListUser = "/doctor_list_user";
   static String doctorDetailsUser = "/doctor_details_user";
+  // Messages feature
+  static String messages = "/messages";
+  static String chatScreen = "/chatscreen";
 
   static List<GetPage> pages = [
     // Auth feature
@@ -61,7 +66,10 @@ class AppRoutes {
         name: verifyProgressDoctor,
         page: () => const VerifyProgressDoctorView()),
     // Home feature
-    GetPage(name: homeUser, page: () => const HomeUserView()),
+    GetPage(
+        name: homeUser,
+        page: () => const HomeUserView(),
+        transition: Transition.noTransition),
     GetPage(name: notifications, page: () => const NotificationView()),
     GetPage(name: searchUser, page: () => const SearchUserView()),
     GetPage(name: specialtyUser, page: () => const SpecialtyUserView()),
@@ -70,5 +78,11 @@ class AppRoutes {
     GetPage(
         name: doctorDetailsUser, page: () => const DoctorsDetailsUserView()),
     GetPage(name: userOrDoctor, page: () => const DoctorOrPatient()),
+    // Messages feature
+    GetPage(
+        name: messages,
+        page: () => const MessagesView(),
+        transition: Transition.noTransition),
+    GetPage(name: chatScreen, page: () => const ChatScreenView()),
   ];
 }
