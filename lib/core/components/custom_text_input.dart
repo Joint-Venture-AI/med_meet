@@ -15,6 +15,8 @@ class CustomTextInput extends StatelessWidget {
     this.maxLines = 1,
     this.icon,
     this.renderTitle = true,
+    this.endIcon,
+    this.endIconButton,
   });
 
   final String title;
@@ -24,6 +26,8 @@ class CustomTextInput extends StatelessWidget {
   final int maxLines;
   final IconData? icon;
   final bool renderTitle;
+  final IconData? endIcon;
+  final Widget? endIconButton;
 
   @override
   Widget build(BuildContext context) {
@@ -81,6 +85,8 @@ class CustomTextInput extends StatelessWidget {
                             border: InputBorder.none, hintText: hintText),
                       ),
                     ),
+                    if (endIcon != null) Icon(endIcon),
+                    if (endIconButton != null) endIconButton!,
                     if (isPassword)
                       GestureDetector(
                           onTap: () {
