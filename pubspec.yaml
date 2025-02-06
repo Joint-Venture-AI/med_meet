@@ -32,4 +32,7 @@ flutter:
 
 
   assets:
-     - assets/.
+     - assets/
+     - assets/images/
+     - assets/svg/
+     - assets/language/
