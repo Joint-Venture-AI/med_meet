@@ -1,16 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:get/get.dart';
-import 'package:med_meet_flutter/core/routes/app_routes.dart';
 import 'package:med_meet_flutter/core/utils/app_colors.dart';
 import 'package:med_meet_flutter/core/utils/app_typography.dart';
 
 GestureDetector buildSpecialist({title, assetPath}) {
   return GestureDetector(
-    onTap: () {
-      Get.toNamed(AppRoutes.specialtyListUser);
-    },
+    onTap: () {},
     child: Column(
       children: [
         Container(
@@ -18,7 +14,7 @@ GestureDetector buildSpecialist({title, assetPath}) {
           width: 56.w,
           padding: EdgeInsets.all(15),
           decoration: BoxDecoration(
-              color: AppColor.background2, shape: BoxShape.circle),
+              color: AppColors.background2, shape: BoxShape.circle),
           child: SvgPicture.asset(assetPath),
         ),
         SizedBox(

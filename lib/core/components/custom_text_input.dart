@@ -45,7 +45,7 @@ class CustomTextInput extends StatelessWidget {
                 horizontal: 16,
               ),
               decoration: BoxDecoration(
-                border: Border.all(color: AppColor.border1),
+                border: Border.all(color: AppColors.border1),
                 borderRadius: BorderRadius.circular(25),
               ),
               child: Obx(

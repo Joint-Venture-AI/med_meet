@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:med_meet_flutter/core/constants/image_assets.dart';
-import 'package:med_meet_flutter/core/routes/app_routes.dart';
+import 'package:med_meet_flutter/core/helpers/route.dart';
 import 'package:med_meet_flutter/core/utils/app_colors.dart';
 import 'package:med_meet_flutter/core/utils/app_typography.dart';
 
@@ -22,7 +22,7 @@ class DoctorCard extends StatelessWidget {
           padding: EdgeInsets.all(12),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(10),
-            border: Border.all(color: AppColor.border1),
+            border: Border.all(color: AppColors.border1),
           ),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,

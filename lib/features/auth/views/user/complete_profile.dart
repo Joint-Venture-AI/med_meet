@@ -11,7 +11,7 @@ import 'package:med_meet_flutter/core/components/custom_drop_down.dart';
 import 'package:med_meet_flutter/core/components/custom_text_input.dart';
 import 'package:med_meet_flutter/core/components/my_custom_appbar.dart';
 import 'package:med_meet_flutter/core/constants/svg_assets.dart';
-import 'package:med_meet_flutter/core/routes/app_routes.dart';
+import 'package:med_meet_flutter/core/helpers/route.dart';
 import 'package:med_meet_flutter/core/utils/app_colors.dart';
 import 'package:med_meet_flutter/core/utils/app_typography.dart';
 import 'package:med_meet_flutter/features/auth/controllers/image_picker_controller.dart';
@@ -63,7 +63,7 @@ class CompletePRofileView extends StatelessWidget {
                         height: 120.h,
                         width: 120.w,
                         decoration: BoxDecoration(
-                            color: AppColor.background1,
+                            color: AppColors.background1,
                             shape: BoxShape.circle),
                         child: Center(
                           child: imagePickerController.imagePath.isEmpty

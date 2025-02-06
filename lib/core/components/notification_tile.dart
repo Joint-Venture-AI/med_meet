@@ -11,17 +11,17 @@ class NotificationTile extends StatelessWidget {
       padding: EdgeInsets.only(bottom: 12),
       child: Container(
         decoration: BoxDecoration(
-          border: Border.all(color: AppColor.border1),
+          border: Border.all(color: AppColors.border1),
           borderRadius: BorderRadius.circular(12),
           color: Colors.white,
         ),
         child: ListTile(
           leading: CircleAvatar(
             radius: 24,
-            backgroundColor: AppColor.background2,
+            backgroundColor: AppColors.background2,
             child: Icon(
               Icons.notifications_none,
-              color: AppColor.iconColor1,
+              color: AppColors.iconColor1,
             ),
           ),
           title: Text(

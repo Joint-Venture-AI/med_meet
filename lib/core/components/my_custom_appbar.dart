@@ -15,7 +15,7 @@ AppBar customAppBar({title = ""}) {
           width: 40,
           padding: EdgeInsets.all(10),
           decoration: BoxDecoration(
-              border: Border.all(color: AppColor.border1),
+              border: Border.all(color: AppColors.border1),
               borderRadius: BorderRadius.circular(30)),
           child: Padding(
               padding: EdgeInsets.only(left: 2),

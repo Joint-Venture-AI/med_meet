@@ -41,7 +41,7 @@ class _CustomDropDownState extends State<CustomDropDown> {
         Container(
           padding: widget.padding,
           decoration: BoxDecoration(
-            border: Border.all(color: AppColor.border1),
+            border: Border.all(color: AppColors.border1),
             borderRadius: BorderRadius.circular(35),
           ),
           child: DropdownButton<String>(

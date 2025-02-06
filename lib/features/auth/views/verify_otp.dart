@@ -3,8 +3,7 @@ import 'package:flutter/services.dart';
 
 import 'package:get/get.dart';
 import 'package:med_meet_flutter/core/components/custom_button.dart';
-import 'package:med_meet_flutter/core/routes/app_routes.dart';
-import 'package:med_meet_flutter/core/routes/otp_routes.dart';
+import 'package:med_meet_flutter/core/helpers/route.dart';
 import 'package:med_meet_flutter/core/utils/app_typography.dart';
 
 class VerifyOtpView extends StatelessWidget {
@@ -48,12 +47,12 @@ class VerifyOtpView extends StatelessWidget {
           ),
           CustomButton(
               onPressed: () {
-                if (args == OtpRoutes.forgotPass) {
+                if (args == OTPTYPE.forgetPass) {
                   Get.toNamed(AppRoutes.newPassword);
                 }
-                if (args == OtpRoutes.user) {
+                if (args == OTPTYPE.user) {
                   Get.offAllNamed(AppRoutes.signIn);
-                } else if (args == OtpRoutes.doctor) {
+                } else if (args == OTPTYPE.doctor) {
                   Get.toNamed(AppRoutes.verifyProgressDoctor);
                 }
               },

@@ -1,5 +1,5 @@
 import 'package:get/get.dart';
-import 'package:med_meet_flutter/core/routes/app_routes.dart';
+import 'package:med_meet_flutter/core/helpers/route.dart';
 
 class SplashController extends GetxController {
   final count = 0.obs;
@@ -9,16 +9,4 @@ class SplashController extends GetxController {
     Future.delayed(Duration(seconds: 2),
         () => Get.offAllNamed(AppRoutes.selectCountryScreen));
   }
-
-  // @override
-  // void onReady() {
-  //   super.onReady();
-  // }
-
-  // @override
-  // void onClose() {
-  //   super.onClose();
-  // }
-
-  void increment() => count.value++;
 }

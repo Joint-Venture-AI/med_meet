@@ -18,7 +18,7 @@ class CircularCheckbox extends StatelessWidget {
           decoration: BoxDecoration(
             color: isActive ? Color(0xFF1E65FF) : Colors.transparent,
             shape: BoxShape.circle,
-            border: Border.all(color: AppColor.border1),
+            border: Border.all(color: AppColors.border1),
           ),
           child: isActive
               ? Icon(

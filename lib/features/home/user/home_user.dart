@@ -9,7 +9,7 @@ import 'package:med_meet_flutter/core/components/section_header.dart';
 import 'package:med_meet_flutter/core/components/specialty_card.dart';
 import 'package:med_meet_flutter/core/constants/image_assets.dart';
 import 'package:med_meet_flutter/core/constants/svg_assets.dart';
-import 'package:med_meet_flutter/core/routes/app_routes.dart';
+import 'package:med_meet_flutter/core/helpers/route.dart';
 import 'package:med_meet_flutter/core/utils/app_colors.dart';
 import 'package:med_meet_flutter/core/utils/app_typography.dart';
 
@@ -113,12 +113,12 @@ class HomeUserView extends StatelessWidget {
                     child: Container(
                       padding: EdgeInsets.all(10),
                       decoration: BoxDecoration(
-                          border: Border.all(color: AppColor.border1),
+                          border: Border.all(color: AppColors.border1),
                           shape: BoxShape.circle),
                       child: Center(
                         child: Icon(
                           Icons.notifications,
-                          color: AppColor.iconColor1,
+                          color: AppColors.iconColor1,
                         ),
                       ),
                     ),
@@ -146,7 +146,7 @@ class SearchField extends StatelessWidget {
         height: 44.h,
         padding: EdgeInsets.symmetric(horizontal: 16),
         decoration: BoxDecoration(
-          border: Border.all(color: AppColor.border1),
+          border: Border.all(color: AppColors.border1),
           borderRadius: BorderRadius.circular(25),
         ),
         child: Row(
@@ -154,7 +154,7 @@ class SearchField extends StatelessWidget {
           children: [
             Icon(
               Icons.search,
-              color: AppColor.iconColor1,
+              color: AppColors.iconColor1,
             ),
             SizedBox(
               width: 8,

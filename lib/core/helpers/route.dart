@@ -19,6 +19,8 @@ import 'package:med_meet_flutter/features/home/user/search_user.dart';
 import 'package:med_meet_flutter/features/home/user/specialty_list_user.dart';
 import 'package:med_meet_flutter/features/home/user/specialty_user.dart';
 
+enum OTPTYPE { doctor, forgetPass, user }
+
 class AppRoutes {
   // Auth feature
   static String splashScreen = "/splash_screen";
@@ -32,7 +34,6 @@ class AppRoutes {
   static String signUpDoctor = "/sign_up_doctor";
   static String doctorDetails = "/doctor_details";
   static String verifyProgressDoctor = "/verify_progress_doctor";
-
   // TEmp
   static String userOrDoctor = "/user_or_doctor";
   // Home feature
@@ -44,7 +45,7 @@ class AppRoutes {
   static String doctorListUser = "/doctor_list_user";
   static String doctorDetailsUser = "/doctor_details_user";
 
-  static List<GetPage> page = [
+  static List<GetPage> pages = [
     // Auth feature
     GetPage(name: splashScreen, page: () => const SplashView()),
     GetPage(name: selectCountryScreen, page: () => const SelectCountryScreen()),

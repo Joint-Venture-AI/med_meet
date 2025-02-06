@@ -26,7 +26,7 @@ class DoctorsDetailsUserView extends StatelessWidget {
                   width: double.infinity,
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(12),
-                      border: Border.all(color: AppColor.border1),
+                      border: Border.all(color: AppColors.border1),
                       color: Colors.white),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,

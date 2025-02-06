@@ -13,8 +13,7 @@ import 'package:med_meet_flutter/core/components/custom_drop_down.dart';
 import 'package:med_meet_flutter/core/components/custom_text_input.dart';
 import 'package:med_meet_flutter/core/components/my_custom_appbar.dart';
 import 'package:med_meet_flutter/core/constants/svg_assets.dart';
-import 'package:med_meet_flutter/core/routes/app_routes.dart';
-import 'package:med_meet_flutter/core/routes/otp_routes.dart';
+import 'package:med_meet_flutter/core/helpers/route.dart';
 import 'package:med_meet_flutter/core/utils/app_colors.dart';
 import 'package:med_meet_flutter/core/utils/app_typography.dart';
 import 'package:med_meet_flutter/features/auth/controllers/image_picker_controller.dart';
@@ -164,8 +163,7 @@ class DoctorDetailsAuthView extends StatelessWidget {
               ),
               CustomButton(
                   onPressed: () {
-                    Get.toNamed(AppRoutes.verifOtp,
-                        arguments: OtpRoutes.doctor);
+                    Get.toNamed(AppRoutes.verifOtp, arguments: OTPTYPE.doctor);
                   },
                   buttonTitle: "Continue")
             ],
@@ -181,7 +179,7 @@ class DoctorDetailsAuthView extends StatelessWidget {
       isIamge = false,
       pdfPath = ""}) {
     return DottedBorder(
-      color: AppColor.border1,
+      color: AppColors.border1,
       dashPattern: [14],
       child: SizedBox(
         height: 140.h,
