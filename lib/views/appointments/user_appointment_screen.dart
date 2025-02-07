@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:med_meet_flutter/core/components/doctor_card.dart';
 import 'package:med_meet_flutter/core/components/my_custom_appbar.dart';
 
-class UserAppointmentListsView extends StatelessWidget {
-  const UserAppointmentListsView({super.key});
+class UserAppointmentScreenView extends StatelessWidget {
+  const UserAppointmentScreenView({super.key});
 
   @override
   Widget build(BuildContext context) {
