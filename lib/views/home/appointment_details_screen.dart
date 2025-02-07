@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:med_meet_flutter/core/components/custom_button.dart';
 import 'package:med_meet_flutter/core/components/details_header.dart';
 import 'package:med_meet_flutter/core/components/my_custom_appbar.dart';
+import 'package:med_meet_flutter/core/helpers/route.dart';
 import 'package:med_meet_flutter/core/utils/app_colors.dart';
 import 'package:med_meet_flutter/core/utils/app_typography.dart';
 
@@ -252,7 +253,9 @@ class AppointmentDetailsView extends StatelessWidget {
               ),
             if (!args)
               CustomButton(
-                  onPressed: () {}, buttonTitle: "Complete Appointment")
+                  onPressed: () {
+                    Get.toNamed(AppRoutes.reviewAppointment)
+                  }, buttonTitle: "Complete Appointment")
           ],
         ),
       ),
