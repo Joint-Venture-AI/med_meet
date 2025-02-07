@@ -32,6 +32,11 @@ import 'package:med_meet_flutter/views/message_calls/chat_screen.dart';
 import 'package:med_meet_flutter/views/message_calls/messages.dart';
 import 'package:med_meet_flutter/views/profile/about_us.dart';
 import 'package:med_meet_flutter/views/profile/change_password.dart';
+import 'package:med_meet_flutter/views/profile/doctor/doctor_details.dart';
+import 'package:med_meet_flutter/views/profile/doctor/doctor_earnings.dart';
+import 'package:med_meet_flutter/views/profile/doctor/doctor_review_profile.dart';
+import 'package:med_meet_flutter/views/profile/doctor/doctor_schedule.dart';
+import 'package:med_meet_flutter/views/profile/doctor/doctor_withdraw.dart';
 import 'package:med_meet_flutter/views/profile/personal_information.dart';
 import 'package:med_meet_flutter/views/profile/privacy_policy.dart';
 import 'package:med_meet_flutter/views/profile/settings.dart';
@@ -88,6 +93,13 @@ class AppRoutes {
   static String personalInformation = '/personal_information';
   static String medicalRecords = '/medical_records';
   static String prescription = '/prescription';
+
+  static String doctorDetailsProfile = '/doctor_details_profile';
+  static String doctorReviewsProfile = '/doctor_reviews_profile';
+  static String doctorEarnings = '/doctor_earnings';
+  static String doctorWithdraw = '/doctor_withdraw';
+  static String doctorSchedule = '/doctor_schedule';
+
   static String settings = '/settings';
   static String changePassword = '/change_password';
   static String privaryPolicy = '/privary_policy';
@@ -157,6 +169,11 @@ class AppRoutes {
       name: personalInformation,
       page: () => const PersonalInformation(),
     ),
+    GetPage(name: doctorDetailsProfile, page: () => DoctorDetails()),
+    GetPage(name: doctorWithdraw, page: () => DoctorWithdraw()),
+    GetPage(name: doctorEarnings, page: () => DoctorEarnings()),
+    GetPage(name: doctorSchedule, page: () => DoctorSchedule()),
+    GetPage(name: doctorReviewsProfile, page: () => DoctorReviewProfile()),
     GetPage(name: medicalRecords, page: () => MedicalRecords()),
     GetPage(name: prescription, page: () => Prescription()),
     GetPage(name: settings, page: () => const Settings()),

@@ -64,11 +64,11 @@ class CustomAppBar extends StatelessWidget {
                 color: isDark ? Color(0xff333333) : Colors.white,
               ),
             ),
-            tailing??
-            const SizedBox(
-              height: 40,
-              width: 40,
-            ),
+            tailing ??
+                const SizedBox(
+                  height: 40,
+                  width: 40,
+                ),
           ],
         ),
       ),

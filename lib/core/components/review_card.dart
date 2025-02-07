@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:med_meet_flutter/core/constants/image_assets.dart';
 import 'package:med_meet_flutter/core/utils/app_colors.dart';
 import 'package:med_meet_flutter/core/utils/app_typography.dart';
+import 'package:med_meet_flutter/core/utils/uitls.dart';
 
 class ReviewCard extends StatelessWidget {
   const ReviewCard({
@@ -22,9 +22,12 @@ class ReviewCard extends StatelessWidget {
             children: [
               Row(
                 children: [
-                  CircleAvatar(
-                    radius: 20.r,
-                    backgroundImage: AssetImage(ImageAssets.doctorImage1),
+                  ClipOval(
+                    child: Image.asset(
+                      "assets/images/review_girl.png",
+                      height: 40,
+                      width: 40,
+                    ),
                   ),
                   SizedBox(
                     width: 16.w,
@@ -36,23 +39,28 @@ class ReviewCard extends StatelessWidget {
                 ],
               ),
               Container(
-                padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 10.h),
+                padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 4.h),
                 decoration: BoxDecoration(
                   border: Border.all(color: AppColors.border1),
                   borderRadius: BorderRadius.circular(36),
                 ),
                 child: Row(
                   children: [
-                    Icon(
-                      Icons.star,
-                      color: Colors.amberAccent,
+                    svgViewer(
+                      asset: "assets/svg/reviews.svg",
+                      height: 12,
+                      width: 12,
+                      color: Color(0xffFFB701),
                     ),
                     SizedBox(
                       width: 8.w,
                     ),
                     Text(
                       "4.5",
-                      style: TextStyle(fontSize: 14.sp),
+                      style: TextStyle(
+                        fontSize: 14.sp,
+                        fontWeight: FontWeight.w600,
+                      ),
                     ),
                   ],
                 ),
