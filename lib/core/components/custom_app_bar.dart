@@ -7,12 +7,14 @@ class CustomAppBar extends StatelessWidget {
   final bool isDark;
   final bool hasPadding;
   final bool hasLeading;
+  final Widget? tailing;
   const CustomAppBar({
     super.key,
     required this.title,
     this.isDark = true,
     this.hasPadding = true,
     this.hasLeading = true,
+    this.tailing,
   });
 
   @override
@@ -62,6 +64,7 @@ class CustomAppBar extends StatelessWidget {
                 color: isDark ? Color(0xff333333) : Colors.white,
               ),
             ),
+            tailing??
             const SizedBox(
               height: 40,
               width: 40,

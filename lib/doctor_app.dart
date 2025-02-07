@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:med_meet_flutter/core/components/bottom_navigation.dart';
 import 'package:med_meet_flutter/views/home/doctor/doctor_home.dart';
 import 'package:med_meet_flutter/views/message_calls/messages.dart';
+import 'package:med_meet_flutter/views/profile/doctor/doctor_profile_view.dart';
 
 class Doctorapp extends StatefulWidget {
   const Doctorapp({super.key});
@@ -27,7 +28,7 @@ class _DoctorappState extends State<Doctorapp> {
           DoctorHomeView(),
           DoctorHomeView(),
           MessagesView(),
-          DoctorHomeView(),
+          DoctorProfileView(),
         ],
       ),
       bottomNavigationBar: BottomNavigation(
