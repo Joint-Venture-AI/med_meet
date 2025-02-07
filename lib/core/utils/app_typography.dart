@@ -33,5 +33,5 @@ class AppTypography {
       fontSize: 12, fontWeight: FontWeight.w400, color: Color(0xFFB0B0B0));
 
   static TextStyle doctorNameStyle = GoogleFonts.roboto(
-      fontSize: 20, fontWeight: FontWeight.w400, color: Color(0xFF333333));
+      fontSize: 19, fontWeight: FontWeight.w400, color: Color(0xFF333333));
 }

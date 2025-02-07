@@ -19,7 +19,7 @@ void main() {
       builder: (_, child) {
         return GetMaterialApp(
           getPages: AppRoutes.pages,
-          initialRoute: AppRoutes.app,
+          initialRoute: AppRoutes.userOrDoctor,
         );
       },
     ),
