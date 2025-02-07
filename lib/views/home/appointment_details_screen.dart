@@ -254,8 +254,9 @@ class AppointmentDetailsView extends StatelessWidget {
             if (!args)
               CustomButton(
                   onPressed: () {
-                    Get.toNamed(AppRoutes.reviewAppointment)
-                  }, buttonTitle: "Complete Appointment")
+                    Get.toNamed(AppRoutes.reviewAppointment);
+                  },
+                  buttonTitle: "Complete Appointment")
           ],
         ),
       ),
