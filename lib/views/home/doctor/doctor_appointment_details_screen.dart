@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:med_meet_flutter/core/components/custom_button.dart';
 import 'package:med_meet_flutter/core/components/details_header.dart';
 import 'package:med_meet_flutter/core/components/my_custom_appbar.dart';
 import 'package:med_meet_flutter/core/utils/app_colors.dart';
@@ -9,6 +11,7 @@ class DoctorAppointmentDetailsView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final args = Get.arguments;
     return Scaffold(
       appBar: customAppBar(title: "Appointment Details"),
       body: Padding(
@@ -19,7 +22,7 @@ class DoctorAppointmentDetailsView extends StatelessWidget {
               height: 20,
             ),
             DetailsHeaeder(
-              isAppointment: true,
+              isAppointment: args,
             ),
             SizedBox(
               height: 16,
@@ -41,10 +44,11 @@ class DoctorAppointmentDetailsView extends StatelessWidget {
                         "Scheduled Appointment",
                         style: AppTypography.appbarTitle,
                       ),
-                      Icon(
-                        Icons.videocam,
-                        color: Color(0xFF07D11F),
-                      ),
+                      if (args)
+                        Icon(
+                          Icons.videocam,
+                          color: Color(0xFF07D11F),
+                        ),
                     ],
                   ),
                   SizedBox(
@@ -193,54 +197,62 @@ class DoctorAppointmentDetailsView extends StatelessWidget {
             SizedBox(
               height: 16,
             ),
-            Container(
-              padding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(12),
-                border: Border.all(color: AppColors.border1),
-                color: Colors.white,
+            if (args)
+              Container(
+                padding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(12),
+                  border: Border.all(color: AppColors.border1),
+                  color: Colors.white,
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Row(
+                      children: [
+                        Container(
+                          padding: EdgeInsets.all(14),
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            color: Color(0xFF07D11F),
+                          ),
+                          child: Icon(
+                            Icons.videocam,
+                            color: Colors.white,
+                          ),
+                        ),
+                        SizedBox(
+                          width: 16,
+                        ),
+                        SizedBox(
+                          width: 185,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                "Online Consultation",
+                                style: AppTypography.doctorNameStyle,
+                              ),
+                              Text(
+                                "Video call & messages with doctor",
+                                style: AppTypography.bodyText1Black,
+                              )
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                    Text("\$40", style: AppTypography.priceStyle),
+                  ],
+                ),
               ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Row(
-                    children: [
-                      Container(
-                        padding: EdgeInsets.all(14),
-                        decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          color: Color(0xFF07D11F),
-                        ),
-                        child: Icon(
-                          Icons.videocam,
-                          color: Colors.white,
-                        ),
-                      ),
-                      SizedBox(
-                        width: 16,
-                      ),
-                      SizedBox(
-                        width: 185,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              "Online Consultation",
-                              style: AppTypography.doctorNameStyle,
-                            ),
-                            Text(
-                              "Video call & messages with doctor",
-                              style: AppTypography.bodyText1Black,
-                            )
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                  Text("\$40", style: AppTypography.priceStyle),
-                ],
+            if (!args)
+              SizedBox(
+                height: Get.height * 0.15,
               ),
-            )
+            if (!args)
+              CustomButton(
+                  onPressed: () {}, buttonTitle: "Complete Appointment")
           ],
         ),
       ),

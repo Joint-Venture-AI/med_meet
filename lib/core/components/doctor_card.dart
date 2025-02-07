@@ -26,7 +26,8 @@ class DoctorCard extends StatelessWidget {
       onTap: () {
         isDoctorToDoctor
             ? Get.toNamed(AppRoutes.doctorDetailsUser)
-            : Get.toNamed(AppRoutes.doctorAppointmentDetails);
+            : Get.toNamed(AppRoutes.doctorAppointmentDetails,
+                arguments: status == null);
       },
       child: Container(
           margin: EdgeInsets.only(bottom: 12),
