@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
-import 'package:med_meet_flutter/app.dart';
+import 'package:med_meet_flutter/doctor_app.dart';
+import 'package:med_meet_flutter/user_app.dart';
 import 'package:med_meet_flutter/views/auth/views/doctor/doctor_details_auth.dart';
 import 'package:med_meet_flutter/views/auth/views/doctor/sign_up.dart';
 import 'package:med_meet_flutter/views/auth/views/doctor/verify_progress_doctor.dart';
@@ -12,13 +13,18 @@ import 'package:med_meet_flutter/views/auth/views/user/complete_profile.dart';
 import 'package:med_meet_flutter/views/auth/views/user/sign_up.dart';
 import 'package:med_meet_flutter/views/auth/views/verify_otp.dart';
 import 'package:med_meet_flutter/views/doctor_or_patient.dart';
+import 'package:med_meet_flutter/views/home/doctor/doctor_all_appointment_list.dart';
+import 'package:med_meet_flutter/views/home/doctor/doctor_appointment_details_screen.dart';
+import 'package:med_meet_flutter/views/home/doctor/doctor_home.dart';
 import 'package:med_meet_flutter/views/home/notification.dart';
 import 'package:med_meet_flutter/views/home/user/doctors_details_user.dart';
-import 'package:med_meet_flutter/views/home/user/doctors_list_user.dart';
+import 'package:med_meet_flutter/views/home/doctors_list_user.dart';
 import 'package:med_meet_flutter/views/home/user/home_user.dart';
 import 'package:med_meet_flutter/views/home/user/search_user.dart';
 import 'package:med_meet_flutter/views/home/user/specialty_list_user.dart';
 import 'package:med_meet_flutter/views/home/user/specialty_user.dart';
+import 'package:med_meet_flutter/views/home/user/user_appointment_lists.dart';
+import 'package:med_meet_flutter/views/message_calls/call_screen.dart';
 import 'package:med_meet_flutter/views/message_calls/chat_screen.dart';
 import 'package:med_meet_flutter/views/message_calls/messages.dart';
 import 'package:med_meet_flutter/views/profile/about_us.dart';
@@ -31,7 +37,8 @@ import 'package:med_meet_flutter/views/profile/terms_of_services.dart';
 enum OTPTYPE { doctor, forgetPass, user }
 
 class AppRoutes {
-  static String app = '/app';
+  static String userApp = '/user_app';
+  static String doctorApp = '/doctor_app';
 
   // Auth feature
   static String splashScreen = "/splash_screen";
@@ -47,7 +54,7 @@ class AppRoutes {
   static String verifyProgressDoctor = "/verify_progress_doctor";
   // TEmp
   static String userOrDoctor = "/user_or_doctor";
-  // Home feature
+  // Home User feature
   static String homeUser = "/home_user";
   static String notifications = "/notifications";
   static String searchUser = "/search_user";
@@ -55,9 +62,16 @@ class AppRoutes {
   static String specialtyListUser = "/specialty_lsit";
   static String doctorListUser = "/doctor_list_user";
   static String doctorDetailsUser = "/doctor_details_user";
+  static String userAppointmentList = "/user_appointment_list";
+  // Home Doctor feature
+  static String homeDoctor = "/home_doctor";
+  static String doctorAllApointmentLists = "/doctor_all_appointmetns";
+  static String doctorAppointmentDetails = "/doctor_appointment_details";
+
   // Messages feature
   static String messages = "/messages";
   static String chatScreen = "/chatscreen";
+  static String callScreen = "/call_screen";
 
   // Profile
   static String personalInformation = '/personal_information';
@@ -68,7 +82,8 @@ class AppRoutes {
   static String aboutUs = '/about_us';
 
   static List<GetPage> pages = [
-    GetPage(name: app, page: () => const App()),
+    GetPage(name: userApp, page: () => const UserApp()),
+    GetPage(name: doctorApp, page: () => const Doctorapp()),
 
     // Auth feature
     GetPage(name: splashScreen, page: () => const SplashView()),
@@ -84,6 +99,7 @@ class AppRoutes {
     GetPage(
         name: verifyProgressDoctor,
         page: () => const VerifyProgressDoctorView()),
+
     // Home feature
     GetPage(
         name: homeUser,
@@ -93,16 +109,30 @@ class AppRoutes {
     GetPage(name: searchUser, page: () => const SearchUserView()),
     GetPage(name: specialtyUser, page: () => const SpecialtyUserView()),
     GetPage(name: specialtyListUser, page: () => const SpecialtyListUserView()),
-    GetPage(name: doctorListUser, page: () => const DoctorsListUserView()),
+    GetPage(name: doctorListUser, page: () => const DoctorsListView()),
     GetPage(
         name: doctorDetailsUser, page: () => const DoctorsDetailsUserView()),
     GetPage(name: userOrDoctor, page: () => const DoctorOrPatient()),
+    GetPage(
+        name: userAppointmentList,
+        page: () => const UserAppointmentListsView()),
+
+    // Home Doctor feature
+    GetPage(name: homeDoctor, page: () => const DoctorHomeView()),
+    GetPage(
+        name: doctorAllApointmentLists,
+        page: () => const DoctorAllAppointmentList()),
+    GetPage(
+        name: doctorAppointmentDetails,
+        page: () => const DoctorAppointmentDetailsView()),
+
     // Messages feature
     GetPage(
         name: messages,
         page: () => const MessagesView(),
         transition: Transition.noTransition),
     GetPage(name: chatScreen, page: () => const ChatScreenView()),
+    GetPage(name: callScreen, page: () => const CallScreenView()),
 
     // Profile
     GetPage(

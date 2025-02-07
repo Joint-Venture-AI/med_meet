@@ -22,4 +22,8 @@ class SVGAssets {
   static String bone = "assets/svg/bone_icon.svg";
   static String pediatric = "assets/svg/pediatric_icon.svg";
   static String general = "assets/svg/general_icon.svg";
+
+  static String iconMicOff = "assets/svg/mic-off.svg";
+  static String iconSpeakerOff = "assets/svg/speaker-off.svg";
+  static String iconVideoOff = "assets/svg/video-off.svg";
 }

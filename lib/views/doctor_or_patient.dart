@@ -13,12 +13,14 @@ class DoctorOrPatient extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
           ElevatedButton(
-            onPressed: () {},
+            onPressed: () {
+              Get.toNamed(AppRoutes.doctorApp);
+            },
             child: Text('Doctor'),
           ),
           ElevatedButton(
             onPressed: () {
-              Get.toNamed(AppRoutes.app);
+              Get.toNamed(AppRoutes.userApp);
             },
             child: Text('User'),
           ),
