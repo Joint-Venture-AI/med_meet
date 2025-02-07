@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:med_meet_flutter/core/components/bottom_navigation.dart';
 import 'package:med_meet_flutter/views/home/user/home_user.dart';
-import 'package:med_meet_flutter/views/home/user/user_appointment_lists.dart';
+import 'package:med_meet_flutter/views/appointments/user_appointment_screen.dart';
 import 'package:med_meet_flutter/views/message_calls/messages.dart';
 import 'package:med_meet_flutter/views/profile/user/user_profile_view.dart';
 
@@ -28,7 +28,7 @@ class _AppState extends State<UserApp> {
         },
         children: [
           HomeUserView(),
-          UserAppointmentListsView(),
+          UserAppointmentScreenView(),
           MessagesView(),
           UserProfileView(),
         ],

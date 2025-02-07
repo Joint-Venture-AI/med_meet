@@ -20,11 +20,11 @@ import 'package:med_meet_flutter/views/home/notification.dart';
 import 'package:med_meet_flutter/views/home/user/doctors_details_user.dart';
 import 'package:med_meet_flutter/views/home/doctors_list_user.dart';
 import 'package:med_meet_flutter/views/home/user/home_user.dart';
-import 'package:med_meet_flutter/views/home/user/review_appointment.dart';
+import 'package:med_meet_flutter/views/appointments/review_appointment.dart';
 import 'package:med_meet_flutter/views/home/user/search_user.dart';
 import 'package:med_meet_flutter/views/home/user/specialty_list_user.dart';
 import 'package:med_meet_flutter/views/home/user/specialty_user.dart';
-import 'package:med_meet_flutter/views/home/user/user_appointment_lists.dart';
+import 'package:med_meet_flutter/views/appointments/user_appointment_screen.dart';
 import 'package:med_meet_flutter/views/message_calls/call_screen.dart';
 import 'package:med_meet_flutter/views/message_calls/chat_screen.dart';
 import 'package:med_meet_flutter/views/message_calls/messages.dart';
@@ -67,12 +67,15 @@ class AppRoutes {
   static String specialtyListUser = "/specialty_lsit";
   static String doctorListUser = "/doctor_list_user";
   static String doctorDetailsUser = "/doctor_details_user";
-  static String userAppointmentList = "/user_appointment_list";
-  static String reviewAppointment = "/review_appointment";
+
   // Home Doctor feature
   static String homeDoctor = "/home_doctor";
   static String doctorAllApointmentLists = "/doctor_all_appointmetns";
+
+  // Appointment Features
   static String appointmentDetails = "/doctor_appointment_details";
+  static String reviewAppointment = "/review_appointment";
+  static String userAppointmentScreen = "/user_appointment_screen";
 
   // Messages feature
   static String messages = "/messages";
@@ -125,18 +128,20 @@ class AppRoutes {
     GetPage(
         name: doctorDetailsUser, page: () => const DoctorsDetailsUserView()),
     GetPage(name: userOrDoctor, page: () => const DoctorOrPatient()),
-    GetPage(
-        name: userAppointmentList,
-        page: () => const UserAppointmentListsView()),
-    GetPage(name: reviewAppointment, page: () => const ReviewAppointmentView()),
 
     // Home Doctor feature
     GetPage(name: homeDoctor, page: () => const DoctorHomeView()),
     GetPage(
         name: doctorAllApointmentLists,
         page: () => const DoctorAllAppointmentList()),
+
+    // Appointment Features
     GetPage(
         name: appointmentDetails, page: () => const AppointmentDetailsView()),
+    GetPage(name: reviewAppointment, page: () => const ReviewAppointmentView()),
+    GetPage(
+        name: userAppointmentScreen,
+        page: () => const UserAppointmentScreenView()),
 
     // Messages feature
     GetPage(

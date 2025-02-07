@@ -14,11 +14,13 @@ class DoctorCard extends StatelessWidget {
       {super.key,
       this.isDoctorToDoctor = false,
       this.isAppointment = false,
+      this.hasPrice = false,
       this.status});
 
   final bool isDoctorToDoctor;
   final bool isAppointment;
   final String? status;
+  final bool hasPrice;
 
   @override
   Widget build(BuildContext context) {
@@ -110,7 +112,7 @@ class DoctorCard extends StatelessWidget {
                 children: [
                   Container(
                     decoration: BoxDecoration(),
-                    child: isDoctorToDoctor || isAppointment
+                    child: isDoctorToDoctor || (isAppointment)
                         ? Row(
                             children: [
                               GestureDetector(
@@ -147,7 +149,7 @@ class DoctorCard extends StatelessWidget {
                   ),
                   Container(
                     decoration: BoxDecoration(),
-                    child: isAppointment
+                    child: (isAppointment && !hasPrice)
                         ? Text(
                             "upcoming",
                             style: GoogleFonts.roboto(
@@ -155,27 +157,33 @@ class DoctorCard extends StatelessWidget {
                                 fontSize: 12,
                                 color: Color(0xFF07D11F)),
                           )
-                        : status != null
-                            ? Container(
-                                padding: EdgeInsets.symmetric(
-                                    horizontal: 8, vertical: 4),
-                                decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(12),
-                                    color: AppointmentStatus.completed == status
-                                        ? Color(0xFFF0FFF2)
-                                        : Color(0xFFF0F5FF)),
-                                child: Text(
-                                  status!,
-                                  style: GoogleFonts.roboto(
-                                      fontSize: 12,
-                                      fontWeight: FontWeight.w500,
-                                      color:
-                                          AppointmentStatus.completed == status
+                        : (isAppointment && hasPrice)
+                            ? Text(
+                                "\$5.22",
+                                style: AppTypography.priceStyle,
+                              )
+                            : status != null
+                                ? Container(
+                                    padding: EdgeInsets.symmetric(
+                                        horizontal: 8, vertical: 4),
+                                    decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(12),
+                                        color: AppointmentStatus.completed ==
+                                                status
+                                            ? Color(0xFFF0FFF2)
+                                            : Color(0xFFF0F5FF)),
+                                    child: Text(
+                                      status!,
+                                      style: GoogleFonts.roboto(
+                                          fontSize: 12,
+                                          fontWeight: FontWeight.w500,
+                                          color: AppointmentStatus.completed ==
+                                                  status
                                               ? Color(0xFF07D11F)
                                               : Color(0xFF1E65FF)),
-                                ),
-                              )
-                            : null,
+                                    ),
+                                  )
+                                : null,
                   ),
                   Container(
                     decoration: BoxDecoration(),
