@@ -5,15 +5,15 @@ import 'package:med_meet_flutter/core/components/custom_text_input.dart';
 import 'package:med_meet_flutter/core/utils/app_colors.dart';
 import 'package:med_meet_flutter/core/utils/uitls.dart';
 
-class UserPersonalInformation extends StatefulWidget {
-  const UserPersonalInformation({super.key});
+class DoctorPersonalInformation extends StatefulWidget {
+  const DoctorPersonalInformation({super.key});
 
   @override
-  State<UserPersonalInformation> createState() =>
-      _UserPersonalInformationState();
+  State<DoctorPersonalInformation> createState() =>
+      _DoctorPersonalInformationState();
 }
 
-class _UserPersonalInformationState extends State<UserPersonalInformation> {
+class _DoctorPersonalInformationState extends State<DoctorPersonalInformation> {
   bool isEditing = false;
 
   @override

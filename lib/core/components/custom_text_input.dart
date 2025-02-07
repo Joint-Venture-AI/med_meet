@@ -15,6 +15,8 @@ class CustomTextInput extends StatelessWidget {
     this.maxLines = 1,
     this.icon,
     this.renderTitle = true,
+    this.isEnabled = true,
+    this.multiLine,
     this.endIcon,
     this.endIconButton,
   });
@@ -28,6 +30,8 @@ class CustomTextInput extends StatelessWidget {
   final bool renderTitle;
   final IconData? endIcon;
   final Widget? endIconButton;
+  final bool? multiLine;
+  final bool isEnabled;
 
   @override
   Widget build(BuildContext context) {
@@ -39,12 +43,14 @@ class CustomTextInput extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          if (renderTitle && title != null) Text(title!, style: AppTypography.bodyText1Black),
+          if (renderTitle && title != null)
+            Text(title!, style: AppTypography.bodyText1Black),
           if (renderTitle)
             SizedBox(
               height: 8.h,
             ),
           Container(
+              height: multiLine ?? false ? 130 : null,
               padding: EdgeInsets.symmetric(
                 horizontal: 16,
               ),
@@ -52,51 +58,60 @@ class CustomTextInput extends StatelessWidget {
                 border: Border.all(color: AppColors.border1),
                 borderRadius: BorderRadius.circular(25),
               ),
-              child: Obx(
-                () => Row(
-                  children: [
-                    if (icon != null) Icon(icon),
-                    if (icon != null) SizedBox(width: 8.w),
-                    if (isPhone)
-                      DropdownButton<String>(
-                        value: controller.dropDownVal, // Current selected value
-                        icon: const Icon(
-                            Icons.keyboard_arrow_down), // Dropdown arrow icon
-                        isExpanded: false,
-                        padding: EdgeInsets.zero,
-                        elevation: 16, // Elevation of the dropdown menu
-                        style: AppTypography.bodyText1, // Text style
-                        underline: Container(),
-                        onChanged: (String? newValue) {
-                          controller.setDropDown(newValue!);
-                        },
-                        items: controller.items.map((String value) {
-                          return DropdownMenuItem<String>(
-                            value: value,
-                            child: Text(value),
-                          );
-                        }).toList(),
-                      ),
-                    Flexible(
-                      child: TextField(
-                        maxLines: maxLines,
-                        obscureText: controller.passShown,
-                        decoration: InputDecoration(
-                            border: InputBorder.none, hintText: hintText),
-                      ),
+              child: Column(
+                children: [
+                  Obx(
+                    () => Row(
+                      children: [
+                        if (icon != null) Icon(icon),
+                        if (icon != null) SizedBox(width: 8.w),
+                        if (isPhone)
+                          DropdownButton<String>(
+                            value: controller
+                                .dropDownVal, // Current selected value
+                            icon: const Icon(Icons
+                                .keyboard_arrow_down), // Dropdown arrow icon
+                            isExpanded: false,
+                            padding: EdgeInsets.zero,
+                            elevation: 16, // Elevation of the dropdown menu
+                            style: AppTypography.bodyText1, // Text style
+                            underline: Container(),
+                            onChanged: (String? newValue) {
+                              controller.setDropDown(newValue!);
+                            },
+                            items: controller.items.map((String value) {
+                              return DropdownMenuItem<String>(
+                                value: value,
+                                child: Text(value),
+                              );
+                            }).toList(),
+                          ),
+                        Flexible(
+                          child: TextField(
+                            maxLines: maxLines,
+                            enabled: isEnabled,
+                            obscureText: controller.passShown,
+                            decoration: InputDecoration(
+                              // enabled: false,
+                              border: InputBorder.none,
+                              hintText: hintText,
+                            ),
+                          ),
+                        ),
+                        if (endIcon != null) Icon(endIcon),
+                        if (endIconButton != null) endIconButton!,
+                        if (isPassword)
+                          GestureDetector(
+                              onTap: () {
+                                controller.setPassShown(!controller.passShown);
+                              },
+                              child: Icon(controller.passShown
+                                  ? Icons.visibility_off_outlined
+                                  : Icons.visibility)),
+                      ],
                     ),
-                    if (endIcon != null) Icon(endIcon),
-                    if (endIconButton != null) endIconButton!,
-                    if (isPassword)
-                      GestureDetector(
-                          onTap: () {
-                            controller.setPassShown(!controller.passShown);
-                          },
-                          child: Icon(controller.passShown
-                              ? Icons.visibility_off_outlined
-                              : Icons.visibility)),
-                  ],
-                ),
+                  ),
+                ],
               ))
         ],
       ),
