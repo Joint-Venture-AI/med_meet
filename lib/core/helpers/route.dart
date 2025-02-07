@@ -27,6 +27,12 @@ import 'package:med_meet_flutter/views/home/user/user_appointment_lists.dart';
 import 'package:med_meet_flutter/views/message_calls/call_screen.dart';
 import 'package:med_meet_flutter/views/message_calls/chat_screen.dart';
 import 'package:med_meet_flutter/views/message_calls/messages.dart';
+import 'package:med_meet_flutter/views/profile/about_us.dart';
+import 'package:med_meet_flutter/views/profile/change_password.dart';
+import 'package:med_meet_flutter/views/profile/privacy_policy.dart';
+import 'package:med_meet_flutter/views/profile/settings.dart';
+import 'package:med_meet_flutter/views/profile/terms_of_services.dart';
+import 'package:med_meet_flutter/views/profile/user/user_personal_information.dart';
 
 enum OTPTYPE { doctor, forgetPass, user }
 
@@ -66,6 +72,14 @@ class AppRoutes {
   static String messages = "/messages";
   static String chatScreen = "/chatscreen";
   static String callScreen = "/call_screen";
+
+  // Profile
+  static String userProfileInformation = '/user_profile_information';
+  static String settings = '/settings';
+  static String changePassword = '/change_password';
+  static String privaryPolicy = '/privary_policy';
+  static String termsOfServices = '/terms_of_services';
+  static String aboutUs = '/about_us';
 
   static List<GetPage> pages = [
     GetPage(name: userApp, page: () => const UserApp()),
@@ -119,5 +133,15 @@ class AppRoutes {
         transition: Transition.noTransition),
     GetPage(name: chatScreen, page: () => const ChatScreenView()),
     GetPage(name: callScreen, page: () => const CallScreenView()),
+
+    // Profile
+    GetPage(
+        name: userProfileInformation,
+        page: () => const UserPersonalInformation()),
+    GetPage(name: settings, page: () => const Settings()),
+    GetPage(name: changePassword, page: () => const ChangePassword()),
+    GetPage(name: privaryPolicy, page: () => const PrivacyPolicy()),
+    GetPage(name: termsOfServices, page: () => const TermsOfServices()),
+    GetPage(name: aboutUs, page: () => const AboutUs()),
   ];
 }

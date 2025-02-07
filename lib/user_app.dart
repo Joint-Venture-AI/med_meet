@@ -3,6 +3,7 @@ import 'package:med_meet_flutter/core/components/bottom_navigation.dart';
 import 'package:med_meet_flutter/views/home/user/home_user.dart';
 import 'package:med_meet_flutter/views/home/user/user_appointment_lists.dart';
 import 'package:med_meet_flutter/views/message_calls/messages.dart';
+import 'package:med_meet_flutter/views/profile/user/user_profile_view.dart';
 
 class UserApp extends StatefulWidget {
   const UserApp({super.key});
@@ -29,7 +30,7 @@ class _AppState extends State<UserApp> {
           HomeUserView(),
           UserAppointmentListsView(),
           MessagesView(),
-          HomeUserView(),
+          UserProfileView(),
         ],
       ),
       bottomNavigationBar: BottomNavigation(
