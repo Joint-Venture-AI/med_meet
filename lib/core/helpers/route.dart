@@ -14,12 +14,13 @@ import 'package:med_meet_flutter/views/auth/views/user/sign_up.dart';
 import 'package:med_meet_flutter/views/auth/views/verify_otp.dart';
 import 'package:med_meet_flutter/views/doctor_or_patient.dart';
 import 'package:med_meet_flutter/views/home/doctor/doctor_all_appointment_list.dart';
-import 'package:med_meet_flutter/views/home/doctor/doctor_appointment_details_screen.dart';
+import 'package:med_meet_flutter/views/home/appointment_details_screen.dart';
 import 'package:med_meet_flutter/views/home/doctor/doctor_home.dart';
 import 'package:med_meet_flutter/views/home/notification.dart';
 import 'package:med_meet_flutter/views/home/user/doctors_details_user.dart';
 import 'package:med_meet_flutter/views/home/doctors_list_user.dart';
 import 'package:med_meet_flutter/views/home/user/home_user.dart';
+import 'package:med_meet_flutter/views/home/user/review_appointment.dart';
 import 'package:med_meet_flutter/views/home/user/search_user.dart';
 import 'package:med_meet_flutter/views/home/user/specialty_list_user.dart';
 import 'package:med_meet_flutter/views/home/user/specialty_user.dart';
@@ -65,10 +66,11 @@ class AppRoutes {
   static String doctorListUser = "/doctor_list_user";
   static String doctorDetailsUser = "/doctor_details_user";
   static String userAppointmentList = "/user_appointment_list";
+  static String reviewAppointment = "/review_appointment";
   // Home Doctor feature
   static String homeDoctor = "/home_doctor";
   static String doctorAllApointmentLists = "/doctor_all_appointmetns";
-  static String doctorAppointmentDetails = "/doctor_appointment_details";
+  static String appointmentDetails = "/doctor_appointment_details";
 
   // Messages feature
   static String messages = "/messages";
@@ -120,6 +122,7 @@ class AppRoutes {
     GetPage(
         name: userAppointmentList,
         page: () => const UserAppointmentListsView()),
+    GetPage(name: reviewAppointment, page: () => const ReviewAppointmentView()),
 
     // Home Doctor feature
     GetPage(name: homeDoctor, page: () => const DoctorHomeView()),
@@ -127,8 +130,7 @@ class AppRoutes {
         name: doctorAllApointmentLists,
         page: () => const DoctorAllAppointmentList()),
     GetPage(
-        name: doctorAppointmentDetails,
-        page: () => const DoctorAppointmentDetailsView()),
+        name: appointmentDetails, page: () => const AppointmentDetailsView()),
 
     // Messages feature
     GetPage(
