@@ -6,8 +6,8 @@ import 'package:med_meet_flutter/core/components/my_custom_appbar.dart';
 import 'package:med_meet_flutter/core/utils/app_colors.dart';
 import 'package:med_meet_flutter/core/utils/app_typography.dart';
 
-class DoctorAppointmentDetailsView extends StatelessWidget {
-  const DoctorAppointmentDetailsView({super.key});
+class AppointmentDetailsView extends StatelessWidget {
+  const AppointmentDetailsView({super.key});
 
   @override
   Widget build(BuildContext context) {

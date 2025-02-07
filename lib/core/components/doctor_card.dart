@@ -24,10 +24,13 @@ class DoctorCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        isDoctorToDoctor
-            ? Get.toNamed(AppRoutes.doctorDetailsUser)
-            : Get.toNamed(AppRoutes.doctorAppointmentDetails,
-                arguments: status == null);
+        isAppointment
+            ? Get.toNamed(AppRoutes.appointmentDetails,
+                arguments: status == null)
+            : status != null
+                ? Get.toNamed(AppRoutes.appointmentDetails,
+                    arguments: status == null)
+                : Get.toNamed(AppRoutes.doctorDetailsUser);
       },
       child: Container(
           margin: EdgeInsets.only(bottom: 12),
