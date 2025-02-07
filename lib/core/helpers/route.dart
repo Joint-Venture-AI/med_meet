@@ -33,6 +33,7 @@ import 'package:med_meet_flutter/views/profile/change_password.dart';
 import 'package:med_meet_flutter/views/profile/doctor/doctor_details.dart';
 import 'package:med_meet_flutter/views/profile/doctor/doctor_earnings.dart';
 import 'package:med_meet_flutter/views/profile/doctor/doctor_review_profile.dart';
+import 'package:med_meet_flutter/views/profile/doctor/doctor_schedule.dart';
 import 'package:med_meet_flutter/views/profile/doctor/doctor_withdraw.dart';
 import 'package:med_meet_flutter/views/profile/personal_information.dart';
 import 'package:med_meet_flutter/views/profile/privacy_policy.dart';
@@ -93,6 +94,7 @@ class AppRoutes {
   static String doctorReviewsProfile = '/doctor_reviews_profile';
   static String doctorEarnings = '/doctor_earnings';
   static String doctorWithdraw = '/doctor_withdraw';
+  static String doctorSchedule = '/doctor_schedule';
 
   static String settings = '/settings';
   static String changePassword = '/change_password';
@@ -161,8 +163,9 @@ class AppRoutes {
       page: () => const PersonalInformation(),
     ),
     GetPage(name: doctorDetailsProfile, page: () => DoctorDetails()),
-    GetPage(name: doctorWithdraw, page: ()=> DoctorWithdraw()),
+    GetPage(name: doctorWithdraw, page: () => DoctorWithdraw()),
     GetPage(name: doctorEarnings, page: () => DoctorEarnings()),
+    GetPage(name: doctorSchedule, page: () => DoctorSchedule()),
     GetPage(name: doctorReviewsProfile, page: () => DoctorReviewProfile()),
     GetPage(name: medicalRecords, page: () => MedicalRecords()),
     GetPage(name: prescription, page: () => Prescription()),
