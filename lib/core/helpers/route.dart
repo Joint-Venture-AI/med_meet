@@ -1,6 +1,8 @@
 import 'package:get/get.dart';
 import 'package:med_meet_flutter/doctor_app.dart';
 import 'package:med_meet_flutter/user_app.dart';
+import 'package:med_meet_flutter/views/appointments/create_prescription.dart';
+import 'package:med_meet_flutter/views/appointments/notes_screen.dart';
 import 'package:med_meet_flutter/views/auth/views/doctor/doctor_details_auth.dart';
 import 'package:med_meet_flutter/views/auth/views/doctor/sign_up.dart';
 import 'package:med_meet_flutter/views/auth/views/doctor/verify_progress_doctor.dart';
@@ -74,6 +76,8 @@ class AppRoutes {
   static String appointmentDetails = "/doctor_appointment_details";
   static String reviewAppointment = "/review_appointment";
   static String userAppointmentScreen = "/user_appointment_screen";
+  static String notesScreen = "/note_screen";
+  static String createPrescription = "/create_prescription";
 
   // Messages feature
   static String messages = "/messages";
@@ -136,6 +140,9 @@ class AppRoutes {
     GetPage(
         name: userAppointmentScreen,
         page: () => const UserAppointmentScreenView()),
+    GetPage(name: notesScreen, page: () => const NotesScreenView()),
+    GetPage(
+        name: createPrescription, page: () => const CreatePrescriptionView()),
 
     // Messages feature
     GetPage(

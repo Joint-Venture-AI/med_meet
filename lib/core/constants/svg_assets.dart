@@ -26,4 +26,6 @@ class SVGAssets {
   static String iconMicOff = "assets/svg/mic-off.svg";
   static String iconSpeakerOff = "assets/svg/speaker-off.svg";
   static String iconVideoOff = "assets/svg/video-off.svg";
+
+  static String noteIcon = "assets/svg/note_icon.svg";
 }

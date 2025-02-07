@@ -1,9 +1,12 @@
 import "package:flutter/material.dart";
+import "package:flutter_svg/flutter_svg.dart";
 import "package:get/get.dart";
+import "package:med_meet_flutter/core/constants/svg_assets.dart";
+import "package:med_meet_flutter/core/helpers/route.dart";
 import "package:med_meet_flutter/core/utils/app_colors.dart";
 import "package:med_meet_flutter/core/utils/app_typography.dart";
 
-AppBar customAppBar({title = ""}) {
+AppBar customAppBar({title = "", hasNote = false}) {
   return AppBar(
     leading: GestureDetector(
       onTap: () {
@@ -31,5 +34,21 @@ AppBar customAppBar({title = ""}) {
       style: AppTypography.appbarTitle,
     ),
     centerTitle: true,
+    actions: [
+      if (hasNote)
+        InkWell(
+          onTap: () {
+            Get.toNamed(AppRoutes.notesScreen);
+          },
+          child: Container(
+            decoration: BoxDecoration(
+              shape: BoxShape.circle,
+              color: AppColors.background1,
+            ),
+            padding: EdgeInsets.all(12),
+            child: SvgPicture.asset(SVGAssets.noteIcon),
+          ),
+        )
+    ],
   );
 }
