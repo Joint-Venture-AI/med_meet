@@ -17,7 +17,11 @@ class UserProfileView extends StatelessWidget {
         icon: "assets/svg/personal_information.svg",
         link: AppRoutes.personalInformation,
       ),
-      Options(name: "Medical Records", icon: "assets/svg/medical_records.svg"),
+      Options(
+        name: "Medical Records",
+        icon: "assets/svg/medical_records.svg",
+        link: AppRoutes.medicalRecords,
+      ),
       Options(
         name: "Settings",
         icon: "assets/svg/settings.svg",
@@ -188,7 +192,7 @@ class UserProfileView extends StatelessWidget {
                                             onPressed: () {
                                               Get.back();
                                             },
-                                            buttonTitle: "Yes, Delete",
+                                            buttonTitle: "Yes, Logout",
                                             height: 48,
                                           ),
                                         ),
