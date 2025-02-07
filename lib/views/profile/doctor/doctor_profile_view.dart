@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:med_meet_flutter/core/components/custom_button.dart';
+import 'package:med_meet_flutter/core/helpers/route.dart';
 import 'package:med_meet_flutter/core/utils/uitls.dart';
 import 'package:med_meet_flutter/models/options.dart';
 
@@ -9,13 +12,27 @@ class DoctorProfileView extends StatelessWidget {
   Widget build(BuildContext context) {
     var options = [
       Options(
-          name: "Personal Information",
-          icon: "assets/svg/personal_information.svg"),
-      Options(name: "Doctor Details", icon: "assets/svg/medical_records.svg"),
+        name: "Personal Information",
+        icon: "assets/svg/personal_information.svg",
+        link: AppRoutes.personalInformation,
+      ),
+      Options(
+        name: "Doctor Details",
+        icon: "assets/svg/medical_records.svg",
+        link: AppRoutes.doctorDetailsProfile,
+      ),
       Options(name: "Schedule", icon: "assets/svg/schedule.svg"),
       Options(name: "Earnings", icon: "assets/svg/earnings.svg"),
-      Options(name: "Reviews", icon: "assets/svg/reviews.svg"),
-      Options(name: "Settings", icon: "assets/svg/settings.svg"),
+      Options(
+        name: "Reviews",
+        icon: "assets/svg/reviews.svg",
+        link: AppRoutes.doctorReviewsProfile,
+      ),
+      Options(
+        name: "Settings",
+        icon: "assets/svg/settings.svg",
+        link: AppRoutes.settings,
+      ),
       Options(name: "Logout", icon: "assets/svg/logout.svg"),
     ];
 
@@ -133,7 +150,82 @@ class DoctorProfileView extends StatelessWidget {
                               (options.indexOf(e) == options.length - 1);
 
                           return GestureDetector(
-                            onTap: () {},
+                            onTap: () {
+                              if (e.link != null) {
+                                Get.toNamed(e.link!);
+                              } else if (e.name == "Logout") {
+                                showModalBottomSheet(
+                                  context: context,
+                                  backgroundColor: Colors.white,
+                                  builder: (context) {
+                                    return Column(
+                                      mainAxisSize: MainAxisSize.min,
+                                      children: [
+                                        Container(
+                                          height: 3,
+                                          width: 40,
+                                          color: Color(0xffE8E8E8),
+                                        ),
+                                        SizedBox(height: 12),
+                                        Text(
+                                          "Logout",
+                                          style: TextStyle(
+                                            fontSize: 20,
+                                            color: Color(0xffDD3663),
+                                          ),
+                                        ),
+                                        SizedBox(height: 12),
+                                        Divider(
+                                          color: Color(0xffDDDEE0),
+                                        ),
+                                        SizedBox(height: 12),
+                                        Padding(
+                                          padding: const EdgeInsets.symmetric(
+                                            horizontal: 24,
+                                          ),
+                                          child: Text(
+                                            "Are you sure you want to log out?",
+                                            textAlign: TextAlign.center,
+                                            style: TextStyle(
+                                              fontSize: 18,
+                                              color: Color(0xff545454),
+                                            ),
+                                          ),
+                                        ),
+                                        SizedBox(height: 12),
+                                        Row(
+                                          children: [
+                                            const SizedBox(width: 24),
+                                            Expanded(
+                                              child: CustomButton(
+                                                onPressed: () {
+                                                  Get.back();
+                                                },
+                                                buttonTitle: "Cancel",
+                                                height: 48,
+                                                isSecondary: true,
+                                              ),
+                                            ),
+                                            const SizedBox(width: 12),
+                                            Expanded(
+                                              child: CustomButton(
+                                                onPressed: () {
+                                                  Get.back();
+                                                },
+                                                buttonTitle: "Yes, Logout",
+                                                height: 48,
+                                              ),
+                                            ),
+                                            const SizedBox(width: 24),
+                                          ],
+                                        ),
+                                        SizedBox(height: 40),
+                                      ],
+                                    );
+                                  },
+                                );
+                              }
+                            },
                             child: Container(
                               padding: EdgeInsets.symmetric(
                                 horizontal: 8,
