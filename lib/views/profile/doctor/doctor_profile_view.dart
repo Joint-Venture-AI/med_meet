@@ -22,7 +22,11 @@ class DoctorProfileView extends StatelessWidget {
         link: AppRoutes.doctorDetailsProfile,
       ),
       Options(name: "Schedule", icon: "assets/svg/schedule.svg"),
-      Options(name: "Earnings", icon: "assets/svg/earnings.svg"),
+      Options(
+        name: "Earnings",
+        icon: "assets/svg/earnings.svg",
+        link: AppRoutes.doctorEarnings,
+      ),
       Options(
         name: "Reviews",
         icon: "assets/svg/reviews.svg",
