@@ -8,6 +8,11 @@ class ChangePassword extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final TextEditingController currentPasswordController =
+        TextEditingController();
+    final TextEditingController newPasswordController = TextEditingController();
+    final TextEditingController confirmNewPasswordController =
+        TextEditingController();
     return Scaffold(
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 24),
@@ -20,13 +25,19 @@ class ChangePassword extends StatelessWidget {
             ),
             CustomTextInput(
                 title: "Current Password",
+                textController: currentPasswordController,
                 hintText: "hintText",
                 isPassword: true),
             CustomTextInput(
-                title: "New Password", hintText: "hintText", isPassword: true),
+              title: "New Password",
+              hintText: "hintText",
+              isPassword: true,
+              textController: newPasswordController,
+            ),
             CustomTextInput(
               title: "Confirm New Password",
               hintText: "hintText",
+              textController: confirmNewPasswordController,
               isPassword: true,
             ),
             const Spacer(),

@@ -6,7 +6,7 @@ import "package:med_meet_flutter/core/helpers/route.dart";
 import "package:med_meet_flutter/core/utils/app_colors.dart";
 import "package:med_meet_flutter/core/utils/app_typography.dart";
 
-AppBar customAppBar({title = "", hasNote = false}) {
+AppBar customAppBar({title = "", hasNote = false, hasPdfDownload = false}) {
   return AppBar(
     leading: GestureDetector(
       onTap: () {
@@ -47,6 +47,18 @@ AppBar customAppBar({title = "", hasNote = false}) {
             ),
             padding: EdgeInsets.all(12),
             child: SvgPicture.asset(SVGAssets.noteIcon),
+          ),
+        ),
+      if (hasPdfDownload)
+        InkWell(
+          onTap: () {},
+          child: Container(
+            decoration: BoxDecoration(
+              shape: BoxShape.circle,
+              color: AppColors.background1,
+            ),
+            padding: EdgeInsets.all(12),
+            child: Icon(Icons.download_outlined),
           ),
         )
     ],

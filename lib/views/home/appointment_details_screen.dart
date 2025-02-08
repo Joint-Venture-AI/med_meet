@@ -16,7 +16,7 @@ class AppointmentDetailsView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // args is true when it comes from doctor screen and false when it comes from user
-    final args = Get.arguments ?? false;
+    final args = Get.arguments != null ? true : false;
     return Scaffold(
       appBar: customAppBar(title: "Appointment Details", hasNote: true),
       body: Padding(

@@ -14,6 +14,9 @@ class SignupUserView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final CheckBoxController checkBoxController = CheckBoxController();
+    final TextEditingController nameController = TextEditingController();
+    final TextEditingController emailController = TextEditingController();
+    final TextEditingController passwordController = TextEditingController();
     return Scaffold(
         extendBody: true,
         body: Center(
@@ -39,6 +42,7 @@ class SignupUserView extends StatelessWidget {
                     CustomTextInput(
                       title: "Name",
                       hintText: "Enter Name",
+                      textController: nameController,
                     ),
                     SizedBox(
                       height: 16,
@@ -46,6 +50,7 @@ class SignupUserView extends StatelessWidget {
                     CustomTextInput(
                       title: "Email",
                       hintText: "example@gmail.com",
+                      textController: emailController,
                     ),
                     SizedBox(
                       height: 16,
@@ -54,6 +59,7 @@ class SignupUserView extends StatelessWidget {
                       title: "Password",
                       hintText: "password",
                       isPassword: true,
+                      textController: passwordController,
                     ),
                     SizedBox(
                       height: 10,

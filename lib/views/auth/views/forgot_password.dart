@@ -11,6 +11,8 @@ class ForgotPassView extends StatelessWidget {
   const ForgotPassView({super.key});
   @override
   Widget build(BuildContext context) {
+    final emailController = TextEditingController();
+
     return Scaffold(
       body: Padding(
         padding: EdgeInsets.all(24),
@@ -33,7 +35,11 @@ class ForgotPassView extends StatelessWidget {
             SizedBox(
               height: 52.h,
             ),
-            CustomTextInput(title: "Email", hintText: "example@gmail.com"),
+            CustomTextInput(
+              title: "Email",
+              hintText: "example@gmail.com",
+              textController: emailController,
+            ),
             SizedBox(
               height: 32.h,
             ),

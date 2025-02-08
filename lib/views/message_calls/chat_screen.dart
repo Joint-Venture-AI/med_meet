@@ -51,6 +51,7 @@ class ChatScreenView extends StatelessWidget {
   }
 
   Container buildSendChat() {
+    final TextEditingController titleController = TextEditingController();
     return Container(
       padding: EdgeInsets.only(
         left: 20.w,
@@ -74,6 +75,7 @@ class ChatScreenView extends StatelessWidget {
         children: [
           Flexible(
               child: CustomTextInput(
+            textController: titleController,
             title: "title",
             hintText: "Send message",
             renderTitle: false,

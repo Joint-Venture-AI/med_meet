@@ -9,12 +9,25 @@ class PersonalInformation extends StatefulWidget {
   const PersonalInformation({super.key});
 
   @override
-  State<PersonalInformation> createState() =>
-      _PersonalInformationState();
+  State<PersonalInformation> createState() => _PersonalInformationState();
 }
 
 class _PersonalInformationState extends State<PersonalInformation> {
   bool isEditing = false;
+
+  final TextEditingController nameController = TextEditingController();
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController dobController = TextEditingController();
+  final TextEditingController addressController = TextEditingController();
+
+  @override
+  void dispose() {
+    nameController.dispose();
+    emailController.dispose();
+    dobController.dispose();
+    addressController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -76,8 +89,8 @@ class _PersonalInformationState extends State<PersonalInformation> {
                                 Container(
                                   height: 120,
                                   width: 120,
-                                  color:
-                                      Colors.black.withAlpha((255 * 0.30).toInt()),
+                                  color: Colors.black
+                                      .withAlpha((255 * 0.30).toInt()),
                                 ),
                               if (isEditing)
                                 svgViewer(
@@ -119,17 +132,20 @@ class _PersonalInformationState extends State<PersonalInformation> {
                       renderTitle: false,
                       hintText: "Andrew Ainsley",
                       // isEnabled: isEditing,
+                      textController: nameController,
                       icon: Icons.person,
                     ),
                     CustomTextInput(
                       renderTitle: false,
                       hintText: "andres.do@gmail.com",
                       icon: Icons.mail_rounded,
+                      textController: emailController,
                     ),
                     CustomTextInput(
                       renderTitle: false,
                       hintText: "10 Jan 2001",
                       icon: Icons.cake_rounded,
+                      textController: dobController,
                     ),
                     CustomTextInput(
                       renderTitle: false,
@@ -138,8 +154,11 @@ class _PersonalInformationState extends State<PersonalInformation> {
                       icon: Icons.location_on_rounded,
                       maxLines: 2,
                       multiLine: true,
+                      textController: addressController,
                     ),
-                    const SizedBox(height: 40,),
+                    const SizedBox(
+                      height: 40,
+                    ),
                     CustomButton(
                       onPressed: () {
                         setState(() {

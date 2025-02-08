@@ -19,6 +19,7 @@ class CustomTextInput extends StatelessWidget {
     this.multiLine,
     this.endIcon,
     this.endIconButton,
+    required this.textController,
   });
 
   final String? title;
@@ -32,6 +33,7 @@ class CustomTextInput extends StatelessWidget {
   final Widget? endIconButton;
   final bool? multiLine;
   final bool isEnabled;
+  final TextEditingController textController;
 
   @override
   Widget build(BuildContext context) {
@@ -88,6 +90,7 @@ class CustomTextInput extends StatelessWidget {
                           ),
                         Flexible(
                           child: TextField(
+                            controller: textController,
                             maxLines: maxLines,
                             enabled: isEnabled,
                             obscureText: controller.passShown,

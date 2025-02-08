@@ -24,6 +24,14 @@ class DoctorDetailsAuthView extends StatelessWidget {
   Widget build(BuildContext context) {
     final ImagePickerController imagePickerController =
         Get.put(ImagePickerController());
+    final TextEditingController experienceController = TextEditingController();
+    final TextEditingController clinicNameController = TextEditingController();
+    final TextEditingController clinicAddressController =
+        TextEditingController();
+    final TextEditingController consultationFeeController =
+        TextEditingController();
+    final TextEditingController aboutDoctorController = TextEditingController();
+    Get.put(ImagePickerController());
 
     void pickPdf() async {
       FilePickerResult? result = await FilePicker.platform.pickFiles();
@@ -70,11 +78,19 @@ class DoctorDetailsAuthView extends StatelessWidget {
               SizedBox(
                 height: 12,
               ),
-              CustomTextInput(title: "Experience", hintText: "Experience"),
+              CustomTextInput(
+                title: "Experience",
+                hintText: "Experience",
+                textController: experienceController,
+              ),
               SizedBox(
                 height: 12,
               ),
-              CustomTextInput(title: "Clinic Name", hintText: "Clinic Name"),
+              CustomTextInput(
+                title: "Clinic Name",
+                hintText: "Clinic Name",
+                textController: clinicNameController,
+              ),
               SizedBox(
                 height: 12,
               ),
@@ -82,12 +98,16 @@ class DoctorDetailsAuthView extends StatelessWidget {
                 title: "Clinic Address",
                 hintText: "Clinic Address",
                 maxLines: 4,
+                textController: clinicAddressController,
               ),
               SizedBox(
                 height: 12,
               ),
               CustomTextInput(
-                  title: "Set Consultation Fee", hintText: "Set price"),
+                title: "Set Consultation Fee",
+                hintText: "Set price",
+                textController: consultationFeeController,
+              ),
               SizedBox(
                 height: 12,
               ),
@@ -95,6 +115,7 @@ class DoctorDetailsAuthView extends StatelessWidget {
                 title: "About Doctor",
                 hintText: "About doctor",
                 maxLines: 4,
+                textController: aboutDoctorController,
               ),
               SizedBox(
                 height: 12,

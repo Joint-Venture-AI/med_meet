@@ -1,84 +1,124 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:med_meet_flutter/core/components/custom_button.dart';
 import 'package:med_meet_flutter/core/components/custom_text_input.dart';
 import 'package:med_meet_flutter/core/components/my_custom_appbar.dart';
 import 'package:med_meet_flutter/core/components/patient_information_card.dart';
+import 'package:med_meet_flutter/core/constants/svg_assets.dart';
+import 'package:med_meet_flutter/core/utils/app_colors.dart';
+import 'package:med_meet_flutter/models/appointmnets/medication_details_model.dart';
 import 'package:med_meet_flutter/views/appointments/doctor_appointments_screen.dart';
+import 'package:med_meet_flutter/views/appointments/submit_prescription.dart';
 
-class CreatePrescriptionView extends StatelessWidget {
+class CreatePrescriptionView extends StatefulWidget {
   const CreatePrescriptionView({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    void addMedicine() {
-      showModalBottomSheet<void>(
-        context: context,
-        builder: (BuildContext context) {
-          return Center(
-            child: Padding(
-              padding: EdgeInsets.symmetric(horizontal: 24),
-              child: Column(
-                children: <Widget>[
-                  Container(
-                    margin: EdgeInsets.only(top: 10),
-                    height: 4,
-                    width: 80.w,
-                    color: Color(0xFFCCD5DA),
-                  ),
-                  SizedBox(
-                    height: 16.h,
-                  ),
-                  CustomTextInput(
-                    hintText: "Medicine Name",
-                    title: "Medicine Name",
-                  ),
-                  SizedBox(
-                    height: 12.h,
-                  ),
-                  CustomTextInput(
-                    hintText: "Medicine Dosage",
-                    title: "Medicine dose",
-                  ),
-                  SizedBox(
-                    height: 12.h,
-                  ),
-                  CustomTextInput(
-                    hintText: "Medicine Duration",
-                    title: "Medicine duration",
-                  ),
-                  SizedBox(
-                    height: 12.h,
-                  ),
-                  CustomTextInput(
-                    hintText: "Medicine Frequency",
-                    title: "Medicine frequency",
-                  ),
-                  SizedBox(
-                    height: 20.h,
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      TabSelector(
-                          isActive: false,
-                          tabTitle: "Cancel",
-                          onTabClick: () {
-                            Get.back();
-                          }),
-                      TabSelector(
-                          isActive: true, tabTitle: "Okay", onTabClick: () {})
-                    ],
-                  )
-                ],
-              ),
-            ),
-          );
-        },
-      );
-    }
+  State<CreatePrescriptionView> createState() => _CreatePrescriptionViewState();
+}
 
+class _CreatePrescriptionViewState extends State<CreatePrescriptionView> {
+  final TextEditingController medicineNameController = TextEditingController();
+  final TextEditingController medicineDosageController =
+      TextEditingController();
+  final TextEditingController medicineDurationController =
+      TextEditingController();
+  final TextEditingController medicineFrequencyController =
+      TextEditingController();
+  final TextEditingController summaryController = TextEditingController();
+  // modal to create medicines
+  final List<MedicationDetailsModel> medicines = [];
+
+  void addMedicine() {
+    showModalBottomSheet<void>(
+      context: context,
+      builder: (BuildContext context) {
+        return Center(
+          child: Padding(
+            padding: EdgeInsets.symmetric(horizontal: 24),
+            child: Column(
+              children: <Widget>[
+                Container(
+                  margin: EdgeInsets.only(top: 10),
+                  height: 4,
+                  width: 80.w,
+                  color: Color(0xFFCCD5DA),
+                ),
+                SizedBox(
+                  height: 16.h,
+                ),
+                CustomTextInput(
+                  hintText: "Medicine Name",
+                  title: "Medicine Name",
+                  textController: medicineNameController,
+                ),
+                SizedBox(
+                  height: 12.h,
+                ),
+                CustomTextInput(
+                  hintText: "Medicine Dosage",
+                  title: "Medicine dose",
+                  textController: medicineDosageController,
+                ),
+                SizedBox(
+                  height: 12.h,
+                ),
+                CustomTextInput(
+                  hintText: "Medicine Duration",
+                  title: "Medicine duration",
+                  textController: medicineDurationController,
+                ),
+                SizedBox(
+                  height: 12.h,
+                ),
+                CustomTextInput(
+                  hintText: "Medicine Frequency",
+                  title: "Medicine frequency",
+                  textController: medicineFrequencyController,
+                ),
+                SizedBox(
+                  height: 20.h,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    TabSelector(
+                        isActive: false,
+                        tabTitle: "Cancel",
+                        onTabClick: () {
+                          Get.back();
+                        }),
+                    TabSelector(
+                      isActive: true,
+                      tabTitle: "Okay",
+                      onTabClick: () {
+                        MedicationDetailsModel med = MedicationDetailsModel(
+                            name: medicineNameController.text,
+                            dose: medicineDosageController.text,
+                            duration: medicineDurationController.text,
+                            frequency: medicineFrequencyController.text);
+                        setState(() {
+                          medicines.add(med);
+                        });
+
+                        Get.back();
+                      },
+                    )
+                  ],
+                )
+              ],
+            ),
+          ),
+        );
+      },
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
       appBar: customAppBar(title: "Create Prescription", hasNote: true),
       body: Padding(
@@ -137,13 +177,93 @@ class CreatePrescriptionView extends StatelessWidget {
             SizedBox(
               height: 24.h,
             ),
+            if (medicines.isNotEmpty)
+              Container(
+                padding: EdgeInsets.symmetric(vertical: 12, horizontal: 20),
+                decoration: BoxDecoration(
+                    border: Border.all(color: AppColors.border1),
+                    borderRadius: BorderRadius.circular(12)),
+                child: SizedBox(
+                  height: (51 * medicines.length.toDouble()),
+                  child: ListView.builder(
+                    itemCount: medicines.length,
+                    itemBuilder: (context, index) {
+                      return Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            "1. medName",
+                            style: GoogleFonts.roboto(
+                                fontSize: 12, fontWeight: FontWeight.w500),
+                          ),
+                          Row(
+                            mainAxisSize: MainAxisSize.max,
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              SizedBox(
+                                width: 8,
+                              ),
+                              Expanded(
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.max,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    buildMeds(medicines[index].dose),
+                                    buildMeds(medicines[index].duration),
+                                    buildMeds(medicines[index].frequency),
+                                    Icon(
+                                      Icons.delete_outline,
+                                      color: Colors.red,
+                                    ),
+                                    SvgPicture.asset(SVGAssets.editIcon),
+                                  ],
+                                ),
+                              )
+                            ],
+                          ),
+                          SizedBox(
+                            height: 10,
+                          )
+                        ],
+                      );
+                    },
+                  ),
+                ),
+              ),
+            SizedBox(
+              height: 24.h,
+            ),
             CustomTextInput(
               hintText: "Write here",
               title: "Summary",
+              textController: summaryController,
               maxLines: 6,
-            )
+            ),
+            SizedBox(
+              height: 12,
+            ),
+            CustomButton(
+                onPressed: () {
+                  Get.to(() => SubmitPrescription(
+                      medicines: medicines, summary: summaryController.text));
+                },
+                buttonTitle: "Send Prescription")
           ],
         ),
+      ),
+    );
+  }
+
+  Container buildMeds(title) {
+    return Container(
+      padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 4.h),
+      decoration: BoxDecoration(
+          border: Border.all(color: AppColors.border1),
+          borderRadius: BorderRadius.circular(12)),
+      child: Text(
+        title,
+        style: GoogleFonts.roboto(fontSize: 12, fontWeight: FontWeight.w400),
       ),
     );
   }

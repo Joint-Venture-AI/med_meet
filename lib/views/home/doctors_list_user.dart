@@ -8,6 +8,7 @@ class DoctorsListView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final TextEditingController searchController = TextEditingController();
     final args = Get.arguments ?? false;
     return Scaffold(
       appBar: AppBar(
@@ -22,6 +23,7 @@ class DoctorsListView extends StatelessWidget {
               hintText: "Search",
               icon: Icons.search,
               renderTitle: false,
+              textController: searchController,
             ),
             SizedBox(
               height: 12,

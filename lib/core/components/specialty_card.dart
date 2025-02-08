@@ -1,12 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/get.dart';
+import 'package:med_meet_flutter/core/helpers/route.dart';
 import 'package:med_meet_flutter/core/utils/app_colors.dart';
 import 'package:med_meet_flutter/core/utils/app_typography.dart';
 
 GestureDetector buildSpecialist({title, assetPath}) {
   return GestureDetector(
-    onTap: () {},
+    onTap: () {
+      Get.toNamed(AppRoutes.specialtyListUser);
+    },
     child: Column(
       children: [
         Container(

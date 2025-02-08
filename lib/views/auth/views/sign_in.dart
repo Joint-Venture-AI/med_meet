@@ -12,6 +12,8 @@ class SignInView extends StatelessWidget {
   const SignInView({super.key});
   @override
   Widget build(BuildContext context) {
+    final TextEditingController emailController = TextEditingController();
+    final TextEditingController passwordController = TextEditingController();
     return Scaffold(
         extendBody: true,
         resizeToAvoidBottomInset: false,
@@ -36,6 +38,7 @@ class SignInView extends StatelessWidget {
                 CustomTextInput(
                   title: "Email",
                   hintText: "example@gmail.com",
+                  textController: emailController,
                 ),
                 SizedBox(
                   height: 16,
@@ -43,6 +46,7 @@ class SignInView extends StatelessWidget {
                 CustomTextInput(
                   title: "Password",
                   hintText: "password",
+                  textController: passwordController,
                   isPassword: true,
                 ),
                 Row(

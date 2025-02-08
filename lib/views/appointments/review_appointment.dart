@@ -13,6 +13,7 @@ class ReviewAppointmentView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final TextEditingController reviewController = TextEditingController();
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: customAppBar(title: "Review"),
@@ -53,6 +54,7 @@ class ReviewAppointmentView extends StatelessWidget {
               height: 24.h,
             ),
             CustomTextInput(
+              textController: reviewController,
               hintText: "Your review here",
               maxLines: 6,
             ),

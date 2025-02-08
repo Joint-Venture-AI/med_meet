@@ -8,6 +8,11 @@ class DoctorWithdraw extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final TextEditingController bankNameController = TextEditingController();
+    final TextEditingController accountTypeController = TextEditingController();
+    final TextEditingController accountNumberController =
+        TextEditingController();
+
     return Scaffold(
       body: SafeArea(
         child: Padding(
@@ -33,12 +38,28 @@ class DoctorWithdraw extends StatelessWidget {
                   ),
                 ),
               ),
-              CustomTextInput(hintText: "Bank name", title: "Bank Name"),
-              CustomTextInput(hintText: "Account type", title: "Account Type"),
-              CustomTextInput(hintText: "Account number", title: "Account Number"),
-              CustomTextInput(hintText: "Bank name", title: "Bank Name"),
+              CustomTextInput(
+                hintText: "Bank name",
+                title: "Bank Name",
+                textController: bankNameController,
+              ),
+              CustomTextInput(
+                hintText: "Account type",
+                title: "Account Type",
+                textController: accountTypeController,
+              ),
+              CustomTextInput(
+                hintText: "Account number",
+                title: "Account Number",
+                textController: accountNumberController,
+              ),
+              CustomTextInput(
+                hintText: "Bank name",
+                title: "Bank Name",
+                textController: bankNameController,
+              ),
               const Spacer(),
-              CustomButton(onPressed: (){}, buttonTitle: "Withdraw"),
+              CustomButton(onPressed: () {}, buttonTitle: "Withdraw"),
             ],
           ),
         ),

@@ -83,6 +83,7 @@ class AppRoutes {
   static String userAppointmentScreen = "/user_appointment_screen";
   static String notesScreen = "/note_screen";
   static String createPrescription = "/create_prescription";
+  static String submitPrescription = "/submit_prescription";
 
   // Messages feature
   static String messages = "/messages";

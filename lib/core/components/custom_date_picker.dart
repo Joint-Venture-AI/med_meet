@@ -17,6 +17,7 @@ class _CustomDatePickerState extends State<CustomDatePicker> {
 
   @override
   Widget build(BuildContext context) {
+    // ignore: avoid_unnecessary_containers
     return Container(
       // padding: EdgeInsets.all(12),
       child: Column(
@@ -126,30 +127,29 @@ class _CustomDatePickerState extends State<CustomDatePicker> {
             daysOfWeekVisible: false,
             onDaySelected: (selectedDay, focusedDay) {},
             calendarStyle: CalendarStyle(
-              defaultTextStyle: TextStyle(
-                fontSize: 14,
-                color: Color(0xff90A4AE),
-                fontWeight: FontWeight.w500,
-              ),
-              selectedDecoration: BoxDecoration(
-                color: Colors.black,
-                borderRadius: BorderRadius.circular(999),
-              ),
-              weekendTextStyle: TextStyle(
-                fontSize: 14,
-                color: Color(0xff90A4AE),
-                fontWeight: FontWeight.w500,
-              ),
-              selectedTextStyle: TextStyle(
-                fontSize: 14,
-                fontWeight: FontWeight.w500,
-                color: Colors.white,
-              ),
-              todayDecoration: BoxDecoration(
-                color: Colors.black,
-                shape: BoxShape.circle,
-              )
-            ),
+                defaultTextStyle: TextStyle(
+                  fontSize: 14,
+                  color: Color(0xff90A4AE),
+                  fontWeight: FontWeight.w500,
+                ),
+                selectedDecoration: BoxDecoration(
+                  color: Colors.black,
+                  borderRadius: BorderRadius.circular(999),
+                ),
+                weekendTextStyle: TextStyle(
+                  fontSize: 14,
+                  color: Color(0xff90A4AE),
+                  fontWeight: FontWeight.w500,
+                ),
+                selectedTextStyle: TextStyle(
+                  fontSize: 14,
+                  fontWeight: FontWeight.w500,
+                  color: Colors.white,
+                ),
+                todayDecoration: BoxDecoration(
+                  color: Colors.black,
+                  shape: BoxShape.circle,
+                )),
             weekendDays: [DateTime.monday, DateTime.sunday],
           ),
         ],

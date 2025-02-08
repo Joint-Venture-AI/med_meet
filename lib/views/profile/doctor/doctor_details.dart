@@ -9,6 +9,15 @@ class DoctorDetails extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final TextEditingController experienceController = TextEditingController();
+    final TextEditingController medicalLicenseNumberController =
+        TextEditingController();
+    final TextEditingController clinicNameController = TextEditingController();
+    final TextEditingController clinicAddressController =
+        TextEditingController();
+    final TextEditingController consultationFeeController =
+        TextEditingController();
+    final TextEditingController aboutDoctorController = TextEditingController();
     return Scaffold(
       body: SafeArea(
         child: Column(
@@ -43,6 +52,7 @@ class DoctorDetails extends StatelessWidget {
                     CustomTextInput(
                       title: "Experience",
                       hintText: "Medical License Number",
+                      textController: experienceController,
                     ),
                     SizedBox(
                       height: 12,
@@ -50,6 +60,7 @@ class DoctorDetails extends StatelessWidget {
                     CustomTextInput(
                       title: "Medical License Number",
                       hintText: "Experience",
+                      textController: medicalLicenseNumberController,
                     ),
                     SizedBox(
                       height: 12,
@@ -57,6 +68,7 @@ class DoctorDetails extends StatelessWidget {
                     CustomTextInput(
                       title: "Clinic Name",
                       hintText: "Clinic Name",
+                      textController: clinicNameController,
                     ),
                     SizedBox(
                       height: 12,
@@ -65,6 +77,7 @@ class DoctorDetails extends StatelessWidget {
                       title: "Clinic Address",
                       hintText: "Clinic Address",
                       maxLines: 4,
+                      textController: clinicAddressController,
                     ),
                     SizedBox(
                       height: 12,
@@ -72,6 +85,7 @@ class DoctorDetails extends StatelessWidget {
                     CustomTextInput(
                       title: "Set Consultation Fee",
                       hintText: "Set price",
+                      textController: consultationFeeController,
                     ),
                     SizedBox(
                       height: 12,
@@ -80,6 +94,7 @@ class DoctorDetails extends StatelessWidget {
                       title: "About Doctor",
                       hintText: "About doctor",
                       maxLines: 4,
+                      textController: aboutDoctorController,
                     ),
                     const SizedBox(
                       height: 48,

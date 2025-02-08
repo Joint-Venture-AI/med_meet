@@ -20,6 +20,10 @@ class CompletePRofileView extends StatelessWidget {
   const CompletePRofileView({super.key});
   @override
   Widget build(BuildContext context) {
+    final TextEditingController nameController = TextEditingController();
+    final TextEditingController phoneController = TextEditingController();
+    final TextEditingController ageController = TextEditingController();
+
     final ImagePickerController imagePickerController =
         Get.put(ImagePickerController());
 
@@ -89,7 +93,11 @@ class CompletePRofileView extends StatelessWidget {
                   SizedBox(
                     height: 48.h,
                   ),
-                  CustomTextInput(title: "Name", hintText: "Enter your name"),
+                  CustomTextInput(
+                    title: "Name",
+                    hintText: "Enter your name",
+                    textController: nameController,
+                  ),
                   SizedBox(
                     height: 16,
                   ),
@@ -97,6 +105,7 @@ class CompletePRofileView extends StatelessWidget {
                     title: "Name",
                     hintText: "Enter your name",
                     isPhone: true,
+                    textController: phoneController,
                   ),
                   SizedBox(
                     height: 16,
@@ -108,7 +117,11 @@ class CompletePRofileView extends StatelessWidget {
                   SizedBox(
                     height: 16,
                   ),
-                  CustomTextInput(title: "Age", hintText: "Enter your age"),
+                  CustomTextInput(
+                    title: "Age",
+                    hintText: "Enter your age",
+                    textController: ageController,
+                  ),
                   SizedBox(
                     height: 32,
                   ),

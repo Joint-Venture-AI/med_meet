@@ -10,6 +10,9 @@ class NewPassView extends StatelessWidget {
   const NewPassView({super.key});
   @override
   Widget build(BuildContext context) {
+    final TextEditingController passwordController = TextEditingController();
+    final TextEditingController confirmPasswordController =
+        TextEditingController();
     return Scaffold(
       body: Padding(
         padding: EdgeInsets.all(24),
@@ -29,12 +32,19 @@ class NewPassView extends StatelessWidget {
             SizedBox(
               height: 56,
             ),
-            CustomTextInput(title: "Password", hintText: "Password"),
+            CustomTextInput(
+              title: "Password",
+              hintText: "Password",
+              textController: passwordController,
+            ),
             SizedBox(
               height: 32,
             ),
             CustomTextInput(
-                title: "Confirm Password", hintText: "Confirm Password"),
+              title: "Confirm Password",
+              hintText: "Confirm Password",
+              textController: confirmPasswordController,
+            ),
             SizedBox(
               height: 32,
             ),
