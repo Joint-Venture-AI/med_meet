@@ -66,8 +66,8 @@ class CustomAppBar extends StatelessWidget {
             ),
             tailing ??
                 const SizedBox(
-                  height: 40,
-                  width: 40,
+                  height: 24,
+                  width: 24,
                 ),
           ],
         ),

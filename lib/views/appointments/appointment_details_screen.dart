@@ -15,12 +15,32 @@ class AppointmentDetailsView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // args is true when it comes from doctor screen and false when it comes from user
-    final args = Get.arguments != null ? true : false;
+    // args is true when it comes from user screen and false when it comes from doctor
+    final args = Get.arguments ?? false;
     return Scaffold(
       appBar: PreferredSize(
-          preferredSize: Size.fromHeight(70),
-          child: CustomAppBar(title: "Appointment Details")),
+        preferredSize: Size.fromHeight(40),
+        child: CustomAppBar(
+          title: "Appointment Details",
+          tailing: args
+              ? GestureDetector(
+                  onTap: () {
+                    Get.toNamed(AppRoutes.notesScreen);
+                  },
+                  child: Container(
+                    padding: EdgeInsets.all(8),
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: AppColors.background1,
+                    ),
+                    child: Padding(
+                        padding: EdgeInsets.only(left: 3),
+                        child: SvgPicture.asset(SVGAssets.noteIcon)),
+                  ),
+                )
+              : null,
+        ),
+      ),
       body: Padding(
         padding: EdgeInsets.symmetric(horizontal: 24),
         child: ListView(

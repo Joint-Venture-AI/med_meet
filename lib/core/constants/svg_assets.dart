@@ -30,4 +30,6 @@ class SVGAssets {
   static String noteIcon = "assets/svg/note_icon.svg";
   static String editIcon = "assets/svg/editIcon.svg";
   static String confirmAppointmentIcon = "assets/svg/confimAppointmentIcon.svg";
+
+  static String downloadIcon = "assets/svg/download.svg";
 }

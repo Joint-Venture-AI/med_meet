@@ -8,6 +8,7 @@ import 'package:med_meet_flutter/core/components/custom_button.dart';
 import 'package:med_meet_flutter/core/components/custom_text_input.dart';
 import 'package:med_meet_flutter/core/components/patient_information_card.dart';
 import 'package:med_meet_flutter/core/constants/svg_assets.dart';
+import 'package:med_meet_flutter/core/helpers/route.dart';
 import 'package:med_meet_flutter/core/utils/app_colors.dart';
 import 'package:med_meet_flutter/models/appointmnets/medication_details_model.dart';
 import 'package:med_meet_flutter/views/appointments/submit_prescription.dart';
@@ -119,8 +120,25 @@ class _CreatePrescriptionViewState extends State<CreatePrescriptionView> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: PreferredSize(
-        preferredSize: Size.fromHeight(70),
-        child: CustomAppBar(title: "Create Prescription"),
+        preferredSize: Size.fromHeight(40),
+        child: CustomAppBar(
+          title: "Create Prescription",
+          tailing: GestureDetector(
+            onTap: () {
+              Get.toNamed(AppRoutes.notesScreen);
+            },
+            child: Container(
+              padding: EdgeInsets.all(8),
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                color: AppColors.background1,
+              ),
+              child: Padding(
+                  padding: EdgeInsets.only(left: 3),
+                  child: SvgPicture.asset(SVGAssets.noteIcon)),
+            ),
+          ),
+        ),
       ),
       body: Padding(
         padding: EdgeInsets.symmetric(horizontal: 20.w),

@@ -59,7 +59,8 @@ class BookReviewSummaryView extends StatelessWidget {
                     ),
                     CustomButton(
                         onPressed: () {
-                          Get.offAllNamed(AppRoutes.homeUser);
+                          Get.until(
+                              (route) => Get.currentRoute == AppRoutes.userApp);
                         },
                         buttonTitle: "Go to Home")
                   ],
@@ -71,7 +72,7 @@ class BookReviewSummaryView extends StatelessWidget {
 
     return Scaffold(
       appBar: PreferredSize(
-          preferredSize: Size.fromHeight(70),
+          preferredSize: Size.fromHeight(40),
           child: CustomAppBar(title: "Review Summary")),
       body: Padding(
         padding: EdgeInsets.symmetric(horizontal: 20),

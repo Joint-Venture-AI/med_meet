@@ -17,7 +17,7 @@ class ReviewAppointmentView extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: PreferredSize(
-          preferredSize: Size.fromHeight(70),
+          preferredSize: Size.fromHeight(40),
           child: CustomAppBar(title: "Review")),
       body: Padding(
         padding: EdgeInsets.symmetric(horizontal: 24.w),

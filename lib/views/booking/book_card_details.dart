@@ -17,7 +17,7 @@ class BookCardDetailsView extends StatelessWidget {
     final TextEditingController expiryDateController = TextEditingController();
     return Scaffold(
       appBar: PreferredSize(
-          preferredSize: Size.fromHeight(70),
+          preferredSize: Size.fromHeight(40),
           child: CustomAppBar(title: "Card Details")),
       body: Padding(
         padding: EdgeInsets.all(24),

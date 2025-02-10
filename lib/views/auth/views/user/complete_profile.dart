@@ -37,7 +37,7 @@ class CompletePRofileView extends StatelessWidget {
 
     return Scaffold(
         appBar: PreferredSize(
-            preferredSize: Size.fromHeight(70), child: CustomAppBar(title: "")),
+            preferredSize: Size.fromHeight(40), child: CustomAppBar(title: "")),
         body: SingleChildScrollView(
           child: Padding(
             padding: EdgeInsets.all(24),

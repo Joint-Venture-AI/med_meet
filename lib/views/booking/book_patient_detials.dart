@@ -16,7 +16,7 @@ class BookPatientDetialsView extends StatelessWidget {
     final TextEditingController problemController = TextEditingController();
     return Scaffold(
       appBar: PreferredSize(
-          preferredSize: Size.fromHeight(70),
+          preferredSize: Size.fromHeight(40),
           child: CustomAppBar(title: "Patient Details")),
       body: Padding(
         padding: EdgeInsets.all(24),
