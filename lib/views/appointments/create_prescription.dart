@@ -10,7 +10,6 @@ import 'package:med_meet_flutter/core/components/patient_information_card.dart';
 import 'package:med_meet_flutter/core/constants/svg_assets.dart';
 import 'package:med_meet_flutter/core/utils/app_colors.dart';
 import 'package:med_meet_flutter/models/appointmnets/medication_details_model.dart';
-import 'package:med_meet_flutter/views/appointments/doctor_appointments_screen.dart';
 import 'package:med_meet_flutter/views/appointments/submit_prescription.dart';
 
 class CreatePrescriptionView extends StatefulWidget {
@@ -264,6 +263,41 @@ class _CreatePrescriptionViewState extends State<CreatePrescriptionView> {
       child: Text(
         title,
         style: GoogleFonts.roboto(fontSize: 12, fontWeight: FontWeight.w400),
+      ),
+    );
+  }
+}
+
+class TabSelector extends StatelessWidget {
+  const TabSelector({
+    super.key,
+    required this.isActive,
+    required this.tabTitle,
+    required this.onTabClick,
+  });
+  final bool isActive;
+  final String tabTitle;
+  final VoidCallback onTabClick;
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: onTabClick,
+      child: Container(
+        padding: EdgeInsets.all(10),
+        width: 162.w,
+        decoration: BoxDecoration(
+            color: isActive ? Color(0xFF90A4AE) : Colors.white,
+            borderRadius: BorderRadius.circular(25),
+            border: Border.all(color: Color(0xFF90A4AE))),
+        child: Center(
+            child: Text(
+          tabTitle,
+          style: GoogleFonts.roboto(
+              fontSize: 18,
+              fontWeight: FontWeight.w400,
+              color: isActive ? Colors.white : Colors.black),
+        )),
       ),
     );
   }

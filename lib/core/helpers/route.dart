@@ -14,6 +14,10 @@ import 'package:med_meet_flutter/views/auth/views/splash_screen.dart';
 import 'package:med_meet_flutter/views/auth/views/user/complete_profile.dart';
 import 'package:med_meet_flutter/views/auth/views/user/sign_up.dart';
 import 'package:med_meet_flutter/views/auth/views/verify_otp.dart';
+import 'package:med_meet_flutter/views/booking/book_card_details.dart';
+import 'package:med_meet_flutter/views/booking/book_patient_detials.dart';
+import 'package:med_meet_flutter/views/booking/book_review_summary.dart';
+import 'package:med_meet_flutter/views/booking/book_schedule_screen.dart';
 import 'package:med_meet_flutter/views/doctor_or_patient.dart';
 import 'package:med_meet_flutter/views/home/doctor/doctor_all_appointment_list.dart';
 import 'package:med_meet_flutter/views/home/appointment_details_screen.dart';
@@ -89,6 +93,12 @@ class AppRoutes {
   static String messages = "/messages";
   static String chatScreen = "/chatscreen";
   static String callScreen = "/call_screen";
+  // Book appointmets
+  static String bookingScreen = '/booking_screen';
+  static String bookPatientDetails = '/book_patient_details';
+  static String bookReviewSummary = '/book_reviwe_summary';
+  static String bookScheduleSummary = '/book_schedule_summary';
+  static String bookCardDetails = '/book_card_details';
 
   // Profile
   static String personalInformation = '/personal_information';
@@ -164,6 +174,12 @@ class AppRoutes {
         transition: Transition.noTransition),
     GetPage(name: chatScreen, page: () => const ChatScreenView()),
     GetPage(name: callScreen, page: () => const CallScreenView()),
+    // Booking Feature
+    GetPage(name: bookingScreen, page: () => const BookScheduleScreenView()),
+    GetPage(name: bookCardDetails, page: () => const BookCardDetailsView()),
+    GetPage(
+        name: bookPatientDetails, page: () => const BookPatientDetialsView()),
+    GetPage(name: bookReviewSummary, page: () => const BookReviewSummaryView()),
 
     // Profile
     GetPage(

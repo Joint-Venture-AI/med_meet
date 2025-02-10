@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:med_meet_flutter/core/utils/app_colors.dart';
+
 import 'package:med_meet_flutter/views/message_calls/components/message_tile.dart';
 
 class MessagesView extends StatelessWidget {
@@ -10,6 +12,7 @@ class MessagesView extends StatelessWidget {
       appBar: AppBar(
         title: Text('Messages'),
         centerTitle: true,
+        backgroundColor: AppColors.scaffoldBackgroundColor,
       ),
       body: Padding(
         padding: EdgeInsets.all(24),

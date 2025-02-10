@@ -22,7 +22,7 @@ void main() {
             scaffoldBackgroundColor: AppColors.scaffoldBackgroundColor,
           ),
           getPages: AppRoutes.pages,
-          initialRoute: AppRoutes.userOrDoctor,
+          initialRoute: AppRoutes.splashScreen,
         );
       },
     ),

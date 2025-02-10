@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:med_meet_flutter/core/components/doctor_card.dart';
+import 'package:med_meet_flutter/core/utils/app_colors.dart';
 
 class DoctorAppointmentsScreenView extends StatefulWidget {
   const DoctorAppointmentsScreenView({super.key});
@@ -16,109 +16,100 @@ class _DoctorAppointmentsScreenViewState
   String selectedTab = "Completed";
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text("Appointments"),
-        centerTitle: true,
-        leading: Text(""),
-      ),
-      body: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 24),
-        child: Column(
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                TabSelector(
-                  isActive: selectedTab == "Upcoming",
-                  tabTitle: "Upcoming",
-                  onTabClick: () {
-                    setState(() {
-                      selectedTab = "Upcoming";
-                    });
-                  },
-                ),
-                TabSelector(
-                  isActive: selectedTab == "Completed",
-                  tabTitle: "Completed",
-                  onTabClick: () {
-                    setState(() {
-                      selectedTab = "Completed";
-                    });
-                  },
-                ),
-              ],
+    return DefaultTabController(
+      length: 2,
+      initialIndex: 1,
+      child: Scaffold(
+        appBar: AppBar(
+          backgroundColor: AppColors.scaffoldBackgroundColor,
+          title: Text("Appointments"),
+          centerTitle: true,
+          leading: Text(""),
+          bottom: TabBar(
+            indicator: BoxDecoration(
+              color: Color(0xFF545454),
+              borderRadius: BorderRadius.circular(30),
             ),
-            SizedBox(
-              height: 16,
-            ),
-            Expanded(
-              child: ListView(
-                children: [
-                  DoctorCard(
-                    isAppointment: true,
-                    hasPrice: true,
+            labelColor: Colors.white,
+            tabs: [
+              Container(
+                padding: EdgeInsets.symmetric(horizontal: 25, vertical: 11),
+                decoration: BoxDecoration(
+                  border: Border.all(color: AppColors.border1),
+                  borderRadius: BorderRadius.circular(30),
+                ),
+                child: Text(
+                  "Upcomming",
+                  style: GoogleFonts.roboto(
+                    fontSize: 18,
+                    fontWeight: FontWeight.w400,
                   ),
-                  DoctorCard(
-                    isAppointment: true,
-                    hasPrice: true,
-                  ),
-                  DoctorCard(
-                    isAppointment: true,
-                    hasPrice: true,
-                  ),
-                  DoctorCard(
-                    isAppointment: true,
-                    hasPrice: true,
-                  ),
-                  DoctorCard(
-                    isAppointment: true,
-                    hasPrice: true,
-                  ),
-                  DoctorCard(
-                    isAppointment: true,
-                    hasPrice: true,
-                  ),
-                ],
+                ),
               ),
-            )
-          ],
+              Container(
+                padding: EdgeInsets.symmetric(horizontal: 25, vertical: 11),
+                decoration: BoxDecoration(
+                  border: Border.all(color: AppColors.border1),
+                  borderRadius: BorderRadius.circular(30),
+                ),
+                child: Text(
+                  "Completed",
+                  style: GoogleFonts.roboto(
+                    fontSize: 18,
+                    fontWeight: FontWeight.w400,
+                  ),
+                ),
+              ),
+            ],
+          ),
         ),
+        body: TabBarView(children: <Widget>[
+          buildBody(),
+          buildBody(),
+        ]),
       ),
     );
   }
-}
 
-class TabSelector extends StatelessWidget {
-  const TabSelector({
-    super.key,
-    required this.isActive,
-    required this.tabTitle,
-    required this.onTabClick,
-  });
-  final bool isActive;
-  final String tabTitle;
-  final VoidCallback onTabClick;
-
-  @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: onTabClick,
-      child: Container(
-        padding: EdgeInsets.all(10),
-        width: 162.w,
-        decoration: BoxDecoration(
-            color: isActive ? Color(0xFF90A4AE) : Colors.white,
-            borderRadius: BorderRadius.circular(25),
-            border: Border.all(color: Color(0xFF90A4AE))),
-        child: Center(
-            child: Text(
-          tabTitle,
-          style: GoogleFonts.roboto(
-              fontSize: 18,
-              fontWeight: FontWeight.w400,
-              color: isActive ? Colors.white : Colors.black),
-        )),
+  Padding buildBody() {
+    return Padding(
+      padding: EdgeInsets.symmetric(horizontal: 24),
+      child: Column(
+        children: [
+          SizedBox(
+            height: 16,
+          ),
+          Expanded(
+            child: ListView(
+              children: [
+                DoctorCard(
+                  isAppointment: true,
+                  hasPrice: true,
+                ),
+                DoctorCard(
+                  isAppointment: true,
+                  hasPrice: true,
+                ),
+                DoctorCard(
+                  isAppointment: true,
+                  hasPrice: true,
+                ),
+                DoctorCard(
+                  isAppointment: true,
+                  hasPrice: true,
+                ),
+                DoctorCard(
+                  isAppointment: true,
+                  hasPrice: true,
+                ),
+                DoctorCard(
+                  isAppointment: true,
+                  hasPrice: true,
+                ),
+              ],
+            ),
+          )
+        ],
       ),
     );
   }

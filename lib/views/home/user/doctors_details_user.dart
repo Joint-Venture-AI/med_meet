@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:med_meet_flutter/core/components/custom_button.dart';
 import 'package:med_meet_flutter/core/components/details_header.dart';
 import 'package:med_meet_flutter/core/components/my_custom_appbar.dart';
 import 'package:med_meet_flutter/core/components/review_card.dart';
+import 'package:med_meet_flutter/core/helpers/route.dart';
 import 'package:med_meet_flutter/core/utils/app_typography.dart';
 
 class DoctorsDetailsUserView extends StatelessWidget {
@@ -92,7 +94,10 @@ class DoctorsDetailsUserView extends StatelessWidget {
             child: Padding(
                 padding: EdgeInsets.all(24),
                 child: CustomButton(
-                    onPressed: () {}, buttonTitle: "Book Appointment")),
+                    onPressed: () {
+                      Get.toNamed(AppRoutes.bookingScreen);
+                    },
+                    buttonTitle: "Book Appointment")),
           )
         ],
       ),

@@ -8,6 +8,7 @@ import "package:med_meet_flutter/core/utils/app_typography.dart";
 
 AppBar customAppBar({title = "", hasNote = false, hasPdfDownload = false}) {
   return AppBar(
+    backgroundColor: AppColors.scaffoldBackgroundColor,
     leading: GestureDetector(
       onTap: () {
         Get.back();
