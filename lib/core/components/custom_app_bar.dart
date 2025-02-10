@@ -21,6 +21,7 @@ class CustomAppBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Container(
+        margin: EdgeInsets.only(top: 10),
         padding: EdgeInsets.symmetric(horizontal: hasPadding ? 24 : 0),
         height: 64,
         decoration: BoxDecoration(),

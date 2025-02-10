@@ -19,7 +19,7 @@ class AppointmentDetailsView extends StatelessWidget {
     final args = Get.arguments ?? false;
     return Scaffold(
       appBar: PreferredSize(
-        preferredSize: Size.fromHeight(40),
+        preferredSize: Size.fromHeight(60),
         child: CustomAppBar(
           title: "Appointment Details",
           tailing: args
@@ -124,7 +124,7 @@ class AppointmentDetailsView extends StatelessWidget {
               height: 16,
             ),
             SizedBox(
-              height: Get.height * 0.15,
+              height: Get.height * 0.05,
             ),
             CustomButton(
                 onPressed: () {
@@ -134,7 +134,10 @@ class AppointmentDetailsView extends StatelessWidget {
                     Get.toNamed(AppRoutes.createPrescription);
                   }
                 },
-                buttonTitle: args ? "Send Prescription" : "Complete")
+                buttonTitle: args ? "Send Prescription" : "Complete"),
+            SizedBox(
+              height: 24,
+            )
           ],
         ),
       ),

@@ -35,165 +35,180 @@ class DoctorCard extends StatelessWidget {
       child: Container(
           margin: EdgeInsets.only(bottom: 12),
           width: double.infinity,
-          height: 112.h,
-          padding: EdgeInsets.all(12),
+          height: 132.h,
+          padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 12.h),
           decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(10),
+            borderRadius: BorderRadius.circular(10.r),
             border: Border.all(color: AppColors.border1),
           ),
           child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Row(
-                children: [
-                  ClipRRect(
-                    borderRadius: BorderRadius.circular(12),
-                    child: Image.asset(
-                      isAppointment
-                          ? ImageAssets.userImage1
-                          : ImageAssets.doctorImage1,
-                      height: 90.h,
-                      width: 81.w,
-                    ),
-                  ),
-                  SizedBox(
-                    width: 12,
-                  ),
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                          isAppointment ? "Nguyen, Shane" : "Dr. Ananya Sharma",
-                          style: AppTypography.appbarTitle),
-                      isAppointment
-                          ? Text("Online Consultancy",
-                              style: AppTypography.bodyText1)
-                          : Row(
-                              children: [
-                                Text(
-                                  "Dentist",
-                                  style: AppTypography.bodyText1,
-                                ),
-                                SizedBox(
-                                  width: 8,
-                                ),
-                                Text("|"),
-                                SizedBox(
-                                  width: 8,
-                                ),
-                                Text("City Hostpital",
-                                    style: AppTypography.bodyText3),
-                              ],
-                            ),
-                      isAppointment
-                          ? Text("01:09 am - 10:41 pm",
-                              style: AppTypography.bodyText3)
-                          : Row(
-                              children: [
-                                Icon(
-                                  Icons.star,
-                                  color: Colors.amberAccent,
-                                ),
-                                Text(
-                                  "4.5",
-                                  style: TextStyle(fontSize: 14.sp),
-                                ),
-                              ],
-                            )
-                    ],
-                  ),
-                ],
+              ClipRRect(
+                borderRadius: BorderRadius.circular(12),
+                child: Image.asset(
+                  isAppointment
+                      ? ImageAssets.userImage1
+                      : ImageAssets.doctorImage1,
+                  height: 119.h,
+                  width: 81.w,
+                  fit: BoxFit.cover,
+                ),
               ),
-              Column(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Container(
-                    decoration: BoxDecoration(),
-                    child: isDoctorToDoctor || (isAppointment)
-                        ? Row(
-                            children: [
-                              GestureDetector(
-                                onTap: () {
-                                  Get.toNamed(AppRoutes.chatScreen);
-                                },
-                                child: SvgPicture.asset(
-                                  SVGAssets.chatOutlined,
-                                  color: Color(0xFF1E65FF),
-                                  height: 24,
-                                  width: 24,
-                                ),
-                              ),
-                              SizedBox(
-                                width: 8,
-                              ),
-                              GestureDetector(
-                                onTap: () {
-                                  Get.toNamed(AppRoutes.callScreen);
-                                },
-                                child: Icon(
-                                  Icons.videocam,
-                                  color: Color(0xFF1E65FF),
-                                ),
-                              ),
-                            ],
-                          )
-                        : status == null
-                            ? Text(
-                                "\$5.22",
-                                style: AppTypography.priceStyle,
-                              )
-                            : Container(),
-                  ),
-                  Container(
-                    decoration: BoxDecoration(),
-                    child: (isAppointment && !hasPrice)
-                        ? Text(
-                            "upcoming",
-                            style: GoogleFonts.roboto(
-                                fontWeight: FontWeight.w500,
-                                fontSize: 12,
-                                color: Color(0xFF07D11F)),
-                          )
-                        : (isAppointment && hasPrice)
-                            ? Text(
-                                "\$5.22",
-                                style: AppTypography.priceStyle,
-                              )
-                            : status != null
-                                ? Container(
-                                    padding: EdgeInsets.symmetric(
-                                        horizontal: 8, vertical: 4),
-                                    decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(12),
-                                        color: AppointmentStatus.completed ==
-                                                status
-                                            ? Color(0xFFF0FFF2)
-                                            : Color(0xFFF0F5FF)),
-                                    child: Text(
-                                      status!,
-                                      style: GoogleFonts.roboto(
-                                          fontSize: 12,
-                                          fontWeight: FontWeight.w500,
-                                          color: AppointmentStatus.completed ==
-                                                  status
-                                              ? Color(0xFF07D11F)
-                                              : Color(0xFF1E65FF)),
+              SizedBox(
+                width: 12.w,
+              ),
+              Expanded(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                            isAppointment
+                                ? "Nguyen, Shane"
+                                : "${"Dr. Ananya Sharma".characters.take(20)}",
+                            style: AppTypography.appbarTitle),
+                        Container(
+                          decoration: BoxDecoration(),
+                          child: isDoctorToDoctor || (isAppointment)
+                              ? Row(
+                                  children: [
+                                    GestureDetector(
+                                      onTap: () {
+                                        Get.toNamed(AppRoutes.chatScreen);
+                                      },
+                                      child: SvgPicture.asset(
+                                        SVGAssets.chatOutlined,
+                                        color: Color(0xFF1E65FF),
+                                        height: 24,
+                                        width: 24,
+                                      ),
                                     ),
-                                  )
-                                : null,
-                  ),
-                  Container(
-                    decoration: BoxDecoration(),
-                    child: isAppointment
-                        ? Text(
-                            "22 Oct, 2020",
-                            style: AppTypography.bodyText3,
-                          )
-                        : null,
-                  ),
-                ],
-              )
+                                    SizedBox(
+                                      width: 8,
+                                    ),
+                                    GestureDetector(
+                                      onTap: () {
+                                        Get.toNamed(AppRoutes.callScreen);
+                                      },
+                                      child: Icon(
+                                        Icons.videocam,
+                                        color: Color(0xFF1E65FF),
+                                      ),
+                                    ),
+                                  ],
+                                )
+                              : status == null
+                                  ? Text(
+                                      "\$5.22",
+                                      style: AppTypography.priceStyle,
+                                    )
+                                  : Container(),
+                        ),
+                      ],
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        isAppointment
+                            ? Text("Online Consultancy",
+                                style: AppTypography.bodyText1)
+                            : Flexible(
+                                child: Wrap(
+                                  children: [
+                                    Text(
+                                      "Dentist",
+                                      style: AppTypography.bodyText1,
+                                    ),
+                                    SizedBox(
+                                      width: 8,
+                                    ),
+                                    Text("|"),
+                                    SizedBox(
+                                      width: 8,
+                                    ),
+                                    Text("City Hostpital",
+                                        style: AppTypography.bodyText3),
+                                  ],
+                                ),
+                              ),
+                        Container(
+                          decoration: BoxDecoration(),
+                          child: (isAppointment && !hasPrice)
+                              ? Text(
+                                  "upcoming",
+                                  style: GoogleFonts.roboto(
+                                      fontWeight: FontWeight.w500,
+                                      fontSize: 12,
+                                      color: Color(0xFF07D11F)),
+                                )
+                              : (isAppointment && hasPrice)
+                                  ? Text(
+                                      "\$5.22",
+                                      style: AppTypography.priceStyle,
+                                    )
+                                  : status != null
+                                      ? Container(
+                                          padding: EdgeInsets.symmetric(
+                                              horizontal: 4.w, vertical: 4.h),
+                                          decoration: BoxDecoration(
+                                              borderRadius:
+                                                  BorderRadius.circular(12),
+                                              color:
+                                                  AppointmentStatus.completed ==
+                                                          status
+                                                      ? Color(0xFFF0FFF2)
+                                                      : Color(0xFFF0F5FF)),
+                                          child: Text(
+                                            status!,
+                                            style: GoogleFonts.roboto(
+                                                fontSize: 12,
+                                                fontWeight: FontWeight.w500,
+                                                color: AppointmentStatus
+                                                            .completed ==
+                                                        status
+                                                    ? Color(0xFF07D11F)
+                                                    : Color(0xFF1E65FF)),
+                                          ),
+                                        )
+                                      : null,
+                        ),
+                      ],
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        isAppointment
+                            ? Text("01:09 am - 10:41 pm",
+                                style: AppTypography.bodyText3)
+                            : Row(
+                                children: [
+                                  Icon(
+                                    Icons.star,
+                                    color: Colors.amberAccent,
+                                  ),
+                                  Text(
+                                    "4.5",
+                                    style: TextStyle(fontSize: 14.sp),
+                                  ),
+                                ],
+                              ),
+                        Container(
+                          decoration: BoxDecoration(),
+                          child: isAppointment
+                              ? Text(
+                                  "22 Oct, 2020",
+                                  style: AppTypography.bodyText3,
+                                )
+                              : null,
+                        ),
+                      ],
+                    )
+                  ],
+                ),
+              ),
             ],
           )),
     );

@@ -20,7 +20,7 @@ class SubmitPrescription extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: PreferredSize(
-          preferredSize: Size.fromHeight(40),
+          preferredSize: Size.fromHeight(60),
           child: CustomAppBar(
             title: "Prescription",
             tailing: GestureDetector(
