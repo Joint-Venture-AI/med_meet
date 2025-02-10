@@ -18,9 +18,12 @@ class HomeUserView extends StatelessWidget {
     return Scaffold(
       appBar: buildCustomAppBar(),
       body: Padding(
-        padding: EdgeInsets.all(24),
+        padding: EdgeInsets.symmetric(horizontal: 24),
         child: ListView(
           children: [
+            SizedBox(
+              height: 24,
+            ),
             SearchField(),
             SizedBox(
               height: 12,
@@ -69,7 +72,7 @@ class HomeUserView extends StatelessWidget {
     return PreferredSize(
       preferredSize: const Size.fromHeight(70),
       child: Container(
-        padding: EdgeInsets.symmetric(horizontal: 12),
+        padding: EdgeInsets.symmetric(horizontal: 24),
         decoration: BoxDecoration(),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.end,

@@ -17,9 +17,14 @@ class DoctorHomeView extends StatelessWidget {
     return Scaffold(
       appBar: buildCustomAppBar(),
       body: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 24, vertical: 24),
+        padding: EdgeInsets.symmetric(
+          horizontal: 24,
+        ),
         child: Column(
           children: [
+            SizedBox(
+              height: 24,
+            ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -87,7 +92,7 @@ class DoctorHomeView extends StatelessWidget {
     return PreferredSize(
       preferredSize: const Size.fromHeight(70),
       child: Container(
-          padding: EdgeInsets.symmetric(horizontal: 12),
+          padding: EdgeInsets.symmetric(horizontal: 24),
           decoration: BoxDecoration(),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.end,

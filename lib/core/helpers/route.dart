@@ -20,7 +20,7 @@ import 'package:med_meet_flutter/views/booking/book_review_summary.dart';
 import 'package:med_meet_flutter/views/booking/book_schedule_screen.dart';
 import 'package:med_meet_flutter/views/doctor_or_patient.dart';
 import 'package:med_meet_flutter/views/home/doctor/doctor_all_appointment_list.dart';
-import 'package:med_meet_flutter/views/home/appointment_details_screen.dart';
+import 'package:med_meet_flutter/views/appointments/appointment_details_screen.dart';
 import 'package:med_meet_flutter/views/home/doctor/doctor_home.dart';
 import 'package:med_meet_flutter/views/home/notification.dart';
 import 'package:med_meet_flutter/views/home/user/doctors_details_user.dart';

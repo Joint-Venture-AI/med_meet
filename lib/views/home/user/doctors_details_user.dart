@@ -16,7 +16,7 @@ class DoctorsDetailsUserView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: PreferredSize(
-          preferredSize: Size.fromHeight(70),
+          preferredSize: Size.fromHeight(40),
           child: CustomAppBar(title: "Doctor Details")),
       body: Stack(
         children: [

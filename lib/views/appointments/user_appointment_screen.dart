@@ -9,7 +9,7 @@ class UserAppointmentScreenView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: PreferredSize(
-          preferredSize: Size.fromHeight(70),
+          preferredSize: Size.fromHeight(40),
           child: CustomAppBar(title: "Appointments")),
       body: Padding(
         padding: EdgeInsets.symmetric(horizontal: 24),

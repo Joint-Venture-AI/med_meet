@@ -9,7 +9,7 @@ class SpecialtyListUserView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: PreferredSize(
-          preferredSize: Size.fromHeight(70),
+          preferredSize: Size.fromHeight(40),
           child: CustomAppBar(title: "Dentist")),
       body: Padding(
         padding: EdgeInsets.all(24),

@@ -20,8 +20,26 @@ class SubmitPrescription extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: PreferredSize(
-          preferredSize: Size.fromHeight(70),
-          child: CustomAppBar(title: "Prescription"),
+          preferredSize: Size.fromHeight(40),
+          child: CustomAppBar(
+            title: "Prescription",
+            tailing: GestureDetector(
+              onTap: () {
+                // todo: Implement pdf download
+              },
+              child: Container(
+                padding: EdgeInsets.all(8),
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  color: AppColors.background1,
+                ),
+                child: Padding(
+                  padding: EdgeInsets.only(left: 3),
+                  child: SvgPicture.asset(SVGAssets.downloadIcon),
+                ),
+              ),
+            ),
+          ),
         ),
         body: Padding(
           padding: EdgeInsets.symmetric(horizontal: 24),

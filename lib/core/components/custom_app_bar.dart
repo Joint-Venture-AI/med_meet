@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:med_meet_flutter/core/utils/app_colors.dart';
 import 'package:med_meet_flutter/core/utils/uitls.dart';
 
 class CustomAppBar extends StatelessWidget {
@@ -66,8 +67,8 @@ class CustomAppBar extends StatelessWidget {
             ),
             tailing ??
                 const SizedBox(
-                  height: 40,
-                  width: 40,
+                  height: 24,
+                  width: 24,
                 ),
           ],
         ),

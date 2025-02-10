@@ -13,38 +13,20 @@ class ChatScreenView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: PreferredSize(
-          preferredSize: Size.fromHeight(70),
+          preferredSize: Size.fromHeight(40),
           child: CustomAppBar(title: "Jene Cooper")),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Expanded(
             child: Padding(
-              padding: EdgeInsets.all(20.w),
-              child: ListView(
-                reverse: true,
-                children: [
-                  MessageBox(
-                    isMe: false,
+                padding: EdgeInsets.symmetric(horizontal: 24),
+                child: ListView.builder(
+                  reverse: true,
+                  itemBuilder: (context, index) => MessageBox(
+                    isMe: index % 2 == 0,
                   ),
-                  MessageBox(
-                    isMe: true,
-                  ),
-                  MessageBox(
-                    isMe: false,
-                  ),
-                  MessageBox(
-                    isMe: true,
-                  ),
-                  MessageBox(
-                    isMe: false,
-                  ),
-                  MessageBox(
-                    isMe: true,
-                  ),
-                ],
-              ),
-            ),
+                )),
           ),
           buildSendChat()
         ],

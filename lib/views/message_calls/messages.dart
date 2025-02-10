@@ -17,26 +17,20 @@ class MessagesView extends StatelessWidget {
         forceMaterialTransparency: true,
       ),
       body: Padding(
-        padding: EdgeInsets.all(24),
-        child: ListView(
-          children: [
-            MessageTile(),
-            MessageTile(),
-            MessageTile(),
-            MessageTile(),
-            MessageTile(),
-            MessageTile(),
-            MessageTile(),
-            MessageTile(),
-            MessageTile(),
-            MessageTile(),
-            MessageTile(),
-            MessageTile(),
-            MessageTile(),
-            MessageTile(),
-          ],
-        ),
-      ),
+          padding: EdgeInsets.symmetric(horizontal: 24),
+          child: Column(
+            children: [
+              SizedBox(
+                height: 24,
+              ),
+              Expanded(
+                child: ListView.builder(
+                  itemCount: 10,
+                  itemBuilder: (context, index) => MessageTile(),
+                ),
+              )
+            ],
+          )),
     );
   }
 }

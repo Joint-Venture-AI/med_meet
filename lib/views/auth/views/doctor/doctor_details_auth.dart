@@ -61,7 +61,7 @@ class DoctorDetailsAuthView extends StatelessWidget {
 
     return Scaffold(
         appBar: PreferredSize(
-            preferredSize: Size.fromHeight(70),
+            preferredSize: Size.fromHeight(40),
             child: CustomAppBar(title: "Doctor Details")),
         body: Padding(
           padding: EdgeInsets.all(24),
