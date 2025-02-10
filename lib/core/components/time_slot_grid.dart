@@ -3,7 +3,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:med_meet_flutter/core/utils/app_colors.dart';
 
 class TimeSlotGrid extends StatelessWidget {
-  final isEnabled;
+  final bool isEnabled;
   const TimeSlotGrid({super.key, this.isEnabled = true});
 
   @override
