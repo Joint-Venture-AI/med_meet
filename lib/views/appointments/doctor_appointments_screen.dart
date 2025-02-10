@@ -28,14 +28,17 @@ class _DoctorAppointmentsScreenViewState
           bottom: TabBar(
             indicator: BoxDecoration(
               color: Color(0xFF545454),
+              border: Border.all(color: AppColors.border1),
               borderRadius: BorderRadius.circular(30),
             ),
             labelColor: Colors.white,
+            dividerHeight: 0,
+            splashFactory: NoSplash.splashFactory,
             tabs: [
               Container(
                 padding: EdgeInsets.symmetric(horizontal: 25, vertical: 11),
                 decoration: BoxDecoration(
-                  border: Border.all(color: AppColors.border1),
+                  // border: Border.all(color: AppColors.border1),
                   borderRadius: BorderRadius.circular(30),
                 ),
                 child: Text(
@@ -49,7 +52,7 @@ class _DoctorAppointmentsScreenViewState
               Container(
                 padding: EdgeInsets.symmetric(horizontal: 25, vertical: 11),
                 decoration: BoxDecoration(
-                  border: Border.all(color: AppColors.border1),
+                  // border: Border.all(color: AppColors.border1),
                   borderRadius: BorderRadius.circular(30),
                 ),
                 child: Text(
