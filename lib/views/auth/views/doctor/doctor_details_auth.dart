@@ -8,10 +8,10 @@ import 'package:flutter_svg/flutter_svg.dart';
 
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:med_meet_flutter/core/components/custom_app_bar.dart';
 import 'package:med_meet_flutter/core/components/custom_button.dart';
 import 'package:med_meet_flutter/core/components/custom_drop_down.dart';
 import 'package:med_meet_flutter/core/components/custom_text_input.dart';
-import 'package:med_meet_flutter/core/components/my_custom_appbar.dart';
 import 'package:med_meet_flutter/core/constants/svg_assets.dart';
 import 'package:med_meet_flutter/core/helpers/route.dart';
 import 'package:med_meet_flutter/core/utils/app_colors.dart';
@@ -60,7 +60,9 @@ class DoctorDetailsAuthView extends StatelessWidget {
     }
 
     return Scaffold(
-        appBar: customAppBar(title: "Doctor Details"),
+        appBar: PreferredSize(
+            preferredSize: Size.fromHeight(70),
+            child: CustomAppBar(title: "Doctor Details")),
         body: Padding(
           padding: EdgeInsets.all(24),
           child: ListView(

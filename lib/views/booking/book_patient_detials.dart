@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:med_meet_flutter/core/components/custom_app_bar.dart';
 import 'package:med_meet_flutter/core/components/custom_button.dart';
 import 'package:med_meet_flutter/core/components/custom_drop_down.dart';
 import 'package:med_meet_flutter/core/components/custom_text_input.dart';
-import 'package:med_meet_flutter/core/components/my_custom_appbar.dart';
 import 'package:med_meet_flutter/core/helpers/route.dart';
 
 class BookPatientDetialsView extends StatelessWidget {
@@ -15,7 +15,9 @@ class BookPatientDetialsView extends StatelessWidget {
     final TextEditingController ageController = TextEditingController();
     final TextEditingController problemController = TextEditingController();
     return Scaffold(
-      appBar: customAppBar(title: "Patient Details"),
+      appBar: PreferredSize(
+          preferredSize: Size.fromHeight(70),
+          child: CustomAppBar(title: "Patient Details")),
       body: Padding(
         padding: EdgeInsets.all(24),
         child: Column(

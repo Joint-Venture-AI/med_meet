@@ -69,61 +69,62 @@ class HomeUserView extends StatelessWidget {
     return PreferredSize(
       preferredSize: const Size.fromHeight(70),
       child: Container(
-          padding: EdgeInsets.symmetric(horizontal: 12),
-          decoration: BoxDecoration(),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Row(
-                    children: [
-                      CircleAvatar(
-                        backgroundImage: AssetImage(ImageAssets.profilePic1),
-                        radius: 20,
-                      ),
-                      SizedBox(
-                        width: 12,
-                      ),
-                      Column(
-                        children: [
-                          Text(
-                            "Good Morning",
-                            style: AppTypography.bodyText1,
-                          ),
-                          Text(
-                            "Nikenla Steve",
-                            style: GoogleFonts.roboto(
-                                fontWeight: FontWeight.w500,
-                                fontSize: 14,
-                                color: Colors.black),
-                          )
-                        ],
-                      )
-                    ],
-                  ),
-                  GestureDetector(
-                    onTap: () {
-                      Get.toNamed(AppRoutes.notifications);
-                    },
-                    child: Container(
-                      padding: EdgeInsets.all(10),
-                      decoration: BoxDecoration(
-                          border: Border.all(color: AppColors.border1),
-                          shape: BoxShape.circle),
-                      child: Center(
-                        child: Icon(
-                          Icons.notifications,
-                          color: AppColors.iconColor1,
+        padding: EdgeInsets.symmetric(horizontal: 12),
+        decoration: BoxDecoration(),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Row(
+                  children: [
+                    CircleAvatar(
+                      backgroundImage: AssetImage(ImageAssets.profilePic1),
+                      radius: 20,
+                    ),
+                    SizedBox(
+                      width: 12,
+                    ),
+                    Column(
+                      children: [
+                        Text(
+                          "Good Morning",
+                          style: AppTypography.bodyText1,
                         ),
+                        Text(
+                          "Nikenla Steve",
+                          style: GoogleFonts.roboto(
+                              fontWeight: FontWeight.w500,
+                              fontSize: 14,
+                              color: Colors.black),
+                        )
+                      ],
+                    )
+                  ],
+                ),
+                GestureDetector(
+                  onTap: () {
+                    Get.toNamed(AppRoutes.notifications);
+                  },
+                  child: Container(
+                    padding: EdgeInsets.all(10),
+                    decoration: BoxDecoration(
+                        border: Border.all(color: AppColors.border1),
+                        shape: BoxShape.circle),
+                    child: Center(
+                      child: Icon(
+                        Icons.notifications,
+                        color: AppColors.iconColor1,
                       ),
                     ),
-                  )
-                ],
-              ),
-            ],
-          )),
+                  ),
+                )
+              ],
+            ),
+          ],
+        ),
+      ),
     );
   }
 }

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:med_meet_flutter/core/components/custom_app_bar.dart';
 import 'package:med_meet_flutter/core/components/custom_text_input.dart';
-import 'package:med_meet_flutter/core/components/my_custom_appbar.dart';
 import 'package:med_meet_flutter/core/constants/image_assets.dart';
 import 'package:med_meet_flutter/core/utils/app_colors.dart';
 
@@ -12,7 +12,9 @@ class ChatScreenView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: customAppBar(title: "Jene Cooper"),
+      appBar: PreferredSize(
+          preferredSize: Size.fromHeight(70),
+          child: CustomAppBar(title: "Jene Cooper")),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [

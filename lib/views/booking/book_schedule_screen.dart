@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:med_meet_flutter/core/components/custom_app_bar.dart';
 import 'package:med_meet_flutter/core/components/custom_button.dart';
 import 'package:med_meet_flutter/core/components/custom_date_picker.dart';
-import 'package:med_meet_flutter/core/components/my_custom_appbar.dart';
 import 'package:med_meet_flutter/core/components/time_slot_grid.dart';
 import 'package:med_meet_flutter/core/helpers/route.dart';
 import 'package:med_meet_flutter/core/utils/app_typography.dart';
@@ -13,7 +13,9 @@ class BookScheduleScreenView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: customAppBar(title: "Book Schedule"),
+      appBar: PreferredSize(
+          preferredSize: Size.fromHeight(70),
+          child: CustomAppBar(title: "Book Schedule")),
       body: Padding(
         padding: EdgeInsets.symmetric(horizontal: 14, vertical: 20),
         child: Column(

@@ -10,9 +10,11 @@ class MessagesView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        leading: Text(""),
         title: Text('Messages'),
         centerTitle: true,
         backgroundColor: AppColors.scaffoldBackgroundColor,
+        forceMaterialTransparency: true,
       ),
       body: Padding(
         padding: EdgeInsets.all(24),

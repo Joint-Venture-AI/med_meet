@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:med_meet_flutter/core/components/custom_app_bar.dart';
 import 'package:med_meet_flutter/core/components/custom_button.dart';
 import 'package:med_meet_flutter/core/components/custom_text_input.dart';
 import 'package:med_meet_flutter/core/components/date_input.dart';
-import 'package:med_meet_flutter/core/components/my_custom_appbar.dart';
 import 'package:med_meet_flutter/core/helpers/route.dart';
 
 class BookCardDetailsView extends StatelessWidget {
@@ -16,7 +16,9 @@ class BookCardDetailsView extends StatelessWidget {
     final TextEditingController ccvController = TextEditingController();
     final TextEditingController expiryDateController = TextEditingController();
     return Scaffold(
-      appBar: customAppBar(title: "Card Details"),
+      appBar: PreferredSize(
+          preferredSize: Size.fromHeight(70),
+          child: CustomAppBar(title: "Card Details")),
       body: Padding(
         padding: EdgeInsets.all(24),
         child: Column(
