@@ -60,7 +60,7 @@ class BookReviewSummaryView extends StatelessWidget {
                     CustomButton(
                         onPressed: () {
                           Get.until(
-                              (route) => Get.currentRoute == AppRoutes.userApp);
+                              (route) => (Get.currentRoute == AppRoutes.userApp || Get.currentRoute == AppRoutes.doctorApp));
                         },
                         buttonTitle: "Go to Home")
                   ],
