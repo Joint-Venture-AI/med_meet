@@ -3,9 +3,9 @@ import 'package:flutter_rating/flutter_rating.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:med_meet_flutter/core/components/custom_app_bar.dart';
 import 'package:med_meet_flutter/core/components/custom_button.dart';
 import 'package:med_meet_flutter/core/components/custom_text_input.dart';
-import 'package:med_meet_flutter/core/components/my_custom_appbar.dart';
 import 'package:med_meet_flutter/core/constants/image_assets.dart';
 
 class ReviewAppointmentView extends StatelessWidget {
@@ -16,7 +16,9 @@ class ReviewAppointmentView extends StatelessWidget {
     final TextEditingController reviewController = TextEditingController();
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: customAppBar(title: "Review"),
+      appBar: PreferredSize(
+          preferredSize: Size.fromHeight(70),
+          child: CustomAppBar(title: "Review")),
       body: Padding(
         padding: EdgeInsets.symmetric(horizontal: 24.w),
         child: ListView(
