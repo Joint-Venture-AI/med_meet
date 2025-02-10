@@ -13,7 +13,7 @@ class CustomDatePicker extends StatefulWidget {
 
 class _CustomDatePickerState extends State<CustomDatePicker> {
   DateTime currentDate = DateTime.now();
-  DateTime? focusedDate;
+  DateTime _focusedDate = DateTime.now();
 
   @override
   Widget build(BuildContext context) {
@@ -119,37 +119,45 @@ class _CustomDatePickerState extends State<CustomDatePicker> {
             ),
           ),
           TableCalendar(
-            rowHeight: 40,
+            rowHeight: 50,
             firstDay: DateTime(2010),
             lastDay: DateTime(2030),
-            focusedDay: DateTime(2025, 2, 2),
+            focusedDay: _focusedDate,
             headerVisible: false,
             daysOfWeekVisible: false,
-            onDaySelected: (selectedDay, focusedDay) {},
+            selectedDayPredicate: (day) {
+              return isSameDay(_focusedDate, day);
+            },
+            onDaySelected: (selectedDay, focusedDay) {
+              setState(() {
+                _focusedDate = focusedDay;
+              });
+            },
             calendarStyle: CalendarStyle(
-                defaultTextStyle: TextStyle(
-                  fontSize: 14,
-                  color: Color(0xff90A4AE),
-                  fontWeight: FontWeight.w500,
-                ),
-                selectedDecoration: BoxDecoration(
-                  color: Colors.black,
-                  borderRadius: BorderRadius.circular(999),
-                ),
-                weekendTextStyle: TextStyle(
-                  fontSize: 14,
-                  color: Color(0xff90A4AE),
-                  fontWeight: FontWeight.w500,
-                ),
-                selectedTextStyle: TextStyle(
-                  fontSize: 14,
-                  fontWeight: FontWeight.w500,
-                  color: Colors.white,
-                ),
-                todayDecoration: BoxDecoration(
-                  color: Colors.black,
-                  shape: BoxShape.circle,
-                )),
+              defaultTextStyle: TextStyle(
+                fontSize: 14,
+                color: Color(0xff90A4AE),
+                fontWeight: FontWeight.w500,
+              ),
+              selectedDecoration: BoxDecoration(
+                color: Colors.black,
+                borderRadius: BorderRadius.circular(999),
+              ),
+              weekendTextStyle: TextStyle(
+                fontSize: 14,
+                color: Color(0xff90A4AE),
+                fontWeight: FontWeight.w500,
+              ),
+              selectedTextStyle: TextStyle(
+                fontSize: 14,
+                fontWeight: FontWeight.w500,
+                color: Colors.white,
+              ),
+              todayDecoration: BoxDecoration(color: Colors.transparent),
+              todayTextStyle: TextStyle(
+                color: Color(0xff90A4AE),
+              ),
+            ),
             weekendDays: [DateTime.monday, DateTime.sunday],
           ),
         ],
