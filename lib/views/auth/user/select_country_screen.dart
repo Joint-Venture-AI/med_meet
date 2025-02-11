@@ -5,7 +5,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 import 'package:get/get.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:med_meet_flutter/core/constants/svg_assets.dart';
 import 'package:med_meet_flutter/core/helpers/route.dart';
 import 'package:med_meet_flutter/controller/auth_controllers/select_coountry_controller.dart';
@@ -334,7 +333,7 @@ class _SelectCountryScreenState extends State<SelectCountryScreen> {
     ));
   }
 
-  Padding buildCountry({name = "Bangladesh", flag = 'assets/bd_flag.svg'}) {
+  Padding buildCountry({name = "Bangladesh", flag = 'assets/svg/bd_flag.svg'}) {
     final SelectCountryController homeController =
         Get.put(SelectCountryController());
     return Padding(

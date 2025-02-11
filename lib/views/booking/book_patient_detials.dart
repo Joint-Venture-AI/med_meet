@@ -4,6 +4,7 @@ import 'package:med_meet_flutter/core/components/custom_app_bar.dart';
 import 'package:med_meet_flutter/core/components/custom_button.dart';
 import 'package:med_meet_flutter/core/components/custom_drop_down.dart';
 import 'package:med_meet_flutter/core/components/custom_text_input.dart';
+import 'package:med_meet_flutter/core/components/date_input.dart';
 import 'package:med_meet_flutter/core/helpers/route.dart';
 
 class BookPatientDetialsView extends StatelessWidget {
@@ -34,10 +35,11 @@ class BookPatientDetialsView extends StatelessWidget {
             SizedBox(
               height: 10,
             ),
-            CustomTextInput(
-              hintText: "age",
-              textController: ageController,
-              title: "Age",
+            DateInput(
+              dateController: ageController,
+              icon: Icons.calendar_month,
+              hintText: "DD/MM/YY",
+              title: "Birth Date",
             ),
             SizedBox(
               height: 10,
