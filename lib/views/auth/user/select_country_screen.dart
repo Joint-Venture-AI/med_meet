@@ -318,6 +318,9 @@ class _SelectCountryScreenState extends State<SelectCountryScreen> {
                                 },
                                 buttonTitle: "Continue",
                               ),
+                              SizedBox(
+                                height: 50,
+                              ),
                             ],
                           ),
                         ),
