@@ -28,51 +28,28 @@ class ChatScreenView extends StatelessWidget {
                   ),
                 )),
           ),
-          buildSendChat()
+          buildSendChat(),
+          SizedBox(
+            height: 30,
+          )
         ],
       ),
     );
   }
 
-  Container buildSendChat() {
+  Widget buildSendChat() {
     final TextEditingController titleController = TextEditingController();
-    return Container(
-      padding: EdgeInsets.only(
-        left: 20.w,
-        right: 20.w,
-        top: 20.h,
-        bottom: 54.h,
-      ),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(20),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.grey.withAlpha(100),
-            spreadRadius: 1,
-            blurRadius: 7,
-            offset: Offset(3, 0),
-          ),
-        ],
-      ),
-      child: Row(
-        children: [
-          Flexible(
-              child: CustomTextInput(
-            textController: titleController,
-            title: "title",
-            hintText: "Send message",
-            renderTitle: false,
-            endIconButton: GestureDetector(
-              child: Icon(Icons.send),
-              onTap: () {},
-            ),
-          )),
-          IconButton(
-            icon: Transform.rotate(angle: -45, child: Icon(Icons.attachment)),
-            onPressed: () {},
-          )
-        ],
+    return Padding(
+      padding: EdgeInsets.symmetric(horizontal: 24.w, vertical: 10.h),
+      child: CustomTextInput(
+        textController: titleController,
+        title: "title",
+        hintText: "Send message",
+        renderTitle: false,
+        endIconButton: GestureDetector(
+          child: Icon(Icons.send),
+          onTap: () {},
+        ),
       ),
     );
   }

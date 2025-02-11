@@ -9,8 +9,8 @@ import 'package:med_meet_flutter/core/components/review_card.dart';
 import 'package:med_meet_flutter/core/helpers/route.dart';
 import 'package:med_meet_flutter/core/utils/app_typography.dart';
 
-class DoctorsDetailsUserView extends StatelessWidget {
-  const DoctorsDetailsUserView({super.key});
+class DoctorsDetailsForUser extends StatelessWidget {
+  const DoctorsDetailsForUser({super.key});
 
   @override
   Widget build(BuildContext context) {

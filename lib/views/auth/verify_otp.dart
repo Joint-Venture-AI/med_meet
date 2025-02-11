@@ -2,14 +2,27 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:med_meet_flutter/core/components/custom_button.dart';
 import 'package:med_meet_flutter/core/helpers/route.dart';
 import 'package:med_meet_flutter/core/utils/app_typography.dart';
+import 'package:pinput/pinput.dart';
 
 class VerifyOtpView extends StatelessWidget {
   const VerifyOtpView({super.key});
   @override
   Widget build(BuildContext context) {
+    final defaultPinTheme = PinTheme(
+      width: 56,
+      height: 56,
+      textStyle: GoogleFonts.roboto(
+          fontSize: 12, fontWeight: FontWeight.w400, color: Colors.black),
+      decoration: BoxDecoration(
+        border: Border.all(color: Color(0xFFDDDEE0)),
+        borderRadius: BorderRadius.circular(100),
+      ),
+    );
+
     final args = Get.arguments;
     return Scaffold(
         body: Padding(
@@ -33,14 +46,12 @@ class VerifyOtpView extends StatelessWidget {
           SizedBox(
             height: 56,
           ),
-          Row(
+          Pinput(
+            closeKeyboardWhenCompleted: true,
             mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              otpBox(context, 0),
-              otpBox(context, 1),
-              otpBox(context, 2),
-              otpBox(context, 3),
-            ],
+            keyboardType: TextInputType.number,
+            defaultPinTheme: defaultPinTheme,
+            onCompleted: (pin) => print(pin),
           ),
           SizedBox(
             height: 32,
@@ -65,15 +76,15 @@ class VerifyOtpView extends StatelessWidget {
   SizedBox otpBox(context, int index) {
     return SizedBox(
       height: 54,
-      width: 76,
+      width: 54,
       child: TextFormField(
         decoration: InputDecoration(
           border: OutlineInputBorder(),
           enabledBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(24),
+              borderRadius: BorderRadius.circular(100),
               borderSide: BorderSide(color: Theme.of(context).disabledColor)),
           focusedBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(24),
+              borderRadius: BorderRadius.circular(100),
               borderSide: BorderSide(color: Theme.of(context).primaryColor)),
         ),
         textAlign: TextAlign.center,

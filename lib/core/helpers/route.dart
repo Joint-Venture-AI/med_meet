@@ -3,27 +3,29 @@ import 'package:med_meet_flutter/doctor_app.dart';
 import 'package:med_meet_flutter/user_app.dart';
 import 'package:med_meet_flutter/views/appointments/create_prescription.dart';
 import 'package:med_meet_flutter/views/appointments/notes_screen.dart';
-import 'package:med_meet_flutter/views/auth/views/doctor/doctor_details_auth.dart';
-import 'package:med_meet_flutter/views/auth/views/doctor/sign_up.dart';
-import 'package:med_meet_flutter/views/auth/views/doctor/verify_progress_doctor.dart';
-import 'package:med_meet_flutter/views/auth/views/forgot_password.dart';
-import 'package:med_meet_flutter/views/auth/views/new_password.dart';
-import 'package:med_meet_flutter/views/auth/views/select_country_screen.dart';
-import 'package:med_meet_flutter/views/auth/views/sign_in.dart';
-import 'package:med_meet_flutter/views/auth/views/splash_screen.dart';
-import 'package:med_meet_flutter/views/auth/views/user/complete_profile.dart';
-import 'package:med_meet_flutter/views/auth/views/user/sign_up.dart';
-import 'package:med_meet_flutter/views/auth/views/verify_otp.dart';
+import 'package:med_meet_flutter/views/auth/doctor/doctor_details_auth.dart';
+import 'package:med_meet_flutter/views/auth/doctor/sign_up.dart';
+import 'package:med_meet_flutter/views/auth/doctor/verify_progress_doctor.dart';
+import 'package:med_meet_flutter/views/auth/forgot_password.dart';
+import 'package:med_meet_flutter/views/auth/new_password.dart';
+import 'package:med_meet_flutter/views/auth/select_country_screen.dart';
+import 'package:med_meet_flutter/views/auth/sign_in.dart';
+import 'package:med_meet_flutter/views/auth/splash_screen.dart';
+import 'package:med_meet_flutter/views/auth/user/complete_profile.dart';
+import 'package:med_meet_flutter/views/auth/user/sign_up.dart';
+import 'package:med_meet_flutter/views/auth/verify_otp.dart';
+import 'package:med_meet_flutter/views/auth/who_are_you_screen.dart';
 import 'package:med_meet_flutter/views/booking/book_card_details.dart';
 import 'package:med_meet_flutter/views/booking/book_patient_detials.dart';
 import 'package:med_meet_flutter/views/booking/book_review_summary.dart';
 import 'package:med_meet_flutter/views/booking/book_schedule_screen.dart';
+import 'package:med_meet_flutter/views/common/doctor_details_for_doctor.dart';
 import 'package:med_meet_flutter/views/doctor_or_patient.dart';
 import 'package:med_meet_flutter/views/home/doctor/doctor_all_appointment_list.dart';
 import 'package:med_meet_flutter/views/appointments/appointment_details_screen.dart';
 import 'package:med_meet_flutter/views/home/doctor/doctor_home.dart';
 import 'package:med_meet_flutter/views/home/notification.dart';
-import 'package:med_meet_flutter/views/home/user/doctors_details_user.dart';
+import 'package:med_meet_flutter/views/common/doctors_details_for_user.dart';
 import 'package:med_meet_flutter/views/home/doctors_list_user.dart';
 import 'package:med_meet_flutter/views/home/user/home_user.dart';
 import 'package:med_meet_flutter/views/appointments/review_appointment.dart';
@@ -56,6 +58,7 @@ class AppRoutes {
 
   // Auth feature
   static String splashScreen = "/splash_screen";
+  static String whoAreYouScreen = "/who-are-you";
   static String selectCountryScreen = "/select_country_screen";
   static String signIn = "/sign_in";
   static String signUpUser = "/sign_up_user";
@@ -66,6 +69,11 @@ class AppRoutes {
   static String signUpDoctor = "/sign_up_doctor";
   static String doctorDetails = "/doctor_details";
   static String verifyProgressDoctor = "/verify_progress_doctor";
+
+  // common
+
+  static String doctorDetailsForUser = "/doctor_details_user";
+  static String doctorDetailsForDoctor = "/doctor_details_doctor";
   // TEmp
   static String userOrDoctor = "/user_or_doctor";
   // Home User feature
@@ -75,7 +83,6 @@ class AppRoutes {
   static String specialtyUser = "/specialty";
   static String specialtyListUser = "/specialty_lsit";
   static String doctorListUser = "/doctor_list_user";
-  static String doctorDetailsUser = "/doctor_details_user";
 
   // Home Doctor feature
   static String homeDoctor = "/home_doctor";
@@ -123,6 +130,7 @@ class AppRoutes {
 
     // Auth feature
     GetPage(name: splashScreen, page: () => const SplashView()),
+    GetPage(name: whoAreYouScreen, page: () => const WhoAreYouScreen()),
     GetPage(name: selectCountryScreen, page: () => const SelectCountryScreen()),
     GetPage(name: signIn, page: () => const SignInView()),
     GetPage(name: signUpUser, page: () => const SignupUserView()),
@@ -147,7 +155,10 @@ class AppRoutes {
     GetPage(name: specialtyListUser, page: () => const SpecialtyListUserView()),
     GetPage(name: doctorListUser, page: () => const DoctorsListView()),
     GetPage(
-        name: doctorDetailsUser, page: () => const DoctorsDetailsUserView()),
+        name: doctorDetailsForUser, page: () => const DoctorsDetailsForUser()),
+    GetPage(
+        name: doctorDetailsForDoctor,
+        page: () => const DoctorDetailsForDoctor()),
     GetPage(name: userOrDoctor, page: () => const DoctorOrPatient()),
 
     // Home Doctor feature

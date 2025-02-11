@@ -18,7 +18,7 @@ GestureDetector buildSpecialist({title, assetPath}) {
           width: 56.w,
           padding: EdgeInsets.all(15),
           decoration: BoxDecoration(
-              color: AppColors.background2, shape: BoxShape.circle),
+              color: AppColors.background1, shape: BoxShape.circle),
           child: SvgPicture.asset(assetPath),
         ),
         SizedBox(

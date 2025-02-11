@@ -36,6 +36,7 @@ class NewPassView extends StatelessWidget {
               title: "Password",
               hintText: "Password",
               textController: passwordController,
+              isPassword: true,
             ),
             SizedBox(
               height: 32,
@@ -44,6 +45,7 @@ class NewPassView extends StatelessWidget {
               title: "Confirm Password",
               hintText: "Confirm Password",
               textController: confirmPasswordController,
+              isPassword: true,
             ),
             SizedBox(
               height: 32,

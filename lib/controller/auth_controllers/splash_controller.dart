@@ -6,7 +6,9 @@ class SplashController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    Future.delayed(Duration(seconds: 2),
-        () => Get.offAllNamed(AppRoutes.selectCountryScreen));
+    Future.delayed(
+      Duration(seconds: 2),
+      () => Get.offAllNamed(AppRoutes.whoAreYouScreen),
+    );
   }
 }

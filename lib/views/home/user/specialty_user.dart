@@ -16,7 +16,8 @@ class SpecialtyUserView extends StatelessWidget {
       body: Padding(
         padding: EdgeInsets.all(24),
         child: Wrap(
-          spacing: 40.w,
+          runAlignment: WrapAlignment.center,
+          spacing: 38.w,
           runSpacing: 10.h,
           children: [
             buildSpecialist(title: "Dentist", assetPath: SVGAssets.dentist),

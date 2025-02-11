@@ -30,7 +30,9 @@ class DoctorCard extends StatelessWidget {
             ? Get.toNamed(AppRoutes.appointmentDetails, arguments: true)
             : status != null
                 ? Get.toNamed(AppRoutes.appointmentDetails, arguments: false)
-                : Get.toNamed(AppRoutes.doctorDetailsUser);
+                : isDoctorToDoctor
+                    ? Get.toNamed(AppRoutes.doctorDetailsForDoctor)
+                    : Get.toNamed(AppRoutes.doctorDetailsForUser);
       },
       child: Container(
           margin: EdgeInsets.only(bottom: 12),
@@ -89,15 +91,17 @@ class DoctorCard extends StatelessWidget {
                                     SizedBox(
                                       width: 8,
                                     ),
-                                    GestureDetector(
-                                      onTap: () {
-                                        Get.toNamed(AppRoutes.callScreen);
-                                      },
-                                      child: Icon(
-                                        Icons.videocam,
-                                        color: Color(0xFF1E65FF),
-                                      ),
-                                    ),
+                                    isDoctorToDoctor
+                                        ? Container()
+                                        : GestureDetector(
+                                            onTap: () {
+                                              Get.toNamed(AppRoutes.callScreen);
+                                            },
+                                            child: Icon(
+                                              Icons.videocam,
+                                              color: Color(0xFF1E65FF),
+                                            ),
+                                          ),
                                   ],
                                 )
                               : status == null

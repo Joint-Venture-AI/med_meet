@@ -108,9 +108,12 @@ class CustomTextInput extends StatelessWidget {
                               onTap: () {
                                 controller.setPassShown(!controller.passShown);
                               },
-                              child: Icon(controller.passShown
-                                  ? Icons.visibility_off_outlined
-                                  : Icons.visibility)),
+                              child: Icon(
+                                controller.passShown
+                                    ? Icons.visibility_off_outlined
+                                    : Icons.visibility,
+                                color: Color(0xFF545454),
+                              )),
                       ],
                     ),
                   ),

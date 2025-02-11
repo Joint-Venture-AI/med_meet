@@ -17,14 +17,6 @@ class MessageTile extends StatelessWidget {
       child: Container(
         margin: EdgeInsets.only(bottom: 12),
         decoration: BoxDecoration(
-          boxShadow: [
-            BoxShadow(
-              color: Colors.grey.withAlpha(50),
-              spreadRadius: 1,
-              blurRadius: 1,
-              offset: Offset(0, 3),
-            ),
-          ],
           color: Colors.white,
           borderRadius: BorderRadius.circular(10),
         ),

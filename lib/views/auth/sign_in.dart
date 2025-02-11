@@ -99,29 +99,6 @@ class SignInView extends StatelessWidget {
                 SizedBox(
                   height: 24.h,
                 ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      "Are you a doctor looking to join us?",
-                      style: AppTypography.bodyText2,
-                    ),
-                    SizedBox(
-                      width: 3,
-                    ),
-                    GestureDetector(
-                        onTap: () {
-                          Get.toNamed(AppRoutes.signUpDoctor);
-                        },
-                        child: Text(
-                          "Sign up now",
-                          style: GoogleFonts.roboto(
-                              fontWeight: FontWeight.w600,
-                              fontSize: 14,
-                              color: Color(0xFF333333)),
-                        )),
-                  ],
-                ),
               ],
             ),
           ),
