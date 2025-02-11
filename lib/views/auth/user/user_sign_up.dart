@@ -77,8 +77,8 @@ class SignupUserView extends StatelessWidget {
                     ),
                     CustomButton(
                         onPressed: () {
-                          Get.toNamed(AppRoutes.verifOtp,
-                              arguments: OTPTYPE.user);
+                          Get.toNamed(AppRoutes.userVerifOtp,
+                              arguments: OTPTYPE.userSignUp);
                         },
                         buttonTitle: "Sign Up"),
                     SizedBox(
@@ -96,7 +96,7 @@ class SignupUserView extends StatelessWidget {
                         ),
                         GestureDetector(
                             onTap: () {
-                              Get.toNamed(AppRoutes.signIn);
+                              Get.toNamed(AppRoutes.userSignIn);
                             },
                             child: Text(
                               "Sign In",

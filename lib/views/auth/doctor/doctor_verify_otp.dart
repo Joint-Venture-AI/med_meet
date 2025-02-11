@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:med_meet_flutter/core/components/custom_button.dart';
@@ -8,8 +6,9 @@ import 'package:med_meet_flutter/core/helpers/route.dart';
 import 'package:med_meet_flutter/core/utils/app_typography.dart';
 import 'package:pinput/pinput.dart';
 
-class VerifyOtpView extends StatelessWidget {
-  const VerifyOtpView({super.key});
+class DoctorVerifyOtp extends StatelessWidget {
+  const DoctorVerifyOtp({super.key});
+
   @override
   Widget build(BuildContext context) {
     final defaultPinTheme = PinTheme(
@@ -58,47 +57,16 @@ class VerifyOtpView extends StatelessWidget {
           ),
           CustomButton(
               onPressed: () {
-                if (args == OTPTYPE.forgetPass) {
-                  Get.toNamed(AppRoutes.newPassword);
+                if (args == OTPTYPE.doctorForgetPass) {
+                  Get.toNamed(AppRoutes.doctorNewPass);
                 }
-                if (args == OTPTYPE.user) {
-                  Get.offAllNamed(AppRoutes.signIn);
-                } else if (args == OTPTYPE.doctor) {
-                  Get.toNamed(AppRoutes.verifyProgressDoctor);
+                if (args == OTPTYPE.doctorSignup) {
+                  Get.offAllNamed(AppRoutes.verifyProgressDoctor);
                 }
               },
               buttonTitle: "Verify OTP")
         ],
       ),
     ));
-  }
-
-  SizedBox otpBox(context, int index) {
-    return SizedBox(
-      height: 54,
-      width: 54,
-      child: TextFormField(
-        decoration: InputDecoration(
-          border: OutlineInputBorder(),
-          enabledBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(100),
-              borderSide: BorderSide(color: Theme.of(context).disabledColor)),
-          focusedBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(100),
-              borderSide: BorderSide(color: Theme.of(context).primaryColor)),
-        ),
-        textAlign: TextAlign.center,
-        keyboardType: TextInputType.number,
-        inputFormatters: [
-          LengthLimitingTextInputFormatter(1),
-          FilteringTextInputFormatter.digitsOnly
-        ],
-        onChanged: (value) {
-          if (value.length == 1) {
-            FocusScope.of(context).nextFocus();
-          }
-        },
-      ),
-    );
   }
 }

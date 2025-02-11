@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
 import 'package:get/get.dart';
 import 'package:med_meet_flutter/core/components/custom_button.dart';
 import 'package:med_meet_flutter/core/components/custom_text_input.dart';
 import 'package:med_meet_flutter/core/helpers/route.dart';
 import 'package:med_meet_flutter/core/utils/app_typography.dart';
 
-class ForgotPassView extends StatelessWidget {
-  const ForgotPassView({super.key});
+class DoctorForgetPass extends StatelessWidget {
+  const DoctorForgetPass({super.key});
+
   @override
   Widget build(BuildContext context) {
     final emailController = TextEditingController();
@@ -45,8 +45,8 @@ class ForgotPassView extends StatelessWidget {
             ),
             CustomButton(
                 onPressed: () {
-                  Get.toNamed(AppRoutes.verifOtp,
-                      arguments: OTPTYPE.forgetPass);
+                  Get.toNamed(AppRoutes.doctorVerifyOTP,
+                      arguments: OTPTYPE.doctorForgetPass);
                 },
                 buttonTitle: "Send Reset"),
           ],

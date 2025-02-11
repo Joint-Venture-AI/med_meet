@@ -49,7 +49,7 @@ class VerifyProgressDoctorView extends StatelessWidget {
                 ),
                 CustomButton(
                     onPressed: () {
-                      Get.offAllNamed(AppRoutes.signIn);
+                      Get.offAllNamed(AppRoutes.doctorSignIn);
                     },
                     buttonTitle: "Back to Sign In")
               ],

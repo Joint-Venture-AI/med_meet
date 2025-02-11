@@ -49,7 +49,7 @@ class WhoAreYouScreen extends StatelessWidget {
             ),
             CustomButton(
               onPressed: () {
-                Get.toNamed(AppRoutes.signIn);
+                Get.toNamed(AppRoutes.doctorSignIn);
               },
               buttonTitle: "Doctor",
               isSecondary: true,

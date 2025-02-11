@@ -182,7 +182,7 @@ class SelectCountryScreen extends StatelessWidget {
           CustomButton(
             buttonTitle: "Continue",
             onPressed: () {
-              Get.toNamed(AppRoutes.signIn);
+              Get.toNamed(AppRoutes.userSignIn);
             },
           ),
         ],

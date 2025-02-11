@@ -8,8 +8,8 @@ import 'package:med_meet_flutter/core/components/custom_text_input.dart';
 import 'package:med_meet_flutter/core/helpers/route.dart';
 import 'package:med_meet_flutter/core/utils/app_typography.dart';
 
-class SignInView extends StatelessWidget {
-  const SignInView({super.key});
+class UserSignIn extends StatelessWidget {
+  const UserSignIn({super.key});
   @override
   Widget build(BuildContext context) {
     final TextEditingController emailController = TextEditingController();
@@ -54,7 +54,7 @@ class SignInView extends StatelessWidget {
                   children: [
                     TextButton(
                         onPressed: () {
-                          Get.toNamed(AppRoutes.forgetPass);
+                          Get.toNamed(AppRoutes.userForgetPass);
                         },
                         child: Text(
                           "Forgot Password",
@@ -67,7 +67,7 @@ class SignInView extends StatelessWidget {
                 ),
                 CustomButton(
                     onPressed: () {
-                      Get.offAllNamed(AppRoutes.userOrDoctor);
+                      Get.offAllNamed(AppRoutes.userApp);
                     },
                     buttonTitle: "Sign In"),
                 SizedBox(

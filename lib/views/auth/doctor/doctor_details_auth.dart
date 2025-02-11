@@ -186,7 +186,8 @@ class DoctorDetailsAuthView extends StatelessWidget {
               ),
               CustomButton(
                   onPressed: () {
-                    Get.toNamed(AppRoutes.verifOtp, arguments: OTPTYPE.doctor);
+                    Get.toNamed(AppRoutes.doctorVerifyOTP,
+                        arguments: OTPTYPE.doctorSignup);
                   },
                   buttonTitle: "Continue")
             ],

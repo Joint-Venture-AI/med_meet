@@ -4,16 +4,20 @@ import 'package:med_meet_flutter/user_app.dart';
 import 'package:med_meet_flutter/views/appointments/create_prescription.dart';
 import 'package:med_meet_flutter/views/appointments/notes_screen.dart';
 import 'package:med_meet_flutter/views/auth/doctor/doctor_details_auth.dart';
-import 'package:med_meet_flutter/views/auth/doctor/sign_up.dart';
+import 'package:med_meet_flutter/views/auth/doctor/doctor_forget_pass.dart';
+import 'package:med_meet_flutter/views/auth/doctor/doctor_new_pass.dart';
+import 'package:med_meet_flutter/views/auth/doctor/doctor_sign_in.dart';
+import 'package:med_meet_flutter/views/auth/doctor/doctor_sign_up.dart';
+import 'package:med_meet_flutter/views/auth/doctor/doctor_verify_otp.dart';
 import 'package:med_meet_flutter/views/auth/doctor/verify_progress_doctor.dart';
-import 'package:med_meet_flutter/views/auth/forgot_password.dart';
-import 'package:med_meet_flutter/views/auth/new_password.dart';
-import 'package:med_meet_flutter/views/auth/select_country_screen.dart';
-import 'package:med_meet_flutter/views/auth/sign_in.dart';
+import 'package:med_meet_flutter/views/auth/user/user_forgot_password.dart';
+import 'package:med_meet_flutter/views/auth/user/user_new_password.dart';
+import 'package:med_meet_flutter/views/auth/user/select_country_screen.dart';
+import 'package:med_meet_flutter/views/auth/user/user_sign_in.dart';
 import 'package:med_meet_flutter/views/auth/splash_screen.dart';
 import 'package:med_meet_flutter/views/auth/user/complete_profile.dart';
-import 'package:med_meet_flutter/views/auth/user/sign_up.dart';
-import 'package:med_meet_flutter/views/auth/verify_otp.dart';
+import 'package:med_meet_flutter/views/auth/user/user_sign_up.dart';
+import 'package:med_meet_flutter/views/auth/user/user_verify_otp.dart';
 import 'package:med_meet_flutter/views/auth/who_are_you_screen.dart';
 import 'package:med_meet_flutter/views/booking/book_card_details.dart';
 import 'package:med_meet_flutter/views/booking/book_patient_detials.dart';
@@ -52,25 +56,32 @@ import 'package:med_meet_flutter/views/profile/user/medical_records.dart';
 import 'package:med_meet_flutter/views/profile/user/prescription_list.dart';
 import 'package:med_meet_flutter/views/profile/user/prescription.dart';
 
-enum OTPTYPE { doctor, forgetPass, user }
+enum OTPTYPE { userSignUp, userForgetPass, doctorSignup, doctorForgetPass }
 
 class AppRoutes {
   static String userApp = '/user_app';
   static String doctorApp = '/doctor_app';
 
   // Auth feature
-  static String splashScreen = "/splash_screen";
-  static String whoAreYouScreen = "/who-are-you";
+  // User
+  static String userSignIn = "/user_sign_in";
   static String selectCountryScreen = "/select_country_screen";
-  static String signIn = "/sign_in";
   static String signUpUser = "/sign_up_user";
-  static String verifOtp = "/verify_otp";
-  static String forgetPass = "/forget_pass";
-  static String newPassword = "/new_password";
+  static String userVerifOtp = "/user_verify_otp";
+  static String userForgetPass = "/user_forget_pass";
+  static String userNewPassword = "/user_new_password";
   static String completeProfile = "/complete_profile";
+  // Doctor
+  static String doctorSignIn = "/doctor_sign_in";
   static String signUpDoctor = "/sign_up_doctor";
   static String doctorDetails = "/doctor_details";
   static String verifyProgressDoctor = "/verify_progress_doctor";
+  static String doctorForgetpass = "/doctor_forget_pass";
+  static String doctorVerifyOTP = "/doctor_verify_otp";
+  static String doctorNewPass = "/doctor_new_ass";
+  // Common
+  static String whoAreYouScreen = "/who-are-you";
+  static String splashScreen = "/splash_screen";
 
   // common
 
@@ -133,17 +144,29 @@ class AppRoutes {
     GetPage(name: doctorApp, page: () => const Doctorapp()),
 
     // Auth feature
-    GetPage(name: splashScreen, page: () => const SplashView()),
-    GetPage(name: whoAreYouScreen, page: () => const WhoAreYouScreen()),
+
+    // user
     GetPage(name: selectCountryScreen, page: () => const SelectCountryScreen()),
-    GetPage(name: signIn, page: () => const SignInView()),
+    GetPage(name: userSignIn, page: () => const UserSignIn()),
     GetPage(name: signUpUser, page: () => const SignupUserView()),
-    GetPage(name: verifOtp, page: () => const VerifyOtpView()),
-    GetPage(name: forgetPass, page: () => const ForgotPassView()),
-    GetPage(name: newPassword, page: () => const NewPassView()),
+    GetPage(name: userVerifOtp, page: () => const UserVerifyOtpView()),
+    GetPage(name: userForgetPass, page: () => const UserForgotPassView()),
+    GetPage(name: userNewPassword, page: () => const UserNewPassView()),
     GetPage(name: completeProfile, page: () => const CompletePRofileView()),
+
+    // doctor
+
+    GetPage(name: doctorSignIn, page: () => const DoctorSignIn()),
     GetPage(name: signUpDoctor, page: () => const SingupDoctorView()),
     GetPage(name: doctorDetails, page: () => const DoctorDetailsAuthView()),
+    GetPage(name: doctorForgetpass, page: () => const DoctorForgetPass()),
+    GetPage(name: doctorVerifyOTP, page: () => const DoctorVerifyOtp()),
+    GetPage(name: doctorNewPass, page: () => const DoctorNewPass()),
+
+    // common
+
+    GetPage(name: splashScreen, page: () => const SplashView()),
+    GetPage(name: whoAreYouScreen, page: () => const WhoAreYouScreen()),
     GetPage(
         name: verifyProgressDoctor,
         page: () => const VerifyProgressDoctorView()),

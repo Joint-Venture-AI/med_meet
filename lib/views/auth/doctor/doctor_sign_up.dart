@@ -103,7 +103,7 @@ class SingupDoctorView extends StatelessWidget {
                       ),
                       GestureDetector(
                           onTap: () {
-                            Get.toNamed(AppRoutes.signIn);
+                            Get.toNamed(AppRoutes.doctorSignIn);
                           },
                           child: Text(
                             "Sign In",

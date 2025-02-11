@@ -133,7 +133,7 @@ class CompletePRofileView extends StatelessWidget {
                 ),
                 CustomButton(
                     onPressed: () {
-                      Get.toNamed(AppRoutes.signIn);
+                      Get.toNamed(AppRoutes.userSignIn);
                     },
                     buttonTitle: "Complete Profile")
               ],
