@@ -13,7 +13,7 @@ class ChatScreenView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: PreferredSize(
-          preferredSize: Size.fromHeight(40),
+          preferredSize: Size.fromHeight(60),
           child: CustomAppBar(title: "Jene Cooper")),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
