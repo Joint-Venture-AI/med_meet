@@ -195,7 +195,7 @@ class UserProfileView extends StatelessWidget {
                                         Expanded(
                                           child: CustomButton(
                                             onPressed: () {
-                                              Get.back();
+                                              Get.offAllNamed(AppRoutes.splashScreen);
                                             },
                                             buttonTitle: "Yes, Logout",
                                             height: 48,

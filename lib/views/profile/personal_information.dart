@@ -65,55 +65,57 @@ class _PersonalInformationState extends State<PersonalInformation> {
                     left: 0,
                     right: 0,
                     top: 0,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        CustomAppBar(
-                          title: "Profile",
-                          isDark: isEditing,
-                        ),
-                        const SizedBox(
-                          height: 36,
-                        ),
-                        ClipOval(
-                          child: Stack(
-                            alignment: Alignment.center,
-                            children: [
-                              Image.asset(
-                                "assets/images/profile_pic.jfif",
-                                fit: BoxFit.cover,
-                                height: 120,
-                                width: 120,
-                              ),
-                              if (isEditing)
-                                Container(
+                    child: SafeArea(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          CustomAppBar(
+                            title: "Profile",
+                            isDark: isEditing,
+                          ),
+                          const SizedBox(
+                            height: 36,
+                          ),
+                          ClipOval(
+                            child: Stack(
+                              alignment: Alignment.center,
+                              children: [
+                                Image.asset(
+                                  "assets/images/profile_pic.jfif",
+                                  fit: BoxFit.cover,
                                   height: 120,
                                   width: 120,
-                                  color: Colors.black
-                                      .withAlpha((255 * 0.30).toInt()),
                                 ),
-                              if (isEditing)
-                                svgViewer(
-                                  asset: "assets/svg/camera.svg",
-                                  height: 32,
-                                ),
-                            ],
+                                if (isEditing)
+                                  Container(
+                                    height: 120,
+                                    width: 120,
+                                    color: Colors.black
+                                        .withAlpha((255 * 0.30).toInt()),
+                                  ),
+                                if (isEditing)
+                                  svgViewer(
+                                    asset: "assets/svg/camera.svg",
+                                    height: 32,
+                                  ),
+                              ],
+                            ),
                           ),
-                        ),
-                        const SizedBox(
-                          height: 16,
-                        ),
-                        Text(
-                          isEditing
-                              ? "Change your profile picture"
-                              : "Andrew Ainsley",
-                          style: TextStyle(
-                            fontSize: isEditing ? 14 : 18,
-                            fontWeight: FontWeight.w400,
-                            color: isEditing ? Color(0xff333333) : Colors.white,
+                          const SizedBox(
+                            height: 16,
                           ),
-                        ),
-                      ],
+                          Text(
+                            isEditing
+                                ? "Change your profile picture"
+                                : "Andrew Ainsley",
+                            style: TextStyle(
+                              fontSize: isEditing ? 14 : 18,
+                              fontWeight: FontWeight.w400,
+                              color: isEditing ? Color(0xff333333) : Colors.white,
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 ],

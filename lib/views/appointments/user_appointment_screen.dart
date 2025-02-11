@@ -8,21 +8,27 @@ class UserAppointmentScreenView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: PreferredSize(
-          preferredSize: Size.fromHeight(60),
-          child: CustomAppBar(title: "Appointments")),
-      body: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 24),
-        child: ListView(
+      body: SafeArea(
+        child: Column(
           children: [
-            SizedBox(
-              height: 24,
+            CustomAppBar(
+              title: "Appointments",
+              hasLeading: false,
             ),
-            DoctorCard(
-              status: AppointmentStatus.upcomming,
-            ),
-            DoctorCard(
-              status: AppointmentStatus.completed,
+            Expanded(
+              child: Padding(
+                padding: EdgeInsets.symmetric(horizontal: 24),
+                child: ListView(
+                  children: [
+                    DoctorCard(
+                      status: AppointmentStatus.upcomming,
+                    ),
+                    DoctorCard(
+                      status: AppointmentStatus.completed,
+                    ),
+                  ],
+                ),
+              ),
             ),
           ],
         ),
