@@ -18,6 +18,11 @@ class UserProfileView extends StatelessWidget {
         link: AppRoutes.personalInformation,
       ),
       Options(
+        name: "Prescriptions",
+        icon: "assets/svg/medical_records.svg",
+        link: AppRoutes.prescriptionList,
+      ),
+      Options(
         name: "Medical Records",
         icon: "assets/svg/medical_records.svg",
         link: AppRoutes.medicalRecords,

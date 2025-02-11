@@ -10,12 +10,14 @@ class CustomButton extends StatelessWidget {
     required this.buttonTitle,
     this.width,
     this.height,
+    this.textSize,
     this.isSecondary = false,
   });
   final VoidCallback onPressed;
   final String buttonTitle;
   final double? width;
   final double? height;
+  final double? textSize;
   final bool isSecondary;
 
   @override
@@ -26,7 +28,8 @@ class CustomButton extends StatelessWidget {
       child: ElevatedButton(
           onPressed: onPressed,
           style: ElevatedButton.styleFrom(
-              backgroundColor: isSecondary ? Colors.transparent : AppColors.button1,
+              backgroundColor:
+                  isSecondary ? Colors.transparent : AppColors.button1,
               shadowColor: Colors.transparent,
               side: BorderSide(
                 color: Color(0xffDDDEE0),
@@ -36,10 +39,12 @@ class CustomButton extends StatelessWidget {
             style: isSecondary
                 ? AppTypography.bodyText3white.copyWith(
                     color: Color(0xff8A8A8A),
-                    fontSize: 18,
+                    fontSize: textSize ?? 18,
                     fontWeight: FontWeight.w400,
                   )
-                : AppTypography.bodyText3white,
+                : AppTypography.bodyText3white.copyWith(
+                    fontSize: textSize,
+                  ),
           )),
     );
   }
