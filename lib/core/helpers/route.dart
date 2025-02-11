@@ -47,7 +47,9 @@ import 'package:med_meet_flutter/views/profile/personal_information.dart';
 import 'package:med_meet_flutter/views/profile/privacy_policy.dart';
 import 'package:med_meet_flutter/views/profile/settings.dart';
 import 'package:med_meet_flutter/views/profile/terms_of_services.dart';
+import 'package:med_meet_flutter/views/profile/user/add_medical_records.dart';
 import 'package:med_meet_flutter/views/profile/user/medical_records.dart';
+import 'package:med_meet_flutter/views/profile/user/prescription_list.dart';
 import 'package:med_meet_flutter/views/profile/user/prescription.dart';
 
 enum OTPTYPE { doctor, forgetPass, user }
@@ -109,8 +111,10 @@ class AppRoutes {
 
   // Profile
   static String personalInformation = '/personal_information';
-  static String medicalRecords = '/medical_records';
+  static String prescriptionList = '/prescription_list';
   static String prescription = '/prescription';
+  static String medicalRecords = '/medical_records';
+  static String addMedicalRecords = '/add_medical_records';
 
   static String doctorDetailsProfile = '/doctor_details_profile';
   static String doctorReviewsProfile = '/doctor_reviews_profile';
@@ -202,8 +206,10 @@ class AppRoutes {
     GetPage(name: doctorEarnings, page: () => DoctorEarnings()),
     GetPage(name: doctorSchedule, page: () => DoctorSchedule()),
     GetPage(name: doctorReviewsProfile, page: () => DoctorReviewProfile()),
-    GetPage(name: medicalRecords, page: () => MedicalRecords()),
+    GetPage(name: prescriptionList, page: () => PrescriptionList()),
     GetPage(name: prescription, page: () => Prescription()),
+    GetPage(name: medicalRecords, page: () => MedicalRecords()),
+    GetPage(name: addMedicalRecords, page: () => AddMedicalRecords()),
     GetPage(name: settings, page: () => const Settings()),
     GetPage(name: changePassword, page: () => const ChangePassword()),
     GetPage(name: privaryPolicy, page: () => const PrivacyPolicy()),

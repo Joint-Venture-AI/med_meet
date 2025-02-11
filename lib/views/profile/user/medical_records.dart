@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:med_meet_flutter/core/components/custom_app_bar.dart';
+import 'package:med_meet_flutter/core/components/custom_button.dart';
 import 'package:med_meet_flutter/core/helpers/route.dart';
-import 'package:med_meet_flutter/core/utils/uitls.dart';
 
 class MedicalRecords extends StatelessWidget {
   const MedicalRecords({super.key});
@@ -11,169 +11,222 @@ class MedicalRecords extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(
-            horizontal: 24,
-          ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              CustomAppBar(
-                title: "Medical Records",
-                hasPadding: false,
-              ),
-              const SizedBox(
-                height: 32,
-              ),
-              Text(
-                "Doctors Prescription",
-                style: TextStyle(
-                  fontSize: 18,
-                  color: Color(0xff333333),
-                ),
-              ),
-              Text(
-                "15 May 2024 5:00 pm",
-                style: TextStyle(
-                  fontSize: 14,
-                  color: Color(0xff545454),
-                ),
-              ),
-              const SizedBox(
-                height: 20,
-              ),
-              Container(
-                padding: EdgeInsets.symmetric(
-                  horizontal: 8,
-                  vertical: 16.5,
-                ),
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(8),
-                  border: Border.all(color: Color(0xffDDDEE0), width: 0.5),
-                  boxShadow: [
-                    BoxShadow(
-                      offset: Offset(2, 4),
-                      blurRadius: 32,
-                      color: Colors.black.withAlpha((255 * 0.06).toInt()),
-                    ),
-                  ],
-                ),
-                child: Column(
-                  children: [
-                    Row(
-                      children: [
-                        ClipRRect(
-                          borderRadius: BorderRadius.circular(
-                            8,
-                          ),
-                          child: Image.asset(
-                            "assets/images/doctor.png",
-                            height: 98,
-                            width: 82,
-                            fit: BoxFit.cover,
-                          ),
+        child: Column(
+          children: [
+            CustomAppBar(title: "Medical Records"),
+            Expanded(
+              child: SingleChildScrollView(
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 24,
+                  ),
+                  child: Column(
+                    children: [
+                      const SizedBox(
+                        height: 12,
+                      ),
+                      Text(
+                        "Upload and manage your previous medical history in PDF format.",
+                        style: TextStyle(
+                          fontSize: 18,
+                          color: Color(0xff333333),
                         ),
-                        const SizedBox(
-                          width: 14,
-                        ),
-                        Expanded(
-                          child: Column(
-                            children: [
-                              Row(
-                                children: [
-                                  Text(
-                                    "Dr. Pelican Steve",
-                                    style: TextStyle(
-                                      fontSize: 18,
-                                      color: Color(0xff333333),
-                                    ),
-                                  ),
-                                  const Spacer(),
-                                  svgViewer(
-                                    asset: "assets/svg/reviews.svg",
-                                    height: 16,
-                                    width: 16,
-                                    color: Color(
-                                      0xffFFCC00,
-                                    ),
-                                  ),
-                                  Text(
-                                    " 4.5",
-                                    style: TextStyle(
-                                      fontSize: 12,
-                                      fontWeight: FontWeight.w600,
-                                      color: Color(0xff333333),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                              ...[
-                                ["Specialist :", "Skin & VD"],
-                                ["Consultation Date :", "15 May 2024"],
-                                ["Online Consultation :", "\$20"],
-                              ].map(
-                                (e) {
-                                  return Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Text(
-                                        e[0],
-                                        style: TextStyle(
-                                          fontSize: 14,
-                                          color: Color(0xff5C5C5C),
-                                        ),
-                                      ),
-                                      Text(
-                                        e[1],
-                                        style: TextStyle(
-                                          fontSize: 14,
-                                          color: Color(0xff545454),
-                                        ),
-                                      ),
-                                    ],
-                                  );
-                                },
-                              ),
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    Row(
-                      children: [
-                        Text(
-                          "Prescription",
-                          style: TextStyle(
-                            fontSize: 18,
-                            color: Color(0xff333333),
-                          ),
-                        ),
-                        const Spacer(),
-                        GestureDetector(
-                          onTap: () {
-                            Get.toNamed(AppRoutes.prescription);
-                          },
-                          behavior: HitTestBehavior.translucent,
-                          child: Text(
-                            "Click Here",
+                      ),
+                      const SizedBox(
+                        height: 32,
+                      ),
+                      Row(
+                        children: [
+                          Text(
+                            "Your Records",
                             style: TextStyle(
                               fontSize: 18,
                               color: Color(0xff333333),
                             ),
                           ),
+                          const Spacer(),
+                          GestureDetector(
+                            onTap: () {
+                              Get.toNamed(AppRoutes.addMedicalRecords);
+                            },
+                            behavior: HitTestBehavior.translucent,
+                            child: Row(
+                              children: [
+                                Icon(
+                                  Icons.add,
+                                  color: Color(0xff1E65FF),
+                                ),
+                                Text(
+                                  "Add",
+                                  style: TextStyle(
+                                    fontSize: 18,
+                                    decoration: TextDecoration.underline,
+                                    color: Color(
+                                      0xff1E65FF,
+                                    ),
+                                    decorationColor: Color(
+                                      0xff1E65FF,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                      for (int i = 0; i < 10; i++) medicalRecord(),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Padding medicalRecord() {
+    return Padding(
+      padding: const EdgeInsets.only(
+        top: 20,
+      ),
+      child: Container(
+        padding: EdgeInsets.symmetric(
+          horizontal: 16,
+          vertical: 12,
+        ),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(8),
+          boxShadow: [
+            BoxShadow(
+              offset: Offset(4, 4),
+              blurRadius: 30,
+              color: Colors.black.withAlpha(
+                (255 * 0.16).toInt(),
+              ),
+            )
+          ],
+        ),
+        child: Column(
+          children: [
+            Row(
+              children: [
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(8),
+                  child: Image.asset(
+                    "assets/images/user-photo.png",
+                    height: 72,
+                    width: 72,
+                  ),
+                ),
+                const SizedBox(
+                  width: 12,
+                ),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  spacing: 8,
+                  children: [
+                    Text(
+                      "Name",
+                      style: TextStyle(
+                        color: Color(
+                          0xff5C5C5C,
                         ),
-                      ],
+                      ),
+                    ),
+                    Text(
+                      "Age",
+                      style: TextStyle(
+                        color: Color(
+                          0xff5C5C5C,
+                        ),
+                      ),
+                    ),
+                    Text(
+                      "Gender",
+                      style: TextStyle(
+                        color: Color(
+                          0xff5C5C5C,
+                        ),
+                      ),
                     ),
                   ],
                 ),
-              ),
-            ],
-          ),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  spacing: 8,
+                  children: [
+                    Text(
+                      ":",
+                      style: TextStyle(
+                        color: Color(
+                          0xff5C5C5C,
+                        ),
+                      ),
+                    ),
+                    Text(
+                      ":",
+                      style: TextStyle(
+                        color: Color(
+                          0xff5C5C5C,
+                        ),
+                      ),
+                    ),
+                    Text(
+                      ":",
+                      style: TextStyle(
+                        color: Color(
+                          0xff5C5C5C,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+                const Spacer(),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  spacing: 8,
+                  children: [
+                    Text(
+                      "Andrew anisley",
+                      style: TextStyle(
+                        color: Color(
+                          0xff5C5C5C,
+                        ),
+                      ),
+                    ),
+                    Text(
+                      "15 May 2024",
+                      style: TextStyle(
+                        color: Color(
+                          0xff5C5C5C,
+                        ),
+                      ),
+                    ),
+                    Text(
+                      "\$20",
+                      style: TextStyle(
+                        color: Color(
+                          0xff5C5C5C,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+            const SizedBox(
+              height: 16,
+            ),
+            CustomButton(
+              onPressed: () {},
+              buttonTitle: "See Details",
+              height: 36,
+              textSize: 14,
+            ),
+          ],
         ),
       ),
     );
