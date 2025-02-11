@@ -104,7 +104,7 @@ class MedicalRecords extends StatelessWidget {
               offset: Offset(4, 4),
               blurRadius: 30,
               color: Colors.black.withAlpha(
-                (255 * 0.16).toInt(),
+                (255 * 0.08).toInt(),
               ),
             )
           ],

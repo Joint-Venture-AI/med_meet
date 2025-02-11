@@ -61,7 +61,7 @@ class SplashView extends StatelessWidget {
                 child: Column(
                   children: [
                     Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 35.w),
+                      padding: EdgeInsets.symmetric(horizontal: 35),
                       child: Text(
                         "Consult Doctors Anytime, Anywhere!",
                         style: AppTypography.splashStyle,

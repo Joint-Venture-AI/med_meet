@@ -18,14 +18,24 @@ class UserAppointmentScreenView extends StatelessWidget {
         padding: EdgeInsets.symmetric(horizontal: 24),
         child: ListView(
           children: [
-            SizedBox(
-              height: 24,
+            CustomAppBar(
+              title: "Appointments",
+              hasLeading: false,
             ),
-            DoctorCard(
-              status: AppointmentStatus.upcomming,
-            ),
-            DoctorCard(
-              status: AppointmentStatus.completed,
+            Expanded(
+              child: Padding(
+                padding: EdgeInsets.symmetric(horizontal: 24),
+                child: ListView(
+                  children: [
+                    DoctorCard(
+                      status: AppointmentStatus.upcomming,
+                    ),
+                    DoctorCard(
+                      status: AppointmentStatus.completed,
+                    ),
+                  ],
+                ),
+              ),
             ),
           ],
         ),
