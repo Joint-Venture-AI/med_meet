@@ -18,6 +18,7 @@ void main() {
       minTextAdapt: true,
       builder: (_, child) {
         return GetMaterialApp(
+          debugShowCheckedModeBanner: false,
           theme: ThemeData(
             scaffoldBackgroundColor: AppColors.scaffoldBackgroundColor,
           ),

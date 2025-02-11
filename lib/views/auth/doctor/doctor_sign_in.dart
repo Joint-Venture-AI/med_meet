@@ -37,7 +37,7 @@ class DoctorSignIn extends StatelessWidget {
                   height: 56,
                 ),
                 CustomTextInput(
-                  title: "Email",
+                  title: "Email/Doctor ID",
                   hintText: "example@gmail.com",
                   textController: emailController,
                 ),

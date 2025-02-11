@@ -3,8 +3,15 @@ import 'package:get/get.dart';
 import 'package:med_meet_flutter/core/components/custom_app_bar.dart';
 import 'package:med_meet_flutter/core/components/custom_button.dart';
 
-class NotesScreenView extends StatelessWidget {
+class NotesScreenView extends StatefulWidget {
   const NotesScreenView({super.key});
+
+  @override
+  State<NotesScreenView> createState() => _NotesScreenViewState();
+}
+
+class _NotesScreenViewState extends State<NotesScreenView> {
+  var _isPublic = true;
 
   @override
   Widget build(BuildContext context) {
@@ -15,21 +22,40 @@ class NotesScreenView extends StatelessWidget {
       ),
       body: Padding(
         padding: EdgeInsets.all(20),
-        child: Stack(
+        child: Column(
           children: [
-            TextField(
-              expands: true,
-              maxLines: null,
-              decoration: InputDecoration(
-                  hintText: "Note something down", border: InputBorder.none),
+            RadioListTile(
+                title: Text("Public"),
+                value: true,
+                groupValue: _isPublic,
+                controlAffinity: ListTileControlAffinity.trailing,
+                onChanged: (value) {
+                  setState(() {
+                    _isPublic = value!;
+                  });
+                }),
+            RadioListTile(
+                title: Text("Privade"),
+                value: false,
+                groupValue: _isPublic,
+                controlAffinity: ListTileControlAffinity.trailing,
+                onChanged: (value) {
+                  setState(() {
+                    _isPublic = value!;
+                  });
+                }),
+            Expanded(
+              child: TextField(
+                decoration: InputDecoration(
+                    hintText: "Note something down.....",
+                    border: InputBorder.none),
+              ),
             ),
-            Positioned(
-                bottom: 20,
-                child: CustomButton(
-                    onPressed: () {
-                      Get.back();
-                    },
-                    buttonTitle: "Save"))
+            CustomButton(
+                onPressed: () {
+                  Get.back();
+                },
+                buttonTitle: "Save"),
           ],
         ),
       ),

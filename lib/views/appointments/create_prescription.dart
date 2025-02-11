@@ -12,6 +12,7 @@ import 'package:med_meet_flutter/core/helpers/route.dart';
 import 'package:med_meet_flutter/core/utils/app_colors.dart';
 import 'package:med_meet_flutter/models/appointmnets/medication_details_model.dart';
 import 'package:med_meet_flutter/views/appointments/submit_prescription.dart';
+import 'package:med_meet_flutter/views/appointments/user_records.dart';
 
 class CreatePrescriptionView extends StatefulWidget {
   const CreatePrescriptionView({super.key});
@@ -32,109 +33,6 @@ class _CreatePrescriptionViewState extends State<CreatePrescriptionView> {
   // modal to create medicines
   final List<MedicationDetailsModel> medicines = [];
 
-  void addMedicine() {
-    showModalBottomSheet<void>(
-      context: context,
-      builder: (BuildContext context) {
-        return Padding(
-          padding: EdgeInsets.only(
-            bottom: MediaQuery.of(context).viewInsets.bottom,
-          ),
-          child: Center(
-              child: Padding(
-            padding: EdgeInsets.symmetric(horizontal: 24),
-            child: Column(
-              children: [
-                Container(
-                  margin: EdgeInsets.only(top: 10),
-                  height: 4,
-                  width: 80.w,
-                  color: Color(0xFFCCD5DA),
-                ),
-                Expanded(
-                  child: SingleChildScrollView(
-                    child: Column(
-                      children: <Widget>[
-                        SizedBox(
-                          height: 16.h,
-                        ),
-                        CustomTextInput(
-                          hintText: "Medicine Name",
-                          title: "Medicine Name",
-                          textController: medicineNameController,
-                        ),
-                        SizedBox(
-                          height: 12.h,
-                        ),
-                        CustomTextInput(
-                          hintText: "Medicine Dosage",
-                          title: "Medicine dose",
-                          textController: medicineDosageController,
-                        ),
-                        SizedBox(
-                          height: 12.h,
-                        ),
-                        CustomTextInput(
-                          hintText: "Medicine Duration",
-                          title: "Medicine duration",
-                          textController: medicineDurationController,
-                        ),
-                        SizedBox(
-                          height: 12.h,
-                        ),
-                        CustomTextInput(
-                          hintText: "Medicine Frequency",
-                          title: "Medicine frequency",
-                          textController: medicineFrequencyController,
-                        ),
-                        SizedBox(
-                          height: 20.h,
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            TabSelector(
-                                isActive: false,
-                                tabTitle: "Cancel",
-                                onTabClick: () {
-                                  Get.back();
-                                }),
-                            TabSelector(
-                              isActive: true,
-                              tabTitle: "Okay",
-                              onTabClick: () {
-                                MedicationDetailsModel med =
-                                    MedicationDetailsModel(
-                                        name: medicineNameController.text,
-                                        dose: medicineDosageController.text,
-                                        duration:
-                                            medicineDurationController.text,
-                                        frequency:
-                                            medicineFrequencyController.text);
-                                setState(() {
-                                  medicines.add(med);
-                                });
-
-                                Get.back();
-                              },
-                            )
-                          ],
-                        ),
-                        SizedBox(
-                          height: 10,
-                        )
-                      ],
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          )),
-        );
-      },
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -142,23 +40,50 @@ class _CreatePrescriptionViewState extends State<CreatePrescriptionView> {
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(60),
         child: CustomAppBar(
-          title: "Create Prescription",
-          tailing: GestureDetector(
-            onTap: () {
-              Get.toNamed(AppRoutes.notesScreen);
-            },
-            child: Container(
-              padding: EdgeInsets.all(8),
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                color: AppColors.background1,
-              ),
-              child: Padding(
-                  padding: EdgeInsets.only(left: 3),
-                  child: SvgPicture.asset(SVGAssets.noteIcon)),
-            ),
-          ),
-        ),
+            title: "Create Prescription",
+            tailing: Row(
+              children: [
+                GestureDetector(
+                  onTap: () {
+                    Get.to(UserRecords());
+                  },
+                  child: Container(
+                    alignment: Alignment.center,
+                    padding: EdgeInsets.all(8),
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: AppColors.background1,
+                    ),
+                    child: Center(
+                      child: Padding(
+                          padding: EdgeInsets.only(left: 3),
+                          child: SvgPicture.asset("assets/svg/doc.svg")),
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  width: 10.w,
+                ),
+                GestureDetector(
+                  onTap: () {
+                    Get.toNamed(AppRoutes.notesScreen);
+                  },
+                  child: Container(
+                    alignment: Alignment.center,
+                    padding: EdgeInsets.all(8),
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: AppColors.background1,
+                    ),
+                    child: Center(
+                      child: Padding(
+                          padding: EdgeInsets.only(left: 4),
+                          child: SvgPicture.asset(SVGAssets.noteIcon)),
+                    ),
+                  ),
+                ),
+              ],
+            )),
       ),
       body: Padding(
         padding: EdgeInsets.symmetric(horizontal: 20.w),
@@ -291,6 +216,109 @@ class _CreatePrescriptionViewState extends State<CreatePrescriptionView> {
           ],
         ),
       ),
+    );
+  }
+
+  void addMedicine() {
+    showModalBottomSheet<void>(
+      context: context,
+      builder: (BuildContext context) {
+        return Padding(
+          padding: EdgeInsets.only(
+            bottom: MediaQuery.of(context).viewInsets.bottom,
+          ),
+          child: Center(
+              child: Padding(
+            padding: EdgeInsets.symmetric(horizontal: 24),
+            child: Column(
+              children: [
+                Container(
+                  margin: EdgeInsets.only(top: 10),
+                  height: 4,
+                  width: 80.w,
+                  color: Color(0xFFCCD5DA),
+                ),
+                Expanded(
+                  child: SingleChildScrollView(
+                    child: Column(
+                      children: <Widget>[
+                        SizedBox(
+                          height: 16.h,
+                        ),
+                        CustomTextInput(
+                          hintText: "Medicine Name",
+                          title: "Medicine Name",
+                          textController: medicineNameController,
+                        ),
+                        SizedBox(
+                          height: 12.h,
+                        ),
+                        CustomTextInput(
+                          hintText: "Medicine Dosage",
+                          title: "Medicine dose",
+                          textController: medicineDosageController,
+                        ),
+                        SizedBox(
+                          height: 12.h,
+                        ),
+                        CustomTextInput(
+                          hintText: "Medicine Duration",
+                          title: "Medicine duration",
+                          textController: medicineDurationController,
+                        ),
+                        SizedBox(
+                          height: 12.h,
+                        ),
+                        CustomTextInput(
+                          hintText: "Medicine Frequency",
+                          title: "Medicine frequency",
+                          textController: medicineFrequencyController,
+                        ),
+                        SizedBox(
+                          height: 20.h,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            TabSelector(
+                                isActive: false,
+                                tabTitle: "Cancel",
+                                onTabClick: () {
+                                  Get.back();
+                                }),
+                            TabSelector(
+                              isActive: true,
+                              tabTitle: "Okay",
+                              onTabClick: () {
+                                MedicationDetailsModel med =
+                                    MedicationDetailsModel(
+                                        name: medicineNameController.text,
+                                        dose: medicineDosageController.text,
+                                        duration:
+                                            medicineDurationController.text,
+                                        frequency:
+                                            medicineFrequencyController.text);
+                                setState(() {
+                                  medicines.add(med);
+                                });
+
+                                Get.back();
+                              },
+                            )
+                          ],
+                        ),
+                        SizedBox(
+                          height: 10,
+                        )
+                      ],
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          )),
+        );
+      },
     );
   }
 

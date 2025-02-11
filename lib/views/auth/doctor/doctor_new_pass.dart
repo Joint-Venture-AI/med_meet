@@ -53,7 +53,7 @@ class DoctorNewPass extends StatelessWidget {
             ),
             CustomButton(
                 onPressed: () {
-                  Get.toNamed(AppRoutes.doctorSignIn);
+                  Get.toNamed(AppRoutes.userSignIn);
                 },
                 buttonTitle: "Create New Password")
           ],

@@ -27,7 +27,7 @@ class _DoctorAppointmentsScreenViewState
           leading: Text(""),
           bottom: TabBar(
             indicator: BoxDecoration(
-              color: Color(0xFF545454),
+              color: Color(0xFF90A4AE),
               border: Border.all(color: AppColors.border1),
               borderRadius: BorderRadius.circular(30),
             ),
