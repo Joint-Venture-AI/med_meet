@@ -64,6 +64,9 @@ class _DoctorScheduleState extends State<DoctorSchedule> {
                       },
                       buttonTitle: isAdding ? "Submit" : "Add Schedule",
                     ),
+                    const SizedBox(
+                      height: 24,
+                    ),
                   ],
                 ),
               ),

@@ -26,24 +26,26 @@ class ChangePassword extends StatelessWidget {
             CustomTextInput(
                 title: "Current Password",
                 textController: currentPasswordController,
-                hintText: "hintText",
+                hintText: "",
                 isPassword: true),
             CustomTextInput(
               title: "New Password",
-              hintText: "hintText",
+              hintText: "",
               isPassword: true,
               textController: newPasswordController,
             ),
             CustomTextInput(
               title: "Confirm New Password",
-              hintText: "hintText",
+              hintText: "",
               textController: confirmNewPasswordController,
               isPassword: true,
             ),
             const Spacer(),
             SafeArea(
               child: CustomButton(
-                  onPressed: () {}, buttonTitle: "Change Password"),
+                onPressed: () {},
+                buttonTitle: "Change Password",
+              ),
             ),
             const SizedBox(
               height: 4,

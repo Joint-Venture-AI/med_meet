@@ -111,7 +111,8 @@ class _PersonalInformationState extends State<PersonalInformation> {
                             style: TextStyle(
                               fontSize: isEditing ? 14 : 18,
                               fontWeight: FontWeight.w400,
-                              color: isEditing ? Color(0xff333333) : Colors.white,
+                              color:
+                                  isEditing ? Color(0xff333333) : Colors.white,
                             ),
                           ),
                         ],
@@ -170,6 +171,9 @@ class _PersonalInformationState extends State<PersonalInformation> {
                       buttonTitle:
                           isEditing ? "Update Profile" : "Edit Profile",
                       isSecondary: !isEditing,
+                    ),
+                    const SizedBox(
+                      height: 20,
                     ),
                   ],
                 ),
