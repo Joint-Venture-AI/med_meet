@@ -222,101 +222,96 @@ class _CreatePrescriptionViewState extends State<CreatePrescriptionView> {
   void addMedicine() {
     showModalBottomSheet<void>(
       context: context,
+      isScrollControlled:
+          true, // Enables dynamic expansion when keyboard appears
       builder: (BuildContext context) {
         return Padding(
           padding: EdgeInsets.only(
-            bottom: MediaQuery.of(context).viewInsets.bottom,
+            bottom: MediaQuery.of(context)
+                .viewInsets
+                .bottom, // Adjust bottom padding for keyboard
           ),
-          child: Center(
-              child: Padding(
-            padding: EdgeInsets.symmetric(horizontal: 24),
-            child: Column(
-              children: [
-                Container(
-                  margin: EdgeInsets.only(top: 10),
-                  height: 4,
-                  width: 80.w,
-                  color: Color(0xFFCCD5DA),
-                ),
-                Expanded(
-                  child: SingleChildScrollView(
-                    child: Column(
-                      children: <Widget>[
-                        SizedBox(
-                          height: 16.h,
-                        ),
-                        CustomTextInput(
-                          hintText: "Medicine Name",
-                          title: "Medicine Name",
-                          textController: medicineNameController,
-                        ),
-                        SizedBox(
-                          height: 12.h,
-                        ),
-                        CustomTextInput(
-                          hintText: "Medicine Dosage",
-                          title: "Medicine dose",
-                          textController: medicineDosageController,
-                        ),
-                        SizedBox(
-                          height: 12.h,
-                        ),
-                        CustomTextInput(
-                          hintText: "Medicine Duration",
-                          title: "Medicine duration",
-                          textController: medicineDurationController,
-                        ),
-                        SizedBox(
-                          height: 12.h,
-                        ),
-                        CustomTextInput(
-                          hintText: "Medicine Frequency",
-                          title: "Medicine frequency",
-                          textController: medicineFrequencyController,
-                        ),
-                        SizedBox(
-                          height: 20.h,
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            TabSelector(
-                                isActive: false,
-                                tabTitle: "Cancel",
-                                onTabClick: () {
-                                  Get.back();
-                                }),
-                            TabSelector(
-                              isActive: true,
-                              tabTitle: "Okay",
-                              onTabClick: () {
-                                MedicationDetailsModel med =
-                                    MedicationDetailsModel(
-                                        name: medicineNameController.text,
-                                        dose: medicineDosageController.text,
-                                        duration:
-                                            medicineDurationController.text,
-                                        frequency:
-                                            medicineFrequencyController.text);
-                                setState(() {
-                                  medicines.add(med);
-                                });
-
-                                Get.back();
-                              },
-                            )
-                          ],
-                        ),
-                        SizedBox(
-                          height: 10,
-                        )
-                      ],
-                    ),
+          child: DraggableScrollableSheet(
+            initialChildSize: 0.5, // Adjust initial size
+            minChildSize: 0.4, // Minimum height of the bottom sheet
+            maxChildSize: 0.9, // Allows it to expand up to 90% of the screen
+            expand: false, // Prevents automatic full expansion
+            builder: (context, scrollController) {
+              return SingleChildScrollView(
+                controller: scrollController,
+                child: Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 24),
+                  child: Column(
+                    mainAxisSize:
+                        MainAxisSize.min, // Makes it adjust dynamically
+                    children: [
+                      Container(
+                        margin: EdgeInsets.only(top: 10),
+                        height: 4,
+                        width: 80,
+                        color: Color(0xFFCCD5DA),
+                      ),
+                      SizedBox(height: 16),
+                      CustomTextInput(
+                        hintText: "Medicine Name",
+                        title: "Medicine Name",
+                        textController: medicineNameController,
+                      ),
+                      SizedBox(height: 12),
+                      CustomTextInput(
+                        hintText: "Medicine Dosage",
+                        title: "Medicine dose",
+                        textController: medicineDosageController,
+                      ),
+                      SizedBox(height: 12),
+                      CustomTextInput(
+                        hintText: "Medicine Duration",
+                        title: "Medicine duration",
+                        textController: medicineDurationController,
+                      ),
+                      SizedBox(height: 12),
+                      CustomTextInput(
+                        hintText: "Medicine Frequency",
+                        title: "Medicine frequency",
+                        textController: medicineFrequencyController,
+                      ),
+                      SizedBox(height: 20),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          TabSelector(
+                            isActive: false,
+                            tabTitle: "Cancel",
+                            onTabClick: () {
+                              Get.back();
+                            },
+                          ),
+                          TabSelector(
+                            isActive: true,
+                            tabTitle: "Okay",
+                            onTabClick: () {
+                              MedicationDetailsModel med =
+                                  MedicationDetailsModel(
+                                name: medicineNameController.text,
+                                dose: medicineDosageController.text,
+                                duration: medicineDurationController.text,
+                                frequency: medicineFrequencyController.text,
+                              );
+                              setState(() {
+                                medicines.add(med);
+                              });
+                              Get.back();
+                            },
+                          ),
+                        ],
+                      ),
+                      SizedBox(height: 10),
+                    ],
                   ),
                 ),
-              ],
-            ),
-          )),
+              );
+            },
+          ),
         );
       },
     );

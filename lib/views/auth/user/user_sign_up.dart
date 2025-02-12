@@ -23,92 +23,90 @@ class SignupUserView extends StatelessWidget {
           child: Padding(
             padding: EdgeInsets.all(24),
             child: SingleChildScrollView(
-              child: Expanded(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      "Create Account",
-                      style: AppTypography.headerText1,
-                    ),
-                    SizedBox(
-                      height: 12,
-                    ),
-                    Text('Join us to start your health journey',
-                        style: AppTypography.bodyText1),
-                    SizedBox(
-                      height: 56,
-                    ),
-                    CustomTextInput(
-                      title: "Name",
-                      hintText: "Enter Name",
-                      textController: nameController,
-                    ),
-                    SizedBox(
-                      height: 16,
-                    ),
-                    CustomTextInput(
-                      title: "Email",
-                      hintText: "example@gmail.com",
-                      textController: emailController,
-                    ),
-                    SizedBox(
-                      height: 16,
-                    ),
-                    CustomTextInput(
-                      title: "Password",
-                      hintText: "password",
-                      isPassword: true,
-                      textController: passwordController,
-                    ),
-                    SizedBox(
-                      height: 10,
-                    ),
-                    Obx(() => GestureDetector(
-                          onTap: () {
-                            checkBoxController
-                                .toggleCheckbox(!checkBoxController.isChecked);
-                          },
-                          child: CircularCheckbox(
-                              isActive: checkBoxController.isChecked),
-                        )),
-                    SizedBox(
-                      height: 34,
-                    ),
-                    CustomButton(
-                        onPressed: () {
-                          Get.toNamed(AppRoutes.userVerifOtp,
-                              arguments: OTPTYPE.userSignUp);
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    "Create Account",
+                    style: AppTypography.headerText1,
+                  ),
+                  SizedBox(
+                    height: 12,
+                  ),
+                  Text('Join us to start your health journey',
+                      style: AppTypography.bodyText1),
+                  SizedBox(
+                    height: 56,
+                  ),
+                  CustomTextInput(
+                    title: "Name",
+                    hintText: "Enter Name",
+                    textController: nameController,
+                  ),
+                  SizedBox(
+                    height: 16,
+                  ),
+                  CustomTextInput(
+                    title: "Email",
+                    hintText: "example@gmail.com",
+                    textController: emailController,
+                  ),
+                  SizedBox(
+                    height: 16,
+                  ),
+                  CustomTextInput(
+                    title: "Password",
+                    hintText: "password",
+                    isPassword: true,
+                    textController: passwordController,
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  Obx(() => GestureDetector(
+                        onTap: () {
+                          checkBoxController
+                              .toggleCheckbox(!checkBoxController.isChecked);
                         },
-                        buttonTitle: "Sign Up"),
-                    SizedBox(
-                      height: 56,
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          "Already have an account?",
-                          style: AppTypography.bodyText2,
-                        ),
-                        SizedBox(
-                          width: 3,
-                        ),
-                        GestureDetector(
-                            onTap: () {
-                              Get.toNamed(AppRoutes.userSignIn);
-                            },
-                            child: Text(
-                              "Sign In",
-                              style: GoogleFonts.roboto(
-                                  fontWeight: FontWeight.w600,
-                                  fontSize: 14,
-                                  color: Color(0xFF333333)),
-                            )),
-                      ],
-                    ),
-                  ],
-                ),
+                        child: CircularCheckbox(
+                            isActive: checkBoxController.isChecked),
+                      )),
+                  SizedBox(
+                    height: 34,
+                  ),
+                  CustomButton(
+                      onPressed: () {
+                        Get.toNamed(AppRoutes.userVerifOtp,
+                            arguments: OTPTYPE.userSignUp);
+                      },
+                      buttonTitle: "Sign Up"),
+                  SizedBox(
+                    height: 56,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        "Already have an account?",
+                        style: AppTypography.bodyText2,
+                      ),
+                      SizedBox(
+                        width: 3,
+                      ),
+                      GestureDetector(
+                          onTap: () {
+                            Get.toNamed(AppRoutes.userSignIn);
+                          },
+                          child: Text(
+                            "Sign In",
+                            style: GoogleFonts.roboto(
+                                fontWeight: FontWeight.w600,
+                                fontSize: 14,
+                                color: Color(0xFF333333)),
+                          )),
+                    ],
+                  ),
+                ],
               ),
             ),
           ),
