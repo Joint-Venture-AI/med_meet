@@ -16,7 +16,7 @@ class CustomCallender extends StatefulWidget {
   final Function(DateTime)? onClick;
   const CustomCallender({
     super.key,
-    this.startingWeekDay = StartingWeekDay.saturday,
+    this.startingWeekDay = StartingWeekDay.monday,
     this.onClick,
   });
 

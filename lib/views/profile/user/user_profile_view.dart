@@ -15,7 +15,7 @@ class UserProfileView extends StatelessWidget {
       Options(
         name: "Personal Information",
         icon: "assets/svg/personal_information.svg",
-        link: AppRoutes.personalInformation,
+        link: AppRoutes.userPersonalInformation,
       ),
       Options(
         name: "Prescriptions",

@@ -44,10 +44,11 @@ import 'package:med_meet_flutter/views/profile/about_us.dart';
 import 'package:med_meet_flutter/views/profile/change_password.dart';
 import 'package:med_meet_flutter/views/profile/doctor/doctor_details.dart';
 import 'package:med_meet_flutter/views/profile/doctor/doctor_earnings.dart';
+import 'package:med_meet_flutter/views/profile/doctor/doctor_personal_information.dart';
 import 'package:med_meet_flutter/views/profile/doctor/doctor_review_profile.dart';
 import 'package:med_meet_flutter/views/profile/doctor/doctor_schedule.dart';
 import 'package:med_meet_flutter/views/profile/doctor/doctor_withdraw.dart';
-import 'package:med_meet_flutter/views/profile/personal_information.dart';
+import 'package:med_meet_flutter/views/profile/user/user_personal_information.dart';
 import 'package:med_meet_flutter/views/profile/privacy_policy.dart';
 import 'package:med_meet_flutter/views/profile/settings.dart';
 import 'package:med_meet_flutter/views/profile/terms_of_services.dart';
@@ -121,7 +122,8 @@ class AppRoutes {
   static String bookCardDetails = '/book_card_details';
 
   // Profile
-  static String personalInformation = '/personal_information';
+  static String userPersonalInformation = '/user_personal_information';
+  static String doctorPersonalInformation = '/doctor_personal_information';
   static String prescriptionList = '/prescription_list';
   static String prescription = '/prescription';
   static String medicalRecords = '/medical_records';
@@ -221,8 +223,12 @@ class AppRoutes {
 
     // Profile
     GetPage(
-      name: personalInformation,
-      page: () => const PersonalInformation(),
+      name: userPersonalInformation,
+      page: () => const UserPersonalInformation(),
+    ),
+    GetPage(
+      name: doctorPersonalInformation,
+      page: () => const DoctorPersonalInformation(),
     ),
     GetPage(name: doctorDetailsProfile, page: () => DoctorDetails()),
     GetPage(name: doctorWithdraw, page: () => DoctorWithdraw()),

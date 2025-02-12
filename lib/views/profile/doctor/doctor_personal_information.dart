@@ -5,14 +5,15 @@ import 'package:med_meet_flutter/core/components/custom_text_input.dart';
 import 'package:med_meet_flutter/core/utils/app_colors.dart';
 import 'package:med_meet_flutter/core/utils/uitls.dart';
 
-class PersonalInformation extends StatefulWidget {
-  const PersonalInformation({super.key});
+class DoctorPersonalInformation extends StatefulWidget {
+  const DoctorPersonalInformation({super.key});
 
   @override
-  State<PersonalInformation> createState() => _PersonalInformationState();
+  State<DoctorPersonalInformation> createState() =>
+      _DoctorPersonalInformationState();
 }
 
-class _PersonalInformationState extends State<PersonalInformation> {
+class _DoctorPersonalInformationState extends State<DoctorPersonalInformation> {
   bool isEditing = false;
 
   final TextEditingController nameController = TextEditingController();
@@ -146,6 +147,12 @@ class _PersonalInformationState extends State<PersonalInformation> {
                     ),
                     CustomTextInput(
                       renderTitle: false,
+                      hintText: "+8848585661",
+                      icon: Icons.call_rounded,
+                      textController: TextEditingController(),
+                    ),
+                    CustomTextInput(
+                      renderTitle: false,
                       hintText: "10 Jan 2001",
                       icon: Icons.cake_rounded,
                       textController: dobController,
@@ -159,19 +166,37 @@ class _PersonalInformationState extends State<PersonalInformation> {
                       multiLine: true,
                       textController: addressController,
                     ),
-                    const SizedBox(
-                      height: 40,
-                    ),
-                    CustomButton(
-                      onPressed: () {
-                        setState(() {
-                          isEditing = !isEditing;
-                        });
-                      },
-                      buttonTitle:
-                          isEditing ? "Update Profile" : "Edit Profile",
-                      isSecondary: !isEditing,
-                    ),
+                    if (!isEditing)
+                      GestureDetector(
+                        onTap: () {
+                          setState(() {
+                            isEditing = true;
+                          });
+                        },
+                        behavior: HitTestBehavior.translucent,
+                        child: AbsorbPointer(
+                          child: CustomTextInput(
+                            renderTitle: false,
+                            hintText: "Edit Profile",
+                            icon: Icons.edit,
+                            textController: emailController,
+                          ),
+                        ),
+                      ),
+                    if (isEditing)
+                      Padding(
+                        padding: const EdgeInsets.only(top: 40),
+                        child: CustomButton(
+                          onPressed: () {
+                            setState(() {
+                              isEditing = !isEditing;
+                            });
+                          },
+                          buttonTitle:
+                              isEditing ? "Update Profile" : "Edit Profile",
+                          isSecondary: !isEditing,
+                        ),
+                      ),
                     const SizedBox(
                       height: 20,
                     ),

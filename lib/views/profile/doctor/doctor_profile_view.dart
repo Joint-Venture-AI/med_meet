@@ -14,7 +14,7 @@ class DoctorProfileView extends StatelessWidget {
       Options(
         name: "Personal Information",
         icon: "assets/svg/personal_information.svg",
-        link: AppRoutes.personalInformation,
+        link: AppRoutes.doctorPersonalInformation,
       ),
       Options(
         name: "Doctor Details",
