@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:med_meet_flutter/core/helpers/route.dart';
 import 'package:med_meet_flutter/core/utils/app_colors.dart';
 import 'package:med_meet_flutter/core/utils/app_typography.dart';
 
@@ -32,9 +34,18 @@ class CircularCheckbox extends StatelessWidget {
         SizedBox(
           width: 5,
         ),
-        Text(
-          "Agree With Terms & Condition",
-          style: AppTypography.bodyText1Black,
+        Row(
+          children: [
+            Text("Agree With ", style: AppTypography.bodyText1Black),
+            GestureDetector(
+              onTap: () => Get.toNamed(AppRoutes.termsOfServices),
+              child: Text(
+                "Terms & Condition",
+                style: AppTypography.bodyText1Black
+                    .copyWith(color: Color(0xFF1E65FF)),
+              ),
+            ),
+          ],
         )
       ],
     );

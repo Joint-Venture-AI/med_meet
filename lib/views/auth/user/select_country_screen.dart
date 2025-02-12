@@ -336,7 +336,7 @@ class _SelectCountryScreenState extends State<SelectCountryScreen> {
     ));
   }
 
-  Padding buildCountry({name = "Bangladesh", flag = 'assets/svg/bd_flag.svg'}) {
+  Padding buildCountry({name = "Germany", flag = 'assets/svg/bd_flag.svg'}) {
     final SelectCountryController homeController =
         Get.put(SelectCountryController());
     return Padding(
@@ -357,7 +357,7 @@ class _SelectCountryScreenState extends State<SelectCountryScreen> {
               width: 8.w,
             ),
             Text(
-              "Bangladesh",
+              "Germany",
               style: AppTypography.bodyText2,
             )
           ],
