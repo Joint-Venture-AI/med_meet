@@ -67,6 +67,9 @@ class AddMedicalRecords extends StatelessWidget {
                       },
                       buttonTitle: "Submit",
                     ),
+                    const SizedBox(
+                      height: 24,
+                    ),
                   ],
                 ),
               ),

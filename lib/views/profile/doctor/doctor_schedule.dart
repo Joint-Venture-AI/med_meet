@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:med_meet_flutter/core/components/custom_app_bar.dart';
 import 'package:med_meet_flutter/core/components/custom_button.dart';
-import 'package:med_meet_flutter/core/components/custom_date_picker.dart';
+import 'package:med_meet_flutter/core/components/custom_callender.dart';
 import 'package:med_meet_flutter/core/components/time_slot_grid.dart';
 import 'package:med_meet_flutter/core/utils/app_typography.dart';
 
@@ -43,7 +43,7 @@ class _DoctorScheduleState extends State<DoctorSchedule> {
                     SizedBox(
                       height: 26,
                     ),
-                    CustomDatePicker(),
+                    CustomCallender(),
                     SizedBox(
                       height: 24,
                     ),
@@ -63,6 +63,9 @@ class _DoctorScheduleState extends State<DoctorSchedule> {
                         });
                       },
                       buttonTitle: isAdding ? "Submit" : "Add Schedule",
+                    ),
+                    const SizedBox(
+                      height: 24,
                     ),
                   ],
                 ),

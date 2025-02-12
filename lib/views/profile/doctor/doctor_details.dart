@@ -105,6 +105,9 @@ class DoctorDetails extends StatelessWidget {
                       onPressed: () {},
                       buttonTitle: "Update Details",
                     ),
+                    const SizedBox(
+                      height: 24,
+                    ),
                   ],
                 ),
               ),
