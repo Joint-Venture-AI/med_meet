@@ -185,7 +185,7 @@ class DoctorCard extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         isAppointment
-                            ? Text("01:09 am - 10:41 pm",
+                            ? Text("01:00 am - 01:30 pm",
                                 style: AppTypography.bodyText3)
                             : Row(
                                 children: [
@@ -203,7 +203,7 @@ class DoctorCard extends StatelessWidget {
                           decoration: BoxDecoration(),
                           child: isAppointment
                               ? Text(
-                                  "22 Oct, 2020",
+                                  "22 Oct, 2025",
                                   style: AppTypography.bodyText3,
                                 )
                               : null,

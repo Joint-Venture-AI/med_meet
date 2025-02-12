@@ -34,7 +34,10 @@ class DoctorDetailsAuthView extends StatelessWidget {
     Get.put(ImagePickerController());
 
     void pickPdf() async {
-      FilePickerResult? result = await FilePicker.platform.pickFiles();
+      FilePickerResult? result = await FilePicker.platform.pickFiles(
+        type: FileType.custom,
+        allowedExtensions: ['pdf'],
+      );
 
       if (result != null) {
         imagePickerController.setPdfPath(result.files.single.name);
@@ -81,6 +84,7 @@ class DoctorDetailsAuthView extends StatelessWidget {
                 height: 12,
               ),
               CustomTextInput(
+                isPhone: true,
                 title: "Experience",
                 hintText: "Experience",
                 textController: experienceController,
@@ -106,6 +110,7 @@ class DoctorDetailsAuthView extends StatelessWidget {
                 height: 12,
               ),
               CustomTextInput(
+                isPhone: true,
                 title: "Set Consultation Fee",
                 hintText: "Set price",
                 textController: consultationFeeController,

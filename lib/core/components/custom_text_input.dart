@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:med_meet_flutter/core/components/controllers/custom_text_controller.dart';
@@ -67,29 +68,14 @@ class CustomTextInput extends StatelessWidget {
                       children: [
                         if (icon != null) Icon(icon),
                         if (icon != null) SizedBox(width: 8.w),
-                        if (isPhone)
-                          DropdownButton<String>(
-                            value: controller
-                                .dropDownVal, // Current selected value
-                            icon: const Icon(Icons
-                                .keyboard_arrow_down), // Dropdown arrow icon
-                            isExpanded: false,
-                            padding: EdgeInsets.zero,
-                            elevation: 16, // Elevation of the dropdown menu
-                            style: AppTypography.bodyText1, // Text style
-                            underline: Container(),
-                            onChanged: (String? newValue) {
-                              controller.setDropDown(newValue!);
-                            },
-                            items: controller.items.map((String value) {
-                              return DropdownMenuItem<String>(
-                                value: value,
-                                child: Text(value),
-                              );
-                            }).toList(),
-                          ),
                         Flexible(
                           child: TextField(
+                            keyboardType: isPhone
+                                ? TextInputType.phone
+                                : TextInputType.text,
+                            inputFormatters: isPhone
+                                ? [FilteringTextInputFormatter.digitsOnly]
+                                : [],
                             controller: textController,
                             maxLines: maxLines,
                             enabled: isEnabled,

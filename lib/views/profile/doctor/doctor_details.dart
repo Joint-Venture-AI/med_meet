@@ -50,6 +50,7 @@ class DoctorDetails extends StatelessWidget {
                       height: 12,
                     ),
                     CustomTextInput(
+                      isPhone: true,
                       title: "Experience",
                       hintText: "Medical License Number",
                       textController: experienceController,
@@ -84,6 +85,7 @@ class DoctorDetails extends StatelessWidget {
                     ),
                     CustomTextInput(
                       title: "Set Consultation Fee",
+                      isPhone: true,
                       hintText: "Set price",
                       textController: consultationFeeController,
                     ),
