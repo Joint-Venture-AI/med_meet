@@ -69,7 +69,7 @@ class SplashView extends StatelessWidget {
                       ),
                     ),
                     SizedBox(
-                      height: 3.h,
+                      height: 3,
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
