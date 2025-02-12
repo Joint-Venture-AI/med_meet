@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:med_meet_flutter/core/components/custom_app_bar.dart';
 import 'package:med_meet_flutter/core/components/custom_button.dart';
 import 'package:med_meet_flutter/core/helpers/route.dart';
+import 'package:med_meet_flutter/core/utils/app_colors.dart';
 import 'package:med_meet_flutter/core/utils/uitls.dart';
 
 class DoctorEarnings extends StatelessWidget {
@@ -167,7 +168,7 @@ class DoctorEarnings extends StatelessWidget {
           child: Center(
             child: Container(
               padding: EdgeInsets.all(10),
-              color: Color(0xfff2f5f7),
+              color: AppColors.scaffoldBackgroundColor,
               child: svgViewer(
                 asset: "assets/svg/wallet.svg",
               ),

@@ -169,24 +169,25 @@ class DoctorProfileView extends StatelessWidget {
                                     return Column(
                                       mainAxisSize: MainAxisSize.min,
                                       children: [
+                                        SizedBox(height: 8),
                                         Container(
                                           height: 3,
                                           width: 40,
                                           color: Color(0xffE8E8E8),
                                         ),
-                                        SizedBox(height: 12),
+                                        SizedBox(height: 16),
                                         Text(
                                           "Logout",
                                           style: TextStyle(
-                                            fontSize: 20,
-                                            color: Color(0xffDD3663),
+                                            fontSize: 24,
+                                            color: Color(0xffEE1D23),
                                           ),
                                         ),
                                         SizedBox(height: 12),
                                         Divider(
                                           color: Color(0xffDDDEE0),
                                         ),
-                                        SizedBox(height: 12),
+                                        SizedBox(height: 20),
                                         Padding(
                                           padding: const EdgeInsets.symmetric(
                                             horizontal: 24,
@@ -200,7 +201,7 @@ class DoctorProfileView extends StatelessWidget {
                                             ),
                                           ),
                                         ),
-                                        SizedBox(height: 12),
+                                        SizedBox(height: 24),
                                         Row(
                                           children: [
                                             const SizedBox(width: 24),

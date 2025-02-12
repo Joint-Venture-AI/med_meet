@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:med_meet_flutter/core/utils/app_colors.dart';
-import 'package:med_meet_flutter/core/utils/app_typography.dart';
 import 'package:med_meet_flutter/core/utils/uitls.dart';
 
 class ReviewCard extends StatelessWidget {
@@ -25,26 +23,33 @@ class ReviewCard extends StatelessWidget {
                   ClipOval(
                     child: Image.asset(
                       "assets/images/review_girl.png",
-                      height: 40,
-                      width: 40,
+                      height: 48,
+                      width: 48,
+                      fit: BoxFit.cover,
                     ),
                   ),
                   SizedBox(
-                    width: 16.w,
+                    width: 16,
                   ),
                   Text(
                     "Charolette Hanlin",
-                    style: AppTypography.appbarTitle,
+                    style: TextStyle(
+                      fontSize: 18,
+                      color: Color(0xff333333)
+                    ),
                   )
                 ],
               ),
               Container(
-                padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 4.h),
+                height: 32,
+                width: 60,
+                // padding: EdgeInsets.symmetric(horizontal: 16, vertical: 6),
                 decoration: BoxDecoration(
                   border: Border.all(color: AppColors.border1),
                   borderRadius: BorderRadius.circular(36),
                 ),
                 child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     svgViewer(
                       asset: "assets/svg/reviews.svg",
@@ -56,10 +61,11 @@ class ReviewCard extends StatelessWidget {
                       width: 8.w,
                     ),
                     Text(
-                      "4.5",
+                      "5",
                       style: TextStyle(
                         fontSize: 14.sp,
                         fontWeight: FontWeight.w600,
+                        height: 0.5
                       ),
                     ),
                   ],
@@ -72,16 +78,20 @@ class ReviewCard extends StatelessWidget {
           ),
           Text(
             "Dr. Jenny is very professional in her work and responsive. I have consulted and my problem is solved. 😍😍",
-            style: GoogleFonts.roboto(
-              fontSize: 14,
-              fontWeight: FontWeight.w400,
+            style: TextStyle(
               color: Color(0xFF545454),
             ),
           ),
           SizedBox(
             height: 8.h,
           ),
-          Text("6 days ago", style: AppTypography.timeStyle),
+          Text(
+            "6 days ago",
+            style: TextStyle(
+              color: Color(0xff545454),
+              fontSize: 12,
+            ),
+          ),
         ],
       ),
     );
