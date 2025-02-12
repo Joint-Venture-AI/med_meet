@@ -13,8 +13,12 @@ enum StartingWeekDay {
 
 class CustomCallender extends StatefulWidget {
   final StartingWeekDay startingWeekDay;
-  const CustomCallender(
-      {super.key, this.startingWeekDay = StartingWeekDay.sunday});
+  final Function(DateTime)? onClick;
+  const CustomCallender({
+    super.key,
+    this.startingWeekDay = StartingWeekDay.saturday,
+    this.onClick,
+  });
 
   @override
   State<CustomCallender> createState() => _CustomCallenderState();
@@ -23,6 +27,8 @@ class CustomCallender extends StatefulWidget {
 class _CustomCallenderState extends State<CustomCallender> {
   DateTime today = DateTime.now();
   DateTime currentDate = DateTime.now();
+  DateTime? selectedDate;
+  List<String> weekdays = ["MO", "TU", "WE", "TH", "FR", "SA", "SU"];
 
   List<Widget> getDates() {
     List<Widget> rtn = [];
@@ -38,31 +44,55 @@ class _CustomCallenderState extends State<CustomCallender> {
       1,
     );
 
-    int weekDay = startOfRunningMonth.weekday;
+    int weekDay = startOfRunningMonth.weekday - 1;
+    weekDay =
+        (weekDay - StartingWeekDay.values.indexOf(widget.startingWeekDay)) % 7;
 
-    for (int i = 0; i < weekDay-1; i++) {
+    for (int i = 0; i < weekDay; i++) {
       rtn.add(cell());
     }
 
     for (DateTime i = startOfRunningMonth;
         i.isBefore(startOfNextMonth);
         i = i.add(const Duration(days: 1))) {
-      rtn.add(cell(text: i.day.toString()));
+      rtn.add(cell(date: i));
     }
-
-    StartingWeekDay.values[0];
 
     return rtn;
   }
 
-  Widget cell({String? text}) {
-    return Container(
-      decoration: BoxDecoration(
-        border: Border.all(),
-      ),
-      child: Center(
-        child: Text(
-          text ?? "-",
+  Widget cell({DateTime? date}) {
+    bool isSelected = false;
+
+    if (date != null && selectedDate != null) {
+      if (date.day == selectedDate!.day) {
+        isSelected = true;
+      }
+    }
+
+    return GestureDetector(
+      onTap: () {
+        setState(() {
+          selectedDate = date;
+          if (widget.onClick != null && date != null) {
+            widget.onClick!(date);
+          }
+        });
+      },
+      child: Container(
+        decoration: BoxDecoration(
+          shape: isSelected ? BoxShape.circle : BoxShape.rectangle,
+          color: isSelected ? Color(0xff333333) : null,
+        ),
+        child: Center(
+          child: Text(
+            date?.day.toString() ?? "",
+            style: TextStyle(
+              fontSize: 14,
+              color: isSelected ? Colors.white : Color(0xff90A4AE),
+              fontWeight: FontWeight.w500,
+            ),
+          ),
         ),
       ),
     );
@@ -76,7 +106,7 @@ class _CustomCallenderState extends State<CustomCallender> {
           children: [
             const SizedBox(width: 10),
             Text(
-              "${getMonth(currentDate.month)} ${currentDate.year}",
+              " ${getMonth(currentDate.month)} ${currentDate.year}",
               style: TextStyle(
                 fontSize: 18,
                 color: Color(0xff333333),
@@ -86,8 +116,11 @@ class _CustomCallenderState extends State<CustomCallender> {
             GestureDetector(
               onTap: () {
                 setState(() {
-                  currentDate =
-                      DateTime(currentDate.year, currentDate.month - 1);
+                  currentDate = DateTime(
+                    currentDate.year,
+                    currentDate.month - 1,
+                  );
+                  selectedDate = null;
                 });
               },
               child: svgViewer(
@@ -97,8 +130,11 @@ class _CustomCallenderState extends State<CustomCallender> {
             GestureDetector(
               onTap: () {
                 setState(() {
-                  currentDate =
-                      DateTime(currentDate.year, currentDate.month + 1);
+                  currentDate = DateTime(
+                    currentDate.year,
+                    currentDate.month + 1,
+                  );
+                  selectedDate = null;
                 });
               },
               child: svgViewer(
@@ -111,69 +147,29 @@ class _CustomCallenderState extends State<CustomCallender> {
         const SizedBox(
           height: 12,
         ),
-        SizedBox(
-          height: 40,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              Text(
-                "MO",
-                style: TextStyle(
-                  fontSize: 12,
-                  color: Color(0xff333333),
-                ),
-              ),
-              Text(
-                "TU",
-                style: TextStyle(
-                  fontSize: 12,
-                  color: Color(0xff333333),
-                ),
-              ),
-              Text(
-                "WE",
-                style: TextStyle(
-                  fontSize: 12,
-                  color: Color(0xff333333),
-                ),
-              ),
-              Text(
-                "TH",
-                style: TextStyle(
-                  fontSize: 12,
-                  color: Color(0xff333333),
-                ),
-              ),
-              Text(
-                "FR",
-                style: TextStyle(
-                  fontSize: 12,
-                  color: Color(0xff333333),
-                ),
-              ),
-              Text(
-                "SA",
-                style: TextStyle(
-                  fontSize: 12,
-                  color: Color(0xff333333),
-                ),
-              ),
-              Text(
-                "SU",
-                style: TextStyle(
-                  fontSize: 12,
-                  color: Color(0xff333333),
-                ),
-              ),
-            ],
-          ),
-        ),
         GridView(
           gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: 7,
           ),
           shrinkWrap: true,
           children: [
+            for (int i = 0; i < 7; i++)
+              SizedBox(
+                width: 40,
+                height: 40,
+                child: Center(
+                  child: Text(
+                    weekdays[(i +
+                            StartingWeekDay.values
+                                .indexOf(widget.startingWeekDay)) %
+                        weekdays.length],
+                    style: TextStyle(
+                      fontSize: 12,
+                      color: Color(0xff333333),
+                    ),
+                  ),
+                ),
+              ),
             ...getDates(),
           ],
         ),
