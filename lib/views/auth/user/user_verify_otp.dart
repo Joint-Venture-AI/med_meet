@@ -49,6 +49,7 @@ class UserVerifyOtpView extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             keyboardType: TextInputType.number,
             defaultPinTheme: defaultPinTheme,
+            length: 6,
             onCompleted: (pin) => print(pin),
           ),
           SizedBox(

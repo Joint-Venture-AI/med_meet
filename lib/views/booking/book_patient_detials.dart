@@ -23,34 +23,45 @@ class BookPatientDetialsView extends StatelessWidget {
         padding: EdgeInsets.all(24),
         child: Column(
           children: [
-            CustomTextInput(
-              hintText: "Jonah Smaith",
-              textController: nameController,
-              title: "Name",
+            Expanded(
+              child: SingleChildScrollView(
+                child: Column(
+                  children: [
+                    CustomTextInput(
+                      hintText: "Jonah Smaith",
+                      textController: nameController,
+                      title: "Name",
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    CustomDropDown(
+                        title: "Gender", dropDownItems: ["Male", "Female"]),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    DateInput(
+                      dateController: ageController,
+                      icon: Icons.calendar_month,
+                      hintText: "DD/MM/YY",
+                      title: "Birth Date",
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    CustomTextInput(
+                      hintText: "Write your problem.........",
+                      textController: problemController,
+                      title: "Write your problem",
+                      maxLines: 6,
+                    ),
+                  ],
+                ),
+              ),
             ),
             SizedBox(
-              height: 10,
+              height: 14,
             ),
-            CustomDropDown(title: "Gender", dropDownItems: ["Male", "Female"]),
-            SizedBox(
-              height: 10,
-            ),
-            DateInput(
-              dateController: ageController,
-              icon: Icons.calendar_month,
-              hintText: "DD/MM/YY",
-              title: "Birth Date",
-            ),
-            SizedBox(
-              height: 10,
-            ),
-            CustomTextInput(
-              hintText: "Write your problem.........",
-              textController: problemController,
-              title: "Write your problem",
-              maxLines: 6,
-            ),
-            Spacer(),
             CustomButton(
                 onPressed: () {
                   Get.toNamed(AppRoutes.bookCardDetails);

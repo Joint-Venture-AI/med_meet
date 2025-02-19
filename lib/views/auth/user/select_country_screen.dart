@@ -1,10 +1,12 @@
 // ignore_for_file: unused_local_variable
 
+import 'package:country_picker/country_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:med_meet_flutter/core/constants/svg_assets.dart';
 import 'package:med_meet_flutter/core/helpers/route.dart';
 import 'package:med_meet_flutter/controller/auth_controllers/select_coountry_controller.dart';
@@ -22,10 +24,12 @@ class SelectCountryScreen extends StatefulWidget {
 
 class _SelectCountryScreenState extends State<SelectCountryScreen> {
   int index = -1;
+  String countryName = "Select Your country";
+  String flag = "";
 
   @override
   Widget build(BuildContext context) {
-    final SelectCountryController homeController =
+    final SelectCountryController selectCountryController =
         Get.put(SelectCountryController());
     return Scaffold(
         body: Padding(
@@ -66,121 +70,67 @@ class _SelectCountryScreenState extends State<SelectCountryScreen> {
                   ),
                   GestureDetector(
                     onTapDown: (details) {
-                      RenderBox box = context.findRenderObject() as RenderBox;
-                      Offset globalPosition =
-                          box.globalToLocal(details.globalPosition);
-                      showDialog(
-                          context: context,
-                          builder: (context) {
-                            return Stack(
-                              children: [
-                                Positioned(
-                                  top: details.globalPosition.dy,
-                                  left: 120,
-                                  child: Material(
-                                    borderRadius: BorderRadius.circular(12),
-                                    elevation: 5,
-                                    child: SizedBox(
-                                      width: 264,
-                                      child: AlertDialog(
-                                          contentPadding: EdgeInsets.zero,
-                                          insetPadding: EdgeInsets.all(12),
-                                          backgroundColor: Colors.transparent,
-                                          content: SizedBox(
-                                            height: Get.height / 2,
-                                            child: SingleChildScrollView(
-                                              child: Column(
-                                                children: [
-                                                  Container(
-                                                    decoration: BoxDecoration(
-                                                        border: Border(
-                                                            bottom: BorderSide(
-                                                                color: AppColors
-                                                                    .border1))),
-                                                    child: TextField(
-                                                      decoration:
-                                                          InputDecoration(
-                                                        border:
-                                                            InputBorder.none,
-                                                        hintText: "Search",
-                                                        hintStyle: TextStyle(
-                                                          color:
-                                                              Color(0xFF9CA3AF),
-                                                          fontSize: 14,
-                                                        ),
-                                                        prefixIcon: Icon(
-                                                          Icons.search,
-                                                          color:
-                                                              Color(0xFF9CA3AF),
-                                                          size: 20,
-                                                        ),
-                                                      ),
-                                                    ),
-                                                  ),
-                                                  buildCountry(),
-                                                  buildCountry(),
-                                                  buildCountry(),
-                                                  buildCountry(),
-                                                  buildCountry(),
-                                                  buildCountry(),
-                                                  buildCountry(),
-                                                  buildCountry(),
-                                                  buildCountry(),
-                                                  buildCountry(),
-                                                  buildCountry(),
-                                                  buildCountry(),
-                                                  buildCountry(),
-                                                  buildCountry(),
-                                                  buildCountry(),
-                                                  buildCountry(),
-                                                  buildCountry(),
-                                                  buildCountry(),
-                                                  buildCountry(),
-                                                  buildCountry(),
-                                                  buildCountry(),
-                                                  buildCountry(),
-                                                ],
-                                              ),
-                                            ),
-                                          )),
-                                    ),
-                                  ),
-                                )
-                              ],
-                            );
+                      showCountryPicker(
+                        context: context,
+                        showPhoneCode: false,
+                        onSelect: (Country country) {
+                          print('Select country: ${country.displayName}');
+                          setState(() {
+                            countryName = country.name;
+                            flag = country.flagEmoji;
+                            selectCountryController.setCountry(countryName);
                           });
-                    },
-                    child: Obx(
-                      () => Container(
-                        padding:
-                            EdgeInsets.symmetric(horizontal: 16, vertical: 10),
-                        decoration: BoxDecoration(
-                          border: Border.all(color: AppColors.border1),
-                          borderRadius: BorderRadius.circular(25),
-                        ),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Row(
-                              children: [
-                                if (homeController.flag != "")
-                                  SvgPicture.asset(homeController.flag),
-                                if (homeController.flag != "")
-                                  SizedBox(
-                                    width: 8,
-                                  ),
-                                Text(
-                                  homeController.country,
-                                  style: AppTypography.bodyText2,
+                        },
+                        countryListTheme: CountryListThemeData(
+                          borderRadius: const BorderRadius.only(
+                            topLeft: Radius.circular(40.0),
+                            topRight: Radius.circular(40.0),
+                          ),
+                          inputDecoration: InputDecoration(
+                            labelText: 'Search',
+                            hintText: 'Start typing to search',
+                            prefixIcon: const Icon(Icons.search),
+                            border: OutlineInputBorder(
+                                borderSide: BorderSide(
+                                  color: AppColors.border1,
                                 ),
-                              ],
-                            ),
-                            Icon(
-                              Icons.keyboard_arrow_down,
-                              color: AppColors.typography1,
-                            )
-                          ],
+                                borderRadius: BorderRadius.circular(100)),
+                          ),
+                          searchTextStyle: GoogleFonts.roboto(
+                            color: Colors.black,
+                            fontSize: 12,
+                          ),
                         ),
+                      );
+                    },
+                    child: Container(
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+                      decoration: BoxDecoration(
+                        border: Border.all(color: AppColors.border1),
+                        borderRadius: BorderRadius.circular(25),
+                      ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Row(
+                            children: [
+                              if (flag != "") Text(flag),
+                              if (flag != "")
+                                SizedBox(
+                                  width: 8,
+                                ),
+                              Text(
+                                countryName,
+                                style: AppTypography.bodyText2,
+                              ),
+                            ],
+                          ),
+                          Icon(
+                            Icons.keyboard_arrow_down,
+                            color: AppColors.typography1,
+                          )
+                        ],
                       ),
                     ),
                   ),
@@ -190,183 +140,94 @@ class _SelectCountryScreenState extends State<SelectCountryScreen> {
           ),
           CustomButton(
             buttonTitle: "Continue",
-            onPressed: () {
-              //   showModalBottomSheet(
-              //     context: context,
-              //     backgroundColor: Colors.white,
-              //     builder: (context) {
-              //       return Padding(
-              //         padding: const EdgeInsets.symmetric(
-              //           horizontal: 24,
-              //         ),
-              //         child: SafeArea(
-              //           child: Column(
-              //             mainAxisSize: MainAxisSize.min,
-              //             children: [
-              //               const SizedBox(
-              //                 height: 48,
-              //               ),
-              //               Text(
-              //                 "How will you use Medmeet?",
-              //                 style: TextStyle(
-              //                   fontSize: 29,
-              //                   color: Color(0xff333333),
-              //                 ),
-              //                 textAlign: TextAlign.center,
-              //               ),
-              //               const SizedBox(
-              //                 height: 40,
-              //               ),
-              //               Row(
-              //                 mainAxisAlignment: MainAxisAlignment.center,
-              //                 children: [
-              //                   OptionWidget(
-              //                     asset: SVGAssets.patientIcon,
-              //                     label: "Patient",
-              //                     isSelected: index == 0,
-              //                     onTap: () {
-              //                       setState(() {
-              //                         index = 0;
-              //                       });
-              //                     },
-              //                   ),
-              //                   const SizedBox(
-              //                     width: 48,
-              //                   ),
-              //                   OptionWidget(
-              //                     asset: SVGAssets.doctorIcon,
-              //                     label: "Doctor",
-              //                     isSelected: index == 1,
-              //                     onTap: () {
-              //                       setState(() {
-              //                         index = 1;
-              //                       });
-              //                     },
-              //                   ),
-              //                 ],
-              //               ),
-              //               const SizedBox(
-              //                 height: 64,
-              //               ),
-              //               CustomButton(
-              //                 onPressed: () {},
-              //                 buttonTitle: "Continue",
-              //               ),
-              //             ],
-              //           ),
-              //         ),
-              //       );
-              //     },
-              //   );
-              showModalBottomSheet(
-                context: context,
-                backgroundColor: Colors.white,
-                builder: (context) {
-                  int selectedIndex = 0; // Local variable to track selection
-
-                  return StatefulBuilder(
-                    builder: (context, setState) {
-                      return Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 24),
-                        child: SafeArea(
-                          child: Column(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              const SizedBox(height: 48),
-                              Text(
-                                "How will you use Medmeet?",
-                                style: TextStyle(
-                                    fontSize: 29, color: Color(0xff333333)),
-                                textAlign: TextAlign.center,
-                              ),
-                              const SizedBox(height: 40),
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  OptionWidget(
-                                    asset: SVGAssets.patientIcon,
-                                    label: "Patient",
-                                    isSelected: selectedIndex == 0,
-                                    onTap: () {
-                                      setState(() {
-                                        selectedIndex = 0;
-                                      });
-                                    },
-                                  ),
-                                  const SizedBox(width: 48),
-                                  OptionWidget(
-                                    asset: SVGAssets.doctorIcon,
-                                    label: "Doctor",
-                                    isSelected: selectedIndex == 1,
-                                    onTap: () {
-                                      setState(() {
-                                        selectedIndex = 1;
-                                      });
-                                    },
-                                  ),
-                                ],
-                              ),
-                              const SizedBox(height: 64),
-                              CustomButton(
-                                onPressed: () {
-                                  Navigator.pop(context);
-                                  if (selectedIndex == 0) {
-                                    Get.toNamed(AppRoutes.userSignIn);
-                                  } else {
-                                    Get.toNamed(AppRoutes.doctorSignIn);
-                                  }
-                                },
-                                buttonTitle: "Continue",
-                              ),
-                              SizedBox(
-                                height: 50,
-                              ),
-                            ],
-                          ),
-                        ),
-                      );
-                    },
-                  );
-                },
-              );
-            },
+            onPressed: showDialogFunc,
           ),
         ],
       ),
     ));
   }
 
-  Padding buildCountry({name = "Germany", flag = 'assets/svg/bd_flag.svg'}) {
-    final SelectCountryController homeController =
-        Get.put(SelectCountryController());
-    return Padding(
-      padding: EdgeInsets.symmetric(vertical: 12, horizontal: 5),
-      child: GestureDetector(
-        onTap: () {
-          homeController.setCountry(name);
-          homeController.setFlag(flag);
-        },
-        child: Row(
-          children: [
-            SvgPicture.asset(
-              SVGAssets.flagBD,
-              height: 16,
-              width: 16,
-            ),
-            SizedBox(
-              width: 8.w,
-            ),
-            Text(
-              "Germany",
-              style: AppTypography.bodyText2,
-            )
-          ],
+  void showDialogFunc() {
+    if (countryName == "Select Your country") {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Please select your country'),
+          duration: Duration(seconds: 2),
         ),
-      ),
+      );
+      return;
+    }
+    showModalBottomSheet(
+      context: context,
+      backgroundColor: Colors.white,
+      builder: (context) {
+        int selectedIndex = 0; // Local variable to track selection
+
+        return StatefulBuilder(
+          builder: (context, setState) {
+            return Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 24),
+              child: SafeArea(
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    const SizedBox(height: 48),
+                    Text(
+                      "How will you use Medmeet?",
+                      style: TextStyle(fontSize: 29, color: Color(0xff333333)),
+                      textAlign: TextAlign.center,
+                    ),
+                    const SizedBox(height: 40),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        OptionWidget(
+                          asset: SVGAssets.patientIcon,
+                          label: "Patient",
+                          isSelected: selectedIndex == 0,
+                          onTap: () {
+                            setState(() {
+                              selectedIndex = 0;
+                            });
+                          },
+                        ),
+                        const SizedBox(width: 48),
+                        OptionWidget(
+                          asset: SVGAssets.doctorIcon,
+                          label: "Doctor",
+                          isSelected: selectedIndex == 1,
+                          onTap: () {
+                            setState(() {
+                              selectedIndex = 1;
+                            });
+                          },
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 64),
+                    CustomButton(
+                      onPressed: () {
+                        Navigator.pop(context);
+                        if (selectedIndex == 0) {
+                          Get.toNamed(AppRoutes.userSignIn);
+                        } else {
+                          Get.toNamed(AppRoutes.doctorSignIn);
+                        }
+                      },
+                      buttonTitle: "Continue",
+                    ),
+                    SizedBox(
+                      height: 50,
+                    ),
+                  ],
+                ),
+              ),
+            );
+          },
+        );
+      },
     );
   }
-
-  void showDialogFunc() {}
 }
 
 class OptionWidget extends StatefulWidget {
