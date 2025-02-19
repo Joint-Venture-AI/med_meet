@@ -7,7 +7,7 @@ import 'package:med_meet_flutter/core/components/auth_components/circular_checkb
 import 'package:med_meet_flutter/core/components/custom_button.dart';
 import 'package:med_meet_flutter/core/components/custom_text_input.dart';
 import 'package:med_meet_flutter/core/utils/app_typography.dart';
-import 'package:med_meet_flutter/controller/auth_controllers/check_box_controller.dart';
+import 'package:med_meet_flutter/controller/auth_controllers/Ui/check_box_controller.dart';
 
 class SignupUserView extends StatelessWidget {
   const SignupUserView({super.key});

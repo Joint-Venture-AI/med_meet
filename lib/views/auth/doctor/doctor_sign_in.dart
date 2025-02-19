@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:med_meet_flutter/controller/auth_controllers/Api/login_service.dart';
 import 'package:med_meet_flutter/core/components/custom_button.dart';
 import 'package:med_meet_flutter/core/components/custom_text_input.dart';
 import 'package:med_meet_flutter/core/utils/app_typography.dart';
@@ -15,6 +16,8 @@ class DoctorSignIn extends StatelessWidget {
   Widget build(BuildContext context) {
     final TextEditingController emailController = TextEditingController();
     final TextEditingController passwordController = TextEditingController();
+    LoginServiceController loginServiceController =
+        Get.put(LoginServiceController());
     return Scaffold(
         extendBody: true,
         resizeToAvoidBottomInset: false,
@@ -66,11 +69,14 @@ class DoctorSignIn extends StatelessWidget {
                 SizedBox(
                   height: 32,
                 ),
-                CustomButton(
-                    onPressed: () {
-                      Get.offAllNamed(AppRoutes.doctorApp);
-                    },
-                    buttonTitle: "Sign In"),
+                Obx(
+                  () => CustomButton(
+                      onPressed: () {
+                        // Get.offAllNamed(AppRoutes.doctorApp);
+                      },
+                      isLoading: loginServiceController.isLoading,
+                      buttonTitle: "Sign In"),
+                ),
                 SizedBox(
                   height: 56.h,
                 ),
