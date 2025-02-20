@@ -8,7 +8,6 @@ import 'package:med_meet_flutter/views/auth/doctor/doctor_forget_pass.dart';
 import 'package:med_meet_flutter/views/auth/doctor/doctor_new_pass.dart';
 import 'package:med_meet_flutter/views/auth/doctor/doctor_sign_in.dart';
 import 'package:med_meet_flutter/views/auth/doctor/doctor_sign_up.dart';
-import 'package:med_meet_flutter/views/auth/doctor/doctor_verify_otp.dart';
 import 'package:med_meet_flutter/views/auth/doctor/verify_progress_doctor.dart';
 import 'package:med_meet_flutter/views/auth/user/user_forgot_password.dart';
 import 'package:med_meet_flutter/views/auth/user/user_new_password.dart';
@@ -162,7 +161,7 @@ class AppRoutes {
     GetPage(name: signUpDoctor, page: () => const SingupDoctorView()),
     GetPage(name: doctorDetails, page: () => const DoctorDetailsAuthView()),
     GetPage(name: doctorForgetpass, page: () => const DoctorForgetPass()),
-    GetPage(name: doctorVerifyOTP, page: () => const DoctorVerifyOtp()),
+    // GetPage(name: doctorVerifyOTP, page: () => const DoctorVerifyOtp()),
     GetPage(name: doctorNewPass, page: () => const DoctorNewPass()),
 
     // common

@@ -3,6 +3,8 @@ import 'package:med_meet_flutter/models/language_model.dart';
 import 'package:med_meet_flutter/models/options.dart';
 
 class AppConstants {
+  static const String bearerToken = "BearerToken";
+
   static String APPNAME = "ZenActive";
   static String logo = "assets/logo/zen_logo.png";
   static String splashImage = "assets/svg/splash.svg";
@@ -54,13 +56,17 @@ class AppConstants {
       "Track your progress, take on challenges, and connect with a community of achievers";
 
   static List<Options> userProfileOptions = [
-    Options(name: "Personal Information", icon: "assets/svg/personal_information.svg"),
+    Options(
+        name: "Personal Information",
+        icon: "assets/svg/personal_information.svg"),
     Options(name: "Medical Records", icon: "assets/svg/medical_records.svg"),
     Options(name: "Settings", icon: "assets/svg/settings.svg"),
     Options(name: "Logout", icon: "assets/svg/logout.svg"),
   ];
   static List<Options> doctorProfileOptions = [
-    Options(name: "Personal Information", icon: "assets/svg/personal_information.svg"),
+    Options(
+        name: "Personal Information",
+        icon: "assets/svg/personal_information.svg"),
     Options(name: "Doctor Details", icon: "assets/svg/medical_records.svg"),
     Options(name: "Schedule", icon: "assets/svg/schedule.svg"),
     Options(name: "Earnings", icon: "assets/svg/earnings.svg"),

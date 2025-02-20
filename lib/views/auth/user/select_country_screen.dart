@@ -74,7 +74,6 @@ class _SelectCountryScreenState extends State<SelectCountryScreen> {
                         context: context,
                         showPhoneCode: false,
                         onSelect: (Country country) {
-                          print('Select country: ${country.displayName}');
                           setState(() {
                             countryName = country.name;
                             flag = country.flagEmoji;
@@ -149,12 +148,7 @@ class _SelectCountryScreenState extends State<SelectCountryScreen> {
 
   void showDialogFunc() {
     if (countryName == "Select Your country") {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text('Please select your country'),
-          duration: Duration(seconds: 2),
-        ),
-      );
+      Get.snackbar("Empty Field", "Please select your country");
       return;
     }
     showModalBottomSheet(

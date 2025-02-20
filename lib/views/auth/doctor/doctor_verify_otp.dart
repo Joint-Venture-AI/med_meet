@@ -1,16 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:med_meet_flutter/controller/auth_controllers/Api/doctor_auth.dart';
 import 'package:med_meet_flutter/core/components/custom_button.dart';
 import 'package:med_meet_flutter/core/helpers/route.dart';
 import 'package:med_meet_flutter/core/utils/app_typography.dart';
 import 'package:pinput/pinput.dart';
 
 class DoctorVerifyOtp extends StatelessWidget {
-  const DoctorVerifyOtp({super.key});
+  const DoctorVerifyOtp({super.key, required this.email});
+  final String email;
 
   @override
   Widget build(BuildContext context) {
+    TextEditingController otpController = TextEditingController();
+
     final defaultPinTheme = PinTheme(
       width: 56,
       height: 56,
@@ -23,6 +27,10 @@ class DoctorVerifyOtp extends StatelessWidget {
     );
 
     final args = Get.arguments;
+
+    DoctorAuthServiceController doctorAuthServiceController =
+        Get.put(DoctorAuthServiceController());
+
     return Scaffold(
         body: Padding(
       padding: EdgeInsets.all(24),
@@ -38,7 +46,7 @@ class DoctorVerifyOtp extends StatelessWidget {
             height: 12,
           ),
           Text(
-            'We’ve sent an OTP to your email \n example@gmail.com',
+            'We’ve sent an OTP to your email \n $email',
             style: AppTypography.bodyText1,
             textAlign: TextAlign.center,
           ),
@@ -47,22 +55,19 @@ class DoctorVerifyOtp extends StatelessWidget {
           ),
           Pinput(
             closeKeyboardWhenCompleted: true,
+            length: 6,
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             keyboardType: TextInputType.number,
             defaultPinTheme: defaultPinTheme,
-            onCompleted: (pin) => print(pin),
+            onCompleted: (pin) => otpController.text = pin,
           ),
           SizedBox(
             height: 32,
           ),
           CustomButton(
               onPressed: () {
-                if (args == OTPTYPE.doctorForgetPass) {
-                  Get.toNamed(AppRoutes.doctorNewPass);
-                }
-                if (args == OTPTYPE.doctorSignup) {
-                  Get.offAllNamed(AppRoutes.verifyProgressDoctor);
-                }
+                doctorAuthServiceController.verifyOTP(
+                    email, otpController.text, args);
               },
               buttonTitle: "Verify OTP")
         ],

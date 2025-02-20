@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:med_meet_flutter/controller/auth_controllers/Api/doctor_auth.dart';
+import 'package:med_meet_flutter/controller/auth_controllers/Ui/select_coountry_controller.dart';
 import 'package:med_meet_flutter/core/helpers/route.dart';
 import 'package:med_meet_flutter/core/components/auth_components/circular_checkbox.dart';
 import 'package:med_meet_flutter/core/components/custom_button.dart';
@@ -18,6 +20,10 @@ class SingupDoctorView extends StatelessWidget {
     final TextEditingController emailController = TextEditingController();
     final TextEditingController doctorIdController = TextEditingController();
     final TextEditingController passwordController = TextEditingController();
+    SelectCountryController selectCountryController =
+        Get.find<SelectCountryController>();
+    DoctorAuthServiceController doctorAuthServiceController =
+        Get.put(DoctorAuthServiceController());
     return Scaffold(
         extendBody: true,
         body: Center(
@@ -83,11 +89,25 @@ class SingupDoctorView extends StatelessWidget {
                   SizedBox(
                     height: 34,
                   ),
-                  CustomButton(
-                      onPressed: () {
-                        Get.toNamed(AppRoutes.doctorDetails, arguments: true);
-                      },
-                      buttonTitle: "Sign Up"),
+                  Obx(
+                    () => CustomButton(
+                        onPressed: () async {
+                          if (checkBoxController.isChecked) {
+                            await doctorAuthServiceController.doctorSignUp(
+                                nameController.text,
+                                emailController.text,
+                                doctorIdController.text,
+                                passwordController.text,
+                                selectCountryController.country);
+                          } else {
+                            Get.snackbar("Terms and Condtion",
+                                "You must agree with our terms and conditions beofre continue");
+                          }
+                          // Get.toNamed(AppRoutes.doctorDetails, arguments: true);
+                        },
+                        isLoading: doctorAuthServiceController.isLoading,
+                        buttonTitle: "Sign Up"),
+                  ),
                   SizedBox(
                     height: 56,
                   ),
