@@ -11,7 +11,7 @@ import 'package:med_meet_flutter/views/auth/doctor/doctor_sign_up.dart';
 import 'package:med_meet_flutter/views/auth/doctor/verify_progress_doctor.dart';
 import 'package:med_meet_flutter/views/auth/user/user_forgot_password.dart';
 import 'package:med_meet_flutter/views/auth/user/user_new_password.dart';
-import 'package:med_meet_flutter/views/auth/user/select_country_screen.dart';
+import 'package:med_meet_flutter/views/select_country_screen.dart';
 import 'package:med_meet_flutter/views/auth/user/user_sign_in.dart';
 import 'package:med_meet_flutter/views/auth/splash_screen.dart';
 import 'package:med_meet_flutter/views/auth/user/complete_profile.dart';
@@ -149,24 +149,24 @@ class AppRoutes {
     // user
     GetPage(name: selectCountryScreen, page: () => const SelectCountryScreen()),
     GetPage(name: userSignIn, page: () => const UserSignIn()),
-    GetPage(name: signUpUser, page: () => const SignupUserView()),
+    GetPage(name: signUpUser, page: () =>  SignupUserView()),
     GetPage(name: userVerifOtp, page: () => const UserVerifyOtpView()),
     GetPage(name: userForgetPass, page: () => const UserForgotPassView()),
     GetPage(name: userNewPassword, page: () => const UserNewPassView()),
-    GetPage(name: completeProfile, page: () => const CompletePRofileView()),
+    GetPage(name: completeProfile, page: () =>  CompletePRofileView()),
 
     // doctor
 
-    GetPage(name: doctorSignIn, page: () => const DoctorSignIn()),
-    GetPage(name: signUpDoctor, page: () => const SingupDoctorView()),
-    GetPage(name: doctorDetails, page: () => const DoctorDetailsAuthView()),
-    GetPage(name: doctorForgetpass, page: () => const DoctorForgetPass()),
+    GetPage(name: doctorSignIn, page: () =>  DoctorSignIn()),
+    GetPage(name: signUpDoctor, page: () =>  SingupDoctorView()),
+    GetPage(name: doctorDetails, page: () =>  DoctorDetailsAuthView()),
+    GetPage(name: doctorForgetpass, page: () => DoctorForgetPass()),
     // GetPage(name: doctorVerifyOTP, page: () => const DoctorVerifyOtp()),
     GetPage(name: doctorNewPass, page: () => const DoctorNewPass()),
 
     // common
 
-    GetPage(name: splashScreen, page: () => const SplashView()),
+    GetPage(name: splashScreen, page: () =>  SplashView()),
     GetPage(name: whoAreYouScreen, page: () => const WhoAreYouScreen()),
     GetPage(
         name: verifyProgressDoctor,

@@ -5,14 +5,17 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:get/get.dart';
 import 'package:med_meet_flutter/core/constants/image_assets.dart';
-import 'package:med_meet_flutter/controller/auth_controllers/Ui/splash_controller.dart';
+import 'package:med_meet_flutter/controller/splash_controller.dart';
 import 'package:med_meet_flutter/core/utils/app_typography.dart';
 
 class SplashView extends StatelessWidget {
-  const SplashView({super.key});
+   SplashView({super.key});
+
+   SplashController splashController = Get.put(SplashController());
+
   @override
   Widget build(BuildContext context) {
-    final SplashController splashController = Get.put(SplashController());
+
     return Scaffold(
       backgroundColor: Color(0xFF63ACFF),
       body: SizedBox(

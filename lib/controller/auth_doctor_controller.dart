@@ -1,6 +1,7 @@
 import 'package:get/get.dart';
 
-class ImagePickerController extends GetxController {
+class AuthDoctorsController extends GetxController{
+
   final RxString imagePath = ''.obs;
   final RxString idFrontPath = ''.obs;
   final RxString idBackPath = ''.obs;

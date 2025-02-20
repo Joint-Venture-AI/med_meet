@@ -7,11 +7,11 @@ import 'package:med_meet_flutter/core/helpers/route.dart';
 import 'package:med_meet_flutter/core/utils/app_typography.dart';
 
 class DoctorForgetPass extends StatelessWidget {
-  const DoctorForgetPass({super.key});
-
+   DoctorForgetPass({super.key});
+  final emailController = TextEditingController();
   @override
   Widget build(BuildContext context) {
-    final emailController = TextEditingController();
+
 
     return Scaffold(
       body: Padding(

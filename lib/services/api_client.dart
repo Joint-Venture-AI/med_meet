@@ -7,7 +7,9 @@ import 'package:http/http.dart' as http;
 import 'package:med_meet_flutter/core/constants/api_constants.dart';
 import 'package:med_meet_flutter/core/helpers/pref_helper.dart';
 import 'package:med_meet_flutter/models/error_response.dart';
-import '../Utils/app_constants.dart';
+
+import '../core/utils/app_constants.dart';
+
 
 class ApiClient extends GetxService {
   static var client = http.Client();

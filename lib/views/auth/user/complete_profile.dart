@@ -16,26 +16,29 @@ import 'package:med_meet_flutter/core/constants/svg_assets.dart';
 import 'package:med_meet_flutter/core/helpers/route.dart';
 import 'package:med_meet_flutter/core/utils/app_colors.dart';
 import 'package:med_meet_flutter/core/utils/app_typography.dart';
-import 'package:med_meet_flutter/controller/auth_controllers/Ui/image_picker_controller.dart';
+
 
 class CompletePRofileView extends StatelessWidget {
-  const CompletePRofileView({super.key});
+   CompletePRofileView({super.key});
+
+  final TextEditingController nameController = TextEditingController();
+  final TextEditingController phoneController = TextEditingController();
+  final TextEditingController ageController = TextEditingController();
+
+  XFile? imageFile ;
+
+  Future<void> pickImage() async {
+    final ImagePicker picker = ImagePicker();
+    final XFile? file = await picker.pickImage(source: ImageSource.gallery);
+    if (file != null) {
+      imageFile=file;
+    }
+  }
+
+
   @override
   Widget build(BuildContext context) {
-    final TextEditingController nameController = TextEditingController();
-    final TextEditingController phoneController = TextEditingController();
-    final TextEditingController ageController = TextEditingController();
 
-    final ImagePickerController imagePickerController =
-        Get.put(ImagePickerController());
-
-    Future<void> pickImage() async {
-      final ImagePicker picker = ImagePicker();
-      final XFile? photo = await picker.pickImage(source: ImageSource.gallery);
-      if (photo != null) {
-        imagePickerController.setImagePath(photo.path);
-      }
-    }
 
     return Scaffold(
         appBar: PreferredSize(
@@ -71,7 +74,7 @@ class CompletePRofileView extends StatelessWidget {
                       decoration: BoxDecoration(
                           color: AppColors.background1, shape: BoxShape.circle),
                       child: Center(
-                        child: imagePickerController.imagePath.isEmpty
+                        child: imageFile.isNull
                             ? SvgPicture.asset(
                                 SVGAssets.placeholderProfilePic,
                                 height: 72.h,
@@ -81,7 +84,7 @@ class CompletePRofileView extends StatelessWidget {
                             : ClipRRect(
                                 borderRadius: BorderRadius.circular(60),
                                 child: Image.file(
-                                  File(imagePickerController.getImagePath),
+                                  File(imageFile!.path),
                                   height: double.maxFinite,
                                   width: double.maxFinite,
                                   fit: BoxFit.cover,

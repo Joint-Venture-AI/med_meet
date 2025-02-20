@@ -7,16 +7,26 @@ import 'package:med_meet_flutter/core/components/auth_components/circular_checkb
 import 'package:med_meet_flutter/core/components/custom_button.dart';
 import 'package:med_meet_flutter/core/components/custom_text_input.dart';
 import 'package:med_meet_flutter/core/utils/app_typography.dart';
-import 'package:med_meet_flutter/controller/auth_controllers/Ui/check_box_controller.dart';
+
 
 class SignupUserView extends StatelessWidget {
-  const SignupUserView({super.key});
+   SignupUserView({super.key});
+
+  final _isChecked = false.obs; //
+  // Make isChecked observable
+
+  bool get isChecked => _isChecked.value;
+
+  void toggleCheckbox(bool newValue) {
+    _isChecked.value = newValue;
+  }
+
+   final TextEditingController nameController = TextEditingController();
+   final TextEditingController emailController = TextEditingController();
+   final TextEditingController passwordController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
-    final CheckBoxController checkBoxController = CheckBoxController();
-    final TextEditingController nameController = TextEditingController();
-    final TextEditingController emailController = TextEditingController();
-    final TextEditingController passwordController = TextEditingController();
     return Scaffold(
         extendBody: true,
         body: Center(
@@ -65,11 +75,11 @@ class SignupUserView extends StatelessWidget {
                   ),
                   Obx(() => GestureDetector(
                         onTap: () {
-                          checkBoxController
-                              .toggleCheckbox(!checkBoxController.isChecked);
+
+                              toggleCheckbox(!isChecked);
                         },
                         child: CircularCheckbox(
-                            isActive: checkBoxController.isChecked),
+                            isActive: isChecked),
                       )),
                   SizedBox(
                     height: 34,

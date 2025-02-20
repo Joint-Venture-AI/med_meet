@@ -16,51 +16,21 @@ import 'package:med_meet_flutter/core/constants/svg_assets.dart';
 import 'package:med_meet_flutter/core/helpers/route.dart';
 import 'package:med_meet_flutter/core/utils/app_colors.dart';
 import 'package:med_meet_flutter/core/utils/app_typography.dart';
-import 'package:med_meet_flutter/controller/auth_controllers/Ui/image_picker_controller.dart';
+
 
 class DoctorDetailsAuthView extends StatelessWidget {
-  const DoctorDetailsAuthView({super.key});
+   DoctorDetailsAuthView({super.key});
+
+  final TextEditingController experienceController = TextEditingController();
+  final TextEditingController clinicNameController = TextEditingController();
+  final TextEditingController clinicAddressController =
+  TextEditingController();
+  final TextEditingController consultationFeeController =
+  TextEditingController();
+  final TextEditingController aboutDoctorController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
-    final ImagePickerController imagePickerController =
-        Get.put(ImagePickerController());
-    final TextEditingController experienceController = TextEditingController();
-    final TextEditingController clinicNameController = TextEditingController();
-    final TextEditingController clinicAddressController =
-        TextEditingController();
-    final TextEditingController consultationFeeController =
-        TextEditingController();
-    final TextEditingController aboutDoctorController = TextEditingController();
-    Get.put(ImagePickerController());
-
-    void pickPdf() async {
-      FilePickerResult? result = await FilePicker.platform.pickFiles(
-        type: FileType.custom,
-        allowedExtensions: ['pdf'],
-      );
-
-      if (result != null) {
-        imagePickerController.setPdfPath(result.files.single.name);
-      } else {
-        // User canceled the picker
-      }
-    }
-
-    void pickImageFront() async {
-      ImagePicker picker = ImagePicker();
-      XFile? image = await picker.pickImage(source: ImageSource.gallery);
-      if (image != null) {
-        imagePickerController.idFrontPath(image.path);
-      }
-    }
-
-    void pickImageBack() async {
-      ImagePicker picker = ImagePicker();
-      XFile? image = await picker.pickImage(source: ImageSource.gallery);
-      if (image != null) {
-        imagePickerController.idBackPath(image.path);
-      }
-    }
 
     return Scaffold(
         appBar: PreferredSize(
@@ -142,23 +112,23 @@ class DoctorDetailsAuthView extends StatelessWidget {
                     children: [
                       GestureDetector(
                         onTap: () {
-                          pickImageFront();
+
                         },
                         child: Obx(() => buildIDImageButton(
                             title: "Front side of ID",
                             isIamge: true,
                             asset: SVGAssets.addImageIcon,
-                            imageFile: imagePickerController.getIdFrontPath)),
+                            imageFile: "")),
                       ),
                       GestureDetector(
                         onTap: () {
-                          pickImageBack();
+
                         },
                         child: Obx(() => buildIDImageButton(
                             title: "Back side of ID",
                             isIamge: true,
                             asset: SVGAssets.addImageIcon,
-                            imageFile: imagePickerController.getIdBackPath)),
+                            imageFile: "")),
                       ),
                     ],
                   )
@@ -179,13 +149,13 @@ class DoctorDetailsAuthView extends StatelessWidget {
                   ),
                   Obx(() => GestureDetector(
                         onTap: () {
-                          pickPdf();
+
                         },
                         child: buildIDImageButton(
                             title: "Upload your PDF file here",
                             width: true,
                             asset: SVGAssets.cloudUpload,
-                            pdfPath: imagePickerController.getPdfPath),
+                            pdfPath:""),
                       ))
                 ],
               ),

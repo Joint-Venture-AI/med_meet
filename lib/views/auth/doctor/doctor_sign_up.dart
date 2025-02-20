@@ -1,29 +1,40 @@
 import 'package:flutter/material.dart';
-
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:med_meet_flutter/controller/auth_controllers/Api/doctor_auth.dart';
-import 'package:med_meet_flutter/controller/auth_controllers/Ui/select_coountry_controller.dart';
 import 'package:med_meet_flutter/core/helpers/route.dart';
 import 'package:med_meet_flutter/core/components/auth_components/circular_checkbox.dart';
 import 'package:med_meet_flutter/core/components/custom_button.dart';
 import 'package:med_meet_flutter/core/components/custom_text_input.dart';
 import 'package:med_meet_flutter/core/utils/app_typography.dart';
-import 'package:med_meet_flutter/controller/auth_controllers/Ui/check_box_controller.dart';
 
 class SingupDoctorView extends StatelessWidget {
-  const SingupDoctorView({super.key});
+   SingupDoctorView({super.key});
+
+  final _country = "".obs;
+
+  String get country => _country.value;
+
+  void setCountry(String opt) {
+    _country.value = opt;
+  }
+   final _isChecked = false.obs; //
+   // Make isChecked observable
+
+   bool get isChecked => _isChecked.value;
+
+   void toggleCheckbox(bool newValue) {
+     _isChecked.value = newValue;
+   }
+   final TextEditingController nameController = TextEditingController();
+   final TextEditingController emailController = TextEditingController();
+   final TextEditingController doctorIdController = TextEditingController();
+   final TextEditingController passwordController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
-    final CheckBoxController checkBoxController = CheckBoxController();
-    final TextEditingController nameController = TextEditingController();
-    final TextEditingController emailController = TextEditingController();
-    final TextEditingController doctorIdController = TextEditingController();
-    final TextEditingController passwordController = TextEditingController();
-    SelectCountryController selectCountryController =
-        Get.find<SelectCountryController>();
-    DoctorAuthServiceController doctorAuthServiceController =
-        Get.put(DoctorAuthServiceController());
+
+
+
     return Scaffold(
         extendBody: true,
         body: Center(
@@ -80,11 +91,11 @@ class SingupDoctorView extends StatelessWidget {
                   ),
                   Obx(() => GestureDetector(
                         onTap: () {
-                          checkBoxController
-                              .toggleCheckbox(!checkBoxController.isChecked);
+
+                              toggleCheckbox(!isChecked);
                         },
                         child: CircularCheckbox(
-                            isActive: checkBoxController.isChecked),
+                            isActive: isChecked),
                       )),
                   SizedBox(
                     height: 34,
@@ -92,20 +103,15 @@ class SingupDoctorView extends StatelessWidget {
                   Obx(
                     () => CustomButton(
                         onPressed: () async {
-                          if (checkBoxController.isChecked) {
-                            await doctorAuthServiceController.doctorSignUp(
-                                nameController.text,
-                                emailController.text,
-                                doctorIdController.text,
-                                passwordController.text,
-                                selectCountryController.country);
+                          if (isChecked) {
+
                           } else {
                             Get.snackbar("Terms and Condtion",
                                 "You must agree with our terms and conditions beofre continue");
                           }
                           // Get.toNamed(AppRoutes.doctorDetails, arguments: true);
                         },
-                        isLoading: doctorAuthServiceController.isLoading,
+                        isLoading: false,
                         buttonTitle: "Sign Up"),
                   ),
                   SizedBox(

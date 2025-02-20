@@ -9,7 +9,6 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:med_meet_flutter/core/constants/svg_assets.dart';
 import 'package:med_meet_flutter/core/helpers/route.dart';
-import 'package:med_meet_flutter/controller/auth_controllers/Ui/select_coountry_controller.dart';
 import 'package:med_meet_flutter/core/components/custom_button.dart';
 import 'package:med_meet_flutter/core/utils/app_colors.dart';
 import 'package:med_meet_flutter/core/utils/app_typography.dart';
@@ -26,11 +25,16 @@ class _SelectCountryScreenState extends State<SelectCountryScreen> {
   int index = -1;
   String countryName = "Select Your country";
   String flag = "";
+  final _country = "".obs;
+
+  String get country => _country.value;
+
+  void setCountry(String opt) {
+    _country.value = opt;
+  }
 
   @override
   Widget build(BuildContext context) {
-    final SelectCountryController selectCountryController =
-        Get.put(SelectCountryController());
     return Scaffold(
         body: Padding(
       padding: EdgeInsets.all(24),
@@ -77,7 +81,7 @@ class _SelectCountryScreenState extends State<SelectCountryScreen> {
                           setState(() {
                             countryName = country.name;
                             flag = country.flagEmoji;
-                            selectCountryController.setCountry(countryName);
+                            setCountry(countryName);
                           });
                         },
                         countryListTheme: CountryListThemeData(
