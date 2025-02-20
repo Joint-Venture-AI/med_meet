@@ -75,180 +75,14 @@ class _BookPatientDetialsViewState extends State<BookPatientDetialsView> {
                     Align(
                       alignment: Alignment.centerLeft,
                       child: Text(
-                        "Upload your symptomps",
+                        "Image Attachment (Optional)",
                         style: AppTypography.bodyText1Black,
                       ),
                     ),
                     const SizedBox(
                       height: 8,
                     ),
-                    DottedBorder(
-                      color: AppColors.border1,
-                      dashPattern: [8, 8],
-                      radius: Radius.circular(8),
-                      child: Container(
-                        width: double.infinity,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(
-                            20,
-                          ),
-                        ),
-                        child: images.isEmpty
-                            ? GestureDetector(
-                                onTap: () {
-                                  ImagePicker().pickMultiImage().then((value) {
-                                    for (var e in value) {
-                                      setState(() {
-                                        images.add(File(e.path));
-                                      });
-                                    }
-                                  });
-                                },
-                                behavior: HitTestBehavior.translucent,
-                                child: Center(
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.center,
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    spacing: 8,
-                                    children: [
-                                      const SizedBox(
-                                        height: 40,
-                                      ),
-                                      svgViewer(
-                                        asset: "assets/svg/add_image.svg",
-                                        color: Color(0xff1E65FF),
-                                      ),
-                                      Text(
-                                        "Upload images",
-                                        style: AppTypography.bodyText1Black,
-                                      ),
-                                      const SizedBox(
-                                        height: 40,
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              )
-                            : GridView.builder(
-                                padding: const EdgeInsets.all(8.0),
-                                gridDelegate:
-                                    SliverGridDelegateWithFixedCrossAxisCount(
-                                  crossAxisCount: 3,
-                                  mainAxisSpacing: 8,
-                                  crossAxisSpacing: 8,
-                                ),
-                                shrinkWrap: true,
-                                physics: NeverScrollableScrollPhysics(),
-                                itemCount: images.length + 1,
-                                itemBuilder: (context, index) {
-                                  if (index == 0) {
-                                    return GestureDetector(
-                                      onTap: () {
-                                        ImagePicker()
-                                            .pickMultiImage()
-                                            .then((value) {
-                                          for (var e in value) {
-                                            setState(() {
-                                              images.add(File(e.path));
-                                            });
-                                          }
-                                        });
-                                      },
-                                      child: Container(
-                                        decoration: BoxDecoration(
-                                          color: Color(0xffe3e3e3),
-                                          borderRadius:
-                                              BorderRadius.circular(8),
-                                          border: Border.all(
-                                            color: Colors.grey.withAlpha(
-                                              127,
-                                            ),
-                                          ),
-                                        ),
-                                        child: Center(
-                                          child: Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.center,
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.center,
-                                            spacing: 8,
-                                            children: [
-                                              svgViewer(
-                                                asset:
-                                                    "assets/svg/add_image.svg",
-                                                height: 16,
-                                                width: 16,
-                                                color: Color(0xff545454),
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                      ),
-                                    );
-                                  } else {
-                                    return Stack(
-                                      clipBehavior: Clip.none,
-                                      children: [
-                                        GestureDetector(
-                                          onTap: () {
-                                            ImagePicker()
-                                                .pickMultiImage()
-                                                .then((value) {
-                                              setState(() {
-                                                for (var e in value) {
-                                                  images.add(File(e.path));
-                                                }
-                                              });
-                                            });
-                                          },
-                                          child: Container(
-                                            decoration: BoxDecoration(
-                                              color: AppColors.border1,
-                                              borderRadius:
-                                                  BorderRadius.circular(8),
-                                              image: DecorationImage(
-                                                image: FileImage(
-                                                  images[index - 1],
-                                                ),
-                                                fit: BoxFit.cover,
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                        Positioned(
-                                          top: -5,
-                                          right: -5,
-                                          child: GestureDetector(
-                                            onTap: () {
-                                              setState(() {
-                                                images.removeAt(index - 1);
-                                              });
-                                            },
-                                            child: Container(
-                                              height: 24,
-                                              width: 24,
-                                              decoration: BoxDecoration(
-                                                color:
-                                                    Colors.black.withAlpha(200),
-                                                shape: BoxShape.circle,
-                                              ),
-                                              child: Center(
-                                                child: Icon(
-                                                  Icons.close_rounded,
-                                                  color: Colors.white,
-                                                ),
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                      ],
-                                    );
-                                  }
-                                },
-                              ),
-                      ),
-                    ),
+                    uploadImageSection(),
                     SizedBox(
                       height: 14,
                     ),
@@ -267,6 +101,174 @@ class _BookPatientDetialsViewState extends State<BookPatientDetialsView> {
             ),
           ],
         ),
+      ),
+    );
+  }
+
+  DottedBorder uploadImageSection() {
+    return DottedBorder(
+      color: Color(0xff545454),
+      dashPattern: [8],
+      borderType: BorderType.RRect,
+      radius: Radius.circular(8),
+      child: Container(
+        width: double.infinity,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(
+            20,
+          ),
+        ),
+        child: images.isEmpty
+            ? GestureDetector(
+                onTap: () {
+                  ImagePicker().pickMultiImage().then((value) {
+                    for (var e in value) {
+                      setState(() {
+                        images.add(File(e.path));
+                      });
+                    }
+                  });
+                },
+                behavior: HitTestBehavior.translucent,
+                child: Center(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    spacing: 8,
+                    children: [
+                      const SizedBox(
+                        height: 40,
+                      ),
+                      svgViewer(
+                        asset: "assets/svg/add_image.svg",
+                        height: 20,
+                        width: 20,
+                        color: Color(0xff545454),
+                      ),
+                      Text(
+                        "Upload images",
+                        style: TextStyle(
+                          fontSize: 12,
+                          color: Color(0xff333333)
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 40,
+                      ),
+                    ],
+                  ),
+                ),
+              )
+            : GridView.builder(
+                padding: const EdgeInsets.all(8.0),
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 3,
+                  mainAxisSpacing: 8,
+                  crossAxisSpacing: 8,
+                ),
+                shrinkWrap: true,
+                physics: NeverScrollableScrollPhysics(),
+                itemCount: images.length + 1,
+                itemBuilder: (context, index) {
+                  if (index == 0) {
+                    return GestureDetector(
+                      onTap: () {
+                        ImagePicker().pickMultiImage().then((value) {
+                          for (var e in value) {
+                            setState(() {
+                              images.add(File(e.path));
+                            });
+                          }
+                        });
+                      },
+                      child: DottedBorder(
+                        dashPattern: [6],
+                        color: Color(
+                          0xffB0B0B0,
+                        ),
+                        borderType: BorderType.RRect,
+                        radius: Radius.circular(8),
+                        child: Container(
+                          decoration: BoxDecoration(
+                            color: Color(0xffF4F6F7),
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                          child: Center(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              spacing: 8,
+                              children: [
+                                svgViewer(
+                                  asset: "assets/svg/add_image.svg",
+                                  height: 20,
+                                  width: 20,
+                                  color: Color(0xff545454),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                    );
+                  } else {
+                    return Stack(
+                      clipBehavior: Clip.none,
+                      children: [
+                        GestureDetector(
+                          onTap: () {
+                            ImagePicker().pickMultiImage().then((value) {
+                              setState(() {
+                                for (var e in value) {
+                                  images.add(File(e.path));
+                                }
+                              });
+                            });
+                          },
+                          child: Container(
+                            decoration: BoxDecoration(
+                              color: AppColors.border1,
+                              borderRadius: BorderRadius.circular(8),
+                              image: DecorationImage(
+                                image: FileImage(
+                                  images[index - 1],
+                                ),
+                                fit: BoxFit.cover,
+                              ),
+                            ),
+                          ),
+                        ),
+                        Positioned(
+                          top: -5,
+                          right: -2,
+                          child: GestureDetector(
+                            onTap: () {
+                              setState(() {
+                                images.removeAt(index - 1);
+                              });
+                            },
+                            child: Container(
+                              height: 20,
+                              width: 20,
+                              decoration: BoxDecoration(
+                                color: Colors.black.withAlpha(200),
+                                shape: BoxShape.circle,
+                              ),
+                              child: Center(
+                                child: Icon(
+                                  Icons.close_rounded,
+                                  size: 20,
+                                  color: Colors.white,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    );
+                  }
+                },
+              ),
       ),
     );
   }
