@@ -1,18 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:med_meet_flutter/controller/auth_doctor_controller.dart';
 import 'package:med_meet_flutter/core/components/custom_button.dart';
 import 'package:med_meet_flutter/core/utils/app_typography.dart';
 import 'package:pinput/pinput.dart';
 
 class DoctorVerifyOtp extends StatelessWidget {
-   DoctorVerifyOtp({super.key, required this.email});
+  DoctorVerifyOtp({super.key, required this.email, this.isSignUp = true});
   final String email;
-  TextEditingController otpController = TextEditingController();
+  final bool isSignUp;
+  final TextEditingController otpController = TextEditingController();
+  final AuthDoctorsController authDoctorsController =
+      Get.put(AuthDoctorsController());
   @override
   Widget build(BuildContext context) {
-
-
     final defaultPinTheme = PinTheme(
       width: 56,
       height: 56,
@@ -25,8 +27,6 @@ class DoctorVerifyOtp extends StatelessWidget {
     );
 
     final args = Get.arguments;
-
-
 
     return Scaffold(
         body: Padding(
@@ -63,7 +63,8 @@ class DoctorVerifyOtp extends StatelessWidget {
           ),
           CustomButton(
               onPressed: () {
-
+                authDoctorsController.verifyDoctorOtp(email, otpController.text,
+                    isSignup: isSignUp);
               },
               buttonTitle: "Verify OTP")
         ],

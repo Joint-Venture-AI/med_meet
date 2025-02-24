@@ -1,0 +1,2 @@
+C:/Users/taski/Desktop/JV AI/med_meet/android/app/.cxx/Debug/3a691acp/x86/CMakeFiles/edit_cache.dir
+C:/Users/taski/Desktop/JV AI/med_meet/android/app/.cxx/Debug/3a691acp/x86/CMakeFiles/rebuild_cache.dir

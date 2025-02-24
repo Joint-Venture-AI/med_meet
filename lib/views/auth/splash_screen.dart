@@ -11,7 +11,7 @@ import 'package:med_meet_flutter/core/utils/app_typography.dart';
 class SplashView extends StatelessWidget {
    SplashView({super.key});
 
-   SplashController splashController = Get.put(SplashController());
+   final SplashController splashController = Get.put(SplashController());
 
   @override
   Widget build(BuildContext context) {

@@ -50,7 +50,9 @@ class UserVerifyOtpView extends StatelessWidget {
             keyboardType: TextInputType.number,
             defaultPinTheme: defaultPinTheme,
             length: 6,
-            onCompleted: (pin) => print(pin),
+            onCompleted: (pin) {
+              // Todo: Implement Pin Catching
+            },
           ),
           SizedBox(
             height: 32,

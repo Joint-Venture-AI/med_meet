@@ -4,6 +4,7 @@ import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:med_meet_flutter/controller/common_controller.dart';
 import 'package:med_meet_flutter/core/components/custom_app_bar.dart';
 import 'package:med_meet_flutter/core/components/custom_button.dart';
 import 'package:med_meet_flutter/core/components/custom_drop_down.dart';
@@ -29,6 +30,7 @@ class _BookPatientDetialsViewState extends State<BookPatientDetialsView> {
     final TextEditingController nameController = TextEditingController();
     final TextEditingController ageController = TextEditingController();
     final TextEditingController problemController = TextEditingController();
+    CommonController commonController = Get.put(CommonController());
     return Scaffold(
       appBar: PreferredSize(
           preferredSize: Size.fromHeight(60),
@@ -49,8 +51,16 @@ class _BookPatientDetialsViewState extends State<BookPatientDetialsView> {
                     SizedBox(
                       height: 10,
                     ),
-                    CustomDropDown(
-                        title: "Gender", dropDownItems: ["Male", "Female"]),
+                    Obx(
+                      () => CustomDropDown(
+                        title: "Gender",
+                        dropDownItems: commonController.genders,
+                        initialValue: commonController.selectedGender.value,
+                        onChange: (String? newVal) {
+                          commonController.setSelectedGender(newVal!);
+                        },
+                      ),
+                    ),
                     SizedBox(
                       height: 10,
                     ),
@@ -147,10 +157,8 @@ class _BookPatientDetialsViewState extends State<BookPatientDetialsView> {
                       ),
                       Text(
                         "Upload images",
-                        style: TextStyle(
-                          fontSize: 12,
-                          color: Color(0xff333333)
-                        ),
+                        style:
+                            TextStyle(fontSize: 12, color: Color(0xff333333)),
                       ),
                       const SizedBox(
                         height: 40,

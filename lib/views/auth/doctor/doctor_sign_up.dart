@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:med_meet_flutter/controller/auth_doctor_controller.dart';
+import 'package:med_meet_flutter/core/components/custom_snack_bar.dart';
 import 'package:med_meet_flutter/core/helpers/route.dart';
 import 'package:med_meet_flutter/core/components/auth_components/circular_checkbox.dart';
 import 'package:med_meet_flutter/core/components/custom_button.dart';
@@ -8,7 +10,7 @@ import 'package:med_meet_flutter/core/components/custom_text_input.dart';
 import 'package:med_meet_flutter/core/utils/app_typography.dart';
 
 class SingupDoctorView extends StatelessWidget {
-   SingupDoctorView({super.key});
+  SingupDoctorView({super.key});
 
   final _country = "".obs;
 
@@ -17,24 +19,24 @@ class SingupDoctorView extends StatelessWidget {
   void setCountry(String opt) {
     _country.value = opt;
   }
-   final _isChecked = false.obs; //
-   // Make isChecked observable
 
-   bool get isChecked => _isChecked.value;
+  final _isChecked = false.obs; //
+  // Make isChecked observable
 
-   void toggleCheckbox(bool newValue) {
-     _isChecked.value = newValue;
-   }
-   final TextEditingController nameController = TextEditingController();
-   final TextEditingController emailController = TextEditingController();
-   final TextEditingController doctorIdController = TextEditingController();
-   final TextEditingController passwordController = TextEditingController();
+  bool get isChecked => _isChecked.value;
 
+  void toggleCheckbox(bool newValue) {
+    _isChecked.value = newValue;
+  }
+
+  final TextEditingController nameController = TextEditingController();
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController doctorIdController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
+  final AuthDoctorsController authDoctorsController =
+      Get.put(AuthDoctorsController());
   @override
   Widget build(BuildContext context) {
-
-
-
     return Scaffold(
         extendBody: true,
         body: Center(
@@ -91,11 +93,9 @@ class SingupDoctorView extends StatelessWidget {
                   ),
                   Obx(() => GestureDetector(
                         onTap: () {
-
-                              toggleCheckbox(!isChecked);
+                          toggleCheckbox(!isChecked);
                         },
-                        child: CircularCheckbox(
-                            isActive: isChecked),
+                        child: CircularCheckbox(isActive: isChecked),
                       )),
                   SizedBox(
                     height: 34,
@@ -104,14 +104,19 @@ class SingupDoctorView extends StatelessWidget {
                     () => CustomButton(
                         onPressed: () async {
                           if (isChecked) {
-
+                            authDoctorsController.signUp(
+                                nameController.text,
+                                emailController.text,
+                                doctorIdController.text,
+                                passwordController.text);
                           } else {
-                            Get.snackbar("Terms and Condtion",
-                                "You must agree with our terms and conditions beofre continue");
+                            showCustomSnackBar(
+                                "You must agree with our terms and conditions beofre continue",
+                                getXSnackBar: false);
                           }
                           // Get.toNamed(AppRoutes.doctorDetails, arguments: true);
                         },
-                        isLoading: false,
+                        isLoading: authDoctorsController.isLoading.value,
                         buttonTitle: "Sign Up"),
                   ),
                   SizedBox(
@@ -128,16 +133,17 @@ class SingupDoctorView extends StatelessWidget {
                         width: 3,
                       ),
                       GestureDetector(
-                          onTap: () {
-                            Get.toNamed(AppRoutes.doctorSignIn);
-                          },
-                          child: Text(
-                            "Sign In",
-                            style: GoogleFonts.roboto(
-                                fontWeight: FontWeight.w600,
-                                fontSize: 14,
-                                color: Color(0xFF333333)),
-                          )),
+                        onTap: () {
+                          Get.toNamed(AppRoutes.doctorSignIn);
+                        },
+                        child: Text(
+                          "Sign In",
+                          style: GoogleFonts.roboto(
+                              fontWeight: FontWeight.w600,
+                              fontSize: 14,
+                              color: Color(0xFF333333)),
+                        ),
+                      ),
                     ],
                   ),
                 ],

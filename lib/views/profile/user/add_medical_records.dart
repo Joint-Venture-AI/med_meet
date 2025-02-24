@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:med_meet_flutter/controller/common_controller.dart';
 import 'package:med_meet_flutter/core/components/custom_app_bar.dart';
 import 'package:med_meet_flutter/core/components/custom_button.dart';
 import 'package:med_meet_flutter/core/components/custom_drop_down.dart';
@@ -7,7 +8,9 @@ import 'package:med_meet_flutter/core/components/custom_text_input.dart';
 import 'package:med_meet_flutter/core/utils/uitls.dart';
 
 class AddMedicalRecords extends StatelessWidget {
-  const AddMedicalRecords({super.key});
+  AddMedicalRecords({super.key});
+
+  final CommonController commonController = Get.put(CommonController());
 
   @override
   Widget build(BuildContext context) {
@@ -41,10 +44,11 @@ class AddMedicalRecords extends StatelessWidget {
                     ),
                     CustomDropDown(
                       title: "Gender",
-                      dropDownItems: [
-                        "Male",
-                        "Female",
-                      ],
+                      dropDownItems: commonController.genders,
+                      initialValue: commonController.selectedGender.value,
+                      onChange: (String? newVal) {
+                        commonController.setSelectedGender(newVal!);
+                      },
                     ),
                     CustomTextInput(
                       title: "Write Medical History",

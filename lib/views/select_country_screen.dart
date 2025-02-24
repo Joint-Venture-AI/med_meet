@@ -25,12 +25,11 @@ class _SelectCountryScreenState extends State<SelectCountryScreen> {
   int index = -1;
   String countryName = "Select Your country";
   String flag = "";
-  final _country = "".obs;
-
-  String get country => _country.value;
+  String country = "";
 
   void setCountry(String opt) {
-    _country.value = opt;
+    setState(() {});
+    country = opt;
   }
 
   @override

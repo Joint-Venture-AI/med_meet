@@ -1,37 +1,35 @@
 import 'dart:io';
 
 import 'package:dotted_border/dotted_border.dart';
-import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 import 'package:get/get.dart';
-import 'package:image_picker/image_picker.dart';
+import 'package:med_meet_flutter/controller/auth_doctor_controller.dart';
+import 'package:med_meet_flutter/controller/common_controller.dart';
 import 'package:med_meet_flutter/core/components/custom_app_bar.dart';
 import 'package:med_meet_flutter/core/components/custom_button.dart';
 import 'package:med_meet_flutter/core/components/custom_drop_down.dart';
 import 'package:med_meet_flutter/core/components/custom_text_input.dart';
 import 'package:med_meet_flutter/core/constants/svg_assets.dart';
-import 'package:med_meet_flutter/core/helpers/route.dart';
 import 'package:med_meet_flutter/core/utils/app_colors.dart';
 import 'package:med_meet_flutter/core/utils/app_typography.dart';
 
-
 class DoctorDetailsAuthView extends StatelessWidget {
-   DoctorDetailsAuthView({super.key});
+  DoctorDetailsAuthView({super.key});
 
   final TextEditingController experienceController = TextEditingController();
   final TextEditingController clinicNameController = TextEditingController();
-  final TextEditingController clinicAddressController =
-  TextEditingController();
+  final TextEditingController clinicAddressController = TextEditingController();
   final TextEditingController consultationFeeController =
-  TextEditingController();
+      TextEditingController();
   final TextEditingController aboutDoctorController = TextEditingController();
-
+  final AuthDoctorsController authDoctorsController =
+      Get.find<AuthDoctorsController>();
+  final CommonController commonController = Get.put(CommonController());
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
         appBar: PreferredSize(
             preferredSize: Size.fromHeight(60),
@@ -40,16 +38,21 @@ class DoctorDetailsAuthView extends StatelessWidget {
           padding: EdgeInsets.all(24),
           child: ListView(
             children: [
-              CustomDropDown(title: "Specialist", dropDownItems: [
-                "Dentist",
-                "Immunologists",
-                "Cardiologists",
-                "Neurologist",
-                "Orthopedics",
-                "Therapist",
-                "Nutritionist",
-                "Gynecologic",
-              ]),
+              Obx(
+                () => CustomDropDown(
+                  title: "Specialist",
+                  dropDownItems: commonController.allSpecialty.map((item) {
+                    return {
+                      "title": item["name"].toString(),
+                      "val": item["_id"].toString(),
+                    };
+                  }).toList(),
+                  initialValue: commonController.selectedSpecialty.value,
+                  onChange: (String? newVal) {
+                    commonController.selectedSpecialty.value = newVal!;
+                  },
+                ),
+              ),
               SizedBox(
                 height: 12,
               ),
@@ -58,6 +61,19 @@ class DoctorDetailsAuthView extends StatelessWidget {
                 title: "Experience",
                 hintText: "Experience",
                 textController: experienceController,
+              ),
+              SizedBox(
+                height: 12,
+              ),
+              Obx(
+                () => CustomDropDown(
+                  title: "Select Gender",
+                  dropDownItems: commonController.genders,
+                  initialValue: commonController.selectedGender.value,
+                  onChange: (String? newVal) {
+                    commonController.setSelectedGender(newVal!);
+                  },
+                ),
               ),
               SizedBox(
                 height: 12,
@@ -110,25 +126,37 @@ class DoctorDetailsAuthView extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      GestureDetector(
-                        onTap: () {
-
-                        },
-                        child: Obx(() => buildIDImageButton(
-                            title: "Front side of ID",
-                            isIamge: true,
-                            asset: SVGAssets.addImageIcon,
-                            imageFile: "")),
+                      Obx(
+                        () => GestureDetector(
+                          onTap: () {
+                            authDoctorsController.setImage(
+                                type: FileTypes.idFront);
+                          },
+                          child: buildIDImageButton(
+                              title: "Front side of ID",
+                              isIamge: true,
+                              asset: SVGAssets.addImageIcon,
+                              imageFile: authDoctorsController.idFront.value !=
+                                      null
+                                  ? authDoctorsController.idFront.value!.path
+                                  : ""),
+                        ),
                       ),
-                      GestureDetector(
-                        onTap: () {
-
-                        },
-                        child: Obx(() => buildIDImageButton(
-                            title: "Back side of ID",
-                            isIamge: true,
-                            asset: SVGAssets.addImageIcon,
-                            imageFile: "")),
+                      Obx(
+                        () => GestureDetector(
+                          onTap: () {
+                            authDoctorsController.setImage(
+                                type: FileTypes.idBack);
+                          },
+                          child: buildIDImageButton(
+                              title: "Back side of ID",
+                              isIamge: true,
+                              asset: SVGAssets.addImageIcon,
+                              imageFile:
+                                  authDoctorsController.idBack.value != null
+                                      ? authDoctorsController.idBack.value!.path
+                                      : ""),
+                        ),
                       ),
                     ],
                   )
@@ -147,22 +175,33 @@ class DoctorDetailsAuthView extends StatelessWidget {
                   SizedBox(
                     height: 8.h,
                   ),
-                  Obx(() => GestureDetector(
-                        onTap: () {
-
-                        },
-                        child: buildIDImageButton(
-                            title: "Upload your PDF file here",
-                            width: true,
-                            asset: SVGAssets.cloudUpload,
-                            pdfPath:""),
-                      ))
+                  Obx(
+                    () => GestureDetector(
+                      onTap: () {
+                        authDoctorsController.setFile();
+                      },
+                      child: buildIDImageButton(
+                          title: "Upload your PDF file here",
+                          width: true,
+                          asset: SVGAssets.cloudUpload,
+                          pdfPath: authDoctorsController.medicalLicense.value !=
+                                  null
+                              ? authDoctorsController.medicalLicense.value!.path
+                              : ""),
+                    ),
+                  ),
                 ],
               ),
               CustomButton(
                   onPressed: () {
-                    Get.toNamed(AppRoutes.doctorVerifyOTP,
-                        arguments: OTPTYPE.doctorSignup);
+                    authDoctorsController.addDetailsAfterSignUp(
+                        aboutDoctor: aboutDoctorController.text,
+                        clinicAddress: clinicAddressController.text,
+                        clinicName: clinicNameController.text,
+                        consultationFree: consultationFeeController.text,
+                        experience: experienceController.text,
+                        specialist: commonController.selectedSpecialty.value,
+                        gender: commonController.selectedGender.value);
                   },
                   buttonTitle: "Continue")
             ],

@@ -4,12 +4,12 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_connect/http/src/request/request.dart';
 import 'package:http/http.dart' as http;
+import 'package:http_parser/http_parser.dart';
 import 'package:med_meet_flutter/core/constants/api_constants.dart';
 import 'package:med_meet_flutter/core/helpers/pref_helper.dart';
 import 'package:med_meet_flutter/models/error_response.dart';
 
 import '../core/utils/app_constants.dart';
-
 
 class ApiClient extends GetxService {
   static var client = http.Client();
@@ -89,10 +89,10 @@ class ApiClient extends GetxService {
           http.MultipartRequest('POST', Uri.parse(ApiConstants.baseUrl + uri));
       request.headers.addAll(headers ?? mainHeaders);
       for (MultipartBody element in multipartBody) {
+        String mimeType = _getMimeType(element.file.path);
         request.files.add(await http.MultipartFile.fromPath(
-          element.key,
-          element.file.path,
-        ));
+            element.key, element.file.path,
+            contentType: MediaType.parse(mimeType)));
       }
       request.fields.addAll(body);
       http.Response response =
@@ -143,6 +143,7 @@ class ApiClient extends GetxService {
       var request =
           http.MultipartRequest('PUT', Uri.parse(ApiConstants.baseUrl + uri));
       request.headers.addAll(headers ?? mainHeaders);
+      // ignore: unused_local_variable
       for (MultipartBody element in multipartBody) {
         for (MultipartBody element in multipartBody) {
           request.files.add(await http.MultipartFile.fromPath(
@@ -235,6 +236,25 @@ class ApiClient extends GetxService {
     // log.e("Handle Response error} ");
     return response0;
   }
+
+  static String _getMimeType(String filePath) {
+    String extension = filePath.split('.').last.toLowerCase();
+    switch (extension) {
+      case 'jpg':
+      case 'jpeg':
+        return 'image/jpeg';
+      case 'png':
+        return 'image/png';
+      case 'gif':
+        return 'image/gif';
+      case 'webp':
+        return 'image/webp';
+      case 'pdf': // Added support for PDF
+        return 'application/pdf';
+      default:
+        return 'application/octet-stream'; // Default if unknown
+    }
+  }
 }
 
 class MultipartBody {
@@ -243,3 +263,5 @@ class MultipartBody {
 
   MultipartBody(this.key, this.file);
 }
+
+/// Helper function to determine MIME type based on file extension

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:med_meet_flutter/core/utils/app_colors.dart';
 
@@ -9,20 +10,21 @@ class TimeSlotGrid extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final List<String> timeSlots = [
-      "09.00 AM - 09.30 AM",
-      "10:00 AM - 10:30 AM",
-      "11:00 AM - 11:00 AM",
-      "12:00 AM - 12:30 AM",
-      "01:00 AM - 01:30 AM",
-      "02:00 AM - 02.30 AM",
-      "03:00 PM - 03:00 AM",
-      "09.00 AM - 09.30 AM",
+      "09.00 - 09.30",
+      "10:00 - 10:30",
+      "11:00 - 11:00",
+      "12:00 - 12:30",
+      "01:00 - 01:30",
+      "02:00 - 02.30",
+      "03:00 - 03:00",
+      "09.00 - 09.30",
+      "09.00 - 09.30",
     ];
     return GridView.builder(
       padding: EdgeInsets.symmetric(vertical: 16),
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: 2, // Number of columns
-        childAspectRatio: 3.9, // Adjust aspect ratio for desired shape
+        crossAxisCount: 3, // Number of columns
+        childAspectRatio: 3.5, // Adjust aspect ratio for desired shape
         crossAxisSpacing: 14, // Spacing between columns
         mainAxisSpacing: 10, // Spacing between rows
       ),
@@ -69,7 +71,7 @@ class _TimeSlotButtonState extends State<TimeSlotButton> {
           child: Text(
             widget.timeSlot,
             style: GoogleFonts.roboto(
-              fontSize: 14,
+              fontSize: 12.sp,
               fontWeight: FontWeight.w500,
               color: isActive ? Colors.white : Color(0xFF545454),
             ),

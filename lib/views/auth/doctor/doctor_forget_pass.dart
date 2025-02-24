@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:med_meet_flutter/controller/auth_doctor_controller.dart';
 import 'package:med_meet_flutter/core/components/custom_button.dart';
 import 'package:med_meet_flutter/core/components/custom_text_input.dart';
-import 'package:med_meet_flutter/core/helpers/route.dart';
 import 'package:med_meet_flutter/core/utils/app_typography.dart';
 
 class DoctorForgetPass extends StatelessWidget {
-   DoctorForgetPass({super.key});
+  DoctorForgetPass({super.key});
   final emailController = TextEditingController();
+  final AuthDoctorsController authDoctorsController =
+      Get.find<AuthDoctorsController>();
   @override
   Widget build(BuildContext context) {
-
-
     return Scaffold(
       body: Padding(
         padding: EdgeInsets.all(24),
@@ -44,9 +44,8 @@ class DoctorForgetPass extends StatelessWidget {
               height: 32.h,
             ),
             CustomButton(
-                onPressed: () {
-                  Get.toNamed(AppRoutes.doctorVerifyOTP,
-                      arguments: OTPTYPE.doctorForgetPass);
+                onPressed: () async {
+                  await authDoctorsController.sendOTP(emailController.text);
                 },
                 buttonTitle: "Send Reset"),
           ],

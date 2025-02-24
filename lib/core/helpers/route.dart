@@ -149,24 +149,24 @@ class AppRoutes {
     // user
     GetPage(name: selectCountryScreen, page: () => const SelectCountryScreen()),
     GetPage(name: userSignIn, page: () => const UserSignIn()),
-    GetPage(name: signUpUser, page: () =>  SignupUserView()),
+    GetPage(name: signUpUser, page: () => SignupUserView()),
     GetPage(name: userVerifOtp, page: () => const UserVerifyOtpView()),
     GetPage(name: userForgetPass, page: () => const UserForgotPassView()),
     GetPage(name: userNewPassword, page: () => const UserNewPassView()),
-    GetPage(name: completeProfile, page: () =>  CompletePRofileView()),
+    GetPage(name: completeProfile, page: () => CompletePRofileView()),
 
     // doctor
 
-    GetPage(name: doctorSignIn, page: () =>  DoctorSignIn()),
-    GetPage(name: signUpDoctor, page: () =>  SingupDoctorView()),
-    GetPage(name: doctorDetails, page: () =>  DoctorDetailsAuthView()),
+    GetPage(name: doctorSignIn, page: () => DoctorSignIn()),
+    GetPage(name: signUpDoctor, page: () => SingupDoctorView()),
+    GetPage(name: doctorDetails, page: () => DoctorDetailsAuthView()),
     GetPage(name: doctorForgetpass, page: () => DoctorForgetPass()),
     // GetPage(name: doctorVerifyOTP, page: () => const DoctorVerifyOtp()),
-    GetPage(name: doctorNewPass, page: () => const DoctorNewPass()),
+    GetPage(name: doctorNewPass, page: () => DoctorNewPass()),
 
     // common
 
-    GetPage(name: splashScreen, page: () =>  SplashView()),
+    GetPage(name: splashScreen, page: () => SplashView()),
     GetPage(name: whoAreYouScreen, page: () => const WhoAreYouScreen()),
     GetPage(
         name: verifyProgressDoctor,

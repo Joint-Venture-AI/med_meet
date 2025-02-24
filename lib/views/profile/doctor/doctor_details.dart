@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:med_meet_flutter/core/components/custom_app_bar.dart';
 import 'package:med_meet_flutter/core/components/custom_button.dart';
-import 'package:med_meet_flutter/core/components/custom_drop_down.dart';
 import 'package:med_meet_flutter/core/components/custom_text_input.dart';
 
 class DoctorDetails extends StatelessWidget {
@@ -33,19 +32,19 @@ class DoctorDetails extends StatelessWidget {
                     const SizedBox(
                       height: 20,
                     ),
-                    CustomDropDown(
-                      title: "Specialist",
-                      dropDownItems: [
-                        "Dentist",
-                        "Immunologists",
-                        "Cardiologists",
-                        "Neurologist",
-                        "Orthopedics",
-                        "Therapist",
-                        "Nutritionist",
-                        "Gynecologic",
-                      ],
-                    ),
+                    // CustomDropDown(
+                    //   title: "Specialist",
+                    //   dropDownItems: [
+                    //     "Dentist",
+                    //     "Immunologists",
+                    //     "Cardiologists",
+                    //     "Neurologist",
+                    //     "Orthopedics",
+                    //     "Therapist",
+                    //     "Nutritionist",
+                    //     "Gynecologic",
+                    //   ],
+                    // ),
                     SizedBox(
                       height: 12,
                     ),

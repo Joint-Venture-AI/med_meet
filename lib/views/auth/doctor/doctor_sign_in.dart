@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:med_meet_flutter/controller/auth_doctor_controller.dart';
+import 'package:med_meet_flutter/controller/common_controller.dart';
 
 import 'package:med_meet_flutter/core/components/custom_button.dart';
 import 'package:med_meet_flutter/core/components/custom_text_input.dart';
@@ -10,14 +12,16 @@ import 'package:med_meet_flutter/core/utils/app_typography.dart';
 import '../../../core/helpers/route.dart';
 
 class DoctorSignIn extends StatelessWidget {
-   DoctorSignIn({super.key});
+  DoctorSignIn({super.key});
 
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
+  final AuthDoctorsController authDoctorsController =
+      Get.put(AuthDoctorsController());
+  final CommonController commonController = Get.put(CommonController());
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
         extendBody: true,
         resizeToAvoidBottomInset: false,
@@ -72,9 +76,12 @@ class DoctorSignIn extends StatelessWidget {
                 Obx(
                   () => CustomButton(
                       onPressed: () async {
+                        await commonController.getAllSpecialty();
 
+                        await authDoctorsController.signIn(
+                            emailController.text, passwordController.text);
                       },
-                      isLoading:false,
+                      isLoading: authDoctorsController.isLoading.value,
                       buttonTitle: "Sign In"),
                 ),
                 SizedBox(

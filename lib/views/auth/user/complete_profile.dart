@@ -7,6 +7,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
+import 'package:med_meet_flutter/controller/common_controller.dart';
 import 'package:med_meet_flutter/core/components/custom_app_bar.dart';
 import 'package:med_meet_flutter/core/components/custom_button.dart';
 import 'package:med_meet_flutter/core/components/custom_drop_down.dart';
@@ -17,29 +18,27 @@ import 'package:med_meet_flutter/core/helpers/route.dart';
 import 'package:med_meet_flutter/core/utils/app_colors.dart';
 import 'package:med_meet_flutter/core/utils/app_typography.dart';
 
-
 class CompletePRofileView extends StatelessWidget {
-   CompletePRofileView({super.key});
+  CompletePRofileView({super.key});
 
   final TextEditingController nameController = TextEditingController();
   final TextEditingController phoneController = TextEditingController();
   final TextEditingController ageController = TextEditingController();
 
-  XFile? imageFile ;
+  XFile? imageFile;
 
   Future<void> pickImage() async {
     final ImagePicker picker = ImagePicker();
     final XFile? file = await picker.pickImage(source: ImageSource.gallery);
     if (file != null) {
-      imageFile=file;
+      imageFile = file;
     }
   }
 
+  final CommonController commonController = Get.put(CommonController());
 
   @override
   Widget build(BuildContext context) {
-
-
     return Scaffold(
         appBar: PreferredSize(
             preferredSize: Size.fromHeight(60), child: CustomAppBar(title: "")),
@@ -122,7 +121,11 @@ class CompletePRofileView extends StatelessWidget {
                 ),
                 CustomDropDown(
                   title: "Gender",
-                  dropDownItems: ["Male", "Female"],
+                  dropDownItems: commonController.genders,
+                  initialValue: commonController.selectedGender.value,
+                  onChange: (String? newVal) {
+                    commonController.setSelectedGender(newVal!);
+                  },
                 ),
                 SizedBox(
                   height: 16,

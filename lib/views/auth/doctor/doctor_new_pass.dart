@@ -1,18 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:med_meet_flutter/controller/auth_doctor_controller.dart';
 import 'package:med_meet_flutter/core/components/custom_button.dart';
 import 'package:med_meet_flutter/core/components/custom_text_input.dart';
-import 'package:med_meet_flutter/core/helpers/route.dart';
 import 'package:med_meet_flutter/core/utils/app_typography.dart';
 
 class DoctorNewPass extends StatelessWidget {
-  const DoctorNewPass({super.key});
+  DoctorNewPass({super.key});
+  final TextEditingController passwordController = TextEditingController();
+  final TextEditingController confirmPasswordController =
+      TextEditingController();
 
+  final AuthDoctorsController authDoctorsController =
+      Get.find<AuthDoctorsController>();
   @override
   Widget build(BuildContext context) {
-    final TextEditingController passwordController = TextEditingController();
-    final TextEditingController confirmPasswordController =
-        TextEditingController();
     return Scaffold(
       body: Padding(
         padding: EdgeInsets.all(24),
@@ -52,7 +54,8 @@ class DoctorNewPass extends StatelessWidget {
             ),
             CustomButton(
                 onPressed: () {
-                  Get.toNamed(AppRoutes.userSignIn);
+                  authDoctorsController.forgetPass(
+                      passwordController.text, confirmPasswordController.text);
                 },
                 buttonTitle: "Create New Password")
           ],
