@@ -6,7 +6,7 @@ import 'package:med_meet_flutter/core/components/controllers/custom_text_control
 import 'package:med_meet_flutter/core/utils/app_colors.dart';
 import 'package:med_meet_flutter/core/utils/app_typography.dart';
 
-class CustomTextInput extends StatelessWidget {
+class CustomTextInput extends StatefulWidget {
   const CustomTextInput({
     super.key,
     this.title,
@@ -37,6 +37,12 @@ class CustomTextInput extends StatelessWidget {
   final TextEditingController textController;
 
   @override
+  State<CustomTextInput> createState() => _CustomTextInputState();
+}
+
+class _CustomTextInputState extends State<CustomTextInput> {
+  bool obscureText = true;
+  @override
   Widget build(BuildContext context) {
     final CustomTextController controller = Get.put(CustomTextController());
 
@@ -46,14 +52,14 @@ class CustomTextInput extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          if (renderTitle && title != null)
-            Text(title!, style: AppTypography.bodyText1Black),
-          if (renderTitle)
+          if (widget.renderTitle && widget.title != null)
+            Text(widget.title!, style: AppTypography.bodyText1Black),
+          if (widget.renderTitle)
             SizedBox(
               height: 8.h,
             ),
           Container(
-              height: multiLine ?? false ? 130 : null,
+              height: widget.multiLine ?? false ? 130 : null,
               padding: EdgeInsets.symmetric(
                 horizontal: 16,
               ),
@@ -63,45 +69,45 @@ class CustomTextInput extends StatelessWidget {
               ),
               child: Column(
                 children: [
-                  Obx(
-                    () => Row(
-                      children: [
-                        if (icon != null) Icon(icon),
-                        if (icon != null) SizedBox(width: 8.w),
-                        Flexible(
-                          child: TextField(
-                            keyboardType: isPhone
-                                ? TextInputType.phone
-                                : TextInputType.text,
-                            inputFormatters: isPhone
-                                ? [FilteringTextInputFormatter.digitsOnly]
-                                : [],
-                            controller: textController,
-                            maxLines: maxLines,
-                            enabled: isEnabled,
-                            obscureText: controller.passShown,
-                            decoration: InputDecoration(
-                              // enabled: false,
-                              border: InputBorder.none,
-                              hintText: hintText,
-                            ),
+                  Row(
+                    children: [
+                      if (widget.icon != null) Icon(widget.icon),
+                      if (widget.icon != null) SizedBox(width: 8.w),
+                      Flexible(
+                        child: TextField(
+                          keyboardType: widget.isPhone
+                              ? TextInputType.phone
+                              : TextInputType.text,
+                          inputFormatters: widget.isPhone
+                              ? [FilteringTextInputFormatter.digitsOnly]
+                              : [],
+                          controller: widget.textController,
+                          maxLines: widget.maxLines,
+                          enabled: widget.isEnabled,
+                          obscureText: widget.isPassword ? obscureText : false,
+                          decoration: InputDecoration(
+                            // enabled: false,
+                            border: InputBorder.none,
+                            hintText: widget.hintText,
                           ),
                         ),
-                        if (endIcon != null) Icon(endIcon),
-                        if (endIconButton != null) endIconButton!,
-                        if (isPassword)
-                          GestureDetector(
-                              onTap: () {
-                                controller.setPassShown(!controller.passShown);
-                              },
-                              child: Icon(
-                                controller.passShown
-                                    ? Icons.visibility_off_outlined
-                                    : Icons.visibility,
-                                color: Color(0xFF545454),
-                              )),
-                      ],
-                    ),
+                      ),
+                      if (widget.endIcon != null) Icon(widget.endIcon),
+                      if (widget.endIconButton != null) widget.endIconButton!,
+                      if (widget.isPassword)
+                        GestureDetector(
+                            onTap: () {
+                              setState(() {
+                                obscureText = !obscureText;
+                              });
+                            },
+                            child: Icon(
+                              obscureText
+                                  ? Icons.visibility_off_outlined
+                                  : Icons.visibility,
+                              color: Color(0xFF545454),
+                            )),
+                    ],
                   ),
                 ],
               ))

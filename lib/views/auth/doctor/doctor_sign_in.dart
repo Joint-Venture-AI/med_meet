@@ -77,7 +77,6 @@ class DoctorSignIn extends StatelessWidget {
                   () => CustomButton(
                       onPressed: () async {
                         await commonController.getAllSpecialty();
-
                         await authDoctorsController.signIn(
                             emailController.text, passwordController.text);
                       },

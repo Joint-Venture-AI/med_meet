@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
+import 'package:med_meet_flutter/controller/auth_user_controller.dart';
 import 'package:med_meet_flutter/core/components/custom_button.dart';
 import 'package:med_meet_flutter/core/components/custom_text_input.dart';
 import 'package:med_meet_flutter/core/helpers/route.dart';
@@ -13,6 +14,7 @@ class UserNewPassView extends StatelessWidget {
     final TextEditingController passwordController = TextEditingController();
     final TextEditingController confirmPasswordController =
         TextEditingController();
+    final AuthUserController authUserController = Get.put(AuthUserController());
     return Scaffold(
       body: Padding(
         padding: EdgeInsets.all(24),
@@ -52,7 +54,8 @@ class UserNewPassView extends StatelessWidget {
             ),
             CustomButton(
                 onPressed: () {
-                  Get.toNamed(AppRoutes.userSignIn);
+                  authUserController.userResetpassword(
+                      passwordController.text, confirmPasswordController.text);
                 },
                 buttonTitle: "Create New Password")
           ],

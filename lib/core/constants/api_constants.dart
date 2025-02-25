@@ -12,6 +12,15 @@ class ApiConstants {
       "/doctor/update-profile"; // doctor uploads credential docs here after opt verification
   static String getAllSpecialty = "/category";
   static String doctorResetPassword = "/doctor/reset-password";
-  static String apiName = "/";
   static String getSingleDoctor(docID) => "/doctor/$docID";
+
+  // User End Points
+  static String user = "/user";
+  static String userLoign = "$user/login";
+  static String userForgotPassword = "$user/forgot-password";
+  static String userVerifyEmail = "$user/verify-email";
+  static String userResetPass = "$user/reset-password";
+  static String userSignUp = user;
+  static String userUpdateProfile = "$user/update-profile";
+  static String userResendOtp = "$user/user-resend-otp";
 }

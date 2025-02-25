@@ -2,28 +2,33 @@ import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:med_meet_flutter/controller/auth_doctor_controller.dart';
+import 'package:med_meet_flutter/controller/auth_user_controller.dart';
 import 'package:med_meet_flutter/core/helpers/route.dart';
 import 'package:med_meet_flutter/core/components/auth_components/circular_checkbox.dart';
 import 'package:med_meet_flutter/core/components/custom_button.dart';
 import 'package:med_meet_flutter/core/components/custom_text_input.dart';
 import 'package:med_meet_flutter/core/utils/app_typography.dart';
 
+class SignupUserView extends StatefulWidget {
+  const SignupUserView({super.key});
 
-class SignupUserView extends StatelessWidget {
-   SignupUserView({super.key});
+  @override
+  State<SignupUserView> createState() => _SignupUserViewState();
+}
 
-  final _isChecked = false.obs; //
-  // Make isChecked observable
+class _SignupUserViewState extends State<SignupUserView> {
+  final TextEditingController nameController = TextEditingController();
 
-  bool get isChecked => _isChecked.value;
+  final TextEditingController emailController = TextEditingController();
 
-  void toggleCheckbox(bool newValue) {
-    _isChecked.value = newValue;
-  }
+  final TextEditingController passwordController = TextEditingController();
 
-   final TextEditingController nameController = TextEditingController();
-   final TextEditingController emailController = TextEditingController();
-   final TextEditingController passwordController = TextEditingController();
+  bool isChecked = false;
+
+  AuthUserController authUserController = Get.put(AuthUserController());
+  AuthDoctorsController authDoctorsController =
+      Get.put(AuthDoctorsController());
 
   @override
   Widget build(BuildContext context) {
@@ -73,21 +78,26 @@ class SignupUserView extends StatelessWidget {
                   SizedBox(
                     height: 10,
                   ),
-                  Obx(() => GestureDetector(
-                        onTap: () {
-
-                              toggleCheckbox(!isChecked);
-                        },
-                        child: CircularCheckbox(
-                            isActive: isChecked),
-                      )),
+                  GestureDetector(
+                    onTap: () {
+                      setState(() {
+                        isChecked = !isChecked;
+                      });
+                    },
+                    child: CircularCheckbox(isActive: isChecked),
+                  ),
                   SizedBox(
                     height: 34,
                   ),
                   CustomButton(
                       onPressed: () {
-                        Get.toNamed(AppRoutes.userVerifOtp,
-                            arguments: OTPTYPE.userSignUp);
+                        if (isChecked) {
+                          authUserController.userSignUp(
+                              nameController.text,
+                              emailController.text,
+                              passwordController.text,
+                              authUserController.selectedCountry.value);
+                        }
                       },
                       buttonTitle: "Sign Up"),
                   SizedBox(

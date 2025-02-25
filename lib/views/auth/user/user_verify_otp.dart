@@ -1,13 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:med_meet_flutter/controller/auth_user_controller.dart';
 import 'package:med_meet_flutter/core/components/custom_button.dart';
-import 'package:med_meet_flutter/core/helpers/route.dart';
 import 'package:med_meet_flutter/core/utils/app_typography.dart';
 import 'package:pinput/pinput.dart';
 
 class UserVerifyOtpView extends StatelessWidget {
-  const UserVerifyOtpView({super.key});
+  UserVerifyOtpView({super.key, required this.email, this.isForgotPass = true});
+  final String email;
+  final bool isForgotPass;
+
+  final AuthUserController authUserController = Get.put(AuthUserController());
+  final TextEditingController otpController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     final defaultPinTheme = PinTheme(
@@ -37,7 +42,7 @@ class UserVerifyOtpView extends StatelessWidget {
             height: 12,
           ),
           Text(
-            'We’ve sent an OTP to your email \n example@gmail.com',
+            'We’ve sent an OTP to your email \n $email',
             style: AppTypography.bodyText1,
             textAlign: TextAlign.center,
           ),
@@ -51,7 +56,7 @@ class UserVerifyOtpView extends StatelessWidget {
             defaultPinTheme: defaultPinTheme,
             length: 6,
             onCompleted: (pin) {
-              // Todo: Implement Pin Catching
+              otpController.text = pin;
             },
           ),
           SizedBox(
@@ -59,12 +64,8 @@ class UserVerifyOtpView extends StatelessWidget {
           ),
           CustomButton(
               onPressed: () {
-                if (args == OTPTYPE.userForgetPass) {
-                  Get.toNamed(AppRoutes.userNewPassword);
-                }
-                if (args == OTPTYPE.userSignUp) {
-                  Get.offAllNamed(AppRoutes.completeProfile);
-                }
+                authUserController.userVerifyEmail(email, otpController.text,
+                    isforgetPass: isForgotPass);
               },
               buttonTitle: "Verify OTP")
         ],

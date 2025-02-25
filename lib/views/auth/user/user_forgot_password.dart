@@ -1,17 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
 import 'package:get/get.dart';
+import 'package:get/instance_manager.dart';
+import 'package:med_meet_flutter/controller/auth_user_controller.dart';
+
 import 'package:med_meet_flutter/core/components/custom_button.dart';
 import 'package:med_meet_flutter/core/components/custom_text_input.dart';
-import 'package:med_meet_flutter/core/helpers/route.dart';
 import 'package:med_meet_flutter/core/utils/app_typography.dart';
+import 'package:med_meet_flutter/views/auth/user/user_verify_otp.dart';
 
 class UserForgotPassView extends StatelessWidget {
   const UserForgotPassView({super.key});
   @override
   Widget build(BuildContext context) {
     final emailController = TextEditingController();
+    AuthUserController authUserController = Get.find<AuthUserController>();
 
     return Scaffold(
       body: Padding(
@@ -44,9 +47,14 @@ class UserForgotPassView extends StatelessWidget {
               height: 32.h,
             ),
             CustomButton(
-                onPressed: () {
-                  Get.toNamed(AppRoutes.userVerifOtp,
-                      arguments: OTPTYPE.userForgetPass);
+                onPressed: () async {
+                  // Get.toNamed(AppRoutes.userVerifOtp,
+                  //     arguments: OTPTYPE.userForgetPass);
+                  authUserController.requestOTP(emailController.text);
+                  // Get.to(() => UserVerifyOtpView(
+                  //       email: "Taslin",
+                  //       isForgotPass: true,
+                  //     ));
                 },
                 buttonTitle: "Send Reset"),
           ],

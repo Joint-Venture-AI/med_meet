@@ -150,7 +150,6 @@ class AppRoutes {
     GetPage(name: selectCountryScreen, page: () => const SelectCountryScreen()),
     GetPage(name: userSignIn, page: () => const UserSignIn()),
     GetPage(name: signUpUser, page: () => SignupUserView()),
-    GetPage(name: userVerifOtp, page: () => const UserVerifyOtpView()),
     GetPage(name: userForgetPass, page: () => const UserForgotPassView()),
     GetPage(name: userNewPassword, page: () => const UserNewPassView()),
     GetPage(name: completeProfile, page: () => CompletePRofileView()),

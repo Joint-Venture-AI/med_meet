@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 import 'package:google_fonts/google_fonts.dart';
+import 'package:med_meet_flutter/controller/auth_user_controller.dart';
 import 'package:med_meet_flutter/core/components/custom_button.dart';
 import 'package:med_meet_flutter/core/components/custom_text_input.dart';
 import 'package:med_meet_flutter/core/helpers/route.dart';
@@ -14,6 +15,7 @@ class UserSignIn extends StatelessWidget {
   Widget build(BuildContext context) {
     final TextEditingController emailController = TextEditingController();
     final TextEditingController passwordController = TextEditingController();
+    AuthUserController authUserController = Get.put(AuthUserController());
     return Scaffold(
         extendBody: true,
         resizeToAvoidBottomInset: false,
@@ -67,7 +69,8 @@ class UserSignIn extends StatelessWidget {
                 ),
                 CustomButton(
                     onPressed: () {
-                      Get.offAllNamed(AppRoutes.userApp);
+                      authUserController.userSignIn(
+                          emailController.text, passwordController.text);
                     },
                     buttonTitle: "Sign In"),
                 SizedBox(

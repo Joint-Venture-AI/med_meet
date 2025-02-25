@@ -40,7 +40,6 @@ class PrefsHelper {
 }
 
 class PrefsKey {
-  static String forgetPassToken = "forget_pass_token";
   static String accessToken = "access_token";
   static String otpToken = "otp_token";
 }

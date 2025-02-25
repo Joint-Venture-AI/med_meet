@@ -1,22 +1,38 @@
 import 'package:flutter/material.dart';
+import 'package:get/instance_manager.dart';
+import 'package:http/http.dart';
+import 'package:med_meet_flutter/controller/common_controller.dart';
 import 'package:med_meet_flutter/core/components/custom_app_bar.dart';
 import 'package:med_meet_flutter/core/components/custom_button.dart';
 import 'package:med_meet_flutter/core/components/custom_text_input.dart';
 
-class DoctorDetails extends StatelessWidget {
+class DoctorDetails extends StatefulWidget {
   const DoctorDetails({super.key});
 
   @override
+  State<DoctorDetails> createState() => _DoctorDetailsState();
+}
+
+class _DoctorDetailsState extends State<DoctorDetails> {
+  final TextEditingController experienceController = TextEditingController();
+  final TextEditingController medicalLicenseNumberController =
+      TextEditingController();
+  final TextEditingController clinicNameController = TextEditingController();
+  final TextEditingController clinicAddressController = TextEditingController();
+  final TextEditingController consultationFeeController =
+      TextEditingController();
+  final TextEditingController aboutDoctorController = TextEditingController();
+  final CommonController commonController = Get.put(CommonController());
+
+  
+  @override
+  void initState() async {
+    await commonController.getAllSpecialty();
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    final TextEditingController experienceController = TextEditingController();
-    final TextEditingController medicalLicenseNumberController =
-        TextEditingController();
-    final TextEditingController clinicNameController = TextEditingController();
-    final TextEditingController clinicAddressController =
-        TextEditingController();
-    final TextEditingController consultationFeeController =
-        TextEditingController();
-    final TextEditingController aboutDoctorController = TextEditingController();
     return Scaffold(
       body: SafeArea(
         child: Column(

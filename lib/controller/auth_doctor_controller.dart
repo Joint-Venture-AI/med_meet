@@ -88,6 +88,10 @@ class AuthDoctorsController extends GetxController {
     if (email == "" || email == null || password == "" || password == null) {
       showCustomSnackBar("Please Provide Credentials", getXSnackBar: false);
     }
+    if (password.length < 8) {
+      showCustomSnackBar("Password must be at least 8 characters long");
+      return;
+    }
     isLoading.value = true;
     final body = {"uniqueId": email, "password": password};
     final response =
@@ -98,8 +102,9 @@ class AuthDoctorsController extends GetxController {
       PrefsHelper.setString(
           AppConstants.bearerToken, response.body["data"]["accessToken"]);
       isLoading.value = false;
-      Get.snackbar(response.body["success"] ? "Authenticated" : "Error",
-          response.body["message"]);
+      showCustomSnackBar(response.body["message"],
+          isError:
+              (response.statusCode != 200) || (response.statusCode != 201));
       if (!doctorData.value.verified!) {
         await sendOTP(doctorData.value.email!);
         await Get.to(() => DoctorVerifyOtp(email: doctorData.value.email!));
@@ -128,8 +133,12 @@ class AuthDoctorsController extends GetxController {
         password == "" ||
         password == null) {
       showCustomSnackBar("Please Provide Data", getXSnackBar: false);
+      return;
     }
-
+    if (password.length < 8) {
+      showCustomSnackBar("Password must be at least 8 characters long");
+      return;
+    }
     isLoading.value = true;
 
     final body = {
@@ -144,7 +153,9 @@ class AuthDoctorsController extends GetxController {
         await ApiClient.postData(ApiConstants.doctorSignUp, jsonEncode(body));
     isLoading.value = false;
     if (response.statusCode == 200) {
-      showCustomSnackBar(response.body["message"], getXSnackBar: false);
+      showCustomSnackBar(response.body["message"],
+          isError:
+              (response.statusCode != 200) || (response.statusCode != 201));
       if (response.body["success"]) {
         await sendOTP(email, isSignUp: true);
       }
@@ -180,7 +191,9 @@ class AuthDoctorsController extends GetxController {
     if (response.statusCode == 200) {
       if (response.body["success"]) {
         PrefsHelper.setString(PrefsKey.otpToken, response.body["data"]);
-        Get.snackbar("Successfull", response.body["message"]);
+        showCustomSnackBar(response.body["message"],
+            isError:
+                (response.statusCode != 200) || (response.statusCode != 201));
         if (isSignup) {
           if (doctorData.value.isAllFieldsFilled == null) {
             isLoading.value = false;
@@ -211,6 +224,10 @@ class AuthDoctorsController extends GetxController {
       isLoading.value = false;
       return;
     }
+    if (password.length < 8 || confirmPassword.length < 8) {
+      showCustomSnackBar("Password must be at least 8 characters long");
+      return;
+    }
 
     final body = {"newPassword": password, "confirmPassword": confirmPassword};
     final header = {
@@ -223,7 +240,9 @@ class AuthDoctorsController extends GetxController {
         headers: header);
     if (response.statusCode == 200) {
       if (response.body["success"]) {
-        Get.snackbar("Successful", response.body["message"]);
+        showCustomSnackBar(response.body["message"],
+            isError:
+                (response.statusCode != 200) || (response.statusCode != 201));
         isLoading.value = false;
         Get.toNamed(AppRoutes.doctorSignIn);
       }
@@ -293,6 +312,9 @@ class AuthDoctorsController extends GetxController {
         multipartBody: multipartBodies, headers: header);
 
     if (response.statusCode == 200) {
+      showCustomSnackBar(response.body["message"],
+          isError:
+              (response.statusCode != 200) || (response.statusCode != 201));
       if (response.body["success"]) {
         Get.toNamed(AppRoutes.verifyProgressDoctor);
       }
