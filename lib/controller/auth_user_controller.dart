@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 import 'package:get/get.dart';
+import 'package:loader_overlay/loader_overlay.dart';
 import 'package:med_meet_flutter/core/components/custom_snack_bar.dart';
 import 'package:med_meet_flutter/core/constants/api_constants.dart';
 import 'package:med_meet_flutter/core/helpers/pref_helper.dart';
@@ -25,7 +26,7 @@ class AuthUserController extends GetxController {
       showCustomSnackBar("Password must be at least 8 characters long");
       return;
     }
-    isLoading.value = true;
+    Get.context!.loaderOverlay.show();
     final body = {
       "uniqueId": email,
       "password": password,
@@ -33,10 +34,11 @@ class AuthUserController extends GetxController {
 
     var response =
         await ApiClient.postData(ApiConstants.userLoign, jsonEncode(body));
-    isLoading.value = false;
+    Get.context!.loaderOverlay.hide();
 
     if (response.statusCode == 200) {
       if (response.body["success"]) {
+        // saving the access token
         PrefsHelper.setString(
             AppConstants.bearerToken, response.body["data"]["accessToken"]);
         showCustomSnackBar(response.body["message"],
@@ -76,10 +78,10 @@ class AuthUserController extends GetxController {
       "password": password
     };
 
-    isLoading.value = true;
+    Get.context!.loaderOverlay.show();
     Response response =
         await ApiClient.postData(ApiConstants.userSignUp, jsonEncode(body));
-    isLoading.value = false;
+    Get.context!.loaderOverlay.hide();
 
     if (response.statusCode == 200) {
       if (response.body["success"]) {
@@ -102,13 +104,13 @@ class AuthUserController extends GetxController {
   }
 
   Future requestOTP(email, {isforgotPass = true}) async {
-    isLoading.value = true;
+    Get.context!.loaderOverlay.show();
     final body = {"uniqueId": email};
     var response = await ApiClient.postData(
       ApiConstants.userResendOtp,
       jsonEncode(body),
     );
-    isLoading.value = false;
+    Get.context!.loaderOverlay.hide();
 
     if (response.statusCode == 200) {
       if (response.body["success"]) {
@@ -128,10 +130,10 @@ class AuthUserController extends GetxController {
 
   Future userVerifyEmail(email, onetimecode, {isforgetPass = true}) async {
     final body = {"uniqueId": email, "oneTimeCode": int.parse(onetimecode)};
-    isLoading.value = true;
+    Get.context!.loaderOverlay.show();
     var response = await ApiClient.postData(
         ApiConstants.userVerifyEmail, jsonEncode(body));
-    isLoading.value = false;
+    Get.context!.loaderOverlay.hide();
     if (response.statusCode == 200) {
       if (response.body["success"]) {
         showCustomSnackBar(response.body["message"],
@@ -173,10 +175,11 @@ class AuthUserController extends GetxController {
       "Authorization": await PrefsHelper.getString(PrefsKey.otpToken),
       "Content-Type": "application/json"
     };
-    isLoading.value = true;
+    Get.context!.loaderOverlay.show();
     var response = await ApiClient.postData(
         ApiConstants.userResetPass, jsonEncode(body),
         headers: header);
+    Get.context!.loaderOverlay.hide();
     if (response.statusCode == 200) {
       if (response.body['success']) {
         showCustomSnackBar(response.body["message"],
@@ -214,7 +217,7 @@ class AuthUserController extends GetxController {
       MultipartBody("image", File(image.path)),
     ];
 
-    isLoading.value = true;
+    Get.context!.loaderOverlay.show();
 
     final bearerToken = await PrefsHelper.getString(AppConstants.bearerToken);
 
@@ -226,7 +229,7 @@ class AuthUserController extends GetxController {
     Response response = await ApiClient.postMultipartData(
         ApiConstants.userUpdateProfile, body,
         multipartBody: multipartBodies, headers: header);
-    isLoading.value = false;
+    Get.context!.loaderOverlay.hide();
 
     if (response.statusCode == 200) {
       showCustomSnackBar(response.body["message"],

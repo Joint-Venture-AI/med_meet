@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/instance_manager.dart';
-import 'package:http/http.dart';
 import 'package:med_meet_flutter/controller/common_controller.dart';
 import 'package:med_meet_flutter/core/components/custom_app_bar.dart';
 import 'package:med_meet_flutter/core/components/custom_button.dart';
@@ -24,7 +23,6 @@ class _DoctorDetailsState extends State<DoctorDetails> {
   final TextEditingController aboutDoctorController = TextEditingController();
   final CommonController commonController = Get.put(CommonController());
 
-  
   @override
   void initState() async {
     await commonController.getAllSpecialty();

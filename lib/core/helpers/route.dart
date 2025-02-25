@@ -16,7 +16,6 @@ import 'package:med_meet_flutter/views/auth/user/user_sign_in.dart';
 import 'package:med_meet_flutter/views/auth/splash_screen.dart';
 import 'package:med_meet_flutter/views/auth/user/complete_profile.dart';
 import 'package:med_meet_flutter/views/auth/user/user_sign_up.dart';
-import 'package:med_meet_flutter/views/auth/user/user_verify_otp.dart';
 import 'package:med_meet_flutter/views/auth/who_are_you_screen.dart';
 import 'package:med_meet_flutter/views/booking/book_card_details.dart';
 import 'package:med_meet_flutter/views/booking/book_patient_detials.dart';

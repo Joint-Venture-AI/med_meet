@@ -73,16 +73,13 @@ class DoctorSignIn extends StatelessWidget {
                 SizedBox(
                   height: 32,
                 ),
-                Obx(
-                  () => CustomButton(
-                      onPressed: () async {
-                        await commonController.getAllSpecialty();
-                        await authDoctorsController.signIn(
-                            emailController.text, passwordController.text);
-                      },
-                      isLoading: authDoctorsController.isLoading.value,
-                      buttonTitle: "Sign In"),
-                ),
+                CustomButton(
+                    onPressed: () async {
+                      await commonController.getAllSpecialty();
+                      await authDoctorsController.signIn(
+                          emailController.text, passwordController.text);
+                    },
+                    buttonTitle: "Sign In"),
                 SizedBox(
                   height: 56.h,
                 ),

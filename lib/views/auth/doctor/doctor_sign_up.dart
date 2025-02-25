@@ -100,25 +100,22 @@ class SingupDoctorView extends StatelessWidget {
                   SizedBox(
                     height: 34,
                   ),
-                  Obx(
-                    () => CustomButton(
-                        onPressed: () async {
-                          if (isChecked) {
-                            authDoctorsController.signUp(
-                                nameController.text,
-                                emailController.text,
-                                doctorIdController.text,
-                                passwordController.text);
-                          } else {
-                            showCustomSnackBar(
-                                "You must agree with our terms and conditions beofre continue",
-                                getXSnackBar: false);
-                          }
-                          // Get.toNamed(AppRoutes.doctorDetails, arguments: true);
-                        },
-                        isLoading: authDoctorsController.isLoading.value,
-                        buttonTitle: "Sign Up"),
-                  ),
+                  CustomButton(
+                      onPressed: () async {
+                        if (isChecked) {
+                          authDoctorsController.signUp(
+                              nameController.text,
+                              emailController.text,
+                              doctorIdController.text,
+                              passwordController.text);
+                        } else {
+                          showCustomSnackBar(
+                              "You must agree with our terms and conditions beofre continue",
+                              getXSnackBar: false);
+                        }
+                        // Get.toNamed(AppRoutes.doctorDetails, arguments: true);
+                      },
+                      buttonTitle: "Sign Up"),
                   SizedBox(
                     height: 56,
                   ),

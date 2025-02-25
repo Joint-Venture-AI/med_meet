@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:file_picker/file_picker.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:loader_overlay/loader_overlay.dart';
 import 'package:med_meet_flutter/core/components/custom_snack_bar.dart';
 import 'package:med_meet_flutter/core/constants/api_constants.dart';
 import 'package:med_meet_flutter/core/helpers/pref_helper.dart';
@@ -47,7 +48,6 @@ class AuthDoctorsController extends GetxController {
 
   //  =====>>> API Calls <<<=======
 
-  final RxBool isLoading = false.obs;
   Rx<DoctorModel> doctorData = DoctorModel().obs;
   RxString selectedCountry = "select your country".obs;
 
@@ -92,7 +92,7 @@ class AuthDoctorsController extends GetxController {
       showCustomSnackBar("Password must be at least 8 characters long");
       return;
     }
-    isLoading.value = true;
+    Get.context!.loaderOverlay.show();
     final body = {"uniqueId": email, "password": password};
     final response =
         await ApiClient.postData(ApiConstants.doctorLogin, jsonEncode(body));
@@ -101,7 +101,7 @@ class AuthDoctorsController extends GetxController {
       doctorData.value = DoctorModel.fromJson(response.body["data"]["user"]);
       PrefsHelper.setString(
           AppConstants.bearerToken, response.body["data"]["accessToken"]);
-      isLoading.value = false;
+      Get.context!.loaderOverlay.hide();
       showCustomSnackBar(response.body["message"],
           isError:
               (response.statusCode != 200) || (response.statusCode != 201));
@@ -120,7 +120,7 @@ class AuthDoctorsController extends GetxController {
     } else {
       ApiChecker.checkApi(response);
     }
-    isLoading.value = false;
+    Get.context!.loaderOverlay.hide();
   }
 
   Future signUp(name, email, doctorID, password) async {
@@ -139,7 +139,7 @@ class AuthDoctorsController extends GetxController {
       showCustomSnackBar("Password must be at least 8 characters long");
       return;
     }
-    isLoading.value = true;
+    Get.context!.loaderOverlay.show();
 
     final body = {
       "name": name,
@@ -151,7 +151,7 @@ class AuthDoctorsController extends GetxController {
 
     Response response =
         await ApiClient.postData(ApiConstants.doctorSignUp, jsonEncode(body));
-    isLoading.value = false;
+    Get.context!.loaderOverlay.hide();
     if (response.statusCode == 200) {
       showCustomSnackBar(response.body["message"],
           isError:
@@ -159,20 +159,19 @@ class AuthDoctorsController extends GetxController {
       if (response.body["success"]) {
         await sendOTP(email, isSignUp: true);
       }
-      isLoading.value = false;
     } else {
       ApiChecker.checkApi(response);
     }
-    isLoading.value = false;
   }
 
   Future sendOTP(uniqueID, {isSignUp = false}) async {
     final body = {"uniqueId": uniqueID};
+    Get.context!.loaderOverlay.show();
     Response response = await ApiClient.postData(
         ApiConstants.doctorResendOTP, jsonEncode(body));
+    Get.context!.loaderOverlay.hide();
     if (response.statusCode == 200) {
       Get.snackbar("OTP Sent", response.body["message"]);
-      isLoading.value = false;
       Get.to(() => DoctorVerifyOtp(
             email: uniqueID,
             isSignUp: isSignUp,
@@ -183,11 +182,11 @@ class AuthDoctorsController extends GetxController {
   }
 
   Future verifyDoctorOtp(uniqueId, oneTimeCode, {isSignup}) async {
-    isLoading.value = true;
+    Get.context!.loaderOverlay.show();
     final body = {"uniqueId": uniqueId, "oneTimeCode": int.parse(oneTimeCode)};
     Response response = await ApiClient.postData(
         ApiConstants.doctorVerifyEmail, jsonEncode(body));
-
+    Get.context!.loaderOverlay.hide();
     if (response.statusCode == 200) {
       if (response.body["success"]) {
         PrefsHelper.setString(PrefsKey.otpToken, response.body["data"]);
@@ -196,14 +195,11 @@ class AuthDoctorsController extends GetxController {
                 (response.statusCode != 200) || (response.statusCode != 201));
         if (isSignup) {
           if (doctorData.value.isAllFieldsFilled == null) {
-            isLoading.value = false;
             Get.toNamed(AppRoutes.doctorDetails);
           } else {
-            isLoading.value = false;
             Get.toNamed(AppRoutes.doctorSignIn);
           }
         } else {
-          isLoading.value = false;
           Get.toNamed(AppRoutes.doctorNewPass);
         }
       }
@@ -213,15 +209,15 @@ class AuthDoctorsController extends GetxController {
   }
 
   Future forgetPass(password, confirmPassword) async {
-    isLoading.value = true;
+    Get.context!.loaderOverlay.show();
     if (password == "" || confirmPassword == "") {
       showCustomSnackBar("Fields are empty");
-      isLoading.value = false;
+      Get.context!.loaderOverlay.hide();
       return;
     }
     if (password != confirmPassword) {
       showCustomSnackBar("Passwords do no match");
-      isLoading.value = false;
+
       return;
     }
     if (password.length < 8 || confirmPassword.length < 8) {
@@ -235,21 +231,23 @@ class AuthDoctorsController extends GetxController {
       'Content-Type': 'application/json'
     };
 
+    Get.context!.loaderOverlay.show();
+
     Response response = await ApiClient.postData(
         ApiConstants.doctorResetPassword, jsonEncode(body),
         headers: header);
+    Get.context!.loaderOverlay.hide();
     if (response.statusCode == 200) {
       if (response.body["success"]) {
         showCustomSnackBar(response.body["message"],
             isError:
                 (response.statusCode != 200) || (response.statusCode != 201));
-        isLoading.value = false;
+
         Get.toNamed(AppRoutes.doctorSignIn);
       }
     } else {
       ApiChecker.checkApi(response);
     }
-    isLoading.value = false;
   }
 
 // this is for the doctor details screen after sign up screen
@@ -281,7 +279,7 @@ class AuthDoctorsController extends GetxController {
       showCustomSnackBar("Fill out all fields");
       return;
     }
-    isLoading.value = true;
+
     final body = {
       "data": json.encode({
         "aboutDoctor": aboutDoctor,
@@ -306,10 +304,13 @@ class AuthDoctorsController extends GetxController {
       'Content-Type': "multipart/form-data",
       'Authorization': 'Bearer $bearerToken'
     };
+    Get.context!.loaderOverlay.show();
 
     Response response = await ApiClient.postMultipartData(
         ApiConstants.doctorUpdateProfile, body,
         multipartBody: multipartBodies, headers: header);
+
+    Get.context!.loaderOverlay.hide();
 
     if (response.statusCode == 200) {
       showCustomSnackBar(response.body["message"],

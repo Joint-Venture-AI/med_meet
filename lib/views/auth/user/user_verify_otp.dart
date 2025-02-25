@@ -26,7 +26,6 @@ class UserVerifyOtpView extends StatelessWidget {
       ),
     );
 
-    final args = Get.arguments;
     return Scaffold(
         body: Padding(
       padding: EdgeInsets.all(24),

@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:get/get.dart';
-import 'package:med_meet_flutter/core/components/controllers/custom_text_controller.dart';
 import 'package:med_meet_flutter/core/utils/app_colors.dart';
 import 'package:med_meet_flutter/core/utils/app_typography.dart';
 
@@ -44,8 +42,6 @@ class _CustomTextInputState extends State<CustomTextInput> {
   bool obscureText = true;
   @override
   Widget build(BuildContext context) {
-    final CustomTextController controller = Get.put(CustomTextController());
-
     return Align(
       alignment: Alignment.topLeft,
       child: Column(

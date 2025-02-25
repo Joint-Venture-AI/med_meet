@@ -19,7 +19,7 @@ import 'package:med_meet_flutter/core/utils/app_colors.dart';
 import 'package:med_meet_flutter/core/utils/app_typography.dart';
 
 class CompletePRofileView extends StatefulWidget {
-  CompletePRofileView({super.key});
+  const CompletePRofileView({super.key});
 
   @override
   State<CompletePRofileView> createState() => _CompletePRofileViewState();
