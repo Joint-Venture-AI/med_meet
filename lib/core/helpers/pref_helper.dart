@@ -42,4 +42,6 @@ class PrefsHelper {
 class PrefsKey {
   static String accessToken = "access_token";
   static String otpToken = "otp_token";
+  static String role = "role";
+  static String accountID = "account_id";
 }

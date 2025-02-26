@@ -3,11 +3,14 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:med_meet_flutter/core/constants/api_constants.dart';
 import 'package:med_meet_flutter/core/constants/image_assets.dart';
 import 'package:med_meet_flutter/core/constants/svg_assets.dart';
 import 'package:med_meet_flutter/core/helpers/route.dart';
 import 'package:med_meet_flutter/core/utils/app_colors.dart';
 import 'package:med_meet_flutter/core/utils/app_typography.dart';
+import 'package:med_meet_flutter/models/single_doctor_model.dart';
+import 'package:med_meet_flutter/views/common/doctors_details_for_user.dart';
 
 class DoctorCard extends StatelessWidget {
   const DoctorCard(
@@ -15,12 +18,14 @@ class DoctorCard extends StatelessWidget {
       this.isDoctorToDoctor = false,
       this.isAppointment = false,
       this.hasPrice = false,
+      this.doctorModel,
       this.status});
 
   final bool isDoctorToDoctor;
   final bool isAppointment;
   final String? status;
   final bool hasPrice;
+  final SingleDoctorModel? doctorModel;
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +37,8 @@ class DoctorCard extends StatelessWidget {
                 ? Get.toNamed(AppRoutes.appointmentDetails, arguments: false)
                 : isDoctorToDoctor
                     ? Get.toNamed(AppRoutes.doctorDetailsForDoctor)
-                    : Get.toNamed(AppRoutes.doctorDetailsForUser);
+                    : Get.to(
+                        () => DoctorsDetailsForUser(doctorId: doctorModel!.id));
       },
       child: Container(
           margin: EdgeInsets.only(bottom: 12),
@@ -47,14 +53,18 @@ class DoctorCard extends StatelessWidget {
             children: [
               ClipRRect(
                 borderRadius: BorderRadius.circular(12),
-                child: Image.asset(
-                  isAppointment
-                      ? ImageAssets.userImage1
-                      : ImageAssets.doctorImage1,
-                  height: 119.h,
-                  width: 81.w,
-                  fit: BoxFit.cover,
-                ),
+                child: isAppointment
+                    ? Image.asset(
+                        ImageAssets.userImage1,
+                        height: 119.h,
+                        width: 81.w,
+                        fit: BoxFit.cover,
+                      )
+                    : Image.network(
+                        "${ApiConstants.baseAssetUrl}${doctorModel!.image}",
+                        height: 119.h,
+                        width: 81.w,
+                        fit: BoxFit.cover),
               ),
               SizedBox(
                 width: 12.w,
@@ -68,9 +78,9 @@ class DoctorCard extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
-                            isAppointment
-                                ? "Nguyen, Shane"
-                                : "${"Dr. Ananya Sharma".characters.take(20)}",
+                            doctorModel!.name.length < 12
+                                ? doctorModel!.name
+                                : "${doctorModel!.name.substring(0, 12)}...",
                             style: AppTypography.appbarTitle),
                         Container(
                           decoration: BoxDecoration(),
@@ -106,7 +116,7 @@ class DoctorCard extends StatelessWidget {
                                 )
                               : status == null
                                   ? Text(
-                                      "\$5.22",
+                                      "\$${doctorModel!.consultationFee}",
                                       style: AppTypography.priceStyle,
                                     )
                                   : Container(),
@@ -123,7 +133,7 @@ class DoctorCard extends StatelessWidget {
                                 child: Wrap(
                                   children: [
                                     Text(
-                                      "Dentist",
+                                      doctorModel!.specialist.name,
                                       style: AppTypography.bodyText1,
                                     ),
                                     SizedBox(
@@ -133,7 +143,7 @@ class DoctorCard extends StatelessWidget {
                                     SizedBox(
                                       width: 8,
                                     ),
-                                    Text("City Hostpital",
+                                    Text(doctorModel!.clinic,
                                         style: AppTypography.bodyText3),
                                   ],
                                 ),
@@ -194,7 +204,7 @@ class DoctorCard extends StatelessWidget {
                                     color: Colors.amberAccent,
                                   ),
                                   Text(
-                                    "4.5",
+                                    doctorModel!.avgRating.toString(),
                                     style: TextStyle(fontSize: 14.sp),
                                   ),
                                 ],

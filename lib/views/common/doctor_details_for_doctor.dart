@@ -3,7 +3,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:med_meet_flutter/core/components/custom_app_bar.dart';
 import 'package:med_meet_flutter/core/components/details_header.dart';
-import 'package:med_meet_flutter/core/components/review_card.dart';
 import 'package:med_meet_flutter/core/utils/app_typography.dart';
 
 class DoctorDetailsForDoctor extends StatelessWidget {
@@ -77,12 +76,12 @@ class DoctorDetailsForDoctor extends StatelessWidget {
             SizedBox(
               height: 8.h,
             ),
-            ReviewCard(),
-            ReviewCard(),
-            ReviewCard(),
-            ReviewCard(),
-            ReviewCard(),
-            ReviewCard(),
+            // ReviewCard(),
+            // ReviewCard(),
+            // ReviewCard(),
+            // ReviewCard(),
+            // ReviewCard(),
+            // ReviewCard(),
           ],
         ),
       ),

@@ -5,21 +5,21 @@ import 'package:med_meet_flutter/core/utils/app_colors.dart';
 import 'package:med_meet_flutter/core/utils/app_typography.dart';
 
 class CustomTextInput extends StatefulWidget {
-  const CustomTextInput({
-    super.key,
-    this.title,
-    required this.hintText,
-    this.isPassword = false,
-    this.isPhone = false,
-    this.maxLines = 1,
-    this.icon,
-    this.renderTitle = true,
-    this.isEnabled = true,
-    this.multiLine,
-    this.endIcon,
-    this.endIconButton,
-    required this.textController,
-  });
+  const CustomTextInput(
+      {super.key,
+      this.title,
+      required this.hintText,
+      this.isPassword = false,
+      this.isPhone = false,
+      this.maxLines = 1,
+      this.icon,
+      this.renderTitle = true,
+      this.isEnabled = true,
+      this.multiLine,
+      this.endIcon,
+      this.endIconButton,
+      required this.textController,
+      this.onChange});
 
   final String? title;
   final String hintText;
@@ -33,6 +33,7 @@ class CustomTextInput extends StatefulWidget {
   final bool? multiLine;
   final bool isEnabled;
   final TextEditingController textController;
+  final Function(String)? onChange;
 
   @override
   State<CustomTextInput> createState() => _CustomTextInputState();
@@ -71,6 +72,7 @@ class _CustomTextInputState extends State<CustomTextInput> {
                       if (widget.icon != null) SizedBox(width: 8.w),
                       Flexible(
                         child: TextField(
+                          onChanged: widget.onChange,
                           keyboardType: widget.isPhone
                               ? TextInputType.phone
                               : TextInputType.text,

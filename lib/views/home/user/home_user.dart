@@ -2,24 +2,25 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:med_meet_flutter/controller/user/user_home_controller.dart';
 import 'package:med_meet_flutter/core/components/doctor_card.dart';
 import 'package:med_meet_flutter/core/components/section_header.dart';
 import 'package:med_meet_flutter/core/components/specialty_card.dart';
-import 'package:med_meet_flutter/core/constants/image_assets.dart';
-import 'package:med_meet_flutter/core/constants/svg_assets.dart';
+import 'package:med_meet_flutter/core/constants/api_constants.dart';
 import 'package:med_meet_flutter/core/helpers/route.dart';
 import 'package:med_meet_flutter/core/utils/app_colors.dart';
 import 'package:med_meet_flutter/core/utils/app_typography.dart';
 
 class HomeUserView extends StatelessWidget {
-  const HomeUserView({super.key});
+  HomeUserView({super.key});
+  final UserHomeController userHomeController = Get.put(UserHomeController());
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: buildCustomAppBar(),
       body: Padding(
         padding: EdgeInsets.symmetric(horizontal: 24),
-        child: ListView(
+        child: Column(
           children: [
             SizedBox(
               height: 24,
@@ -34,19 +35,17 @@ class HomeUserView extends StatelessWidget {
                 Get.toNamed(AppRoutes.specialtyUser);
               },
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                buildSpecialist(title: "Dentist", assetPath: SVGAssets.dentist),
-                buildSpecialist(
-                    title: "Nutrition", assetPath: SVGAssets.nutritionist),
-                buildSpecialist(
-                    title: "Eye Spe..", assetPath: SVGAssets.eyeSpecialist),
-                buildSpecialist(
-                    title: "Cardilog..",
-                    assetPath: SVGAssets.cardiacSpecialist),
-                buildSpecialist(title: "Stomach", assetPath: SVGAssets.stomach),
-              ],
+            Obx(
+              () => Row(
+                spacing: 20,
+                children: userHomeController.specialtyList
+                    .take(5)
+                    .map((e) => buildSpecialist(
+                        title: e.name,
+                        assetPath: "${ApiConstants.baseAssetUrl}${e.image}",
+                        specialtyID: e.id))
+                    .toList(),
+              ),
             ),
             SizedBox(
               height: 12.h,
@@ -57,11 +56,15 @@ class HomeUserView extends StatelessWidget {
                 Get.toNamed(AppRoutes.doctorListUser);
               },
             ),
-            DoctorCard(),
-            DoctorCard(),
-            DoctorCard(),
-            DoctorCard(),
-            DoctorCard(),
+            Expanded(
+                child: Obx(
+              () => ListView.builder(
+                itemCount: userHomeController.allDoctors.length,
+                itemBuilder: (context, index) => DoctorCard(
+                  doctorModel: userHomeController.allDoctors[index],
+                ),
+              ),
+            ))
           ],
         ),
       ),
@@ -82,9 +85,16 @@ class HomeUserView extends StatelessWidget {
               children: [
                 Row(
                   children: [
-                    CircleAvatar(
-                      backgroundImage: AssetImage(ImageAssets.profilePic1),
-                      radius: 20,
+                    Obx(
+                      () => CircleAvatar(
+                        backgroundImage: userHomeController
+                                    .userData.value.image !=
+                                null
+                            ? NetworkImage(
+                                "${ApiConstants.baseAssetUrl}${userHomeController.userData.value.image}")
+                            : null,
+                        radius: 20,
+                      ),
                     ),
                     SizedBox(
                       width: 12,
@@ -95,13 +105,15 @@ class HomeUserView extends StatelessWidget {
                           "Good Morning",
                           style: AppTypography.bodyText1,
                         ),
-                        Text(
-                          "Nikenla Steve",
-                          style: GoogleFonts.roboto(
-                              fontWeight: FontWeight.w500,
-                              fontSize: 14,
-                              color: Colors.black),
-                        )
+                        Obx(
+                          () => Text(
+                            userHomeController.userData.value.name.toString(),
+                            style: GoogleFonts.roboto(
+                                fontWeight: FontWeight.w500,
+                                fontSize: 14,
+                                color: Colors.black),
+                          ),
+                        ),
                       ],
                     )
                   ],

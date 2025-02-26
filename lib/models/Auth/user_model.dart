@@ -10,6 +10,10 @@ class UserModel {
   final DateTime? createdAt;
   final DateTime? updatedAt;
   final int? v;
+  final DateTime? dob;
+  final String? gender;
+  final String? image;
+  final String? phoneNumber;
 
   UserModel({
     this.id,
@@ -23,6 +27,10 @@ class UserModel {
     this.createdAt,
     this.updatedAt,
     this.v,
+    this.dob,
+    this.gender,
+    this.image,
+    this.phoneNumber,
   });
 
   /// Factory method to create an instance from a JSON map
@@ -41,6 +49,10 @@ class UserModel {
       updatedAt:
           json['updatedAt'] != null ? DateTime.parse(json['updatedAt']) : null,
       v: json['__v'] ?? json['v'],
+      dob: json['dob'] != null ? DateTime.parse(json['dob']) : null,
+      gender: json['gender'],
+      image: json['image'],
+      phoneNumber: json['phoneNumber'],
     );
   }
 
@@ -57,6 +69,10 @@ class UserModel {
     DateTime? createdAt,
     DateTime? updatedAt,
     int? v,
+    DateTime? dob,
+    String? gender,
+    String? image,
+    String? phoneNumber,
   }) =>
       UserModel(
         id: id ?? this.id,
@@ -70,5 +86,9 @@ class UserModel {
         createdAt: createdAt ?? this.createdAt,
         updatedAt: updatedAt ?? this.updatedAt,
         v: v ?? this.v,
+        dob: dob ?? this.dob,
+        gender: gender ?? this.gender,
+        image: image ?? this.image,
+        phoneNumber: phoneNumber ?? this.phoneNumber,
       );
 }

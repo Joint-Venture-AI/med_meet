@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:med_meet_flutter/core/constants/api_constants.dart';
 import 'package:med_meet_flutter/core/utils/app_colors.dart';
 import 'package:med_meet_flutter/core/utils/uitls.dart';
+import 'package:med_meet_flutter/models/single_doctor_model.dart';
 
 class ReviewCard extends StatelessWidget {
-  const ReviewCard({
-    super.key,
-  });
+  const ReviewCard({super.key, required this.reviewModel});
+
+  final ReviewModel reviewModel;
 
   @override
   Widget build(BuildContext context) {
@@ -20,9 +22,10 @@ class ReviewCard extends StatelessWidget {
             children: [
               Row(
                 children: [
+                  // Reviewer Image
                   ClipOval(
-                    child: Image.asset(
-                      "assets/images/review_girl.png",
+                    child: Image.network(
+                      "${ApiConstants.baseAssetUrl}${reviewModel.image}",
                       height: 48,
                       width: 48,
                       fit: BoxFit.cover,
@@ -31,12 +34,10 @@ class ReviewCard extends StatelessWidget {
                   SizedBox(
                     width: 16,
                   ),
+                  // Reviewer Name
                   Text(
-                    "Charolette Hanlin",
-                    style: TextStyle(
-                      fontSize: 18,
-                      color: Color(0xff333333)
-                    ),
+                    reviewModel.name,
+                    style: TextStyle(fontSize: 18, color: Color(0xff333333)),
                   )
                 ],
               ),
@@ -61,12 +62,11 @@ class ReviewCard extends StatelessWidget {
                       width: 8.w,
                     ),
                     Text(
-                      "5",
+                      reviewModel.rating.toString(),
                       style: TextStyle(
-                        fontSize: 14.sp,
-                        fontWeight: FontWeight.w600,
-                        height: 0.5
-                      ),
+                          fontSize: 14.sp,
+                          fontWeight: FontWeight.w600,
+                          height: 0.5),
                     ),
                   ],
                 ),
@@ -77,7 +77,7 @@ class ReviewCard extends StatelessWidget {
             height: 8.h,
           ),
           Text(
-            "Dr. Jenny is very professional in her work and responsive. I have consulted and my problem is solved. 😍😍",
+            reviewModel.review,
             style: TextStyle(
               color: Color(0xFF545454),
             ),
@@ -86,7 +86,7 @@ class ReviewCard extends StatelessWidget {
             height: 8.h,
           ),
           Text(
-            "6 days ago",
+            getTimeAgo(reviewModel.createdAt.toString()),
             style: TextStyle(
               color: Color(0xff545454),
               fontSize: 12,

@@ -15,3 +15,20 @@ Widget svgViewer({
         color != null ? ColorFilter.mode(color, BlendMode.srcIn) : null,
   );
 }
+
+String getTimeAgo(String dateString) {
+  DateTime inputDate =
+      DateTime.parse(dateString).toLocal(); // Convert to local time
+  DateTime now = DateTime.now();
+  Duration difference = now.difference(inputDate);
+
+  if (difference.inDays > 0) {
+    return "${difference.inDays} days ago";
+  } else if (difference.inHours > 0) {
+    return "${difference.inHours} hours ago";
+  } else if (difference.inMinutes > 0) {
+    return "${difference.inMinutes} minutes ago";
+  } else {
+    return "Just now";
+  }
+}

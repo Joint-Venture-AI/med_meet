@@ -26,6 +26,7 @@ class AuthUserController extends GetxController {
       showCustomSnackBar("Password must be at least 8 characters long");
       return;
     }
+    // start loader
     Get.context!.loaderOverlay.show();
     final body = {
       "uniqueId": email,
@@ -34,26 +35,38 @@ class AuthUserController extends GetxController {
 
     var response =
         await ApiClient.postData(ApiConstants.userLoign, jsonEncode(body));
+    // off loader
     Get.context!.loaderOverlay.hide();
 
     if (response.statusCode == 200) {
       if (response.body["success"]) {
-        // saving the access token
-        PrefsHelper.setString(
-            AppConstants.bearerToken, response.body["data"]["accessToken"]);
+        // Show success message
         showCustomSnackBar(response.body["message"],
             isError:
                 (response.statusCode != 200) || (response.statusCode != 201));
+
+        // load the data in the user model and save it in the memory
         userData.value = UserModel.fromJson(response.body["data"]["user"]);
+        // saving the access token
+        PrefsHelper.setString(
+            AppConstants.bearerToken, response.body["data"]["accessToken"]);
+
+        // saving the id and role in shared prefrence
+        PrefsHelper.setString(PrefsKey.accountID, userData.value.id);
+        PrefsHelper.setString(PrefsKey.role, userData.value.role);
+
         if (userData.value.verified != null && !userData.value.verified!) {
+          // when user is not verified OTP is sent
           await requestOTP(userData.value.email, isforgotPass: false);
         } else if (userData.value.isAllFieldsFilled != null &&
             !userData.value.isAllFieldsFilled!) {
+          // If all the fields are not filled
           Get.toNamed(AppRoutes.completeProfile);
         } else if (userData.value.id != null &&
             userData.value.verified! &&
             userData.value.isAllFieldsFilled!) {
-          Get.toNamed(AppRoutes.userApp);
+          // when the user has all fields filled and also verified
+          Get.offAllNamed(AppRoutes.userApp);
         }
       }
     } else {

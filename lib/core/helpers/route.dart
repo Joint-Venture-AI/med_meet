@@ -27,12 +27,10 @@ import 'package:med_meet_flutter/views/home/doctor/doctor_all_appointment_list.d
 import 'package:med_meet_flutter/views/appointments/appointment_details_screen.dart';
 import 'package:med_meet_flutter/views/home/doctor/doctor_home.dart';
 import 'package:med_meet_flutter/views/home/notification.dart';
-import 'package:med_meet_flutter/views/common/doctors_details_for_user.dart';
 import 'package:med_meet_flutter/views/home/doctors_list_user.dart';
 import 'package:med_meet_flutter/views/home/user/home_user.dart';
 import 'package:med_meet_flutter/views/appointments/review_appointment.dart';
 import 'package:med_meet_flutter/views/home/user/search_user.dart';
-import 'package:med_meet_flutter/views/home/user/specialty_list_user.dart';
 import 'package:med_meet_flutter/views/home/user/specialty_user.dart';
 import 'package:med_meet_flutter/views/appointments/user_appointment_screen.dart';
 import 'package:med_meet_flutter/views/message_calls/call_screen.dart';
@@ -173,15 +171,12 @@ class AppRoutes {
     // Home feature
     GetPage(
         name: homeUser,
-        page: () => const HomeUserView(),
+        page: () => HomeUserView(),
         transition: Transition.noTransition),
     GetPage(name: notifications, page: () => const NotificationView()),
     GetPage(name: searchUser, page: () => const SearchUserView()),
-    GetPage(name: specialtyUser, page: () => const SpecialtyUserView()),
-    GetPage(name: specialtyListUser, page: () => const SpecialtyListUserView()),
-    GetPage(name: doctorListUser, page: () => const DoctorsListView()),
-    GetPage(
-        name: doctorDetailsForUser, page: () => const DoctorsDetailsForUser()),
+    GetPage(name: specialtyUser, page: () => SpecialtyUserView()),
+    GetPage(name: doctorListUser, page: () => DoctorsListView()),
     GetPage(
         name: doctorDetailsForDoctor,
         page: () => const DoctorDetailsForDoctor()),

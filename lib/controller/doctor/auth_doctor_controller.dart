@@ -96,31 +96,36 @@ class AuthDoctorsController extends GetxController {
     final body = {"uniqueId": email, "password": password};
     final response =
         await ApiClient.postData(ApiConstants.doctorLogin, jsonEncode(body));
-
+    Get.context!.loaderOverlay.hide();
     if (response.statusCode == 200) {
+      // Getting and saving doctor data in the memory
       doctorData.value = DoctorModel.fromJson(response.body["data"]["user"]);
+      // access token saved in shared pref
       PrefsHelper.setString(
           AppConstants.bearerToken, response.body["data"]["accessToken"]);
       Get.context!.loaderOverlay.hide();
       showCustomSnackBar(response.body["message"],
-          isError:
-              (response.statusCode != 200) || (response.statusCode != 201));
+          isError: !(response.statusCode != 200 || response.statusCode != 201));
       if (!doctorData.value.verified!) {
+        // When doctor not verified
         await sendOTP(doctorData.value.email!);
-        await Get.to(() => DoctorVerifyOtp(email: doctorData.value.email!));
+        // await Get.to(() => DoctorVerifyOtp(email: doctorData.value.email!)); Test this
       } else if (!doctorData.value.isAllFieldsFilled!) {
+        // When all the fields are not filled
         Get.toNamed(AppRoutes.doctorDetails);
       } else if (doctorData.value.approvedStatus! == "pending") {
+        // whem doctor approval is pending
         Get.toNamed(AppRoutes.verifyProgressDoctor);
       } else if (doctorData.value.approvedStatus == "rejected") {
+        // when doctor approval rejected
         Get.snackbar("Rejected", "Your application has been rejected");
       } else if (doctorData.value.approvedStatus == "approved") {
-        Get.toNamed(AppRoutes.doctorApp);
+        // when the doctor has fullfilled all the criteria
+        Get.offAllNamed(AppRoutes.doctorApp);
       }
     } else {
       ApiChecker.checkApi(response);
     }
-    Get.context!.loaderOverlay.hide();
   }
 
   Future signUp(name, email, doctorID, password) async {

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:med_meet_flutter/core/components/custom_app_bar.dart';
-import 'package:med_meet_flutter/core/components/review_card.dart';
 import 'package:med_meet_flutter/core/utils/uitls.dart';
 
 class DoctorReviewProfile extends StatelessWidget {
@@ -65,7 +64,8 @@ class DoctorReviewProfile extends StatelessWidget {
                                       width: 150 * (5 / 5),
                                       decoration: BoxDecoration(
                                         color: Color(0xffFFB701),
-                                        borderRadius: BorderRadius.circular(999),
+                                        borderRadius:
+                                            BorderRadius.circular(999),
                                       ),
                                     ),
                                   ],
@@ -91,7 +91,8 @@ class DoctorReviewProfile extends StatelessWidget {
                                       width: 150 * (4 / 5),
                                       decoration: BoxDecoration(
                                         color: Color(0xffFFB701),
-                                        borderRadius: BorderRadius.circular(999),
+                                        borderRadius:
+                                            BorderRadius.circular(999),
                                       ),
                                     ),
                                   ],
@@ -117,7 +118,8 @@ class DoctorReviewProfile extends StatelessWidget {
                                       width: 150 * (3 / 5),
                                       decoration: BoxDecoration(
                                         color: Color(0xffFFB701),
-                                        borderRadius: BorderRadius.circular(999),
+                                        borderRadius:
+                                            BorderRadius.circular(999),
                                       ),
                                     ),
                                   ],
@@ -143,7 +145,8 @@ class DoctorReviewProfile extends StatelessWidget {
                                       width: 150 * (2 / 5),
                                       decoration: BoxDecoration(
                                         color: Color(0xffFFB701),
-                                        borderRadius: BorderRadius.circular(999),
+                                        borderRadius:
+                                            BorderRadius.circular(999),
                                       ),
                                     ),
                                   ],
@@ -169,7 +172,8 @@ class DoctorReviewProfile extends StatelessWidget {
                                       width: 150 * (1 / 5),
                                       decoration: BoxDecoration(
                                         color: Color(0xffFFB701),
-                                        borderRadius: BorderRadius.circular(999),
+                                        borderRadius:
+                                            BorderRadius.circular(999),
                                       ),
                                     ),
                                   ],
@@ -229,11 +233,11 @@ class DoctorReviewProfile extends StatelessWidget {
                           ),
                         ),
                       ),
-                      ReviewCard(),
-                      ReviewCard(),
-                      ReviewCard(),
-                      ReviewCard(),
-                      ReviewCard(),
+                      // ReviewCard(),
+                      // ReviewCard(),
+                      // ReviewCard(),
+                      // ReviewCard(),
+                      // ReviewCard(),
                       const SizedBox(
                         height: 40,
                       ),
