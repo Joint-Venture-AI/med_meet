@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:med_meet_flutter/controller/booking_user_controller.dart';
 import 'package:med_meet_flutter/core/utils/uitls.dart';
 import 'package:table_calendar/table_calendar.dart';
 
@@ -14,6 +16,9 @@ class CustomDatePicker extends StatefulWidget {
 class _CustomDatePickerState extends State<CustomDatePicker> {
   DateTime currentDate = DateTime.now();
   DateTime _focusedDate = DateTime.now();
+
+  final BookingUserController bookingUserController =
+      Get.find<BookingUserController>();
 
   @override
   Widget build(BuildContext context) {
@@ -139,10 +144,8 @@ class _CustomDatePickerState extends State<CustomDatePicker> {
                 color: Color(0xff90A4AE),
                 fontWeight: FontWeight.w500,
               ),
-              selectedDecoration: BoxDecoration(
-                color: Colors.black,
-                borderRadius: BorderRadius.circular(999),
-              ),
+              selectedDecoration:
+                  BoxDecoration(color: Colors.black, shape: BoxShape.circle),
               weekendTextStyle: TextStyle(
                 fontSize: 14,
                 color: Color(0xff90A4AE),

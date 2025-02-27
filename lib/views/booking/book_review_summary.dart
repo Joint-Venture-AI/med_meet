@@ -4,7 +4,6 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:med_meet_flutter/core/components/custom_app_bar.dart';
 import 'package:med_meet_flutter/core/components/custom_button.dart';
-import 'package:med_meet_flutter/core/components/details_header.dart';
 import 'package:med_meet_flutter/core/constants/svg_assets.dart';
 import 'package:med_meet_flutter/core/helpers/route.dart';
 import 'package:med_meet_flutter/core/utils/app_colors.dart';
@@ -83,7 +82,7 @@ class BookReviewSummaryView extends StatelessWidget {
                 SizedBox(
                   height: 20,
                 ),
-                DetailsHeaeder(),
+                // DetailsHeaeder(),
                 SizedBox(
                   height: 20,
                 ),

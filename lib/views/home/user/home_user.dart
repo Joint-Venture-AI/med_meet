@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:med_meet_flutter/controller/user/user_home_controller.dart';
+import 'package:med_meet_flutter/controller/home_user_controller.dart';
 import 'package:med_meet_flutter/core/components/doctor_card.dart';
 import 'package:med_meet_flutter/core/components/section_header.dart';
 import 'package:med_meet_flutter/core/components/specialty_card.dart';
@@ -61,7 +61,16 @@ class HomeUserView extends StatelessWidget {
               () => ListView.builder(
                 itemCount: userHomeController.allDoctors.length,
                 itemBuilder: (context, index) => DoctorCard(
-                  doctorModel: userHomeController.allDoctors[index],
+                  id: userHomeController.allDoctors[index].id,
+                  image: userHomeController.allDoctors[index].image,
+                  name: userHomeController.allDoctors[index].name,
+                  avarageRating:
+                      userHomeController.allDoctors[index].avgRating.toString(),
+                  clinic: userHomeController.allDoctors[index].clinic,
+                  fee: userHomeController.allDoctors[index].consultationFee
+                      .toString(),
+                  specialist:
+                      userHomeController.allDoctors[index].specialist.name,
                 ),
               ),
             ))
@@ -100,6 +109,7 @@ class HomeUserView extends StatelessWidget {
                       width: 12,
                     ),
                     Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
                           "Good Morning",

@@ -1,12 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:med_meet_flutter/controller/home_doctor_controller.dart';
+import 'package:med_meet_flutter/controller/profile_controller.dart';
 import 'package:med_meet_flutter/core/components/custom_button.dart';
 import 'package:med_meet_flutter/core/helpers/route.dart';
 import 'package:med_meet_flutter/core/utils/uitls.dart';
 import 'package:med_meet_flutter/models/options.dart';
 
 class DoctorProfileView extends StatelessWidget {
-  const DoctorProfileView({super.key});
+  DoctorProfileView({super.key});
+  final Profilecontroller profilecontroller = Get.put(Profilecontroller());
+  final HomeDoctorController homeDoctorController =
+      Get.put(HomeDoctorController());
 
   @override
   Widget build(BuildContext context) {
@@ -102,8 +107,9 @@ class DoctorProfileView extends StatelessWidget {
                           height: 36,
                         ),
                         ClipOval(
-                          child: Image.asset(
-                            "assets/images/profile_pic.jfif",
+                          child: Image.network(
+                            imageUrl(
+                                homeDoctorController.doctorData.value.image),
                             fit: BoxFit.cover,
                             height: 120,
                             width: 120,
@@ -113,7 +119,7 @@ class DoctorProfileView extends StatelessWidget {
                           height: 16,
                         ),
                         Text(
-                          "Andrew Ainsley",
+                          homeDoctorController.doctorData.value.name,
                           style: TextStyle(
                             fontSize: 18,
                             fontWeight: FontWeight.w400,
@@ -219,8 +225,7 @@ class DoctorProfileView extends StatelessWidget {
                                             Expanded(
                                               child: CustomButton(
                                                 onPressed: () {
-                                                  Get.offAllNamed(AppRoutes
-                                                      .selectCountryScreen);
+                                                  profilecontroller.logOut();
                                                 },
                                                 buttonTitle: "Yes, Logout",
                                                 height: 48,

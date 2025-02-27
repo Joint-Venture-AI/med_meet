@@ -1,25 +1,26 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:med_meet_flutter/controller/common_controller.dart';
 import 'package:med_meet_flutter/core/utils/app_colors.dart';
+import 'package:med_meet_flutter/models/time_slot_model.dart';
 
 class TimeSlotGrid extends StatelessWidget {
   final bool isEnabled;
-  const TimeSlotGrid({super.key, this.isEnabled = true});
+  // time slots freshly recieved from the server for a given doctor
+  final List<TimeSlotModel> availableSlots;
+  TimeSlotGrid(
+      {super.key, this.isEnabled = true, required this.availableSlots});
+
+  final CommonController commonController = Get.put(CommonController());
 
   @override
   Widget build(BuildContext context) {
-    final List<String> timeSlots = [
-      "09.00 - 09.30",
-      "10:00 - 10:30",
-      "11:00 - 11:00",
-      "12:00 - 12:30",
-      "01:00 - 01:30",
-      "02:00 - 02.30",
-      "03:00 - 03:00",
-      "09.00 - 09.30",
-      "09.00 - 09.30",
-    ];
+    // Maping the object into a string formatted as "10:30 - 11:00"
+    final List<String> timeSlots =
+        availableSlots.map((e) => "${e.startTime} - ${e.endTime}").toList();
+
     return GridView.builder(
       padding: EdgeInsets.symmetric(vertical: 16),
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
@@ -51,33 +52,38 @@ class TimeSlotButton extends StatefulWidget {
 
 class _TimeSlotButtonState extends State<TimeSlotButton> {
   bool isActive = false;
+
+  final CommonController commonController = Get.find<CommonController>();
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        if (widget.isEnabled) {
-          setState(() {
-            isActive = !isActive;
-          });
-        }
+        commonController.selectedTimeSlot.value = widget.timeSlot;
       },
-      child: Container(
-        // padding: EdgeInsets.symmetric(horizontal: 17.w, vertical: 10.h),
-        decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(35),
-            border: Border.all(color: AppColors.border1),
-            color: isActive ? AppColors.button1 : null),
-        child: Center(
-          child: Text(
-            widget.timeSlot,
-            style: GoogleFonts.roboto(
-              fontSize: 12.sp,
-              fontWeight: FontWeight.w500,
-              color: isActive ? Colors.white : Color(0xFF545454),
+      child: Obx(() {
+        return Container(
+          // padding: EdgeInsets.symmetric(horizontal: 17.w, vertical: 10.h),
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(35),
+              border: Border.all(color: AppColors.border1),
+              color: commonController.selectedTimeSlot.value == widget.timeSlot
+                  ? AppColors.button1
+                  : null),
+          child: Center(
+            child: Text(
+              widget.timeSlot,
+              style: GoogleFonts.roboto(
+                fontSize: 12.sp,
+                fontWeight: FontWeight.w500,
+                color:
+                    commonController.selectedTimeSlot.value == widget.timeSlot
+                        ? Colors.white
+                        : Color(0xFF545454),
+              ),
             ),
           ),
-        ),
-      ),
+        );
+      }),
     );
   }
 }

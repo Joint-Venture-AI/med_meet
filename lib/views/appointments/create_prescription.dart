@@ -6,11 +6,10 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:med_meet_flutter/core/components/custom_app_bar.dart';
 import 'package:med_meet_flutter/core/components/custom_button.dart';
 import 'package:med_meet_flutter/core/components/custom_text_input.dart';
-import 'package:med_meet_flutter/core/components/patient_information_card.dart';
 import 'package:med_meet_flutter/core/constants/svg_assets.dart';
 import 'package:med_meet_flutter/core/helpers/route.dart';
 import 'package:med_meet_flutter/core/utils/app_colors.dart';
-import 'package:med_meet_flutter/models/appointmnets/medication_details_model.dart';
+import 'package:med_meet_flutter/models/medication_details_model.dart';
 import 'package:med_meet_flutter/views/appointments/submit_prescription.dart';
 import 'package:med_meet_flutter/views/appointments/user_records.dart';
 
@@ -92,7 +91,7 @@ class _CreatePrescriptionViewState extends State<CreatePrescriptionView> {
             SizedBox(
               height: 20.h,
             ),
-            PatientInformationCard(),
+            // PatientInformationCard(),
             SizedBox(
               height: 24.h,
             ),

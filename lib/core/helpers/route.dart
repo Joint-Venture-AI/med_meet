@@ -20,16 +20,12 @@ import 'package:med_meet_flutter/views/auth/who_are_you_screen.dart';
 import 'package:med_meet_flutter/views/booking/book_card_details.dart';
 import 'package:med_meet_flutter/views/booking/book_patient_detials.dart';
 import 'package:med_meet_flutter/views/booking/book_review_summary.dart';
-import 'package:med_meet_flutter/views/booking/book_schedule_screen.dart';
-import 'package:med_meet_flutter/views/common/doctor_details_for_doctor.dart';
 import 'package:med_meet_flutter/views/doctor_or_patient.dart';
 import 'package:med_meet_flutter/views/home/doctor/doctor_all_appointment_list.dart';
-import 'package:med_meet_flutter/views/appointments/appointment_details_screen.dart';
 import 'package:med_meet_flutter/views/home/doctor/doctor_home.dart';
 import 'package:med_meet_flutter/views/home/notification.dart';
 import 'package:med_meet_flutter/views/home/doctors_list_user.dart';
 import 'package:med_meet_flutter/views/home/user/home_user.dart';
-import 'package:med_meet_flutter/views/appointments/review_appointment.dart';
 import 'package:med_meet_flutter/views/home/user/search_user.dart';
 import 'package:med_meet_flutter/views/home/user/specialty_user.dart';
 import 'package:med_meet_flutter/views/appointments/user_appointment_screen.dart';
@@ -177,24 +173,17 @@ class AppRoutes {
     GetPage(name: searchUser, page: () => const SearchUserView()),
     GetPage(name: specialtyUser, page: () => SpecialtyUserView()),
     GetPage(name: doctorListUser, page: () => DoctorsListView()),
-    GetPage(
-        name: doctorDetailsForDoctor,
-        page: () => const DoctorDetailsForDoctor()),
     GetPage(name: userOrDoctor, page: () => const DoctorOrPatient()),
 
     // Home Doctor feature
-    GetPage(name: homeDoctor, page: () => const DoctorHomeView()),
+    GetPage(name: homeDoctor, page: () => DoctorHomeView()),
     GetPage(
         name: doctorAllApointmentLists,
-        page: () => const DoctorAllAppointmentList()),
+        page: () =>  DoctorAllAppointmentList()),
 
     // Appointment Features
     GetPage(
-        name: appointmentDetails, page: () => const AppointmentDetailsView()),
-    GetPage(name: reviewAppointment, page: () => const ReviewAppointmentView()),
-    GetPage(
-        name: userAppointmentScreen,
-        page: () => const UserAppointmentScreenView()),
+        name: userAppointmentScreen, page: () => UserAppointmentScreenView()),
     GetPage(name: notesScreen, page: () => const NotesScreenView()),
     GetPage(
         name: createPrescription, page: () => const CreatePrescriptionView()),
@@ -207,7 +196,6 @@ class AppRoutes {
     GetPage(name: chatScreen, page: () => const ChatScreenView()),
     GetPage(name: callScreen, page: () => const CallScreenView()),
     // Booking Feature
-    GetPage(name: bookingScreen, page: () => const BookScheduleScreenView()),
     GetPage(name: bookCardDetails, page: () => const BookCardDetailsView()),
     GetPage(
         name: bookPatientDetails, page: () => const BookPatientDetialsView()),

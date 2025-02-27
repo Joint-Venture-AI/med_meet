@@ -20,7 +20,6 @@ class ApiConstants {
   static String userVerifyEmail = "/user/verify-email";
   static String userResetPass = "/user/reset-password";
   static String userSignUp = "/user";
-  static String userUpdateProfile = "/user/update-profile";
   static String userResendOtp = "/user/user-resend-otp";
 
   // Home Features Endpoints
@@ -32,6 +31,31 @@ class ApiConstants {
   static String getSpecialistDoctors(specialistID) =>
       "/doctor?specialist=$specialistID";
 
+  // Doctor Endpoints
+  static String doctorGetProfile = "/doctor/profile";
+  static String doctorGetHisScore(docID) => "/appointment/doctor/count/$docID";
+  static String getDoctorFilteredAppointment(docID, type) =>
+      "/appointment/doctor/$docID?status=$type";
+  static String getDoctorAllAppointment(docID) => "/appointment/doctor/$docID";
+
+  // Book Appointments Endpoints
+
+  // User Endpoints
+  static String userGetAvailableTimeslots(doctorID, date) =>
+      "/schedule/available-slots?doctorId=$doctorID&date=$date";
+
+  // Appointment Features
+
+  // User Endpoints
+  static String userGetAllAppointment(userID) => "/appointment/user/$userID";
+  static String userGetAppointmentDetauls(appointmentID) =>
+      "/appointment/$appointmentID";
+  static String userPostReview(appointmentID) =>
+      "/appointment/review/$appointmentID";
+
   // Common Features
   static String getAllSpecialty = "/category";
+
+  // Doctor Endpoints
+  static String userUpdateProfile = "/user/update-profile";
 }

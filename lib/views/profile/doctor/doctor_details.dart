@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:get/instance_manager.dart';
+import 'package:get/get.dart';
 import 'package:med_meet_flutter/controller/common_controller.dart';
+import 'package:med_meet_flutter/controller/profile_controller.dart';
 import 'package:med_meet_flutter/core/components/custom_app_bar.dart';
 import 'package:med_meet_flutter/core/components/custom_button.dart';
+import 'package:med_meet_flutter/core/components/custom_drop_down.dart';
 import 'package:med_meet_flutter/core/components/custom_text_input.dart';
+import 'package:med_meet_flutter/core/utils/uitls.dart';
 
 class DoctorDetails extends StatefulWidget {
   const DoctorDetails({super.key});
@@ -22,10 +25,11 @@ class _DoctorDetailsState extends State<DoctorDetails> {
       TextEditingController();
   final TextEditingController aboutDoctorController = TextEditingController();
   final CommonController commonController = Get.put(CommonController());
+  final Profilecontroller profilecontroller = Get.put(Profilecontroller());
 
   @override
-  void initState() async {
-    await commonController.getAllSpecialty();
+  void initState() {
+    commonController.getAllSpecialty();
     super.initState();
   }
 
@@ -46,19 +50,17 @@ class _DoctorDetailsState extends State<DoctorDetails> {
                     const SizedBox(
                       height: 20,
                     ),
-                    // CustomDropDown(
-                    //   title: "Specialist",
-                    //   dropDownItems: [
-                    //     "Dentist",
-                    //     "Immunologists",
-                    //     "Cardiologists",
-                    //     "Neurologist",
-                    //     "Orthopedics",
-                    //     "Therapist",
-                    //     "Nutritionist",
-                    //     "Gynecologic",
-                    //   ],
-                    // ),
+                    Obx(() {
+                      return CustomDropDown(
+                        title: "Specialist",
+                        dropDownItems:
+                            getDropDownItems(commonController.allSpecialty),
+                        initialValue: commonController.selectedSpecialty.value,
+                        onChange: (String? newVal) {
+                          commonController.selectedSpecialty.value = newVal!;
+                        },
+                      );
+                    }),
                     SizedBox(
                       height: 12,
                     ),
@@ -115,7 +117,20 @@ class _DoctorDetailsState extends State<DoctorDetails> {
                       height: 48,
                     ),
                     CustomButton(
-                      onPressed: () {},
+                      onPressed: () async {
+                        await profilecontroller.updateDoctorProfile(
+                          specialty: commonController.selectedSpecialty.value,
+                          experience: experienceController.text,
+                          medicalLicenseNumber:
+                              medicalLicenseNumberController.text,
+                          clinicName: clinicNameController.text,
+                          clinicAddress: clinicAddressController.text,
+                          consultationFee: consultationFeeController.text == ""
+                              ? null
+                              : int.parse(consultationFeeController.text),
+                          aboutDoctor: aboutDoctorController.text,
+                        );
+                      },
                       buttonTitle: "Update Details",
                     ),
                     const SizedBox(

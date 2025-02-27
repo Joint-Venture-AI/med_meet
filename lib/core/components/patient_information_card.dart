@@ -5,7 +5,16 @@ import 'package:med_meet_flutter/core/utils/app_typography.dart';
 class PatientInformationCard extends StatelessWidget {
   const PatientInformationCard({
     super.key,
+    required this.firstName,
+    required this.gender,
+    required this.age,
+    required this.problem,
   });
+
+  final String firstName;
+  final String gender;
+  final String age;
+  final String problem;
 
   @override
   Widget build(BuildContext context) {
@@ -100,28 +109,28 @@ class PatientInformationCard extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      "Andrew Ainsley",
+                      firstName,
                       style: AppTypography.bodyText1,
                     ),
                     SizedBox(
                       height: 8,
                     ),
                     Text(
-                      "Male",
+                      gender,
                       style: AppTypography.bodyText1,
                     ),
                     SizedBox(
                       height: 8,
                     ),
                     Text(
-                      "27",
+                      age,
                       style: AppTypography.bodyText1,
                     ),
                     SizedBox(
                       height: 8,
                     ),
                     Text(
-                      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.",
+                      problem,
                       style: AppTypography.bodyText1,
                     ),
                   ],

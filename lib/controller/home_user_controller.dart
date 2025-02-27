@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:loader_overlay/loader_overlay.dart';
 import 'package:med_meet_flutter/core/constants/api_constants.dart';
-import 'package:med_meet_flutter/models/Auth/user_model.dart';
+import 'package:med_meet_flutter/models/user_model.dart';
 import 'package:med_meet_flutter/models/single_doctor_model.dart';
 import 'package:med_meet_flutter/services/api_checker.dart';
 import 'package:med_meet_flutter/services/api_client.dart';

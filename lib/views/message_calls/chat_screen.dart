@@ -8,7 +8,7 @@ import 'package:med_meet_flutter/core/components/custom_app_bar.dart';
 import 'package:med_meet_flutter/core/components/custom_text_input.dart';
 import 'package:med_meet_flutter/core/constants/image_assets.dart';
 import 'package:med_meet_flutter/core/utils/app_colors.dart';
-import 'package:med_meet_flutter/models/message_calls/chat_model.dart';
+import 'package:med_meet_flutter/models/chat_model.dart';
 
 class ChatScreenView extends StatefulWidget {
   const ChatScreenView({super.key});

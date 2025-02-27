@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:med_meet_flutter/controller/user/user_home_controller.dart';
+import 'package:med_meet_flutter/controller/home_user_controller.dart';
 import 'package:med_meet_flutter/core/components/custom_app_bar.dart';
 import 'package:med_meet_flutter/core/components/specialty_card.dart';
 import 'package:med_meet_flutter/core/constants/api_constants.dart';

@@ -5,17 +5,22 @@ import 'package:intl/intl.dart';
 import 'package:med_meet_flutter/core/utils/app_colors.dart';
 
 class DateInput extends StatefulWidget {
-  const DateInput(
-      {super.key,
-      required this.dateController,
-      required this.icon,
-      required this.hintText,
-      this.title = ""});
+  const DateInput({
+    super.key,
+    required this.dateController,
+    required this.icon,
+    required this.hintText,
+    this.title = "",
+    this.iconStart = false,
+    this.isLargeIcon = false,
+  });
 
   final TextEditingController dateController;
   final IconData icon;
   final String hintText;
   final String title;
+  final bool iconStart;
+  final bool isLargeIcon;
 
   @override
   State<DateInput> createState() => _DateInputState();
@@ -28,17 +33,19 @@ class _DateInputState extends State<DateInput> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          widget.title,
-          style: GoogleFonts.roboto(
-            fontSize: 14,
-            fontWeight: FontWeight.w400,
-            color: Color(0xFF333333),
+        if (widget.title.isNotEmpty)
+          Text(
+            widget.title,
+            style: GoogleFonts.roboto(
+              fontSize: 14,
+              fontWeight: FontWeight.w400,
+              color: Color(0xFF333333),
+            ),
           ),
-        ),
-        SizedBox(
-          height: 8,
-        ),
+        if (widget.title.isNotEmpty)
+          SizedBox(
+            height: 8,
+          ),
         Container(
           padding: EdgeInsets.symmetric(horizontal: 20),
           decoration: BoxDecoration(
@@ -46,6 +53,16 @@ class _DateInputState extends State<DateInput> {
               borderRadius: BorderRadius.circular(24)),
           child: Row(
             children: [
+              if (widget.iconStart)
+                Icon(
+                  widget.icon,
+                  color: Colors.black,
+                  size: widget.isLargeIcon ? 22 : 14,
+                ),
+              if (widget.iconStart)
+                SizedBox(
+                  width: 8,
+                ),
               Flexible(
                 // Text Field
                 child: TextFormField(
@@ -86,11 +103,12 @@ class _DateInputState extends State<DateInput> {
               SizedBox(
                 width: 12,
               ),
-              Icon(
-                widget.icon,
-                color: AppColors.iconColor1,
-                size: 14,
-              ),
+              if (!widget.iconStart)
+                Icon(
+                  widget.icon,
+                  color: Colors.black,
+                  size: widget.isLargeIcon ? 22 : 14,
+                ),
             ],
           ),
         )

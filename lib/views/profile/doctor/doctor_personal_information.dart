@@ -1,7 +1,14 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:med_meet_flutter/controller/home_doctor_controller.dart';
+import 'package:med_meet_flutter/controller/profile_controller.dart';
 import 'package:med_meet_flutter/core/components/custom_app_bar.dart';
 import 'package:med_meet_flutter/core/components/custom_button.dart';
 import 'package:med_meet_flutter/core/components/custom_text_input.dart';
+import 'package:med_meet_flutter/core/components/date_input.dart';
+import 'package:med_meet_flutter/core/constants/api_constants.dart';
 import 'package:med_meet_flutter/core/utils/app_colors.dart';
 import 'package:med_meet_flutter/core/utils/uitls.dart';
 
@@ -18,8 +25,14 @@ class _DoctorPersonalInformationState extends State<DoctorPersonalInformation> {
 
   final TextEditingController nameController = TextEditingController();
   final TextEditingController emailController = TextEditingController();
+  final TextEditingController phoneController = TextEditingController();
   final TextEditingController dobController = TextEditingController();
   final TextEditingController addressController = TextEditingController();
+
+  // Getx Controllers
+  final Profilecontroller profileController = Get.put(Profilecontroller());
+  final HomeDoctorController homeDoctorController =
+      Get.put(HomeDoctorController());
 
   @override
   void dispose() {
@@ -77,45 +90,70 @@ class _DoctorPersonalInformationState extends State<DoctorPersonalInformation> {
                           const SizedBox(
                             height: 36,
                           ),
-                          ClipOval(
-                            child: Stack(
-                              alignment: Alignment.center,
-                              children: [
-                                Image.asset(
-                                  "assets/images/profile_pic.jfif",
-                                  fit: BoxFit.cover,
-                                  height: 120,
-                                  width: 120,
-                                ),
-                                if (isEditing)
-                                  Container(
+                          Obx(() {
+                            final imageRef =
+                                profileController.displayPicture.value;
+                            final doctorRef =
+                                homeDoctorController.doctorData.value;
+                            return ClipOval(
+                              child: Stack(
+                                alignment: Alignment.center,
+                                children: [
+                                  Image.network(
+                                    doctorRef.image == ""
+                                        ? "https://community.softr.io/uploads/db9110/original/2X/7/74e6e7e382d0ff5d7773ca9a87e6f6f8817a68a6.jpeg"
+                                        : "${ApiConstants.baseAssetUrl}${doctorRef.image}",
+                                    fit: BoxFit.cover,
                                     height: 120,
                                     width: 120,
-                                    color: Colors.black
-                                        .withAlpha((255 * 0.30).toInt()),
                                   ),
-                                if (isEditing)
-                                  svgViewer(
-                                    asset: "assets/svg/camera.svg",
-                                    height: 32,
-                                  ),
-                              ],
-                            ),
-                          ),
+                                  if (isEditing)
+                                    if (profileController
+                                            .displayPicture.value !=
+                                        "")
+                                      Image.file(
+                                        File(profileController
+                                            .displayPicture.value),
+                                        fit: BoxFit.cover,
+                                        height: 120,
+                                        width: 120,
+                                      ),
+                                  if (isEditing)
+                                    GestureDetector(
+                                      onTap: profileController.pickImage,
+                                      child: Container(
+                                        height: 120,
+                                        width: 120,
+                                        color: Colors.black
+                                            .withAlpha((255 * 0.30).toInt()),
+                                      ),
+                                    ),
+                                  if (isEditing)
+                                    svgViewer(
+                                      asset: "assets/svg/camera.svg",
+                                      height: 32,
+                                    ),
+                                ],
+                              ),
+                            );
+                          }),
                           const SizedBox(
                             height: 16,
                           ),
-                          Text(
-                            isEditing
-                                ? "Change your profile picture"
-                                : "Andrew Ainsley",
-                            style: TextStyle(
-                              fontSize: isEditing ? 14 : 18,
-                              fontWeight: FontWeight.w400,
-                              color:
-                                  isEditing ? Color(0xff333333) : Colors.white,
-                            ),
-                          ),
+                          Obx(() {
+                            return Text(
+                              isEditing
+                                  ? "Change your profile picture"
+                                  : homeDoctorController.doctorData.value.name,
+                              style: TextStyle(
+                                fontSize: isEditing ? 14 : 18,
+                                fontWeight: FontWeight.w400,
+                                color: isEditing
+                                    ? Color(0xff333333)
+                                    : Colors.white,
+                              ),
+                            );
+                          }),
                         ],
                       ),
                     ),
@@ -129,79 +167,89 @@ class _DoctorPersonalInformationState extends State<DoctorPersonalInformation> {
                   horizontal: 24,
                   vertical: 24,
                 ),
-                child: Column(
-                  spacing: 16,
-                  children: [
-                    CustomTextInput(
-                      renderTitle: false,
-                      hintText: "Andrew Ainsley",
-                      // isEnabled: isEditing,
-                      textController: nameController,
-                      icon: Icons.person,
-                    ),
-                    CustomTextInput(
-                      renderTitle: false,
-                      hintText: "andres.do@gmail.com",
-                      icon: Icons.mail_rounded,
-                      textController: emailController,
-                    ),
-                    CustomTextInput(
-                      renderTitle: false,
-                      hintText: "+8848585661",
-                      icon: Icons.call_rounded,
-                      textController: TextEditingController(),
-                    ),
-                    CustomTextInput(
-                      renderTitle: false,
-                      hintText: "10 Jan 2001",
-                      icon: Icons.cake_rounded,
-                      textController: dobController,
-                    ),
-                    CustomTextInput(
-                      renderTitle: false,
-                      hintText:
-                          "2713 |Westheimer Rd, |Santa Ana, Illionis 526548",
-                      icon: Icons.location_on_rounded,
-                      maxLines: 2,
-                      multiLine: true,
-                      textController: addressController,
-                    ),
-                    if (!isEditing)
-                      GestureDetector(
-                        onTap: () {
-                          setState(() {
-                            isEditing = true;
-                          });
-                        },
-                        behavior: HitTestBehavior.translucent,
-                        child: AbsorbPointer(
-                          child: CustomTextInput(
-                            renderTitle: false,
-                            hintText: "Edit Profile",
-                            icon: Icons.edit,
-                            textController: emailController,
-                          ),
-                        ),
+                child: Obx(() {
+                  final data = homeDoctorController.doctorData.value;
+                  return Column(
+                    spacing: 16,
+                    children: [
+                      CustomTextInput(
+                        renderTitle: false,
+                        hintText: data.name,
+                        // isEnabled: isEditing,
+                        textController: nameController,
+                        icon: Icons.person,
                       ),
-                    if (isEditing)
-                      Padding(
-                        padding: const EdgeInsets.only(top: 40),
-                        child: CustomButton(
-                          onPressed: () {
+                      CustomTextInput(
+                        renderTitle: false,
+                        hintText: data.email,
+                        icon: Icons.mail_rounded,
+                        textController: emailController,
+                      ),
+                      CustomTextInput(
+                        renderTitle: false,
+                        hintText: data.phoneNumber,
+                        icon: Icons.call_rounded,
+                        textController: phoneController,
+                      ),
+                      DateInput(
+                          dateController: dobController,
+                          icon: Icons.cake,
+                          iconStart: true,
+                          isLargeIcon: true,
+                          hintText: data.dob),
+                      CustomTextInput(
+                        renderTitle: false,
+                        hintText: data.clinicAddress,
+                        icon: Icons.location_on_rounded,
+                        maxLines: 2,
+                        multiLine: true,
+                        textController: addressController,
+                      ),
+                      if (!isEditing)
+                        GestureDetector(
+                          onTap: () {
                             setState(() {
-                              isEditing = !isEditing;
+                              isEditing = true;
                             });
                           },
-                          buttonTitle:
-                              isEditing ? "Update Profile" : "Edit Profile",
-                          isSecondary: !isEditing,
+                          behavior: HitTestBehavior.translucent,
+                          child: AbsorbPointer(
+                            child: CustomTextInput(
+                              renderTitle: false,
+                              hintText: "Edit Profile",
+                              icon: Icons.edit,
+                              textController: emailController,
+                            ),
+                          ),
                         ),
+                      if (isEditing)
+                        Padding(
+                          padding: const EdgeInsets.only(top: 40),
+                          child: CustomButton(
+                            onPressed: () async {
+                              setState(() {
+                                isEditing = !isEditing;
+                              });
+
+                              await profileController.updateDoctorProfile(
+                                name: nameController.text,
+                                email: emailController.text,
+                                phone: phoneController.text,
+                                dob: dobController.text,
+                                address: addressController.text,
+                              );
+                            },
+                            buttonTitle:
+                                isEditing ? "Update Profile" : "Edit Profile",
+                            isSecondary: !isEditing,
+                          ),
+                        ),
+                      const SizedBox(
+                        height: 20,
                       ),
-                    const SizedBox(
-                      height: 20,
-                    ),
-                  ],
-                ),
+                    ],
+                  );
+                }),
               ),
             ),
           ],

@@ -7,7 +7,7 @@ import 'package:med_meet_flutter/core/constants/api_constants.dart';
 import 'package:med_meet_flutter/core/helpers/pref_helper.dart';
 import 'package:med_meet_flutter/core/helpers/route.dart';
 import 'package:med_meet_flutter/core/utils/app_constants.dart';
-import 'package:med_meet_flutter/models/Auth/user_model.dart';
+import 'package:med_meet_flutter/models/user_model.dart';
 import 'package:med_meet_flutter/services/api_checker.dart';
 import 'package:med_meet_flutter/services/api_client.dart';
 import 'package:med_meet_flutter/views/auth/user/user_verify_otp.dart';

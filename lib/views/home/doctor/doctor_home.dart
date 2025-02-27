@@ -2,15 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:med_meet_flutter/controller/home_doctor_controller.dart';
 import 'package:med_meet_flutter/core/components/doctor_card.dart';
 import 'package:med_meet_flutter/core/components/section_header.dart';
-import 'package:med_meet_flutter/core/constants/image_assets.dart';
+import 'package:med_meet_flutter/core/constants/api_constants.dart';
 import 'package:med_meet_flutter/core/helpers/route.dart';
 import 'package:med_meet_flutter/core/utils/app_colors.dart';
 import 'package:med_meet_flutter/core/utils/app_typography.dart';
 
 class DoctorHomeView extends StatelessWidget {
-  const DoctorHomeView({super.key});
+  DoctorHomeView({super.key});
+
+  final HomeDoctorController homeDoctorController =
+      Get.put(HomeDoctorController());
 
   @override
   Widget build(BuildContext context) {
@@ -25,23 +29,26 @@ class DoctorHomeView extends StatelessWidget {
             SizedBox(
               height: 24,
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                HomeAppointmentCounter(
-                  count: "266",
-                  type: "Upcomming",
-                ),
-                HomeAppointmentCounter(
-                  count: "408",
-                  type: "Completed",
-                ),
-                HomeAppointmentCounter(
-                  count: "800",
-                  type: "total",
-                ),
-              ],
-            ),
+            Obx(() {
+              final scoreRef = homeDoctorController.doctorScore.value;
+              return Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  HomeAppointmentCounter(
+                    count: scoreRef.upcoming.toString(),
+                    type: "Upcomming",
+                  ),
+                  HomeAppointmentCounter(
+                    count: scoreRef.completed.toString(),
+                    type: "Completed",
+                  ),
+                  HomeAppointmentCounter(
+                    count: scoreRef.total.toString(),
+                    type: "total",
+                  ),
+                ],
+              );
+            }),
             SizedBox(
               height: 12,
             ),
@@ -56,9 +63,27 @@ class DoctorHomeView extends StatelessWidget {
                   SizedBox(
                     height: 12,
                   ),
-                  DoctorCard(
-                    isAppointment: true,
-                  ),
+                  Obx(() {
+                    final upcomingRef =
+                        homeDoctorController.upcomingAppointments;
+                    return upcomingRef.isEmpty
+                        ? Center(
+                            child: Text("No Appointments Yet"),
+                          )
+                        : Column(
+                            children: upcomingRef.take(2).map((e) {
+                            return DoctorCard(
+                              isAppointment: true,
+                              id: e.id,
+                              name: e.name,
+                              image: e.image,
+                              specialist: e.specialist,
+                              date: e.date.toString(),
+                              time: "${e.startTime} - ${e.endTime}",
+                            );
+                          }).toList());
+                  }),
+
                   SizedBox(
                     height: 12,
                   ),
@@ -70,15 +95,33 @@ class DoctorHomeView extends StatelessWidget {
                   SizedBox(
                     height: 12,
                   ),
-                  DoctorCard(
-                    isDoctorToDoctor: true,
-                  ),
-                  DoctorCard(
-                    isDoctorToDoctor: true,
-                  ),
-                  DoctorCard(
-                    isDoctorToDoctor: true,
-                  ),
+
+                  Obx(() {
+                    return Column(
+                      children: homeDoctorController.allDoctors
+                          .map(
+                            (doc) => DoctorCard(
+                              id: doc.id,
+                              name: doc.name,
+                              image: doc.image,
+                              isDoctorToDoctor: true,
+                              avarageRating: doc.avgRating.toString(),
+                              specialist: doc.specialist.name,
+                              clinic: doc.clinic,
+                            ),
+                          )
+                          .toList(),
+                    );
+                  })
+                  // DoctorCard(
+                  //   isDoctorToDoctor: true,
+                  // ),
+                  // DoctorCard(
+                  //   isDoctorToDoctor: true,
+                  // ),
+                  // DoctorCard(
+                  //   isDoctorToDoctor: true,
+                  // ),
                 ],
               ),
             )
@@ -102,26 +145,36 @@ class DoctorHomeView extends StatelessWidget {
                 children: [
                   Row(
                     children: [
-                      CircleAvatar(
-                        backgroundImage: AssetImage(ImageAssets.profilePic1),
-                        radius: 20,
-                      ),
+                      Obx(() {
+                        return CircleAvatar(
+                          backgroundImage: homeDoctorController
+                                      .doctorData.value.image ==
+                                  ""
+                              ? null
+                              : NetworkImage(
+                                  "${ApiConstants.baseAssetUrl}${homeDoctorController.doctorData.value.image}"),
+                          radius: 20,
+                        );
+                      }),
                       SizedBox(
                         width: 12,
                       ),
                       Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
                             "Good Morning",
                             style: AppTypography.bodyText1,
                           ),
-                          Text(
-                            "Nikenla Steve",
-                            style: GoogleFonts.roboto(
-                                fontWeight: FontWeight.w500,
-                                fontSize: 14,
-                                color: Colors.black),
-                          )
+                          Obx(() {
+                            return Text(
+                              homeDoctorController.doctorData.value.name,
+                              style: GoogleFonts.roboto(
+                                  fontWeight: FontWeight.w500,
+                                  fontSize: 14,
+                                  color: Colors.black),
+                            );
+                          })
                         ],
                       )
                     ],

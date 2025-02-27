@@ -3,42 +3,63 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:intl/intl.dart';
 import 'package:med_meet_flutter/core/constants/api_constants.dart';
-import 'package:med_meet_flutter/core/constants/image_assets.dart';
 import 'package:med_meet_flutter/core/constants/svg_assets.dart';
 import 'package:med_meet_flutter/core/helpers/route.dart';
 import 'package:med_meet_flutter/core/utils/app_colors.dart';
 import 'package:med_meet_flutter/core/utils/app_typography.dart';
-import 'package:med_meet_flutter/models/single_doctor_model.dart';
+import 'package:med_meet_flutter/views/appointments/appointment_details_screen.dart';
+import 'package:med_meet_flutter/views/common/doctor_details_for_doctor.dart';
 import 'package:med_meet_flutter/views/common/doctors_details_for_user.dart';
 
 class DoctorCard extends StatelessWidget {
-  const DoctorCard(
-      {super.key,
-      this.isDoctorToDoctor = false,
-      this.isAppointment = false,
-      this.hasPrice = false,
-      this.doctorModel,
-      this.status});
+  const DoctorCard({
+    super.key,
+    this.isDoctorToDoctor = false,
+    this.isAppointment = false,
+    this.hasPrice = false,
+    required this.id,
+    required this.name,
+    required this.image,
+    this.fee,
+    this.specialist,
+    this.clinic,
+    this.avarageRating,
+    this.status,
+    this.time,
+    this.date,
+  });
 
   final bool isDoctorToDoctor;
   final bool isAppointment;
   final String? status;
   final bool hasPrice;
-  final SingleDoctorModel? doctorModel;
+  final String id;
+  final String image;
+  final String name;
+  final String? fee;
+  final String? specialist;
+  final String? clinic;
+  final String? avarageRating;
+  final String? time;
+  final String? date;
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
         isAppointment
-            ? Get.toNamed(AppRoutes.appointmentDetails, arguments: true)
+            ? Get.to(() => AppointmentDetailsView(appointmentID: id),
+                arguments: true)
             : status != null
-                ? Get.toNamed(AppRoutes.appointmentDetails, arguments: false)
+                ? Get.to(() => AppointmentDetailsView(appointmentID: id),
+                    arguments: false)
                 : isDoctorToDoctor
-                    ? Get.toNamed(AppRoutes.doctorDetailsForDoctor)
-                    : Get.to(
-                        () => DoctorsDetailsForUser(doctorId: doctorModel!.id));
+                    ? Get.to(() => DoctorDetailsForDoctor(
+                          docID: id,
+                        ))
+                    : Get.to(() => DoctorsDetailsForUser(doctorId: id));
       },
       child: Container(
           margin: EdgeInsets.only(bottom: 12),
@@ -51,21 +72,16 @@ class DoctorCard extends StatelessWidget {
           ),
           child: Row(
             children: [
-              ClipRRect(
-                borderRadius: BorderRadius.circular(12),
-                child: isAppointment
-                    ? Image.asset(
-                        ImageAssets.userImage1,
-                        height: 119.h,
-                        width: 81.w,
-                        fit: BoxFit.cover,
-                      )
-                    : Image.network(
-                        "${ApiConstants.baseAssetUrl}${doctorModel!.image}",
-                        height: 119.h,
-                        width: 81.w,
-                        fit: BoxFit.cover),
-              ),
+              image == ""
+                  ? SizedBox(
+                      height: 119.h,
+                      width: 81.w,
+                    )
+                  : ClipRRect(
+                      borderRadius: BorderRadius.circular(12),
+                      child: Image.network("${ApiConstants.baseAssetUrl}$image",
+                          height: 119.h, width: 81.w, fit: BoxFit.cover),
+                    ),
               SizedBox(
                 width: 12.w,
               ),
@@ -78,9 +94,9 @@ class DoctorCard extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
-                            doctorModel!.name.length < 12
-                                ? doctorModel!.name
-                                : "${doctorModel!.name.substring(0, 12)}...",
+                            name.length < 12
+                                ? name
+                                : "${name.substring(0, 12)}...",
                             style: AppTypography.appbarTitle),
                         Container(
                           decoration: BoxDecoration(),
@@ -116,7 +132,7 @@ class DoctorCard extends StatelessWidget {
                                 )
                               : status == null
                                   ? Text(
-                                      "\$${doctorModel!.consultationFee}",
+                                      "\$${fee!}",
                                       style: AppTypography.priceStyle,
                                     )
                                   : Container(),
@@ -133,18 +149,19 @@ class DoctorCard extends StatelessWidget {
                                 child: Wrap(
                                   children: [
                                     Text(
-                                      doctorModel!.specialist.name,
+                                      specialist!,
                                       style: AppTypography.bodyText1,
                                     ),
                                     SizedBox(
                                       width: 8,
                                     ),
-                                    Text("|"),
+                                    if (status == null) Text("|"),
                                     SizedBox(
                                       width: 8,
                                     ),
-                                    Text(doctorModel!.clinic,
-                                        style: AppTypography.bodyText3),
+                                    if (status == null)
+                                      Text(clinic!,
+                                          style: AppTypography.bodyText3),
                                   ],
                                 ),
                               ),
@@ -195,25 +212,64 @@ class DoctorCard extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         isAppointment
-                            ? Text("01:00 am - 01:30 pm",
+                            ? Text(time.toString(),
                                 style: AppTypography.bodyText3)
-                            : Row(
-                                children: [
-                                  Icon(
-                                    Icons.star,
-                                    color: Colors.amberAccent,
+                            : status == null
+                                ? Row(
+                                    children: [
+                                      Icon(
+                                        Icons.star,
+                                        color: Colors.amberAccent,
+                                      ),
+                                      Text(
+                                        avarageRating!.toString(),
+                                        style: TextStyle(fontSize: 14.sp),
+                                      ),
+                                    ],
+                                  )
+                                : Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    spacing: 6,
+                                    children: [
+                                      Row(
+                                        children: [
+                                          Icon(
+                                            Icons.access_time,
+                                            color: Color(0xff545454),
+                                            size: 16,
+                                          ),
+                                          SizedBox(
+                                            width: 10,
+                                          ),
+                                          Text(time.toString(),
+                                              style: AppTypography.bodyText1),
+                                        ],
+                                      ),
+                                      Row(
+                                        children: [
+                                          Icon(
+                                            Icons.calendar_today,
+                                            color: Color(0xff545454),
+                                            size: 16,
+                                          ),
+                                          SizedBox(
+                                            width: 10,
+                                          ),
+                                          Text(
+                                              DateFormat('dd MMMM yyyy').format(
+                                                  DateTime.parse(date!)),
+                                              style: AppTypography.bodyText1),
+                                        ],
+                                      ),
+                                    ],
                                   ),
-                                  Text(
-                                    doctorModel!.avgRating.toString(),
-                                    style: TextStyle(fontSize: 14.sp),
-                                  ),
-                                ],
-                              ),
                         Container(
                           decoration: BoxDecoration(),
                           child: isAppointment
                               ? Text(
-                                  "22 Oct, 2025",
+                                  DateFormat('dd MMMM yyyy')
+                                      .format(DateTime.parse(date!)),
                                   style: AppTypography.bodyText3,
                                 )
                               : null,

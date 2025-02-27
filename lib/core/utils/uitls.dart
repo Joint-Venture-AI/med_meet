@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:med_meet_flutter/core/constants/api_constants.dart';
 
 Widget svgViewer({
   required String asset,
@@ -31,4 +32,25 @@ String getTimeAgo(String dateString) {
   } else {
     return "Just now";
   }
+}
+
+String imageUrl(String? url) {
+  if (url == null || url.isEmpty) {
+    return "https://via.placeholder.com/150";
+  } else {
+    if (url.startsWith("http")) {
+      return url;
+    }
+    print("Image URL: ${ApiConstants.baseAssetUrl + url}");
+    return ApiConstants.baseAssetUrl + url;
+  }
+}
+
+List<Map<String, String>> getDropDownItems(List<dynamic> items) {
+  return items.map((item) {
+    return {
+      "title": item["name"].toString(),
+      "val": item["_id"].toString(),
+    };
+  }).toList();
 }

@@ -7,8 +7,8 @@ import 'package:flutter_svg/flutter_svg.dart';
 
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:med_meet_flutter/controller/doctor/auth_doctor_controller.dart';
-import 'package:med_meet_flutter/controller/user/auth_user_controller.dart';
+import 'package:med_meet_flutter/controller/auth_doctor_controller.dart';
+import 'package:med_meet_flutter/controller/auth_user_controller.dart';
 import 'package:med_meet_flutter/core/constants/svg_assets.dart';
 import 'package:med_meet_flutter/core/helpers/route.dart';
 import 'package:med_meet_flutter/core/components/custom_button.dart';

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:med_meet_flutter/controller/user/user_home_controller.dart';
+import 'package:med_meet_flutter/controller/home_user_controller.dart';
 import 'package:med_meet_flutter/core/components/custom_app_bar.dart';
 import 'package:med_meet_flutter/core/components/custom_text_input.dart';
 import 'package:med_meet_flutter/core/components/doctor_card.dart';
@@ -44,8 +44,21 @@ class DoctorsListView extends StatelessWidget {
                         itemBuilder: (context, index) {
                           return DoctorCard(
                             isDoctorToDoctor: args,
-                            doctorModel:
-                                userHomeController.filteredDoctors[index],
+                            id: userHomeController.filteredDoctors[index].id,
+                            image:
+                                userHomeController.filteredDoctors[index].image,
+                            name:
+                                userHomeController.filteredDoctors[index].name,
+                            avarageRating: userHomeController
+                                .filteredDoctors[index].avgRating
+                                .toString(),
+                            clinic: userHomeController
+                                .filteredDoctors[index].clinic,
+                            fee: userHomeController
+                                .filteredDoctors[index].consultationFee
+                                .toString(),
+                            specialist: userHomeController
+                                .filteredDoctors[index].specialist.name,
                           );
                         },
                       );

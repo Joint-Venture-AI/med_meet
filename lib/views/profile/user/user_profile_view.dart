@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:med_meet_flutter/controller/profile_controller.dart';
 import 'package:med_meet_flutter/core/components/custom_app_bar.dart';
 import 'package:med_meet_flutter/core/components/custom_button.dart';
 import 'package:med_meet_flutter/core/helpers/route.dart';
@@ -7,7 +8,9 @@ import 'package:med_meet_flutter/core/utils/uitls.dart';
 import 'package:med_meet_flutter/models/options.dart';
 
 class UserProfileView extends StatelessWidget {
-  const UserProfileView({super.key});
+  UserProfileView({super.key});
+
+  final Profilecontroller profilecontroller = Get.put(Profilecontroller());
 
   @override
   Widget build(BuildContext context) {
@@ -196,8 +199,7 @@ class UserProfileView extends StatelessWidget {
                                         Expanded(
                                           child: CustomButton(
                                             onPressed: () {
-                                              Get.offAllNamed(AppRoutes
-                                                  .selectCountryScreen);
+                                              profilecontroller.logOut();
                                             },
                                             buttonTitle: "Yes, Logout",
                                             height: 48,

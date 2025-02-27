@@ -7,7 +7,7 @@ import 'package:med_meet_flutter/core/components/custom_button.dart';
 import 'package:med_meet_flutter/core/constants/svg_assets.dart';
 import 'package:med_meet_flutter/core/utils/app_colors.dart';
 import 'package:med_meet_flutter/core/utils/app_typography.dart';
-import 'package:med_meet_flutter/models/appointmnets/medication_details_model.dart';
+import 'package:med_meet_flutter/models/medication_details_model.dart';
 
 class SubmitPrescription extends StatelessWidget {
   const SubmitPrescription(

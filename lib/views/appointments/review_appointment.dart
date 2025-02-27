@@ -1,15 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_rating/flutter_rating.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:med_meet_flutter/controller/appointment_controller.dart';
 import 'package:med_meet_flutter/core/components/custom_app_bar.dart';
 import 'package:med_meet_flutter/core/components/custom_button.dart';
 import 'package:med_meet_flutter/core/components/custom_text_input.dart';
 import 'package:med_meet_flutter/core/constants/image_assets.dart';
 
 class ReviewAppointmentView extends StatelessWidget {
-  const ReviewAppointmentView({super.key});
-
+  ReviewAppointmentView({super.key, required this.appointmentId});
+  final String appointmentId;
+  final AppointmentController appointmentController =
+      Get.find<AppointmentController>();
   @override
   Widget build(BuildContext context) {
     final TextEditingController reviewController = TextEditingController();
@@ -49,7 +53,16 @@ class ReviewAppointmentView extends StatelessWidget {
                     SizedBox(
                       height: 16.h,
                     ),
-                    StarRating(size: 42, rating: 3.5),
+                    // star rating
+                    Obx(() {
+                      return StarRating(
+                          size: 42,
+                          allowHalfRating: true,
+                          rating:
+                              appointmentController.userAppointmentrating.value,
+                          onRatingChanged: (rating) => appointmentController
+                              .userAppointmentrating.value = rating);
+                    }),
                     SizedBox(
                       height: 20.h,
                     ),
@@ -65,7 +78,14 @@ class ReviewAppointmentView extends StatelessWidget {
                   ],
                 ),
               ),
-              CustomButton(onPressed: () {}, buttonTitle: "Submit Review"),
+              CustomButton(
+                  onPressed: () {
+                    appointmentController.postReviewToAppointment(
+                        appointmentID: appointmentId,
+                        ratting: appointmentController.userAppointmentrating,
+                        review: reviewController.text);
+                  },
+                  buttonTitle: "Submit Review"),
               SizedBox(
                 height: 24,
               )

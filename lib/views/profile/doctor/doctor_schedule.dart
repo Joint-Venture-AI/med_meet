@@ -53,6 +53,7 @@ class _DoctorScheduleState extends State<DoctorSchedule> {
                     ),
                     Expanded(
                       child: TimeSlotGrid(
+                        availableSlots: [],
                         isEnabled: isAdding,
                       ),
                     ),

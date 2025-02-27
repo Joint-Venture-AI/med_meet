@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:med_meet_flutter/controller/doctor/auth_doctor_controller.dart';
+import 'package:med_meet_flutter/controller/auth_doctor_controller.dart';
 import 'package:med_meet_flutter/controller/common_controller.dart';
 
 import 'package:med_meet_flutter/core/components/custom_button.dart';

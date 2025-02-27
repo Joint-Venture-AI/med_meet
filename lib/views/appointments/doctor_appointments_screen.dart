@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:med_meet_flutter/core/components/doctor_card.dart';
 import 'package:med_meet_flutter/core/utils/app_colors.dart';
 
 class DoctorAppointmentsScreenView extends StatefulWidget {
@@ -85,30 +84,30 @@ class _DoctorAppointmentsScreenViewState
           Expanded(
             child: ListView(
               children: [
-                DoctorCard(
-                  isAppointment: true,
-                  hasPrice: true,
-                ),
-                DoctorCard(
-                  isAppointment: true,
-                  hasPrice: true,
-                ),
-                DoctorCard(
-                  isAppointment: true,
-                  hasPrice: true,
-                ),
-                DoctorCard(
-                  isAppointment: true,
-                  hasPrice: true,
-                ),
-                DoctorCard(
-                  isAppointment: true,
-                  hasPrice: true,
-                ),
-                DoctorCard(
-                  isAppointment: true,
-                  hasPrice: true,
-                ),
+                // DoctorCard(
+                //   isAppointment: true,
+                //   hasPrice: true,
+                // ),
+                // DoctorCard(
+                //   isAppointment: true,
+                //   hasPrice: true,
+                // ),
+                // DoctorCard(
+                //   isAppointment: true,
+                //   hasPrice: true,
+                // ),
+                // DoctorCard(
+                //   isAppointment: true,
+                //   hasPrice: true,
+                // ),
+                // DoctorCard(
+                //   isAppointment: true,
+                //   hasPrice: true,
+                // ),
+                // DoctorCard(
+                //   isAppointment: true,
+                //   hasPrice: true,
+                // ),
               ],
             ),
           )
