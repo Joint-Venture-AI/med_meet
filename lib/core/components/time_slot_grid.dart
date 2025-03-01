@@ -10,8 +10,17 @@ class TimeSlotGrid extends StatelessWidget {
   final bool isEnabled;
   // time slots freshly recieved from the server for a given doctor
   final List<TimeSlotModel> availableSlots;
-  TimeSlotGrid(
-      {super.key, this.isEnabled = true, required this.availableSlots});
+  // callback function to handle the selected time slot
+  final Function(String, TimeSlotModel) onPressed;
+  // if the grid should allow multiple selection
+  final bool selectMultiple;
+  TimeSlotGrid({
+    super.key,
+    this.isEnabled = true,
+    required this.availableSlots,
+    required this.onPressed,
+    this.selectMultiple = false,
+  });
 
   final CommonController commonController = Get.put(CommonController());
 
@@ -34,6 +43,9 @@ class TimeSlotGrid extends StatelessWidget {
         return TimeSlotButton(
           timeSlot: timeSlots[index],
           isEnabled: isEnabled,
+          onPressed: onPressed,
+          selectMultiple: selectMultiple,
+          model: availableSlots[index],
         );
       },
     );
@@ -42,9 +54,17 @@ class TimeSlotGrid extends StatelessWidget {
 
 class TimeSlotButton extends StatefulWidget {
   const TimeSlotButton(
-      {super.key, required this.timeSlot, required this.isEnabled});
+      {super.key,
+      required this.timeSlot,
+      required this.isEnabled,
+      required this.onPressed,
+      required this.selectMultiple,
+      required this.model});
   final bool isEnabled;
   final String timeSlot;
+  final Function(String, TimeSlotModel) onPressed;
+  final bool selectMultiple;
+  final TimeSlotModel model;
 
   @override
   State<TimeSlotButton> createState() => _TimeSlotButtonState();
@@ -58,25 +78,35 @@ class _TimeSlotButtonState extends State<TimeSlotButton> {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        commonController.selectedTimeSlot.value = widget.timeSlot;
+        widget.onPressed(widget.timeSlot, widget.model);
       },
       child: Obx(() {
         return Container(
           // padding: EdgeInsets.symmetric(horizontal: 17.w, vertical: 10.h),
           decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(35),
-              border: Border.all(color: AppColors.border1),
-              color: commonController.selectedTimeSlot.value == widget.timeSlot
-                  ? AppColors.button1
-                  : null),
+            borderRadius: BorderRadius.circular(35),
+            border: Border.all(color: AppColors.border1),
+            color: widget.selectMultiple
+                ? commonController.selectedTimeslots.contains(widget.model)
+                    ? AppColors.button1
+                    : null
+                : commonController.selectedTimeSlot.value.time ==
+                        widget.timeSlot
+                    ? AppColors.button1
+                    : null,
+          ),
           child: Center(
             child: Text(
               widget.timeSlot,
               style: GoogleFonts.roboto(
                 fontSize: 12.sp,
                 fontWeight: FontWeight.w500,
-                color:
-                    commonController.selectedTimeSlot.value == widget.timeSlot
+                color: widget.selectMultiple
+                    ? commonController.selectedTimeslots.contains(widget.model)
+                        ? Colors.white
+                        : Color(0xFF545454)
+                    : commonController.selectedTimeSlot.value.time ==
+                            widget.timeSlot
                         ? Colors.white
                         : Color(0xFF545454),
               ),

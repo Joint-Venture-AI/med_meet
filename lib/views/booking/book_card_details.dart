@@ -1,20 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:med_meet_flutter/controller/common_controller.dart';
 import 'package:med_meet_flutter/core/components/custom_app_bar.dart';
 import 'package:med_meet_flutter/core/components/custom_button.dart';
+import 'package:med_meet_flutter/core/components/custom_snack_bar.dart';
 import 'package:med_meet_flutter/core/components/custom_text_input.dart';
 import 'package:med_meet_flutter/core/components/date_input.dart';
 import 'package:med_meet_flutter/core/helpers/route.dart';
+import 'package:med_meet_flutter/models/patient_details_model.dart';
 
 class BookCardDetailsView extends StatelessWidget {
-  const BookCardDetailsView({super.key});
-
+  BookCardDetailsView({super.key});
+  final TextEditingController nameController = TextEditingController();
+  final TextEditingController cardNumberController = TextEditingController();
+  final TextEditingController ccvController = TextEditingController();
+  final TextEditingController expiryDateController = TextEditingController();
+  final CommonController commonController = Get.put(CommonController());
   @override
   Widget build(BuildContext context) {
-    final TextEditingController nameController = TextEditingController();
-    final TextEditingController cardNumberController = TextEditingController();
-    final TextEditingController ccvController = TextEditingController();
-    final TextEditingController expiryDateController = TextEditingController();
     return Scaffold(
       appBar: PreferredSize(
           preferredSize: Size.fromHeight(60),
@@ -49,7 +52,20 @@ class BookCardDetailsView extends StatelessWidget {
             Spacer(),
             CustomButton(
                 onPressed: () {
-                  Get.toNamed(AppRoutes.bookReviewSummary);
+                  if (cardNumberController.text.isEmpty ||
+                      nameController.text.isEmpty ||
+                      ccvController.text.isEmpty ||
+                      expiryDateController.text.isEmpty) {
+                    // when the fields are empty
+                    showCustomSnackBar("Please fill all the fields");
+                  } else {
+                    commonController.cardDetails.value = CardDetailsModel(
+                        cardNumber: cardNumberController.text,
+                        cardHolderName: nameController.text,
+                        expiryDate: expiryDateController.text,
+                        cvv: ccvController.text);
+                    Get.toNamed(AppRoutes.bookReviewSummary);
+                  }
                 },
                 buttonTitle: "Continue")
           ],

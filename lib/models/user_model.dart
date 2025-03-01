@@ -12,6 +12,7 @@ class UserModel {
   final int? v;
   final DateTime? dob;
   final String? gender;
+  final String? address;
   final String? image;
   final String? phoneNumber;
 
@@ -29,6 +30,7 @@ class UserModel {
     this.v,
     this.dob,
     this.gender,
+    this.address,
     this.image,
     this.phoneNumber,
   });
@@ -51,6 +53,7 @@ class UserModel {
       v: json['__v'] ?? json['v'],
       dob: json['dob'] != null ? DateTime.parse(json['dob']) : null,
       gender: json['gender'],
+      address: json['address'],
       image: json['image'],
       phoneNumber: json['phoneNumber'],
     );
@@ -71,6 +74,7 @@ class UserModel {
     int? v,
     DateTime? dob,
     String? gender,
+    String? address,
     String? image,
     String? phoneNumber,
   }) =>
@@ -88,6 +92,7 @@ class UserModel {
         v: v ?? this.v,
         dob: dob ?? this.dob,
         gender: gender ?? this.gender,
+        address: address ?? this.address,
         image: image ?? this.image,
         phoneNumber: phoneNumber ?? this.phoneNumber,
       );

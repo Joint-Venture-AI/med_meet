@@ -55,7 +55,7 @@ class AppointmentController extends GetxController {
   Future getAppointmentDetails(appointmentID) async {
     Get.context!.loaderOverlay.show();
     Response response = await ApiClient.getData(
-        ApiConstants.userGetAppointmentDetauls(appointmentID));
+        ApiConstants.getAppointmentDetauls(appointmentID));
     Get.context!.loaderOverlay.hide();
     if (response.statusCode == 200) {
       // denoting the appointment details object in the body

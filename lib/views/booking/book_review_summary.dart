@@ -2,73 +2,21 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:intl/intl.dart';
+import 'package:med_meet_flutter/controller/common_controller.dart';
+import 'package:med_meet_flutter/controller/home_user_controller.dart';
 import 'package:med_meet_flutter/core/components/custom_app_bar.dart';
 import 'package:med_meet_flutter/core/components/custom_button.dart';
+import 'package:med_meet_flutter/core/components/details_header.dart';
 import 'package:med_meet_flutter/core/constants/svg_assets.dart';
 import 'package:med_meet_flutter/core/helpers/route.dart';
 import 'package:med_meet_flutter/core/utils/app_colors.dart';
 
 class BookReviewSummaryView extends StatelessWidget {
-  const BookReviewSummaryView({super.key});
-
+  BookReviewSummaryView({super.key});
+  final UserHomeController userHomeController = Get.put(UserHomeController());
   @override
   Widget build(BuildContext context) {
-    void confirmAppointment() {
-      showDialog(
-          context: context,
-          builder: (context) {
-            return Dialog(
-              backgroundColor: Colors.white,
-              child: Container(
-                height: 470,
-                padding: EdgeInsets.all(32),
-                decoration: BoxDecoration(
-                  border: Border.all(
-                    color: AppColors.border1,
-                  ),
-                  borderRadius: BorderRadius.circular(32),
-                ),
-                child: Column(
-                  children: [
-                    SvgPicture.asset(SVGAssets.confirmAppointmentIcon),
-                    SizedBox(
-                      height: 32,
-                    ),
-                    Text(
-                      "Congratulations!",
-                      style: GoogleFonts.roboto(
-                          fontSize: 18,
-                          fontWeight: FontWeight.w400,
-                          color: Color(0xFF333333)),
-                    ),
-                    SizedBox(
-                      height: 16,
-                    ),
-                    Text(
-                      "Appointment successfully booked. You will receive a notification and the doctor you selected will contact you.",
-                      style: GoogleFonts.roboto(
-                        fontSize: 14,
-                        color: Color(0xFF8A8A8A),
-                        fontWeight: FontWeight.w400,
-                      ),
-                      textAlign: TextAlign.center,
-                    ),
-                    SizedBox(
-                      height: 32,
-                    ),
-                    CustomButton(
-                        onPressed: () {
-                          Get.until(
-                              (route) => (Get.currentRoute == AppRoutes.userApp || Get.currentRoute == AppRoutes.doctorApp));
-                        },
-                        buttonTitle: "Go to Home")
-                  ],
-                ),
-              ),
-            );
-          });
-    }
-
     return Scaffold(
       appBar: PreferredSize(
           preferredSize: Size.fromHeight(60),
@@ -82,7 +30,16 @@ class BookReviewSummaryView extends StatelessWidget {
                 SizedBox(
                   height: 20,
                 ),
-                // DetailsHeaeder(),
+                Obx(() {
+                  final doc = userHomeController.singleDoctorData.value;
+                  return DetailsHeaeder(
+                    addressOrEmail: doc.clinicAddress,
+                    image: doc.image,
+                    name: doc.name,
+                    fee: doc.consultationFee.toString(),
+                    specialty: doc.specialist.name,
+                  );
+                }),
                 SizedBox(
                   height: 20,
                 ),
@@ -91,7 +48,7 @@ class BookReviewSummaryView extends StatelessWidget {
                   height: 20,
                 ),
                 Text(
-                  " Your Problem",
+                  "Your Problem",
                   style: GoogleFonts.roboto(
                     fontSize: 14,
                     fontWeight: FontWeight.w400,
@@ -106,13 +63,19 @@ class BookReviewSummaryView extends StatelessWidget {
                     border: Border.all(color: AppColors.border1),
                     borderRadius: BorderRadius.circular(12),
                   ),
-                  child: Text(
-                    "Hello Dr. Jenny, I have a problem with my immune system. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident",
-                    style: GoogleFonts.roboto(
-                      fontSize: 14,
-                      fontWeight: FontWeight.w400,
-                    ),
-                  ),
+                  child: Obx(() {
+                    final problem = Get.find<CommonController>()
+                        .patientDetails
+                        .value
+                        .problem;
+                    return Text(
+                      problem,
+                      style: GoogleFonts.roboto(
+                        fontSize: 14,
+                        fontWeight: FontWeight.w400,
+                      ),
+                    );
+                  }),
                 ),
                 SizedBox(
                   height: 70,
@@ -122,17 +85,79 @@ class BookReviewSummaryView extends StatelessWidget {
             Positioned(
                 bottom: 30,
                 child: CustomButton(
-                    onPressed: confirmAppointment, buttonTitle: "continue"))
+                    onPressed: () {
+                      Get.find<CommonController>().confirmAppointment();
+                    },
+                    buttonTitle: "continue"))
           ],
         ),
       ),
     );
   }
+
+  void confirmAppointment() {
+    showDialog(
+      context: Get.context!,
+      builder: (context) {
+        return Dialog(
+          backgroundColor: Colors.white,
+          child: Container(
+            height: 470,
+            padding: EdgeInsets.all(32),
+            decoration: BoxDecoration(
+              border: Border.all(
+                color: AppColors.border1,
+              ),
+              borderRadius: BorderRadius.circular(32),
+            ),
+            child: Column(
+              children: [
+                SvgPicture.asset(SVGAssets.confirmAppointmentIcon),
+                SizedBox(
+                  height: 32,
+                ),
+                Text(
+                  "Congratulations!",
+                  style: GoogleFonts.roboto(
+                      fontSize: 18,
+                      fontWeight: FontWeight.w400,
+                      color: Color(0xFF333333)),
+                ),
+                SizedBox(
+                  height: 16,
+                ),
+                Text(
+                  "Appointment successfully booked. You will receive a notification and the doctor you selected will contact you.",
+                  style: GoogleFonts.roboto(
+                    fontSize: 14,
+                    color: Color(0xFF8A8A8A),
+                    fontWeight: FontWeight.w400,
+                  ),
+                  textAlign: TextAlign.center,
+                ),
+                SizedBox(
+                  height: 32,
+                ),
+                CustomButton(
+                    onPressed: () {
+                      Get.until((route) =>
+                          (Get.currentRoute == AppRoutes.userApp ||
+                              Get.currentRoute == AppRoutes.doctorApp));
+                    },
+                    buttonTitle: "Go to Home")
+              ],
+            ),
+          ),
+        );
+      },
+    );
+  }
 }
 
 class BookingDetailsCard extends StatelessWidget {
-  const BookingDetailsCard({super.key});
-
+  BookingDetailsCard({super.key});
+  final CommonController commonController = Get.find<CommonController>();
+  final UserHomeController userHomeController = Get.find<UserHomeController>();
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -142,18 +167,25 @@ class BookingDetailsCard extends StatelessWidget {
       color: Colors.white,
       child: Padding(
         padding: EdgeInsets.all(20), // Padding inside the card
-        child: Column(
-          mainAxisSize: MainAxisSize.min, // To keep the card size tight
-          crossAxisAlignment:
-              CrossAxisAlignment.start, // Align text to the left
-          children: <Widget>[
-            _buildRow('Date & Hour', 'Dec 23, 2024 | 10:00 AM'),
-            _buildRow('Booking For', 'Alex john'),
-            _buildRow('Gender', 'Male'),
-            _buildRow('Age', '42'),
-            _buildRow('Amount', '\$40'),
-          ],
-        ),
+        child: Obx(() {
+          final date = commonController.scheduledate.value;
+          final time = commonController.selectedTimeSlot.value;
+          final patient = commonController.patientDetails.value;
+          final doc = userHomeController.singleDoctorData.value;
+          return Column(
+            mainAxisSize: MainAxisSize.min, // To keep the card size tight
+            crossAxisAlignment:
+                CrossAxisAlignment.start, // Align text to the left
+            children: <Widget>[
+              _buildRow('Date & Hour',
+                  '${DateFormat("dd MMMM yyyy").format(DateTime.parse(date))} | ${time.startTime}'),
+              _buildRow('Booking For', patient.name),
+              _buildRow('Gender', patient.gender),
+              _buildRow('Age', patient.age.toString()),
+              _buildRow('Amount', '\$${doc.consultationFee}'),
+            ],
+          );
+        }),
       ),
     );
   }

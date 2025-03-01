@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:med_meet_flutter/controller/home_user_controller.dart';
 import 'package:med_meet_flutter/controller/profile_controller.dart';
 import 'package:med_meet_flutter/core/components/custom_app_bar.dart';
 import 'package:med_meet_flutter/core/components/custom_button.dart';
@@ -11,6 +12,7 @@ class UserProfileView extends StatelessWidget {
   UserProfileView({super.key});
 
   final Profilecontroller profilecontroller = Get.put(Profilecontroller());
+  final UserHomeController userHomeController = Get.find<UserHomeController>();
 
   @override
   Widget build(BuildContext context) {
@@ -80,25 +82,31 @@ class UserProfileView extends StatelessWidget {
                       const SizedBox(
                         height: 36,
                       ),
-                      ClipOval(
-                        child: Image.asset(
-                          "assets/images/profile_pic.jfif",
-                          fit: BoxFit.cover,
-                          height: 120,
-                          width: 120,
-                        ),
-                      ),
+                      Obx(() {
+                        final image = userHomeController.userData.value.image;
+                        return ClipOval(
+                          child: Image.network(
+                            imageUrl(image),
+                            fit: BoxFit.cover,
+                            height: 120,
+                            width: 120,
+                          ),
+                        );
+                      }),
                       const SizedBox(
                         height: 16,
                       ),
-                      Text(
-                        "Andrew Ainsley",
-                        style: TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.w400,
-                          color: Colors.white,
-                        ),
-                      ),
+                      Obx(() {
+                        final name = userHomeController.userData.value.name;
+                        return Text(
+                          name,
+                          style: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.w400,
+                            color: Colors.white,
+                          ),
+                        );
+                      }),
                     ],
                   ),
                 ),

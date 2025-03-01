@@ -1,4 +1,10 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:intl/intl.dart';
+import 'package:med_meet_flutter/controller/home_user_controller.dart';
+import 'package:med_meet_flutter/controller/profile_controller.dart';
 import 'package:med_meet_flutter/core/components/custom_app_bar.dart';
 import 'package:med_meet_flutter/core/components/custom_button.dart';
 import 'package:med_meet_flutter/core/components/custom_text_input.dart';
@@ -9,7 +15,8 @@ class UserPersonalInformation extends StatefulWidget {
   const UserPersonalInformation({super.key});
 
   @override
-  State<UserPersonalInformation> createState() => _UserPersonalInformationState();
+  State<UserPersonalInformation> createState() =>
+      _UserPersonalInformationState();
 }
 
 class _UserPersonalInformationState extends State<UserPersonalInformation> {
@@ -19,6 +26,8 @@ class _UserPersonalInformationState extends State<UserPersonalInformation> {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController dobController = TextEditingController();
   final TextEditingController addressController = TextEditingController();
+  final UserHomeController userHomeController = Get.find<UserHomeController>();
+  final Profilecontroller profilecontroller = Get.put(Profilecontroller());
 
   @override
   void dispose() {
@@ -77,44 +86,61 @@ class _UserPersonalInformationState extends State<UserPersonalInformation> {
                             height: 36,
                           ),
                           ClipOval(
-                            child: Stack(
-                              alignment: Alignment.center,
-                              children: [
-                                Image.asset(
-                                  "assets/images/profile_pic.jfif",
-                                  fit: BoxFit.cover,
-                                  height: 120,
-                                  width: 120,
-                                ),
-                                if (isEditing)
-                                  Container(
+                            child: Obx(() {
+                              final user = userHomeController.userData.value;
+                              final image =
+                                  profilecontroller.displayPicture.value;
+                              return Stack(
+                                alignment: Alignment.center,
+                                children: [
+                                  Image.network(
+                                    imageUrl(user.image),
+                                    fit: BoxFit.cover,
                                     height: 120,
                                     width: 120,
-                                    color: Colors.black
-                                        .withAlpha((255 * 0.30).toInt()),
                                   ),
-                                if (isEditing)
-                                  svgViewer(
-                                    asset: "assets/svg/camera.svg",
-                                    height: 32,
-                                  ),
-                              ],
-                            ),
+                                  if (isEditing && image.isNotEmpty)
+                                    Image.file(
+                                      File(image),
+                                      fit: BoxFit.cover,
+                                      height: 120,
+                                      width: 120,
+                                    ),
+                                  if (isEditing)
+                                    GestureDetector(
+                                      onTap: profilecontroller.pickImage,
+                                      child: Container(
+                                        height: 120,
+                                        width: 120,
+                                        color: Colors.black
+                                            .withAlpha((255 * 0.30).toInt()),
+                                      ),
+                                    ),
+                                  if (isEditing)
+                                    svgViewer(
+                                      asset: "assets/svg/camera.svg",
+                                      height: 32,
+                                    ),
+                                ],
+                              );
+                            }),
                           ),
                           const SizedBox(
                             height: 16,
                           ),
-                          Text(
-                            isEditing
-                                ? "Change your profile picture"
-                                : "Andrew Ainsley",
-                            style: TextStyle(
-                              fontSize: isEditing ? 14 : 18,
-                              fontWeight: FontWeight.w400,
-                              color:
-                                  isEditing ? Color(0xff333333) : Colors.white,
-                            ),
-                          ),
+                          Obx(() {
+                            final name = userHomeController.userData.value.name;
+                            return Text(
+                              isEditing ? "Change your profile picture" : name,
+                              style: TextStyle(
+                                fontSize: isEditing ? 14 : 18,
+                                fontWeight: FontWeight.w400,
+                                color: isEditing
+                                    ? Color(0xff333333)
+                                    : Colors.white,
+                              ),
+                            );
+                          }),
                         ],
                       ),
                     ),
@@ -128,55 +154,64 @@ class _UserPersonalInformationState extends State<UserPersonalInformation> {
                   horizontal: 24,
                   vertical: 24,
                 ),
-                child: Column(
-                  spacing: 16,
-                  children: [
-                    CustomTextInput(
-                      renderTitle: false,
-                      hintText: "Andrew Ainsley",
-                      // isEnabled: isEditing,
-                      textController: nameController,
-                      icon: Icons.person,
-                    ),
-                    CustomTextInput(
-                      renderTitle: false,
-                      hintText: "andres.do@gmail.com",
-                      icon: Icons.mail_rounded,
-                      textController: emailController,
-                    ),
-                    CustomTextInput(
-                      renderTitle: false,
-                      hintText: "10 Jan 2001",
-                      icon: Icons.cake_rounded,
-                      textController: dobController,
-                    ),
-                    CustomTextInput(
-                      renderTitle: false,
-                      hintText:
-                          "2713 |Westheimer Rd, |Santa Ana, Illionis 526548",
-                      icon: Icons.location_on_rounded,
-                      maxLines: 2,
-                      multiLine: true,
-                      textController: addressController,
-                    ),
-                    const SizedBox(
-                      height: 40,
-                    ),
-                    CustomButton(
-                      onPressed: () {
-                        setState(() {
-                          isEditing = !isEditing;
-                        });
-                      },
-                      buttonTitle:
-                          isEditing ? "Update Profile" : "Edit Profile",
-                      isSecondary: !isEditing,
-                    ),
-                    const SizedBox(
-                      height: 20,
-                    ),
-                  ],
-                ),
+                child: Obx(() {
+                  final user = userHomeController.userData.value;
+                  return Column(
+                    spacing: 16,
+                    children: [
+                      CustomTextInput(
+                        renderTitle: false,
+                        hintText: user.name,
+                        // isEnabled: isEditing,
+                        textController: nameController,
+                        icon: Icons.person,
+                      ),
+                      CustomTextInput(
+                        renderTitle: false,
+                        hintText: user.email,
+                        icon: Icons.mail_rounded,
+                        textController: emailController,
+                      ),
+                      CustomTextInput(
+                        renderTitle: false,
+                        hintText: DateFormat("dd-MM-yyyy").format(user.dob),
+                        icon: Icons.cake_rounded,
+                        textController: dobController,
+                      ),
+                      CustomTextInput(
+                        renderTitle: false,
+                        hintText: user.address,
+                        icon: Icons.location_on_rounded,
+                        maxLines: 3,
+                        textController: addressController,
+                      ),
+                      const SizedBox(
+                        height: 40,
+                      ),
+                      CustomButton(
+                        onPressed: () async {
+                          setState(() {
+                            isEditing = !isEditing;
+                          });
+                          if (!isEditing) {
+                           await profilecontroller.updateProfile(
+                              name: nameController.text,
+                              email: emailController.text,
+                              dob: dobController.text,
+                              address: addressController.text,
+                            );
+                          }
+                        },
+                        buttonTitle:
+                            isEditing ? "Update Profile" : "Edit Profile",
+                        isSecondary: !isEditing,
+                      ),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                    ],
+                  );
+                }),
               ),
             ),
           ],

@@ -74,7 +74,7 @@ class AppointmentDetailsView extends StatelessWidget {
                         image: appointRef.user.image,
                         addressOrEmail: appointRef.user.phoneNumber,
                         fee: appointRef.doctor.consultationFee.toString(),
-                        specialty: appointRef.doctor.specialist,
+                        specialty: "patient",
                       );
                     } else {
                       return DetailsHeaeder(

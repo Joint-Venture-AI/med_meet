@@ -178,8 +178,7 @@ class AppRoutes {
     // Home Doctor feature
     GetPage(name: homeDoctor, page: () => DoctorHomeView()),
     GetPage(
-        name: doctorAllApointmentLists,
-        page: () =>  DoctorAllAppointmentList()),
+        name: doctorAllApointmentLists, page: () => DoctorAllAppointmentList()),
 
     // Appointment Features
     GetPage(
@@ -196,10 +195,10 @@ class AppRoutes {
     GetPage(name: chatScreen, page: () => const ChatScreenView()),
     GetPage(name: callScreen, page: () => const CallScreenView()),
     // Booking Feature
-    GetPage(name: bookCardDetails, page: () => const BookCardDetailsView()),
+    GetPage(name: bookCardDetails, page: () => BookCardDetailsView()),
     GetPage(
         name: bookPatientDetails, page: () => const BookPatientDetialsView()),
-    GetPage(name: bookReviewSummary, page: () => const BookReviewSummaryView()),
+    GetPage(name: bookReviewSummary, page: () => BookReviewSummaryView()),
 
     // Profile
     GetPage(
@@ -220,7 +219,7 @@ class AppRoutes {
     GetPage(name: medicalRecords, page: () => MedicalRecords()),
     GetPage(name: addMedicalRecords, page: () => AddMedicalRecords()),
     GetPage(name: settings, page: () => const Settings()),
-    GetPage(name: changePassword, page: () => const ChangePassword()),
+    GetPage(name: changePassword, page: () => ChangePassword()),
     GetPage(name: privaryPolicy, page: () => const PrivacyPolicy()),
     GetPage(name: termsOfServices, page: () => const TermsOfServices()),
     GetPage(name: aboutUs, page: () => const AboutUs()),

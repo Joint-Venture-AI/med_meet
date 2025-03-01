@@ -10,6 +10,7 @@ import 'package:med_meet_flutter/core/constants/api_constants.dart';
 import 'package:med_meet_flutter/core/helpers/route.dart';
 import 'package:med_meet_flutter/core/utils/app_colors.dart';
 import 'package:med_meet_flutter/core/utils/app_typography.dart';
+import 'package:med_meet_flutter/core/utils/uitls.dart';
 
 class HomeUserView extends StatelessWidget {
   HomeUserView({super.key});
@@ -96,12 +97,8 @@ class HomeUserView extends StatelessWidget {
                   children: [
                     Obx(
                       () => CircleAvatar(
-                        backgroundImage: userHomeController
-                                    .userData.value.image !=
-                                null
-                            ? NetworkImage(
-                                "${ApiConstants.baseAssetUrl}${userHomeController.userData.value.image}")
-                            : null,
+                        backgroundImage: NetworkImage(
+                            imageUrl(userHomeController.userData.value.image)),
                         radius: 20,
                       ),
                     ),

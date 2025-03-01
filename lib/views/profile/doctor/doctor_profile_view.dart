@@ -106,26 +106,31 @@ class DoctorProfileView extends StatelessWidget {
                         const SizedBox(
                           height: 36,
                         ),
-                        ClipOval(
-                          child: Image.network(
-                            imageUrl(
-                                homeDoctorController.doctorData.value.image),
-                            fit: BoxFit.cover,
-                            height: 120,
-                            width: 120,
-                          ),
-                        ),
+                        Obx(() {
+                          final image =
+                              homeDoctorController.doctorData.value.image;
+                          return ClipOval(
+                            child: Image.network(
+                              imageUrl(image),
+                              fit: BoxFit.cover,
+                              height: 120,
+                              width: 120,
+                            ),
+                          );
+                        }),
                         const SizedBox(
                           height: 16,
                         ),
-                        Text(
-                          homeDoctorController.doctorData.value.name,
-                          style: TextStyle(
-                            fontSize: 18,
-                            fontWeight: FontWeight.w400,
-                            color: Colors.white,
-                          ),
-                        ),
+                        Obx(() {
+                          return Text(
+                            homeDoctorController.doctorData.value.name,
+                            style: TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.w400,
+                              color: Colors.white,
+                            ),
+                          );
+                        }),
                       ],
                     ),
                   ),

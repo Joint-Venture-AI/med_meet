@@ -8,12 +8,13 @@ import 'package:med_meet_flutter/controller/common_controller.dart';
 import 'package:med_meet_flutter/core/components/custom_app_bar.dart';
 import 'package:med_meet_flutter/core/components/custom_button.dart';
 import 'package:med_meet_flutter/core/components/custom_drop_down.dart';
+import 'package:med_meet_flutter/core/components/custom_snack_bar.dart';
 import 'package:med_meet_flutter/core/components/custom_text_input.dart';
-import 'package:med_meet_flutter/core/components/date_input.dart';
 import 'package:med_meet_flutter/core/helpers/route.dart';
 import 'package:med_meet_flutter/core/utils/app_colors.dart';
 import 'package:med_meet_flutter/core/utils/app_typography.dart';
 import 'package:med_meet_flutter/core/utils/uitls.dart';
+import 'package:med_meet_flutter/models/patient_details_model.dart';
 
 class BookPatientDetialsView extends StatefulWidget {
   const BookPatientDetialsView({super.key});
@@ -24,13 +25,20 @@ class BookPatientDetialsView extends StatefulWidget {
 
 class _BookPatientDetialsViewState extends State<BookPatientDetialsView> {
   List<File> images = [];
+  final TextEditingController nameController = TextEditingController();
+  final TextEditingController ageController = TextEditingController();
+  final TextEditingController problemController = TextEditingController();
+  CommonController commonController = Get.put(CommonController());
+  @override
+  void dispose() {
+    super.dispose();
+    nameController.dispose();
+    ageController.dispose();
+    problemController.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
-    final TextEditingController nameController = TextEditingController();
-    final TextEditingController ageController = TextEditingController();
-    final TextEditingController problemController = TextEditingController();
-    CommonController commonController = Get.put(CommonController());
     return Scaffold(
       appBar: PreferredSize(
           preferredSize: Size.fromHeight(60),
@@ -64,11 +72,11 @@ class _BookPatientDetialsViewState extends State<BookPatientDetialsView> {
                     SizedBox(
                       height: 10,
                     ),
-                    DateInput(
-                      dateController: ageController,
-                      icon: Icons.calendar_month,
-                      hintText: "DD/MM/YY",
-                      title: "Birth Date",
+                    CustomTextInput(
+                      title: "Age",
+                      hintText: "age",
+                      textController: ageController,
+                      isPhone: true,
                     ),
                     SizedBox(
                       height: 10,
@@ -98,7 +106,24 @@ class _BookPatientDetialsViewState extends State<BookPatientDetialsView> {
                     ),
                     CustomButton(
                       onPressed: () {
-                        Get.toNamed(AppRoutes.bookCardDetails);
+                        if (nameController.text.isEmpty ||
+                            ageController.text.isEmpty ||
+                            problemController.text.isEmpty) {
+                          // when all fields are not filled
+                          showCustomSnackBar("All fields are required");
+                        } else {
+                          // To make sure all fields are filled
+                          commonController.patientDetails.value =
+                              PatientDetailsModel(
+                            name: nameController.text,
+                            age: int.parse(ageController.text),
+                            gender: commonController.selectedGender.value,
+                            dob: ageController.text,
+                            problem: problemController.text,
+                            images: images,
+                          );
+                          Get.toNamed(AppRoutes.bookCardDetails);
+                        }
                       },
                       buttonTitle: "Continue",
                     ),

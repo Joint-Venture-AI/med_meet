@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:med_meet_flutter/controller/home_doctor_controller.dart';
+import 'package:med_meet_flutter/core/components/doctor_card.dart';
 import 'package:med_meet_flutter/core/utils/app_colors.dart';
+import 'package:med_meet_flutter/models/general_appointment_model.dart';
 
 class DoctorAppointmentsScreenView extends StatefulWidget {
   const DoctorAppointmentsScreenView({super.key});
@@ -13,6 +17,7 @@ class DoctorAppointmentsScreenView extends StatefulWidget {
 class _DoctorAppointmentsScreenViewState
     extends State<DoctorAppointmentsScreenView> {
   String selectedTab = "Completed";
+  HomeDoctorController homeDoctorController = Get.find<HomeDoctorController>();
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
@@ -65,54 +70,56 @@ class _DoctorAppointmentsScreenViewState
             ],
           ),
         ),
-        body: TabBarView(children: <Widget>[
-          buildBody(),
-          buildBody(),
-        ]),
+        body: Obx(() {
+          final upcomming = homeDoctorController.upcomingAppointments;
+          final completed = homeDoctorController.completedAppointments;
+          return TabBarView(children: <Widget>[
+            buildBody(appointments: upcomming),
+            buildBody(appointments: completed),
+          ]);
+        }),
       ),
     );
   }
 
-  Padding buildBody() {
-    return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 24),
-      child: Column(
-        children: [
-          SizedBox(
-            height: 16,
-          ),
-          Expanded(
-            child: ListView(
-              children: [
-                // DoctorCard(
-                //   isAppointment: true,
-                //   hasPrice: true,
-                // ),
-                // DoctorCard(
-                //   isAppointment: true,
-                //   hasPrice: true,
-                // ),
-                // DoctorCard(
-                //   isAppointment: true,
-                //   hasPrice: true,
-                // ),
-                // DoctorCard(
-                //   isAppointment: true,
-                //   hasPrice: true,
-                // ),
-                // DoctorCard(
-                //   isAppointment: true,
-                //   hasPrice: true,
-                // ),
-                // DoctorCard(
-                //   isAppointment: true,
-                //   hasPrice: true,
-                // ),
-              ],
+  Padding buildBody({required List<GeneralAppointmentModel> appointments}) {
+    if (appointments.isEmpty) {
+      return Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Center(
+          child: Text("No Appointments"),
+        ),
+      );
+    } else {
+      return Padding(
+        padding: EdgeInsets.symmetric(horizontal: 24),
+        child: Column(
+          children: [
+            SizedBox(
+              height: 16,
             ),
-          )
-        ],
-      ),
-    );
+            Expanded(
+              child: ListView.builder(
+                itemCount: appointments.length,
+                itemBuilder: (context, index) {
+                  final data = appointments[index];
+                  return DoctorCard(
+                    // ui specific configurations
+                    isAppointment: true,
+                    hasPrice: true,
+                    // apponitment: data,
+                    id: data.id,
+                    name: data.name,
+                    time: "${data.startTime} - ${data.endTime}",
+                    date: data.date.toString(),
+                    image: data.image,
+                  );
+                },
+              ),
+            )
+          ],
+        ),
+      );
+    }
   }
 }

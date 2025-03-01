@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:med_meet_flutter/controller/common_controller.dart';
+import 'package:med_meet_flutter/controller/home_doctor_controller.dart';
 import 'package:med_meet_flutter/controller/profile_controller.dart';
 import 'package:med_meet_flutter/core/components/custom_app_bar.dart';
 import 'package:med_meet_flutter/core/components/custom_button.dart';
@@ -26,6 +27,8 @@ class _DoctorDetailsState extends State<DoctorDetails> {
   final TextEditingController aboutDoctorController = TextEditingController();
   final CommonController commonController = Get.put(CommonController());
   final Profilecontroller profilecontroller = Get.put(Profilecontroller());
+  final HomeDoctorController homeDoctorController =
+      Get.find<HomeDoctorController>();
 
   @override
   void initState() {
@@ -55,7 +58,8 @@ class _DoctorDetailsState extends State<DoctorDetails> {
                         title: "Specialist",
                         dropDownItems:
                             getDropDownItems(commonController.allSpecialty),
-                        initialValue: commonController.selectedSpecialty.value,
+                        initialValue:
+                            homeDoctorController.doctorData.value.specialist.id,
                         onChange: (String? newVal) {
                           commonController.selectedSpecialty.value = newVal!;
                         },
@@ -64,61 +68,74 @@ class _DoctorDetailsState extends State<DoctorDetails> {
                     SizedBox(
                       height: 12,
                     ),
-                    CustomTextInput(
-                      isPhone: true,
-                      title: "Experience",
-                      hintText: "Medical License Number",
-                      textController: experienceController,
+                    Obx(() {
+                      return CustomTextInput(
+                        isPhone: true,
+                        title: "Experience",
+                        hintText: homeDoctorController
+                            .doctorData.value.experience
+                            .toString(),
+                        textController: experienceController,
+                      );
+                    }),
+                    SizedBox(
+                      height: 12,
                     ),
                     SizedBox(
                       height: 12,
                     ),
-                    CustomTextInput(
-                      title: "Medical License Number",
-                      hintText: "Experience",
-                      textController: medicalLicenseNumberController,
+                    Obx(() {
+                      return CustomTextInput(
+                        title: "Clinic Name",
+                        hintText: homeDoctorController.doctorData.value.clinic,
+                        textController: clinicNameController,
+                      );
+                    }),
+                    SizedBox(
+                      height: 12,
+                    ),
+                    Obx(
+                      () {
+                        return CustomTextInput(
+                          title: "Clinic Address",
+                          hintText:homeDoctorController.doctorData.value.clinicAddress,
+                          maxLines: 4,
+                          textController: clinicAddressController,
+                        );
+                      }
                     ),
                     SizedBox(
                       height: 12,
                     ),
-                    CustomTextInput(
-                      title: "Clinic Name",
-                      hintText: "Clinic Name",
-                      textController: clinicNameController,
+                    Obx(
+                      () {
+                        return CustomTextInput(
+                          title: "Set Consultation Fee",
+                          isPhone: true,
+                          hintText: homeDoctorController.doctorData.value.consultationFee.toString(),
+                          textController: consultationFeeController,
+                        );
+                      }
                     ),
                     SizedBox(
                       height: 12,
                     ),
-                    CustomTextInput(
-                      title: "Clinic Address",
-                      hintText: "Clinic Address",
-                      maxLines: 4,
-                      textController: clinicAddressController,
-                    ),
-                    SizedBox(
-                      height: 12,
-                    ),
-                    CustomTextInput(
-                      title: "Set Consultation Fee",
-                      isPhone: true,
-                      hintText: "Set price",
-                      textController: consultationFeeController,
-                    ),
-                    SizedBox(
-                      height: 12,
-                    ),
-                    CustomTextInput(
-                      title: "About Doctor",
-                      hintText: "About doctor",
-                      maxLines: 4,
-                      textController: aboutDoctorController,
+                    Obx(
+                      () {
+                        return CustomTextInput(
+                          title: "About Doctor",
+                          hintText:homeDoctorController.doctorData.value.aboutDoctor,
+                          maxLines: 4,
+                          textController: aboutDoctorController,
+                        );
+                      }
                     ),
                     const SizedBox(
                       height: 48,
                     ),
                     CustomButton(
                       onPressed: () async {
-                        await profilecontroller.updateDoctorProfile(
+                        await profilecontroller.updateProfile(
                           specialty: commonController.selectedSpecialty.value,
                           experience: experienceController.text,
                           medicalLicenseNumber:

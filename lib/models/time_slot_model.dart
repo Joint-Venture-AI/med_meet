@@ -3,13 +3,14 @@ class TimeSlotModel {
   String endTime;
   bool isBooked;
   String id;
+  String time;
 
-  TimeSlotModel({
-    this.startTime = "00:00",
-    this.endTime = "00:00",
-    this.isBooked = false,
-    this.id = "",
-  });
+  TimeSlotModel(
+      {this.startTime = "00:00",
+      this.endTime = "00:00",
+      this.isBooked = false,
+      this.id = "",
+      this.time = ""});
 
   factory TimeSlotModel.fromJson(Map<String, dynamic> json) => TimeSlotModel(
         startTime: json["startTime"] ?? "00:00",

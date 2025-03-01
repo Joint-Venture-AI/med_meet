@@ -2,13 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:loader_overlay/loader_overlay.dart';
 import 'package:med_meet_flutter/core/constants/api_constants.dart';
-import 'package:med_meet_flutter/models/user_model.dart';
+import 'package:med_meet_flutter/models/single_user_model.dart';
 import 'package:med_meet_flutter/models/single_doctor_model.dart';
 import 'package:med_meet_flutter/services/api_checker.dart';
 import 'package:med_meet_flutter/services/api_client.dart';
 
 class UserHomeController extends GetxController {
-  Rx<UserModel> userData = UserModel().obs;
+  Rx<SingleUserModel> userData = SingleUserModel().obs;
   Rx<SingleDoctorModel> singleDoctorData = SingleDoctorModel().obs;
   RxList<SpecialistModel> specialtyList = <SpecialistModel>[].obs;
   RxList<SingleDoctorModel> allSpecialistDoctors = <SingleDoctorModel>[].obs;
@@ -38,7 +38,8 @@ class UserHomeController extends GetxController {
 
     if (response.statusCode == 200) {
       // loading user data in memory
-      userData.value = UserModel.fromJson(response.body["data"]);
+      userData.value = SingleUserModel.fromJson(response.body["data"]);
+      update();
     } else {
       ApiChecker.checkApi(response);
     }

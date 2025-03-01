@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:intl/intl.dart';
+import 'package:med_meet_flutter/controller/common_controller.dart';
 import 'package:med_meet_flutter/core/components/custom_app_bar.dart';
 import 'package:med_meet_flutter/core/components/custom_button.dart';
 import 'package:med_meet_flutter/core/components/custom_callender.dart';
@@ -14,6 +17,7 @@ class DoctorSchedule extends StatefulWidget {
 
 class _DoctorScheduleState extends State<DoctorSchedule> {
   bool isAdding = false;
+  final CommonController commonController = Get.put(CommonController());
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +30,7 @@ class _DoctorScheduleState extends State<DoctorSchedule> {
           child: Column(
             children: [
               CustomAppBar(
-                title: isAdding ? "Add Schedule" : "Schedule",
+                title: "Schedule",
                 hasPadding: false,
               ),
               Expanded(
@@ -43,7 +47,12 @@ class _DoctorScheduleState extends State<DoctorSchedule> {
                     SizedBox(
                       height: 26,
                     ),
-                    CustomCallender(),
+                    CustomCallender(
+                      onClick: (date) {
+                        commonController.doctorScheduleDate.value =
+                            DateFormat('dd-MM-yyyy').format(date);
+                      },
+                    ),
                     SizedBox(
                       height: 24,
                     ),
@@ -52,16 +61,37 @@ class _DoctorScheduleState extends State<DoctorSchedule> {
                       style: AppTypography.appbarTitle,
                     ),
                     Expanded(
+                      child: Obx(
+                        () {
+                          return TimeSlotGrid(
+                            availableSlots:
+                                // ignore: invalid_use_of_protected_member
+                                commonController.fixedSchedules.value,
+                            selectMultiple: true,
+                            onPressed: (slot, model) {
+                              if (commonController.selectedTimeslots
+                                  .contains(model)) {
+                                commonController.selectedTimeslots
+                                    .remove(model);
+                                return;
+                              } else {
+                                commonController.selectedTimeslots.add(model);
+                              }
+                            },
+                          );
+                        },
+                      ),
+                    ),
+                    Expanded(
                       child: TimeSlotGrid(
                         availableSlots: [],
                         isEnabled: isAdding,
+                        onPressed: (slot, model) {},
                       ),
                     ),
                     CustomButton(
                       onPressed: () {
-                        setState(() {
-                          isAdding = !isAdding;
-                        });
+                        commonController.createDoctorSchedule();
                       },
                       buttonTitle: isAdding ? "Submit" : "Add Schedule",
                     ),

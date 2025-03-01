@@ -1,11 +1,10 @@
 import 'dart:convert';
 import 'dart:io';
-
-import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:loader_overlay/loader_overlay.dart';
 import 'package:med_meet_flutter/controller/home_doctor_controller.dart';
+import 'package:med_meet_flutter/controller/home_user_controller.dart';
 import 'package:med_meet_flutter/core/components/custom_snack_bar.dart';
 import 'package:med_meet_flutter/core/constants/api_constants.dart';
 import 'package:med_meet_flutter/core/helpers/pref_helper.dart';
@@ -27,8 +26,31 @@ class Profilecontroller extends GetxController {
     }
   }
 
+  //  change password
+  Future changePassword(
+      {currentPasword, newPassword, confirmNewPassword}) async {
+    final data = {
+      "currentPassword": currentPasword,
+      "newPassword": newPassword,
+      "confirmPassword": confirmNewPassword,
+    };
+    // Reading account Role
+    final role = await PrefsHelper.getString(PrefsKey.role);
+    final url = role == "DOCTOR"
+        ? ApiConstants.doctorChangePassword
+        : ApiConstants.userChangePassword;
+    Get.context!.loaderOverlay.show();
+    Response response = await ApiClient.postData(url, jsonEncode(data));
+    if (response.statusCode == 200) {
+      showCustomSnackBar("Password Changed Successfully", isError: false);
+    } else {
+      ApiChecker.checkApi(response);
+    }
+    Get.context!.loaderOverlay.hide();
+  }
+
   // To Update Profile
-  Future updateDoctorProfile(
+  Future updateProfile(
       {name,
       email,
       phone,
@@ -66,14 +88,23 @@ class Profilecontroller extends GetxController {
         MultipartBody("image", File(displayPicture.value)),
       ];
     }
+
+    final role = await PrefsHelper.getString(PrefsKey.role);
+    final url = role == "DOCTOR"
+        ? ApiConstants.doctorUpdateProfile
+        : ApiConstants.userUpdateProfile;
     Get.context!.loaderOverlay.show();
-    Response response = await ApiClient.postMultipartData(
-        ApiConstants.doctorUpdateProfile, body,
-        multipartBody: multipart);
+    Response response =
+        await ApiClient.postMultipartData(url, body, multipartBody: multipart);
 
     if (response.statusCode == 200) {
       showCustomSnackBar("Profile Updated Successfully", isError: false);
-      await Get.find<HomeDoctorController>().getDoctorrData();
+      if (role == "DOCTOR") {
+        await Get.find<HomeDoctorController>().getDoctorrData();
+      } else {
+        await Get.find<UserHomeController>().getUserData();
+       
+      }
     } else {
       ApiChecker.checkApi(response);
     }

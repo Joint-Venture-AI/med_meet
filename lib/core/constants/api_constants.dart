@@ -1,6 +1,8 @@
 class ApiConstants {
   static String baseUrl = "http://192.168.10.99:5010/api/v1";
   static String baseAssetUrl = "http://192.168.10.99:5010";
+  static String placeHolder =
+      "https://media.istockphoto.com/id/1223671392/vector/default-profile-picture-avatar-photo-placeholder-vector-illustration.jpg?s=612x612&w=0&k=20&c=s0aTdmT5aU6b8ot7VKm11DeID6NctRCpB755rA1BIP0=";
 
   // Auth Feature End Points
 
@@ -43,12 +45,13 @@ class ApiConstants {
   // User Endpoints
   static String userGetAvailableTimeslots(doctorID, date) =>
       "/schedule/available-slots?doctorId=$doctorID&date=$date";
+  static String bookAppointment = '/appointment/book';
 
   // Appointment Features
 
   // User Endpoints
   static String userGetAllAppointment(userID) => "/appointment/user/$userID";
-  static String userGetAppointmentDetauls(appointmentID) =>
+  static String getAppointmentDetauls(appointmentID) =>
       "/appointment/$appointmentID";
   static String userPostReview(appointmentID) =>
       "/appointment/review/$appointmentID";
@@ -58,4 +61,13 @@ class ApiConstants {
 
   // Doctor Endpoints
   static String userUpdateProfile = "/user/update-profile";
+
+  // Profile Feature
+
+  // User Endpoints
+  static String userChangePassword = "/user/change-password";
+
+  // Doctor Endpoints
+  static String doctorChangePassword = "/doctor/change-password";
+  static String doctorSetSchedule = "/schedule/create";
 }

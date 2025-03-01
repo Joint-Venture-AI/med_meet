@@ -29,6 +29,7 @@ class DoctorsDetailsForUser extends StatelessWidget {
             padding: EdgeInsets.all(24),
             child: SingleChildScrollView(
               child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Obx(() {
                     return DetailsHeaeder(

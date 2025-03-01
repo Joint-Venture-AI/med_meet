@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:med_meet_flutter/controller/common_controller.dart';
 import 'package:med_meet_flutter/controller/home_doctor_controller.dart';
 import 'package:med_meet_flutter/core/components/doctor_card.dart';
 import 'package:med_meet_flutter/core/components/section_header.dart';
@@ -15,6 +16,7 @@ class DoctorHomeView extends StatelessWidget {
 
   final HomeDoctorController homeDoctorController =
       Get.put(HomeDoctorController());
+  final CommonController commonController = Get.put(CommonController());
 
   @override
   Widget build(BuildContext context) {

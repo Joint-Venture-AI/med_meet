@@ -91,8 +91,6 @@ class _DoctorPersonalInformationState extends State<DoctorPersonalInformation> {
                             height: 36,
                           ),
                           Obx(() {
-                            final imageRef =
-                                profileController.displayPicture.value;
                             final doctorRef =
                                 homeDoctorController.doctorData.value;
                             return ClipOval(
@@ -231,7 +229,7 @@ class _DoctorPersonalInformationState extends State<DoctorPersonalInformation> {
                                 isEditing = !isEditing;
                               });
 
-                              await profileController.updateDoctorProfile(
+                              await profileController.updateProfile(
                                 name: nameController.text,
                                 email: emailController.text,
                                 phone: phoneController.text,

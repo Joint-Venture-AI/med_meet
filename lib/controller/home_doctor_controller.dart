@@ -31,7 +31,10 @@ class HomeDoctorController extends GetxController {
   // fetch Doctor data
   Future getDoctorrData() async {
     // Fetching DoctorData Data
-    Response response = await ApiClient.getData(ApiConstants.doctorGetProfile);
+    final docID = await PrefsHelper.getString(PrefsKey.accountID);
+    Response response = await ApiClient.getData(
+        // change later with docID
+        ApiConstants.getSingleDoctor(docID));
 
     if (response.statusCode == 200) {
       // loading Doctor data in memory
@@ -93,8 +96,7 @@ class HomeDoctorController extends GetxController {
     // reading docid from memory
     final docID = await PrefsHelper.getString(PrefsKey.accountID);
     Response response = await ApiClient.getData(
-        ApiConstants.getDoctorFilteredAppointment(
-            "67b2cde6ce9fca819dcde237", "Upcoming"));
+        ApiConstants.getDoctorFilteredAppointment(docID, "Upcoming"));
     if (response.statusCode == 200) {
       // loading doctor filtered appointments
       final body = response.body;
@@ -114,8 +116,7 @@ class HomeDoctorController extends GetxController {
     // reading docid from memory
     final docID = await PrefsHelper.getString(PrefsKey.accountID);
     Response response = await ApiClient.getData(
-        ApiConstants.getDoctorFilteredAppointment(
-            "67b2cde6ce9fca819dcde237", "Completed"));
+        ApiConstants.getDoctorFilteredAppointment(docID, "Completed"));
     if (response.statusCode == 200) {
       // loading doctor completed appointments
       final body = response.body;
@@ -134,8 +135,8 @@ class HomeDoctorController extends GetxController {
   Future getDoctorAllAppointments() async {
     // reading docid from memory
     final docID = await PrefsHelper.getString(PrefsKey.accountID);
-    Response response = await ApiClient.getData(
-        ApiConstants.getDoctorAllAppointment("67b2cde6ce9fca819dcde237"));
+    Response response =
+        await ApiClient.getData(ApiConstants.getDoctorAllAppointment(docID));
     if (response.statusCode == 200) {
       // loading doctor completed appointments
       final body = response.body;

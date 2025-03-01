@@ -27,6 +27,7 @@ class SingleDoctorModel {
   final double avgRating;
   final int totalPatientsCount;
   final List<ReviewModel> reviews;
+  final List<RatingPercentageModel> ratingPercentage; // New field
 
   SingleDoctorModel({
     this.id = '',
@@ -57,10 +58,12 @@ class SingleDoctorModel {
     this.avgRating = 0.0,
     this.totalPatientsCount = 0,
     List<ReviewModel>? reviews,
+    List<RatingPercentageModel>? ratingPercentage, // New parameter
   })  : createdAt = createdAt ?? DateTime.now(),
         updatedAt = updatedAt ?? DateTime.now(),
         specialist = specialist ?? SpecialistModel(),
-        reviews = reviews ?? [];
+        reviews = reviews ?? [],
+        ratingPercentage = ratingPercentage ?? []; // New field initialization
 
   factory SingleDoctorModel.fromJson(Map<String, dynamic> json) {
     return SingleDoctorModel(
@@ -102,6 +105,11 @@ class SingleDoctorModel {
               .map((review) => ReviewModel.fromJson(review))
               .toList()
           : [],
+      ratingPercentage: json['ratingPercentage'] != null
+          ? (json['ratingPercentage'] as List)
+              .map((rating) => RatingPercentageModel.fromJson(rating))
+              .toList()
+          : [], // Parse ratingPercentage
     );
   }
 }
@@ -156,6 +164,24 @@ class SpecialistModel {
       id: json['_id'] ?? '',
       name: json['name'] ?? 'General',
       image: json['image'] ?? '',
+    );
+  }
+}
+
+// New model to handle the rating percentage
+class RatingPercentageModel {
+  final int rating;
+  final double percentage;
+
+  RatingPercentageModel({
+    required this.rating,
+    required this.percentage,
+  });
+
+  factory RatingPercentageModel.fromJson(Map<String, dynamic> json) {
+    return RatingPercentageModel(
+      rating: json['rating'] ?? 0,
+      percentage: json['percentage']?.toDouble() ?? 0.0,
     );
   }
 }
