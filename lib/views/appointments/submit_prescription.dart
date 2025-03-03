@@ -11,6 +11,7 @@ import 'package:med_meet_flutter/core/constants/svg_assets.dart';
 import 'package:med_meet_flutter/core/utils/app_colors.dart';
 import 'package:med_meet_flutter/core/utils/app_typography.dart';
 import 'package:med_meet_flutter/models/medication_details_model.dart';
+import 'package:flutter_pdfview/flutter_pdfview.dart';
 
 class SubmitPrescription extends StatelessWidget {
   SubmitPrescription(
@@ -28,7 +29,9 @@ class SubmitPrescription extends StatelessWidget {
           child: CustomAppBar(
             title: "Prescription",
             tailing: GestureDetector(
-              onTap: appointment.generatePDF,
+              onTap: () {
+                appointment.generatePDF(medicines: medicines, summary: summary);
+              },
               child: Container(
                 padding: EdgeInsets.all(8),
                 decoration: BoxDecoration(
@@ -241,58 +244,64 @@ class SubmitPrescription extends StatelessWidget {
               ),
               if (medicines.isNotEmpty)
                 Container(
-                  padding: EdgeInsets.symmetric(vertical: 12, horizontal: 20),
-                  decoration: BoxDecoration(
-                      border: Border.all(color: AppColors.border1),
-                      borderRadius: BorderRadius.circular(12)),
-                  child: SizedBox(
-                    height: (51 * medicines.length.toDouble()),
-                    child: ListView.builder(
-                      itemCount: medicines.length,
-                      itemBuilder: (context, index) {
-                        return Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              "1. medName",
-                              style: GoogleFonts.roboto(
-                                  fontSize: 12, fontWeight: FontWeight.w500),
-                            ),
-                            Row(
-                              mainAxisSize: MainAxisSize.max,
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              children: [
-                                SizedBox(
-                                  width: 8,
-                                ),
-                                Expanded(
-                                  child: Row(
+                    padding: EdgeInsets.symmetric(vertical: 12, horizontal: 20),
+                    decoration: BoxDecoration(
+                        border: Border.all(color: AppColors.border1),
+                        borderRadius: BorderRadius.circular(12)),
+                    child: Column(
+                      children: medicines
+                          .asMap()
+                          .map((index, el) {
+                            return MapEntry(
+                              index,
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    medicines[index].name,
+                                    style: GoogleFonts.roboto(
+                                        fontSize: 12,
+                                        fontWeight: FontWeight.w500),
+                                  ),
+                                  Row(
                                     mainAxisSize: MainAxisSize.max,
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
+                                    mainAxisAlignment: MainAxisAlignment.start,
                                     children: [
-                                      buildMeds(medicines[index].dose),
-                                      buildMeds(medicines[index].duration),
-                                      buildMeds(medicines[index].frequency),
-                                      Icon(
-                                        Icons.delete_outline,
-                                        color: Colors.red,
+                                      SizedBox(
+                                        width: 8,
                                       ),
-                                      SvgPicture.asset(SVGAssets.editIcon),
+                                      Expanded(
+                                        child: Row(
+                                          mainAxisSize: MainAxisSize.max,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            buildMeds(medicines[index].dose),
+                                            buildMeds(
+                                                medicines[index].duration),
+                                            buildMeds(
+                                                medicines[index].frequency),
+                                            Icon(
+                                              Icons.delete_outline,
+                                              color: Colors.red,
+                                            ),
+                                            SvgPicture.asset(
+                                                SVGAssets.editIcon),
+                                          ],
+                                        ),
+                                      )
                                     ],
                                   ),
-                                )
-                              ],
-                            ),
-                            SizedBox(
-                              height: 10,
-                            )
-                          ],
-                        );
-                      },
-                    ),
-                  ),
-                ),
+                                  SizedBox(
+                                    height: 10,
+                                  )
+                                ],
+                              ),
+                            );
+                          })
+                          .values
+                          .toList(),
+                    )),
               SizedBox(
                 height: 20,
               ),

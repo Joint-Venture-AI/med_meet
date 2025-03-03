@@ -211,7 +211,6 @@ class _CreatePrescriptionViewState extends State<CreatePrescriptionView> {
                                         onTap: () {
                                           medicineNameController.text =
                                               medicines[index].name;
-
                                           medicineDosageController.text =
                                               medicines[index].dose;
                                           medicineDurationController.text =
