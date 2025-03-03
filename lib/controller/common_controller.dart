@@ -1,4 +1,4 @@
-// ignore_for_file: unused_local_variable
+// ignore_for_file: unused_local_variable, invalid_use_of_protected_member
 
 import 'dart:convert';
 

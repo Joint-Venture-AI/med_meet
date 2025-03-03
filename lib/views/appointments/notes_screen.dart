@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:med_meet_flutter/controller/appointment_controller.dart';
 import 'package:med_meet_flutter/core/components/custom_app_bar.dart';
 import 'package:med_meet_flutter/core/components/custom_button.dart';
 
@@ -11,7 +12,16 @@ class NotesScreenView extends StatefulWidget {
 }
 
 class _NotesScreenViewState extends State<NotesScreenView> {
-  var _isPublic = true;
+  var _isPrivate = true;
+  final AppointmentController appointmentController =
+      Get.find<AppointmentController>();
+
+  @override
+  void initState() {
+    appointmentController.noteController.text =
+        appointmentController.appointmentDetails.value.doctorNote;
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -25,27 +35,28 @@ class _NotesScreenViewState extends State<NotesScreenView> {
         child: Column(
           children: [
             RadioListTile(
-                title: Text("Public"),
+                title: Text("Private"),
                 value: true,
-                groupValue: _isPublic,
+                groupValue: _isPrivate,
                 controlAffinity: ListTileControlAffinity.trailing,
                 onChanged: (value) {
                   setState(() {
-                    _isPublic = value!;
+                    _isPrivate = value!;
                   });
                 }),
             RadioListTile(
-                title: Text("Privade"),
+                title: Text("Public"),
                 value: false,
-                groupValue: _isPublic,
+                groupValue: _isPrivate,
                 controlAffinity: ListTileControlAffinity.trailing,
                 onChanged: (value) {
                   setState(() {
-                    _isPublic = value!;
+                    _isPrivate = value!;
                   });
                 }),
             Expanded(
               child: TextField(
+                controller: appointmentController.noteController,
                 decoration: InputDecoration(
                     hintText: "Note something down.....",
                     border: InputBorder.none),
@@ -53,7 +64,7 @@ class _NotesScreenViewState extends State<NotesScreenView> {
             ),
             CustomButton(
                 onPressed: () {
-                  Get.back();
+                  appointmentController.createNotes(isNoteHidden: _isPrivate);
                 },
                 buttonTitle: "Save"),
           ],

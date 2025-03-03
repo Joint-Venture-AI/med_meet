@@ -10,6 +10,8 @@ class DetailedAppointmentModel {
   DateTime date;
   String startTime;
   String endTime;
+  bool isNoteHidden;
+  String doctorNote;
 
   DetailedAppointmentModel({
     this.id = "",
@@ -23,6 +25,8 @@ class DetailedAppointmentModel {
     DateTime? date,
     this.startTime = "00:00",
     this.endTime = "00:00",
+    this.isNoteHidden = false,
+    this.doctorNote = "",
   })  : doctor = doctor ?? Doctor(),
         user = user ?? User(),
         patientDetails = patientDetails ?? PatientDetails(),
@@ -47,6 +51,8 @@ class DetailedAppointmentModel {
             ? []
             : List<String>.from(json["attachmentPdf"].map((x) => x)),
         status: json["status"] ?? "pending",
+        isNoteHidden: json["isNoteHidden"] ?? true,
+        doctorNote: json["doctorNote"] ?? "pending",
         review:
             json["review"] == null ? Review() : Review.fromJson(json["review"]),
         date: json["date"] == null
@@ -68,6 +74,8 @@ class DetailedAppointmentModel {
         "date": date.toIso8601String(),
         "startTime": startTime,
         "endTime": endTime,
+        "doctorNote": doctorNote,
+        "isNoteHidden": isNoteHidden,
       };
 }
 

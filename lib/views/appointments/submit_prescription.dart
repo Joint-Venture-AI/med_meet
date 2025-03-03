@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:intl/intl.dart';
+import 'package:med_meet_flutter/controller/appointment_controller.dart';
 import 'package:med_meet_flutter/core/components/custom_app_bar.dart';
 import 'package:med_meet_flutter/core/components/custom_button.dart';
 import 'package:med_meet_flutter/core/constants/svg_assets.dart';
@@ -10,11 +13,12 @@ import 'package:med_meet_flutter/core/utils/app_typography.dart';
 import 'package:med_meet_flutter/models/medication_details_model.dart';
 
 class SubmitPrescription extends StatelessWidget {
-  const SubmitPrescription(
+  SubmitPrescription(
       {super.key, required this.medicines, required this.summary});
 
   final List<MedicationDetailsModel> medicines;
   final String summary;
+  final AppointmentController appointment = Get.find<AppointmentController>();
 
   @override
   Widget build(BuildContext context) {
@@ -24,9 +28,7 @@ class SubmitPrescription extends StatelessWidget {
           child: CustomAppBar(
             title: "Prescription",
             tailing: GestureDetector(
-              onTap: () {
-                // todo: Implement pdf download
-              },
+              onTap: appointment.generatePDF,
               child: Container(
                 padding: EdgeInsets.all(8),
                 decoration: BoxDecoration(
@@ -48,63 +50,60 @@ class SubmitPrescription extends StatelessWidget {
               const SizedBox(
                 height: 20,
               ),
-              Text(
-                "Dr.Pelican Steve",
-                style: AppTypography.appbarTitle,
-              ),
-              Text(
-                "Cardiologist",
-                style: TextStyle(
-                  fontSize: 14,
-                  color: Color(0xff383838),
-                ),
-              ),
+              Obx(() {
+                final doctor = appointment.appointmentDetails.value.doctor;
+                return Text(
+                  doctor.name,
+                  style: AppTypography.appbarTitle,
+                );
+              }),
+              Obx(() {
+                final doctor = appointment.appointmentDetails.value.doctor;
+                return Text(
+                  doctor.specialist,
+                  style: TextStyle(
+                    fontSize: 14,
+                    color: Color(0xff383838),
+                  ),
+                );
+              }),
               const SizedBox(height: 16),
-              Row(
-                children: [
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        "Aruga Medical",
-                        style: TextStyle(
-                          fontSize: 14,
-                          color: Color(0xff333333),
+              Obx(() {
+                final doctor = appointment.appointmentDetails.value.doctor;
+                final slot = appointment.appointmentDetails.value;
+                return Row(
+                  children: [
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          doctor.clinic,
+                          style: TextStyle(
+                            fontSize: 14,
+                            color: Color(0xff333333),
+                          ),
                         ),
-                      ),
-                      const SizedBox(height: 10),
-                      Text(
-                        "140 Anywhere St. Any City",
-                        style: TextStyle(
-                          fontSize: 14,
-                          color: Color(0xff333333),
+                        const SizedBox(height: 10),
+                        Text(
+                          doctor.clinicAddress,
+                          style: TextStyle(
+                            fontSize: 14,
+                            color: Color(0xff333333),
+                          ),
                         ),
+                      ],
+                    ),
+                    const Spacer(),
+                    Text(
+                      "Slot: ${slot.startTime} - ${slot.endTime}",
+                      style: TextStyle(
+                        fontSize: 14,
+                        color: Color(0xff545454),
                       ),
-                    ],
-                  ),
-                  const Spacer(),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.end,
-                    children: [
-                      Text(
-                        "MWF: 13:00 - 18:00",
-                        style: TextStyle(
-                          fontSize: 14,
-                          color: Color(0xff545454),
-                        ),
-                      ),
-                      const SizedBox(height: 8),
-                      Text(
-                        "TTH: 13:00 - 18:00",
-                        style: TextStyle(
-                          fontSize: 14,
-                          color: Color(0xff545454),
-                        ),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
+                    ),
+                  ],
+                );
+              }),
               const SizedBox(height: 32),
               Container(
                 height: 1,
@@ -112,92 +111,121 @@ class SubmitPrescription extends StatelessWidget {
                 color: Color(0xffDDDEE0),
               ),
               const SizedBox(height: 20),
-              Row(
-                children: [
-                  Text(
-                    "Patient Name: ",
-                    style: TextStyle(
-                      color: Color(0xff333333),
+              Obx(() {
+                final patient =
+                    appointment.appointmentDetails.value.patientDetails;
+                return Row(
+                  children: [
+                    Text(
+                      "Patient Name: ",
+                      style: TextStyle(
+                        color: Color(0xff333333),
+                      ),
                     ),
-                  ),
-                  Expanded(
-                    child: Container(
-                      height: 16,
-                      width: double.infinity,
-                      decoration: BoxDecoration(
+                    Expanded(
+                      child: Container(
+                        height: 16,
+                        width: double.infinity,
+                        decoration: BoxDecoration(
                           border: Border(
-                              bottom: BorderSide(
-                        color: Color(0xffB0B0B0),
-                      ))),
-                    ),
-                  )
-                ],
-              ),
+                            bottom: BorderSide(
+                              color: Color(0xffB0B0B0),
+                            ),
+                          ),
+                        ),
+                        child: Center(
+                          child: Text(
+                            patient.fullName,
+                          ),
+                        ),
+                      ),
+                    )
+                  ],
+                );
+              }),
               const SizedBox(
                 height: 16,
               ),
-              Row(
-                children: [
-                  Text(
-                    "Sex: ",
-                    style: TextStyle(
-                      color: Color(0xff333333),
+              Obx(() {
+                final patient =
+                    appointment.appointmentDetails.value.patientDetails;
+                final appDate = appointment.appointmentDetails.value.date;
+                return Row(
+                  children: [
+                    Text(
+                      "Sex: ",
+                      style: TextStyle(
+                        color: Color(0xff333333),
+                      ),
                     ),
-                  ),
-                  Expanded(
-                    child: Container(
-                      height: 16,
-                      width: double.infinity,
-                      decoration: BoxDecoration(
-                        border: Border(
-                          bottom: BorderSide(
-                            color: Color(0xffB0B0B0),
+                    Expanded(
+                      child: Container(
+                        height: 16,
+                        width: double.infinity,
+                        decoration: BoxDecoration(
+                          border: Border(
+                            bottom: BorderSide(
+                              color: Color(0xffB0B0B0),
+                            ),
+                          ),
+                        ),
+                        child: Center(
+                          child: Text(patient.gender),
+                        ),
+                      ),
+                    ),
+                    Text(
+                      "Age: ",
+                      style: TextStyle(
+                        color: Color(0xff333333),
+                      ),
+                    ),
+                    Expanded(
+                      child: Container(
+                        height: 16,
+                        width: double.infinity,
+                        decoration: BoxDecoration(
+                          border: Border(
+                            bottom: BorderSide(
+                              color: Color(0xffB0B0B0),
+                            ),
+                          ),
+                        ),
+                        child: Center(
+                          child: Text(patient.age.toString()),
+                        ),
+                      ),
+                    ),
+                    Text(
+                      "Date: ",
+                      style: TextStyle(
+                        color: Color(0xff333333),
+                      ),
+                    ),
+                    Expanded(
+                      flex: 2,
+                      child: Container(
+                        height: 16,
+                        width: double.infinity,
+                        decoration: BoxDecoration(
+                          border: Border(
+                            bottom: BorderSide(
+                              color: Color(0xffB0B0B0),
+                            ),
+                          ),
+                        ),
+                        child: Center(
+                          child: Text(
+                            DateFormat("dd MMMM yyyy").format(
+                              DateTime.parse(appDate.toString()),
+                            ),
                           ),
                         ),
                       ),
                     ),
-                  ),
-                  Text(
-                    "Age: ",
-                    style: TextStyle(
-                      color: Color(0xff333333),
-                    ),
-                  ),
-                  Expanded(
-                    child: Container(
-                      height: 16,
-                      width: double.infinity,
-                      decoration: BoxDecoration(
-                        border: Border(
-                          bottom: BorderSide(
-                            color: Color(0xffB0B0B0),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                  Text(
-                    "Date: ",
-                    style: TextStyle(
-                      color: Color(0xff333333),
-                    ),
-                  ),
-                  Expanded(
-                    flex: 2,
-                    child: Container(
-                      height: 16,
-                      width: double.infinity,
-                      decoration: BoxDecoration(
-                        border: Border(
-                          bottom: BorderSide(
-                            color: Color(0xffB0B0B0),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
+                  ],
+                );
+              }),
               const SizedBox(
                 height: 24,
               ),

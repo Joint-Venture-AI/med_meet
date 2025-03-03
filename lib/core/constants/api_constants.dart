@@ -56,6 +56,12 @@ class ApiConstants {
   static String userPostReview(appointmentID) =>
       "/appointment/review/$appointmentID";
 
+  // Doctor Feature
+  static String doctorAddNotes(appointmentID) =>
+      "/appointment/note/$appointmentID";
+  static String getMedicineSuggestion(searchTerm) =>
+      "/medicine?searchTerm=$searchTerm";
+
   // Common Features
   static String getAllSpecialty = "/category";
 

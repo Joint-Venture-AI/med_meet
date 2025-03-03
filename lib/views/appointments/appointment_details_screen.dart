@@ -21,11 +21,11 @@ class AppointmentDetailsView extends StatelessWidget {
   final AppointmentController appointmentController =
       Get.put(AppointmentController());
   final HomeDoctorController homeDoctorController =
-      Get.find<HomeDoctorController>();
+      Get.put(HomeDoctorController());
 
   @override
   Widget build(BuildContext context) {
-    // args is true when it comes from user screen and false when it comes from doctor
+    // args is false when it comes from user screen and true when it comes from doctor
     final args = Get.arguments ?? false;
     // Fetching the appointment details with appointmendID
 
@@ -185,12 +185,13 @@ class AppointmentDetailsView extends StatelessWidget {
               () {
                 return appointmentController.appointmentDetails.value.status ==
                             "Complete" &&
-                        homeDoctorController.doctorData.value.role == "DOCTOR"
+                        args
                     ? Container()
                     : Container(
-                        child: appointmentController
-                                    .appointmentDetails.value.review.review ==
-                                "No review"
+                        child: appointmentController.appointmentDetails.value
+                                        .review.review ==
+                                    "No review" &&
+                                !args
                             ? Container()
                             : CustomButton(
                                 onPressed: () {

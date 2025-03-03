@@ -155,13 +155,16 @@ class HomeDoctorController extends GetxController {
   void onInit() async {
     super.onInit();
     Get.context!.loaderOverlay.show();
-    await getDoctorrData();
-    await getDoctorScores();
-    await getAllDoctors();
-    await getDoctorUpcomingAppointments();
-    await getDoctorCompletedAppointments();
-    await getDoctorAllAppointments();
-    await Get.find<CommonController>().getAllSpecialty();
+    final role = await PrefsHelper.getString(PrefsKey.role);
+    if (role == "DOCTOR") {
+      await getDoctorrData();
+      await getDoctorScores();
+      await getAllDoctors();
+      await getDoctorUpcomingAppointments();
+      await getDoctorCompletedAppointments();
+      await getDoctorAllAppointments();
+      await Get.find<CommonController>().getAllSpecialty();
+    }
     Get.context!.loaderOverlay.hide();
   }
 }

@@ -3,15 +3,19 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:med_meet_flutter/controller/appointment_controller.dart';
 import 'package:med_meet_flutter/core/components/custom_app_bar.dart';
 import 'package:med_meet_flutter/core/components/custom_button.dart';
 import 'package:med_meet_flutter/core/components/custom_text_input.dart';
+import 'package:med_meet_flutter/core/components/patient_information_card.dart';
 import 'package:med_meet_flutter/core/constants/svg_assets.dart';
 import 'package:med_meet_flutter/core/helpers/route.dart';
 import 'package:med_meet_flutter/core/utils/app_colors.dart';
+import 'package:med_meet_flutter/core/utils/app_typography.dart';
 import 'package:med_meet_flutter/models/medication_details_model.dart';
 import 'package:med_meet_flutter/views/appointments/submit_prescription.dart';
 import 'package:med_meet_flutter/views/appointments/user_records.dart';
+import 'package:flutter_typeahead/flutter_typeahead.dart';
 
 class CreatePrescriptionView extends StatefulWidget {
   const CreatePrescriptionView({super.key});
@@ -31,6 +35,15 @@ class _CreatePrescriptionViewState extends State<CreatePrescriptionView> {
   final TextEditingController summaryController = TextEditingController();
   // modal to create medicines
   final List<MedicationDetailsModel> medicines = [];
+
+  final AppointmentController appointmentController =
+      Get.put(AppointmentController());
+
+  @override
+  void initState() {
+    appointmentController.getMedicineSuggestions("am");
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -91,7 +104,16 @@ class _CreatePrescriptionViewState extends State<CreatePrescriptionView> {
             SizedBox(
               height: 20.h,
             ),
-            // PatientInformationCard(),
+            Obx(() {
+              final patient =
+                  appointmentController.appointmentDetails.value.patientDetails;
+              return PatientInformationCard(
+                age: patient.age.toString(),
+                firstName: patient.fullName,
+                gender: patient.gender,
+                problem: patient.problemDescription,
+              );
+            }),
             SizedBox(
               height: 24.h,
             ),
@@ -155,7 +177,7 @@ class _CreatePrescriptionViewState extends State<CreatePrescriptionView> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            "1. medName",
+                            medicines[index].name,
                             style: GoogleFonts.roboto(
                                 fontSize: 12, fontWeight: FontWeight.w500),
                           ),
@@ -175,11 +197,33 @@ class _CreatePrescriptionViewState extends State<CreatePrescriptionView> {
                                     buildMeds(medicines[index].dose),
                                     buildMeds(medicines[index].duration),
                                     buildMeds(medicines[index].frequency),
-                                    Icon(
-                                      Icons.delete_outline,
-                                      color: Colors.red,
+                                    GestureDetector(
+                                      onTap: () {
+                                        setState(() {});
+                                        medicines.removeAt(index);
+                                      },
+                                      child: Icon(
+                                        Icons.delete_outline,
+                                        color: Colors.red,
+                                      ),
                                     ),
-                                    SvgPicture.asset(SVGAssets.editIcon),
+                                    GestureDetector(
+                                        onTap: () {
+                                          medicineNameController.text =
+                                              medicines[index].name;
+
+                                          medicineDosageController.text =
+                                              medicines[index].dose;
+                                          medicineDurationController.text =
+                                              medicines[index].duration;
+                                          medicineFrequencyController.text =
+                                              medicines[index].frequency;
+
+                                          addMedicine(
+                                              index: index, isEdit: true);
+                                        },
+                                        child: SvgPicture.asset(
+                                            SVGAssets.editIcon)),
                                   ],
                                 ),
                               )
@@ -218,7 +262,7 @@ class _CreatePrescriptionViewState extends State<CreatePrescriptionView> {
     );
   }
 
-  void addMedicine() {
+  void addMedicine({isEdit = false, index}) {
     showModalBottomSheet<void>(
       context: context,
       isScrollControlled:
@@ -251,12 +295,56 @@ class _CreatePrescriptionViewState extends State<CreatePrescriptionView> {
                         color: Color(0xFFCCD5DA),
                       ),
                       SizedBox(height: 16),
-                      CustomTextInput(
-                        hintText: "Medicine Name",
-                        title: "Medicine Name",
-                        textController: medicineNameController,
-                      ),
                       SizedBox(height: 12),
+                      // ====>>>>> Type ahead here <<<<========
+                      TypeAheadField<String>(
+                        suggestionsCallback: (search) => appointmentController
+                            .getMedicineSuggestions(search),
+                        builder: (context, controller, focusNode) {
+                          return Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                "Medicines",
+                                style: AppTypography.bodyText1,
+                              ),
+                              SizedBox(
+                                height: 6,
+                              ),
+                              Container(
+                                padding: EdgeInsets.symmetric(
+                                  horizontal: 16,
+                                ),
+                                decoration: BoxDecoration(
+                                    border:
+                                        Border.all(color: AppColors.border1),
+                                    borderRadius: BorderRadius.circular(25)),
+                                child: TextField(
+                                  controller: medicineNameController,
+                                  focusNode: focusNode,
+                                  autofocus: true,
+                                  onChanged: (value) {
+                                    controller.text =
+                                        medicineNameController.text;
+                                  },
+                                  decoration: InputDecoration(
+                                    hintText: "Medicine Name ...",
+                                    border: InputBorder.none,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          );
+                        },
+                        itemBuilder: (context, medicine) {
+                          return ListTile(
+                            title: Text(medicine),
+                          );
+                        },
+                        onSelected: (medicine) {
+                          medicineNameController.text = medicine;
+                        },
+                      ),
                       CustomTextInput(
                         hintText: "Medicine Dosage",
                         title: "Medicine dose",
@@ -296,9 +384,16 @@ class _CreatePrescriptionViewState extends State<CreatePrescriptionView> {
                                 duration: medicineDurationController.text,
                                 frequency: medicineFrequencyController.text,
                               );
-                              setState(() {
-                                medicines.add(med);
-                              });
+                              if (isEdit) {
+                                setState(() {
+                                  medicines[index] = med;
+                                });
+                              } else {
+                                setState(() {
+                                  medicines.add(med);
+                                });
+                              }
+
                               Get.back();
                             },
                           ),

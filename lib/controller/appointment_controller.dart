@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:loader_overlay/loader_overlay.dart';
 import 'package:med_meet_flutter/core/components/custom_snack_bar.dart';
@@ -11,6 +12,8 @@ import 'package:med_meet_flutter/services/api_checker.dart';
 import 'package:med_meet_flutter/services/api_client.dart';
 
 class AppointmentController extends GetxController {
+  final TextEditingController noteController = TextEditingController();
+
   // User End Appointment List
   RxList<GeneralAppointmentModel> userAppointmentList =
       <GeneralAppointmentModel>[].obs;
@@ -48,7 +51,14 @@ class AppointmentController extends GetxController {
     final role = await PrefsHelper.getString(PrefsKey.role);
     if (role == "USER") {
       await getAllAppointments();
+    } else {
+      noteController.text = appointmentDetails.value.doctorNote;
     }
+  }
+
+  @override
+  void onClose() {
+    noteController.dispose();
   }
 
   // Fetches appointment detials with appointment ID
@@ -79,5 +89,40 @@ class AppointmentController extends GetxController {
     } else {
       ApiChecker.checkApi(response);
     }
+  }
+
+  // Create and update notes on appointments
+  Future createNotes({isNoteHidden}) async {
+    final body = {"note": noteController.text, 'isNoteHidden': isNoteHidden};
+    Get.context!.loaderOverlay.show();
+    Response response = await ApiClient.postData(
+        ApiConstants.doctorAddNotes(appointmentDetails.value.id),
+        jsonEncode(body));
+    Get.context!.loaderOverlay.hide();
+
+    if (response.statusCode == 200) {
+      showCustomSnackBar(response.body['message']);
+    } else {
+      ApiChecker.checkApi(response);
+    }
+  }
+
+  // Get medicine suggestions
+  Future<List<String>> getMedicineSuggestions(searchTerm) async {
+    Response response =
+        await ApiClient.getData(ApiConstants.getMedicineSuggestion(searchTerm));
+    if (response.statusCode == 200) {
+      final medicines = (response.body["data"] as List)
+          .map((el) => el["name"].toString())
+          .toList();
+      return medicines;
+    } else {
+      ApiChecker.checkApi(response);
+      return [];
+    }
+  }
+
+  Future generatePDF() async {
+    
   }
 }
