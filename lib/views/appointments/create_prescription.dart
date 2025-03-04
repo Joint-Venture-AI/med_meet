@@ -13,7 +13,6 @@ import 'package:med_meet_flutter/core/helpers/route.dart';
 import 'package:med_meet_flutter/core/utils/app_colors.dart';
 import 'package:med_meet_flutter/core/utils/app_typography.dart';
 import 'package:med_meet_flutter/models/medication_details_model.dart';
-import 'package:med_meet_flutter/views/appointments/submit_prescription.dart';
 import 'package:med_meet_flutter/views/appointments/user_records.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
 
@@ -251,8 +250,8 @@ class _CreatePrescriptionViewState extends State<CreatePrescriptionView> {
             ),
             CustomButton(
                 onPressed: () {
-                  Get.to(() => SubmitPrescription(
-                      medicines: medicines, summary: summaryController.text));
+                  appointmentController.generatePDF(
+                      medicines: medicines, summary: summaryController.text);
                 },
                 buttonTitle: "Send Prescription")
           ],

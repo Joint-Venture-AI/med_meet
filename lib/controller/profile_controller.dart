@@ -26,6 +26,18 @@ class Profilecontroller extends GetxController {
     }
   }
 
+  // Create Medical Record
+  Future createMedicalRecord({name, age, gender, historty}) async {
+    final data = {
+      "name": name,
+      "age": age,
+      "gender": gender,
+      "medicalHistory": historty,
+      "user": await PrefsHelper.getString(PrefsKey.accountID),
+    };
+    // List<MultipartBody> doc = [MultipartBody("doc", file)];
+  }
+
   //  change password
   Future changePassword(
       {currentPasword, newPassword, confirmNewPassword}) async {
@@ -103,7 +115,6 @@ class Profilecontroller extends GetxController {
         await Get.find<HomeDoctorController>().getDoctorrData();
       } else {
         await Get.find<UserHomeController>().getUserData();
-       
       }
     } else {
       ApiChecker.checkApi(response);

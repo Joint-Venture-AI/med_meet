@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:flutter/widgets.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:loader_overlay/loader_overlay.dart';
@@ -12,6 +12,7 @@ import 'package:med_meet_flutter/models/detailed_appointment_model.dart';
 import 'package:med_meet_flutter/models/general_appointment_model.dart';
 import 'package:med_meet_flutter/services/api_checker.dart';
 import 'package:med_meet_flutter/services/api_client.dart';
+import 'package:med_meet_flutter/views/appointments/prespriction_preview.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 
@@ -128,22 +129,62 @@ class AppointmentController extends GetxController {
     }
   }
 
-  final pdf = pw.Document();
+  var pdf = pw.Document();
 
-  Future downloadPDF() async {
+  Future previewPdf({medicines, summary}) async {
     Get.context!.loaderOverlay.show();
+    Directory? directory = await getApplicationDocumentsDirectory();
+    if (await directory.exists()) {
+      final file = File("${directory.path}/prescription.pdf");
+      if (await file.exists()) {
+        await file.delete();
+      }
+      await file.writeAsBytes(await pdf.save());
+      Get.context!.loaderOverlay.hide();
+      await sendPrescription(file);
+      Get.to(
+        () => PresprictionPreview(
+          pdfPath: file.path,
+        ),
+      );
+    } else {
+      showCustomSnackBar("PDF Preview Failed");
+    }
+  }
+
+  Future sendPrescription(file) async {
+    List<MultipartBody> prescription = [MultipartBody("doc", file)];
+    Response response = await ApiClient.postMultipartData(
+        ApiConstants.sendPrescription(appointmentDetails.value.id), {},
+        multipartBody: prescription);
+    if (response.statusCode == 200) {
+      showCustomSnackBar("Prescription Sent");
+    } else {
+      ApiChecker.checkApi(response);
+    }
+  }
+
+  Future downloadPDf() async {
+    Get.context!.loaderOverlay.show();
+    final file = File(await returnPdfPath());
+    await file.writeAsBytes(await pdf.save());
+    Get.context!.loaderOverlay.hide();
+    showCustomSnackBar("Download Complete", isError: false);
+  }
+
+  Future<String> returnPdfPath() async {
+    final String timestamp =
+        DateFormat('yyyyMMdd_HHmmss').format(DateTime.now());
     Directory? directory = Directory('/storage/emulated/0/Download');
     if (!await directory.exists()) {
       directory = await getExternalStorageDirectory();
     }
-    final path = "${directory!.path}/prescription.pdf";
-    final file = File(path);
-    await file.writeAsBytes(await pdf.save());
-    Get.context!.loaderOverlay.hide();
-    showCustomSnackBar("Saved", isError: false);
+    final path = "${directory!.path}/prescription-$timestamp.pdf";
+    return path;
   }
 
   Future generatePDF({medicines, summary}) async {
+    pdf = pw.Document();
     Get.context!.loaderOverlay.show();
 
     final doctor = appointmentDetails.value.doctor;
@@ -439,7 +480,7 @@ class AppointmentController extends GetxController {
     ); // Page
 
     Get.context!.loaderOverlay.hide();
-    downloadPDF();
+    previewPdf(medicines: medicines, summary: summary);
   }
 
   pw.Widget buildMeds(title) {

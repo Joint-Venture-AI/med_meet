@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:med_meet_flutter/controller/common_controller.dart';
 import 'package:med_meet_flutter/core/components/custom_app_bar.dart';
 import 'package:med_meet_flutter/core/components/custom_button.dart';
 import 'package:med_meet_flutter/core/components/custom_drop_down.dart';
 import 'package:med_meet_flutter/core/components/custom_text_input.dart';
-import 'package:med_meet_flutter/core/utils/uitls.dart';
+import 'package:med_meet_flutter/core/utils/app_colors.dart';
+import 'package:med_meet_flutter/core/utils/app_typography.dart';
 
 class AddMedicalRecords extends StatelessWidget {
   AddMedicalRecords({super.key});
@@ -56,13 +58,40 @@ class AddMedicalRecords extends StatelessWidget {
                       textController: TextEditingController(),
                       maxLines: 6,
                     ),
-                    CustomTextInput(
-                      title: "Add Prescription",
-                      hintText: "Upload files",
-                      textController: TextEditingController(),
-                      endIconButton: svgViewer(
-                        asset: "assets/svg/file.svg",
-                      ),
+                    // Custom file picker ui
+                    SizedBox(
+                      height: 16.h,
+                    ),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          "Add Prescription",
+                          style: AppTypography.bodyText1Black,
+                        ),
+                        SizedBox(
+                          height: 8.h,
+                        ),
+                        Container(
+                          width: Get.width,
+                          padding: EdgeInsets.symmetric(
+                              horizontal: 20, vertical: 12),
+                          decoration: BoxDecoration(
+                              border: Border.all(color: AppColors.border1),
+                              borderRadius: BorderRadius.circular(25)),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                "Upload Files",
+                                style: AppTypography.bodyText1Black,
+                              ),
+                              Transform.rotate(
+                                  angle: -45, child: Icon(Icons.attachment))
+                            ],
+                          ),
+                        ),
+                      ],
                     ),
                     const Spacer(),
                     CustomButton(

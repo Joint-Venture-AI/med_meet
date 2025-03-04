@@ -15,6 +15,7 @@ import 'package:med_meet_flutter/core/constants/svg_assets.dart';
 import 'package:med_meet_flutter/core/helpers/pref_helper.dart';
 import 'package:med_meet_flutter/core/helpers/route.dart';
 import 'package:med_meet_flutter/core/utils/app_colors.dart';
+import 'package:med_meet_flutter/models/medical_record_model.dart';
 import 'package:med_meet_flutter/models/patient_details_model.dart';
 import 'package:med_meet_flutter/models/time_slot_model.dart';
 import 'package:med_meet_flutter/services/api_checker.dart';
@@ -66,6 +67,15 @@ class CommonController extends GetxController {
 
   //list of slots for doctor schedule creatation
   RxString doctorScheduleDate = "".obs;
+
+  RxList<MedicalRecordModel> medicalRecords = <MedicalRecordModel>[].obs;
+
+  Future getAllUserMedicalRecords(userID) async {
+    Get.context!.loaderOverlay.show();
+    Response response =
+        await ApiClient.getData(ApiConstants.getAlMedicalRecords(userID));
+    Get.context!.loaderOverlay.hide();
+  }
 
   // Create schedule for a day
 

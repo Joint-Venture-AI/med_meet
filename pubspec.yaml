@@ -31,9 +31,9 @@ dependencies:
   http_parser: ^4.1.2
   loader_overlay: ^5.0.0  
   flutter_typeahead: ^5.2.0
-  pdf: ^3.11.3
+  pdf: ^3.11.3 
   path_provider: ^2.1.5
-  flutter_pdfview: ^1.4.0
+  flutter_pdfview: ^1.2.5
 
 dev_dependencies:
   flutter_test:

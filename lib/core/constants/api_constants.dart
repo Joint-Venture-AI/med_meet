@@ -48,6 +48,7 @@ class ApiConstants {
   static String bookAppointment = '/appointment/book';
 
   // Appointment Features
+  static String getAlMedicalRecords(userId) => "/medical-record?user=$userId";
 
   // User Endpoints
   static String userGetAllAppointment(userID) => "/appointment/user/$userID";
@@ -61,6 +62,8 @@ class ApiConstants {
       "/appointment/note/$appointmentID";
   static String getMedicineSuggestion(searchTerm) =>
       "/medicine?searchTerm=$searchTerm";
+  static String sendPrescription(appointmentID) =>
+      "/appointment/prescription/$appointmentID";
 
   // Common Features
   static String getAllSpecialty = "/category";
