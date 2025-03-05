@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:med_meet_flutter/controller/common_controller.dart';
+import 'package:med_meet_flutter/controller/profile_controller.dart';
 import 'package:med_meet_flutter/core/components/custom_app_bar.dart';
 import 'package:med_meet_flutter/core/components/custom_button.dart';
 import 'package:med_meet_flutter/core/components/custom_drop_down.dart';
@@ -13,6 +14,10 @@ class AddMedicalRecords extends StatelessWidget {
   AddMedicalRecords({super.key});
 
   final CommonController commonController = Get.put(CommonController());
+  final Profilecontroller profilecontroller = Get.put(Profilecontroller());
+  final TextEditingController nameController = TextEditingController();
+  final TextEditingController ageController = TextEditingController();
+  final TextEditingController historyController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -34,28 +39,31 @@ class AddMedicalRecords extends StatelessWidget {
                     CustomTextInput(
                       title: "Name",
                       hintText: "Andrew Ainsley",
-                      textController: TextEditingController(),
+                      textController: nameController,
                     ),
                     const SizedBox(
                       height: 16,
                     ),
                     CustomTextInput(
                       title: "Age",
-                      hintText: "Andrew Ainsley",
-                      textController: TextEditingController(),
+                      hintText: "25",
+                      isPhone: true,
+                      textController: ageController,
                     ),
-                    CustomDropDown(
-                      title: "Gender",
-                      dropDownItems: commonController.genders,
-                      initialValue: commonController.selectedGender.value,
-                      onChange: (String? newVal) {
-                        commonController.setSelectedGender(newVal!);
-                      },
-                    ),
+                    Obx(() {
+                      return CustomDropDown(
+                        title: "Gender",
+                        dropDownItems: commonController.genders,
+                        initialValue: commonController.selectedGender.value,
+                        onChange: (String? newVal) {
+                          commonController.setSelectedGender(newVal!);
+                        },
+                      );
+                    }),
                     CustomTextInput(
                       title: "Write Medical History",
                       hintText: "Write here...",
-                      textController: TextEditingController(),
+                      textController: historyController,
                       maxLines: 6,
                     ),
                     // Custom file picker ui
@@ -72,31 +80,45 @@ class AddMedicalRecords extends StatelessWidget {
                         SizedBox(
                           height: 8.h,
                         ),
-                        Container(
-                          width: Get.width,
-                          padding: EdgeInsets.symmetric(
-                              horizontal: 20, vertical: 12),
-                          decoration: BoxDecoration(
-                              border: Border.all(color: AppColors.border1),
-                              borderRadius: BorderRadius.circular(25)),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(
-                                "Upload Files",
-                                style: AppTypography.bodyText1Black,
+                        Obx(() {
+                          final fileName =
+                              commonController.pickedFileName.value;
+                          return GestureDetector(
+                            onTap: commonController.pickFile,
+                            child: Container(
+                              width: Get.width,
+                              padding: EdgeInsets.symmetric(
+                                  horizontal: 20, vertical: 12),
+                              decoration: BoxDecoration(
+                                  border: Border.all(color: AppColors.border1),
+                                  borderRadius: BorderRadius.circular(25)),
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(
+                                    fileName == "" ? "Upload Files" : fileName,
+                                    style: AppTypography.bodyText1Black,
+                                  ),
+                                  Transform.rotate(
+                                      angle: -45, child: Icon(Icons.attachment))
+                                ],
                               ),
-                              Transform.rotate(
-                                  angle: -45, child: Icon(Icons.attachment))
-                            ],
-                          ),
-                        ),
+                            ),
+                          );
+                        }),
                       ],
                     ),
                     const Spacer(),
                     CustomButton(
                       onPressed: () {
-                        Get.back();
+                        final filePath = commonController.pickedFilePath.value;
+                        profilecontroller.createMedicalRecord(
+                            name: nameController.text,
+                            age: int.parse(ageController.text),
+                            gender: commonController.selectedGender.value,
+                            historty: historyController.text,
+                            filePath: filePath);
                       },
                       buttonTitle: "Submit",
                     ),

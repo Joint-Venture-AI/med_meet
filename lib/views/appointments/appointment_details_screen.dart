@@ -183,33 +183,33 @@ class AppointmentDetailsView extends StatelessWidget {
             ),
             Obx(
               () {
-                return appointmentController.appointmentDetails.value.status ==
-                            "Complete" &&
-                        args
-                    ? Container()
-                    : Container(
-                        child: appointmentController.appointmentDetails.value
-                                        .review.review ==
-                                    "No review" &&
-                                !args
-                            ? Container()
-                            : CustomButton(
-                                onPressed: () {
-                                  if (!args) {
-                                    Get.to(() => ReviewAppointmentView(
-                                        appointmentId: appointmentID));
-                                  } else {
-                                    Get.toNamed(AppRoutes.createPrescription);
-                                  }
-                                },
-                                buttonTitle: args
-                                    ? "Send Prescription"
-                                    : appointmentController.appointmentDetails
-                                                .value.status ==
-                                            "Completed"
-                                        ? "Send Review"
-                                        : "Completed"),
-                      );
+                final details = appointmentController.appointmentDetails.value;
+                if (args) {
+                  // When doctor
+                  return details.status == 'Completed'
+                      ? Container()
+                      : CustomButton(
+                          onPressed: () {
+                            Get.toNamed(AppRoutes.createPrescription);
+                          },
+                          buttonTitle: "Send Prescription");
+                } else {
+                  // When user
+                  return (details.status == 'Completed')
+                      ? details.review.review == "No review"
+                          ? CustomButton(
+                              onPressed: () {
+                                Get.to(() => ReviewAppointmentView(
+                                    appointmentId: details.id));
+                              },
+                              buttonTitle: "Send Review")
+                          : Container()
+                      : CustomButton(
+                          onPressed: () {
+                            appointmentController.updateAppointmentStatus();
+                          },
+                          buttonTitle: "Complete Appoinment");
+                }
               },
             ),
             SizedBox(
@@ -221,3 +221,31 @@ class AppointmentDetailsView extends StatelessWidget {
     );
   }
 }
+
+// appointmentController.appointmentDetails.value.status ==
+//                             "Complete" &&
+//                         args
+//                     ? Container()
+//                     : Container(
+//                         child: appointmentController.appointmentDetails.value
+//                                         .review.review ==
+//                                     "No review" &&
+//                                 !args
+//                             ? Container()
+//                             : CustomButton(
+//                                 onPressed: () {
+//                                   if (!args) {
+//                                     Get.to(() => ReviewAppointmentView(
+//                                         appointmentId: appointmentID));
+//                                   } else {
+//                                     Get.toNamed(AppRoutes.createPrescription);
+//                                   }
+//                                 },
+//                                 buttonTitle: args
+//                                     ? "Send Prescription"
+//                                     : appointmentController.appointmentDetails
+//                                                 .value.status ==
+//                                             "Completed"
+//                                         ? "Send Review"
+//                                         : "Completed"),
+//  );

@@ -1,11 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:med_meet_flutter/controller/common_controller.dart';
+import 'package:med_meet_flutter/controller/home_user_controller.dart';
 import 'package:med_meet_flutter/core/components/custom_app_bar.dart';
 import 'package:med_meet_flutter/core/components/custom_button.dart';
 import 'package:med_meet_flutter/core/helpers/route.dart';
+import 'package:med_meet_flutter/core/utils/uitls.dart';
+import 'package:med_meet_flutter/views/appointments/prescription_preview_online.dart';
 
 class MedicalRecords extends StatelessWidget {
-  const MedicalRecords({super.key});
+  MedicalRecords({super.key});
+
+  final CommonController commonController = Get.find<CommonController>();
+  final UserHomeController userHomeController = Get.find<UserHomeController>();
 
   @override
   Widget build(BuildContext context) {
@@ -74,7 +81,22 @@ class MedicalRecords extends StatelessWidget {
                           ),
                         ],
                       ),
-                      for (int i = 0; i < 10; i++) medicalRecord(),
+                      Obx(() {
+                        final records = commonController.medicalRecords;
+                        return records.isEmpty
+                            ? Center(
+                                child: Text("No Records Created yet"),
+                              )
+                            : Column(
+                                children: records
+                                    .map((el) => medicalRecord(
+                                        age: el.age.toString(),
+                                        file: el.prespription,
+                                        gender: el.gender,
+                                        name: el.name))
+                                    .toList(),
+                              );
+                      })
                     ],
                   ),
                 ),
@@ -86,7 +108,7 @@ class MedicalRecords extends StatelessWidget {
     );
   }
 
-  Padding medicalRecord() {
+  Padding medicalRecord({name, age, gender, file}) {
     return Padding(
       padding: const EdgeInsets.only(
         top: 20,
@@ -115,10 +137,15 @@ class MedicalRecords extends StatelessWidget {
               children: [
                 ClipRRect(
                   borderRadius: BorderRadius.circular(8),
-                  child: Image.asset(
-                    "assets/images/user-photo.png",
-                    height: 72,
-                    width: 72,
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(12),
+                    child: Image.network(
+                      imageUrl(userHomeController.userData.value.image),
+                      height: 72,
+                      width: 72,
+                      fit: BoxFit.cover,
+                      alignment: Alignment.center,
+                    ),
                   ),
                 ),
                 const SizedBox(
@@ -190,7 +217,7 @@ class MedicalRecords extends StatelessWidget {
                   spacing: 8,
                   children: [
                     Text(
-                      "Andrew anisley",
+                      name,
                       style: TextStyle(
                         color: Color(
                           0xff5C5C5C,
@@ -198,7 +225,7 @@ class MedicalRecords extends StatelessWidget {
                       ),
                     ),
                     Text(
-                      "15 May 2024",
+                      age,
                       style: TextStyle(
                         color: Color(
                           0xff5C5C5C,
@@ -206,7 +233,7 @@ class MedicalRecords extends StatelessWidget {
                       ),
                     ),
                     Text(
-                      "\$20",
+                      gender,
                       style: TextStyle(
                         color: Color(
                           0xff5C5C5C,
@@ -221,7 +248,10 @@ class MedicalRecords extends StatelessWidget {
               height: 16,
             ),
             CustomButton(
-              onPressed: () {},
+              onPressed: () async {
+                await commonController.getPdforPreview(fileUrl: imageUrl(file));
+                Get.to(() => PrescriptionPreviewOnline(pdfUrl: imageUrl(file)));
+              },
               buttonTitle: "See Details",
               height: 36,
               textSize: 14,

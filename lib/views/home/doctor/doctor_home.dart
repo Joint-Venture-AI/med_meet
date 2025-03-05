@@ -99,21 +99,25 @@ class DoctorHomeView extends StatelessWidget {
                   ),
 
                   Obx(() {
-                    return Column(
-                      children: homeDoctorController.allDoctors
-                          .map(
-                            (doc) => DoctorCard(
-                              id: doc.id,
-                              name: doc.name,
-                              image: doc.image,
-                              isDoctorToDoctor: true,
-                              avarageRating: doc.avgRating.toString(),
-                              specialist: doc.specialist.name,
-                              clinic: doc.clinic,
-                            ),
+                    return homeDoctorController.allDoctors.isEmpty
+                        ? Center(
+                            child: Text("No doctors found"),
                           )
-                          .toList(),
-                    );
+                        : Column(
+                            children: homeDoctorController.allDoctors
+                                .map(
+                                  (doc) => DoctorCard(
+                                    id: doc.id,
+                                    name: doc.name,
+                                    image: doc.image,
+                                    isDoctorToDoctor: true,
+                                    avarageRating: doc.avgRating.toString(),
+                                    specialist: doc.specialist.name,
+                                    clinic: doc.clinic,
+                                  ),
+                                )
+                                .toList(),
+                          );
                   })
                   // DoctorCard(
                   //   isDoctorToDoctor: true,

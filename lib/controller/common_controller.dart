@@ -2,6 +2,8 @@
 
 import 'dart:convert';
 
+import 'package:easy_pdf_viewer/easy_pdf_viewer.dart';
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
@@ -65,16 +67,55 @@ class CommonController extends GetxController {
           cardNumber: "", cardHolderName: "", expiryDate: "", cvv: "")
       .obs;
 
-  //list of slots for doctor schedule creatation
+  //to force the only select one date
   RxString doctorScheduleDate = "".obs;
+
+  // select and store a file in the variable
+  RxString pickedFilePath = "".obs;
+  RxString pickedFileName = "".obs;
+
+  // hold remote pdf
+  Rx<PDFDocument?> document = Rx<PDFDocument?>(null);
+
+  // Fetches PDF from url and stores it in the variable
+  Future getPdforPreview({fileUrl}) async {
+    debugPrint('=====>>>>> PDF URL ===>> $fileUrl');
+    Get.context!.loaderOverlay.show();
+    document.value = await PDFDocument.fromURL(fileUrl);
+    Get.context!.loaderOverlay.hide();
+  }
+
+  // Function to select file and store the path
+  Future pickFile() async {
+    FilePickerResult? result = await FilePicker.platform.pickFiles(
+      allowMultiple: false,
+      type: FileType.custom,
+      allowedExtensions: [
+        'pdf',
+      ],
+    );
+
+    if (result != null) {
+      pickedFilePath.value = result.files.single.path!;
+      pickedFileName.value = result.files.single.name;
+    }
+  }
 
   RxList<MedicalRecordModel> medicalRecords = <MedicalRecordModel>[].obs;
 
-  Future getAllUserMedicalRecords(userID) async {
+  Future getAllMedicalRecords(userID) async {
     Get.context!.loaderOverlay.show();
     Response response =
         await ApiClient.getData(ApiConstants.getAlMedicalRecords(userID));
     Get.context!.loaderOverlay.hide();
+    ApiChecker.checkApi(response);
+    if (response.statusCode == 200 || response.statusCode == 201) {
+      medicalRecords.value = (response.body["data"] as List)
+          .map((el) => MedicalRecordModel.fromJson(el))
+          .toList();
+    } else {
+      medicalRecords.value = [];
+    }
   }
 
   // Create schedule for a day

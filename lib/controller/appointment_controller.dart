@@ -31,6 +31,19 @@ class AppointmentController extends GetxController {
   // holds rating for appointment completion on users end
   RxDouble userAppointmentrating = 0.0.obs;
 
+  Future updateAppointmentStatus() async {
+    final body = {"status": "Completed"};
+    final id = appointmentDetails.value.id;
+    Get.context!.loaderOverlay.show();
+    Response response = await ApiClient.postData(
+        ApiConstants.updateAppointmentStatus(id), jsonEncode(body));
+    Get.context!.loaderOverlay.hide();
+    ApiChecker.checkApi(response);
+    if (response.statusCode == 200 || response.statusCode == 201) {
+      await getAppointmentDetails(id);
+    }
+  }
+
   // Fetch All The appointments for a given User
   Future getAllAppointments() async {
     Get.context!.loaderOverlay.show();
@@ -86,13 +99,14 @@ class AppointmentController extends GetxController {
 
   // Post review with appointmentID
   Future postReviewToAppointment({ratting, review, appointmentID}) async {
-    final body = {"rating": int.parse(ratting), "review": review};
+    final body = {"rating": ratting, "review": review};
     Get.context!.loaderOverlay.show();
     Response response = await ApiClient.postData(
         ApiConstants.userPostReview(appointmentID), jsonEncode(body));
     Get.context!.loaderOverlay.hide();
     if (response.statusCode == 200) {
       showCustomSnackBar(response.body["message"], isError: false);
+      await getAllAppointments();
     } else {
       ApiChecker.checkApi(response);
     }

@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:med_meet_flutter/controller/common_controller.dart';
 import 'package:med_meet_flutter/controller/home_user_controller.dart';
 import 'package:med_meet_flutter/controller/profile_controller.dart';
 import 'package:med_meet_flutter/core/components/custom_app_bar.dart';
 import 'package:med_meet_flutter/core/components/custom_button.dart';
+import 'package:med_meet_flutter/core/helpers/pref_helper.dart';
 import 'package:med_meet_flutter/core/helpers/route.dart';
 import 'package:med_meet_flutter/core/utils/uitls.dart';
 import 'package:med_meet_flutter/models/options.dart';
@@ -13,6 +15,7 @@ class UserProfileView extends StatelessWidget {
 
   final Profilecontroller profilecontroller = Get.put(Profilecontroller());
   final UserHomeController userHomeController = Get.find<UserHomeController>();
+  final CommonController commonController = Get.put(CommonController());
 
   @override
   Widget build(BuildContext context) {
@@ -146,12 +149,20 @@ class UserProfileView extends StatelessWidget {
                           (options.indexOf(e) == options.length - 1);
 
                       return GestureDetector(
-                        onTap: () {
+                        onTap: () async {
+                          if (e.name == "Medical Records") {
+                            final userID =
+                                await PrefsHelper.getString(PrefsKey.accountID);
+                            commonController.getAllMedicalRecords(userID);
+                          }
+                          if (e.name == "Prescriptions") {
+                            await profilecontroller.getAllPrescription();
+                          }
                           if (e.link != null) {
                             Get.toNamed(e.link!);
                           } else if (e.name == "Logout") {
                             showModalBottomSheet(
-                              context: context,
+                              context: Get.context!,
                               backgroundColor: Colors.white,
                               builder: (context) {
                                 return Column(

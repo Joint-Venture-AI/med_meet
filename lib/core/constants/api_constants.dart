@@ -56,6 +56,9 @@ class ApiConstants {
       "/appointment/$appointmentID";
   static String userPostReview(appointmentID) =>
       "/appointment/review/$appointmentID";
+  static String createMedicalRecords = "/medical-record";
+  static String updateAppointmentStatus(appointmentID) =>
+      "/appointment/status/$appointmentID";
 
   // Doctor Feature
   static String doctorAddNotes(appointmentID) =>
@@ -75,6 +78,8 @@ class ApiConstants {
 
   // User Endpoints
   static String userChangePassword = "/user/change-password";
+  static String getAllPrescription(userID) =>
+      "/appointment/prescriptions/$userID";
 
   // Doctor Endpoints
   static String doctorChangePassword = "/doctor/change-password";

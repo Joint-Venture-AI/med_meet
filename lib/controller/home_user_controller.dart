@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:loader_overlay/loader_overlay.dart';
 import 'package:med_meet_flutter/core/constants/api_constants.dart';
+import 'package:med_meet_flutter/core/helpers/pref_helper.dart';
 import 'package:med_meet_flutter/models/single_user_model.dart';
 import 'package:med_meet_flutter/models/single_doctor_model.dart';
 import 'package:med_meet_flutter/services/api_checker.dart';
@@ -114,7 +115,10 @@ class UserHomeController extends GetxController {
   void onInit() async {
     Get.context!.loaderOverlay.show();
     super.onInit();
-    await getUserData();
+    final role = await PrefsHelper.getString(PrefsKey.role);
+    if (role == "USER") {
+      await getUserData();
+    } else {}
     await getSpecialtistLists();
     await getAllDoctors();
     filteredDoctors.value = allDoctors;

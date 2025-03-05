@@ -82,7 +82,8 @@ class ReviewAppointmentView extends StatelessWidget {
                   onPressed: () {
                     appointmentController.postReviewToAppointment(
                         appointmentID: appointmentId,
-                        ratting: appointmentController.userAppointmentrating,
+                        ratting:
+                            appointmentController.userAppointmentrating.value,
                         review: reviewController.text);
                   },
                   buttonTitle: "Submit Review"),

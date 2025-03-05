@@ -7,7 +7,7 @@ import 'package:med_meet_flutter/core/components/doctor_card.dart';
 
 class DoctorsListView extends StatelessWidget {
   DoctorsListView({super.key});
-  final UserHomeController userHomeController = Get.find<UserHomeController>();
+  final UserHomeController userHomeController = Get.put(UserHomeController());
 
   @override
   Widget build(BuildContext context) {
