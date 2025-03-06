@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:med_meet_flutter/controller/auth_doctor_controller.dart';
+import 'package:med_meet_flutter/controller/common_controller.dart';
 import 'package:med_meet_flutter/core/components/custom_snack_bar.dart';
 import 'package:med_meet_flutter/core/helpers/route.dart';
 import 'package:med_meet_flutter/core/components/auth_components/circular_checkbox.dart';
@@ -35,6 +36,7 @@ class SingupDoctorView extends StatelessWidget {
   final TextEditingController passwordController = TextEditingController();
   final AuthDoctorsController authDoctorsController =
       Get.put(AuthDoctorsController());
+  final CommonController commonController = Get.put(CommonController());
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -103,7 +105,8 @@ class SingupDoctorView extends StatelessWidget {
                   CustomButton(
                       onPressed: () async {
                         if (isChecked) {
-                          authDoctorsController.signUp(
+                          await commonController.getAllSpecialty();
+                          await authDoctorsController.signUp(
                               nameController.text,
                               emailController.text,
                               doctorIdController.text,
