@@ -2,7 +2,6 @@
 
 import 'dart:convert';
 
-import 'package:easy_pdf_viewer/easy_pdf_viewer.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -75,15 +74,15 @@ class CommonController extends GetxController {
   RxString pickedFileName = "".obs;
 
   // hold remote pdf
-  Rx<PDFDocument?> document = Rx<PDFDocument?>(null);
+  // Rx<PDFDocument?> document = Rx<PDFDocument?>(null);
 
-  // Fetches PDF from url and stores it in the variable
-  Future getPdforPreview({fileUrl}) async {
-    debugPrint('=====>>>>> PDF URL ===>> $fileUrl');
-    Get.context!.loaderOverlay.show();
-    document.value = await PDFDocument.fromURL(fileUrl);
-    Get.context!.loaderOverlay.hide();
-  }
+  // // Fetches PDF from url and stores it in the variable
+  // Future getPdforPreview({fileUrl}) async {
+  //   debugPrint('=====>>>>> PDF URL ===>> $fileUrl');
+  //   Get.context!.loaderOverlay.show();
+  //   document.value = await PDFDocument.fromURL(fileUrl);
+  //   Get.context!.loaderOverlay.hide();
+  // }
 
   // Function to select file and store the path
   Future pickFile() async {

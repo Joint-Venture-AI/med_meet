@@ -44,4 +44,5 @@ class PrefsKey {
   static String otpToken = "otp_token";
   static String role = "role";
   static String accountID = "account_id";
+  static String accountName = "account_Name";
 }

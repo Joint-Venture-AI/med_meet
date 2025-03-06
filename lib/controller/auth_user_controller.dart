@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
+
 import 'package:get/get.dart';
 import 'package:loader_overlay/loader_overlay.dart';
 import 'package:med_meet_flutter/core/components/custom_snack_bar.dart';
@@ -7,15 +8,30 @@ import 'package:med_meet_flutter/core/constants/api_constants.dart';
 import 'package:med_meet_flutter/core/helpers/pref_helper.dart';
 import 'package:med_meet_flutter/core/helpers/route.dart';
 import 'package:med_meet_flutter/core/utils/app_constants.dart';
+import 'package:med_meet_flutter/core/utils/config_files.dart';
 import 'package:med_meet_flutter/models/user_model.dart';
 import 'package:med_meet_flutter/services/api_checker.dart';
 import 'package:med_meet_flutter/services/api_client.dart';
 import 'package:med_meet_flutter/views/auth/user/user_verify_otp.dart';
+import 'package:zego_uikit_prebuilt_call/zego_uikit_prebuilt_call.dart';
+import 'package:zego_uikit_signaling_plugin/zego_uikit_signaling_plugin.dart';
 
 class AuthUserController extends GetxController {
   RxBool isLoading = false.obs;
   Rx<UserModel> userData = UserModel().obs;
   RxString selectedCountry = "select your country".obs;
+  // TODO: state 2
+  void onUserLogin() {
+    if (userData.value.id != null) {
+      ZegoUIKitPrebuiltCallInvitationService().init(
+        appID: ZegoCloudConfig.appID,
+        appSign: ZegoCloudConfig.appSign,
+        userID: userData.value.id!,
+        userName: userData.value.name!,
+        plugins: [ZegoUIKitSignalingPlugin()],
+      );
+    }
+  }
 
   Future userSignIn(email, password) async {
     if (email == "" || password == "") {
@@ -53,7 +69,10 @@ class AuthUserController extends GetxController {
 
         // saving the id and role in shared prefrence
         PrefsHelper.setString(PrefsKey.accountID, userData.value.id);
+        PrefsHelper.setString(PrefsKey.accountName, userData.value.name);
         PrefsHelper.setString(PrefsKey.role, userData.value.role);
+
+        onUserLogin();
 
         if (userData.value.verified != null && !userData.value.verified!) {
           // when user is not verified OTP is sent

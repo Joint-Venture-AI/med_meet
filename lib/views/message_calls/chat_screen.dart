@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:med_meet_flutter/core/components/cached_network_image.dart';
 import 'package:med_meet_flutter/core/components/custom_app_bar.dart';
 import 'package:med_meet_flutter/core/components/custom_text_input.dart';
 import 'package:med_meet_flutter/core/constants/image_assets.dart';
@@ -139,7 +140,8 @@ class MessageBox extends StatelessWidget {
                     if (imageUrl != null)
                       ClipRRect(
                         borderRadius: BorderRadius.circular(12),
-                        child: Image.network(imageUrl!),
+                        child:
+                            cachedImage(url: imageUrl, size: 120, width: 300),
                       ),
                     SizedBox(height: 10.h),
                     Text("14:00")

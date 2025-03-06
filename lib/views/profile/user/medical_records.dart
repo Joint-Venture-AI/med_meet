@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:med_meet_flutter/controller/common_controller.dart';
 import 'package:med_meet_flutter/controller/home_user_controller.dart';
+import 'package:med_meet_flutter/core/components/cached_network_image.dart';
 import 'package:med_meet_flutter/core/components/custom_app_bar.dart';
 import 'package:med_meet_flutter/core/components/custom_button.dart';
 import 'package:med_meet_flutter/core/helpers/route.dart';
@@ -139,13 +140,8 @@ class MedicalRecords extends StatelessWidget {
                   borderRadius: BorderRadius.circular(8),
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(12),
-                    child: Image.network(
-                      imageUrl(userHomeController.userData.value.image),
-                      height: 72,
-                      width: 72,
-                      fit: BoxFit.cover,
-                      alignment: Alignment.center,
-                    ),
+                    child: cachedImage(
+                        url: userHomeController.userData.value.image, size: 72),
                   ),
                 ),
                 const SizedBox(
@@ -249,7 +245,7 @@ class MedicalRecords extends StatelessWidget {
             ),
             CustomButton(
               onPressed: () async {
-                await commonController.getPdforPreview(fileUrl: imageUrl(file));
+                // await commonController.getPdforPreview(fileUrl: imageUrl(file));
                 Get.to(() => PrescriptionPreviewOnline(pdfUrl: imageUrl(file)));
               },
               buttonTitle: "See Details",

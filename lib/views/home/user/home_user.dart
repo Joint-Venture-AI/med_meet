@@ -3,18 +3,20 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:med_meet_flutter/controller/home_user_controller.dart';
+import 'package:med_meet_flutter/controller/zego_cloud_controller.dart';
+import 'package:med_meet_flutter/core/components/cached_network_image.dart';
 import 'package:med_meet_flutter/core/components/doctor_card.dart';
 import 'package:med_meet_flutter/core/components/section_header.dart';
 import 'package:med_meet_flutter/core/components/specialty_card.dart';
-import 'package:med_meet_flutter/core/constants/api_constants.dart';
 import 'package:med_meet_flutter/core/helpers/route.dart';
 import 'package:med_meet_flutter/core/utils/app_colors.dart';
 import 'package:med_meet_flutter/core/utils/app_typography.dart';
-import 'package:med_meet_flutter/core/utils/uitls.dart';
 
 class HomeUserView extends StatelessWidget {
   HomeUserView({super.key});
   final UserHomeController userHomeController = Get.put(UserHomeController());
+  final ZegoCloudController zegoCloudController =
+      Get.put(ZegoCloudController());
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -43,7 +45,7 @@ class HomeUserView extends StatelessWidget {
                     .take(5)
                     .map((e) => buildSpecialist(
                         title: e.name,
-                        assetPath: "${ApiConstants.baseAssetUrl}${e.image}",
+                        assetPath: e.image,
                         specialtyID: e.id))
                     .toList(),
               ),
@@ -95,13 +97,9 @@ class HomeUserView extends StatelessWidget {
               children: [
                 Row(
                   children: [
-                    Obx(
-                      () => CircleAvatar(
-                        backgroundImage: NetworkImage(
-                            imageUrl(userHomeController.userData.value.image)),
-                        radius: 20,
-                      ),
-                    ),
+                    Obx(() => cachedImage(
+                        url: userHomeController.userData.value.image,
+                        size: 50)),
                     SizedBox(
                       width: 12,
                     ),

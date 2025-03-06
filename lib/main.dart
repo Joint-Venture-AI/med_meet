@@ -6,30 +6,47 @@ import 'package:get/get.dart';
 import 'package:loader_overlay/loader_overlay.dart';
 import 'package:med_meet_flutter/core/helpers/route.dart';
 import 'package:med_meet_flutter/core/utils/app_colors.dart';
+import 'package:zego_uikit_prebuilt_call/zego_uikit_prebuilt_call.dart';
+import 'package:zego_uikit_signaling_plugin/zego_uikit_signaling_plugin.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'firebase_options.dart';
 
-void main() {
+final navigatorKey = GlobalKey<NavigatorState>();
+
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+  // TODO: state 1
+  ZegoUIKitPrebuiltCallInvitationService().setNavigatorKey(navigatorKey);
   SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
     statusBarColor: AppColors.scaffoldBackgroundColor,
     statusBarIconBrightness: Brightness.dark,
   ));
+  ZegoUIKit().initLog().then((value) {
+    ZegoUIKitPrebuiltCallInvitationService().useSystemCallingUI(
+      [ZegoUIKitSignalingPlugin()],
+    );
 
-  runApp(
-    ScreenUtilInit(
-      designSize: const Size(393, 852),
-      minTextAdapt: true,
-      builder: (_, child) {
-        return GlobalLoaderOverlay(
-          child: GetMaterialApp(
-            debugShowCheckedModeBanner: false,
-            theme: ThemeData(
-              scaffoldBackgroundColor: AppColors.scaffoldBackgroundColor,
+    runApp(
+      ScreenUtilInit(
+        designSize: const Size(393, 852),
+        minTextAdapt: true,
+        builder: (_, child) {
+          return GlobalLoaderOverlay(
+            child: GetMaterialApp(
+              navigatorKey: navigatorKey,
+              debugShowCheckedModeBanner: false,
+              theme: ThemeData(
+                scaffoldBackgroundColor: AppColors.scaffoldBackgroundColor,
+              ),
+              getPages: AppRoutes.pages,
+              initialRoute: AppRoutes.splashScreen,
             ),
-            getPages: AppRoutes.pages,
-            initialRoute: AppRoutes.splashScreen,
-          ),
-        );
-      },
-    ),
-  );
+          );
+        },
+      ),
+    );
+  });
 }

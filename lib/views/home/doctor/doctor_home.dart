@@ -4,19 +4,23 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:med_meet_flutter/controller/common_controller.dart';
 import 'package:med_meet_flutter/controller/home_doctor_controller.dart';
+import 'package:med_meet_flutter/controller/zego_cloud_controller.dart';
+import 'package:med_meet_flutter/core/components/cached_network_image.dart';
 import 'package:med_meet_flutter/core/components/doctor_card.dart';
 import 'package:med_meet_flutter/core/components/section_header.dart';
-import 'package:med_meet_flutter/core/constants/api_constants.dart';
+
 import 'package:med_meet_flutter/core/helpers/route.dart';
 import 'package:med_meet_flutter/core/utils/app_colors.dart';
 import 'package:med_meet_flutter/core/utils/app_typography.dart';
 
 class DoctorHomeView extends StatelessWidget {
   DoctorHomeView({super.key});
-
+  final CommonController commonController = Get.put(CommonController());
   final HomeDoctorController homeDoctorController =
       Get.put(HomeDoctorController());
-  final CommonController commonController = Get.put(CommonController());
+
+  final ZegoCloudController zegoCloudController =
+      Get.put(ZegoCloudController());
 
   @override
   Widget build(BuildContext context) {
@@ -76,7 +80,8 @@ class DoctorHomeView extends StatelessWidget {
                             children: upcomingRef.take(2).map((e) {
                             return DoctorCard(
                               isAppointment: true,
-                              id: e.id,
+                              id: e.appointmentID,
+                              userID: e.userID,
                               name: e.name,
                               image: e.image,
                               specialist: e.specialist,
@@ -152,14 +157,10 @@ class DoctorHomeView extends StatelessWidget {
                   Row(
                     children: [
                       Obx(() {
-                        return CircleAvatar(
-                          backgroundImage: homeDoctorController
-                                      .doctorData.value.image ==
-                                  ""
-                              ? null
-                              : NetworkImage(
-                                  "${ApiConstants.baseAssetUrl}${homeDoctorController.doctorData.value.image}"),
-                          radius: 20,
+                        return cachedImage(
+                          url: homeDoctorController.doctorData.value.image,
+                          size: 50,
+                          borderRadius: 100,
                         );
                       }),
                       SizedBox(

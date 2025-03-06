@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:med_meet_flutter/controller/home_user_controller.dart';
 import 'package:med_meet_flutter/controller/profile_controller.dart';
+import 'package:med_meet_flutter/core/components/cached_network_image.dart';
 import 'package:med_meet_flutter/core/components/custom_app_bar.dart';
 import 'package:med_meet_flutter/core/components/custom_button.dart';
 import 'package:med_meet_flutter/core/components/custom_text_input.dart';
@@ -93,12 +94,7 @@ class _UserPersonalInformationState extends State<UserPersonalInformation> {
                               return Stack(
                                 alignment: Alignment.center,
                                 children: [
-                                  Image.network(
-                                    imageUrl(user.image),
-                                    fit: BoxFit.cover,
-                                    height: 120,
-                                    width: 120,
-                                  ),
+                                  cachedImage(url: user.image),
                                   if (isEditing && image.isNotEmpty)
                                     Image.file(
                                       File(image),
@@ -194,7 +190,7 @@ class _UserPersonalInformationState extends State<UserPersonalInformation> {
                             isEditing = !isEditing;
                           });
                           if (!isEditing) {
-                           await profilecontroller.updateProfile(
+                            await profilecontroller.updateProfile(
                               name: nameController.text,
                               email: emailController.text,
                               dob: dobController.text,

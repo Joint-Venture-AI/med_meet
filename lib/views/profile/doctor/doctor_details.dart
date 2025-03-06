@@ -53,18 +53,20 @@ class _DoctorDetailsState extends State<DoctorDetails> {
                     const SizedBox(
                       height: 20,
                     ),
-                    Obx(() {
-                      return CustomDropDown(
-                        title: "Specialist",
-                        dropDownItems:
-                            getDropDownItems(commonController.allSpecialty),
-                        initialValue:
-                            homeDoctorController.doctorData.value.specialist.id,
-                        onChange: (String? newVal) {
-                          commonController.selectedSpecialty.value = newVal!;
-                        },
-                      );
-                    }),
+                    Obx(
+                      () {
+                        return CustomDropDown(
+                          title: "Specialist",
+                          dropDownItems:
+                              getDropDownItems(commonController.allSpecialty),
+                          initialValue:
+                              commonController.selectedSpecialty.value,
+                          onChange: (String? newVal) {
+                            commonController.selectedSpecialty.value = newVal!;
+                          },
+                        );
+                      },
+                    ),
                     SizedBox(
                       height: 12,
                     ),
@@ -94,42 +96,40 @@ class _DoctorDetailsState extends State<DoctorDetails> {
                     SizedBox(
                       height: 12,
                     ),
-                    Obx(
-                      () {
-                        return CustomTextInput(
-                          title: "Clinic Address",
-                          hintText:homeDoctorController.doctorData.value.clinicAddress,
-                          maxLines: 4,
-                          textController: clinicAddressController,
-                        );
-                      }
-                    ),
+                    Obx(() {
+                      return CustomTextInput(
+                        title: "Clinic Address",
+                        hintText:
+                            homeDoctorController.doctorData.value.clinicAddress,
+                        maxLines: 4,
+                        textController: clinicAddressController,
+                      );
+                    }),
                     SizedBox(
                       height: 12,
                     ),
-                    Obx(
-                      () {
-                        return CustomTextInput(
-                          title: "Set Consultation Fee",
-                          isPhone: true,
-                          hintText: homeDoctorController.doctorData.value.consultationFee.toString(),
-                          textController: consultationFeeController,
-                        );
-                      }
-                    ),
+                    Obx(() {
+                      return CustomTextInput(
+                        title: "Set Consultation Fee",
+                        isPhone: true,
+                        hintText: homeDoctorController
+                            .doctorData.value.consultationFee
+                            .toString(),
+                        textController: consultationFeeController,
+                      );
+                    }),
                     SizedBox(
                       height: 12,
                     ),
-                    Obx(
-                      () {
-                        return CustomTextInput(
-                          title: "About Doctor",
-                          hintText:homeDoctorController.doctorData.value.aboutDoctor,
-                          maxLines: 4,
-                          textController: aboutDoctorController,
-                        );
-                      }
-                    ),
+                    Obx(() {
+                      return CustomTextInput(
+                        title: "About Doctor",
+                        hintText:
+                            homeDoctorController.doctorData.value.aboutDoctor,
+                        maxLines: 4,
+                        textController: aboutDoctorController,
+                      );
+                    }),
                     const SizedBox(
                       height: 48,
                     ),

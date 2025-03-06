@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:med_meet_flutter/controller/common_controller.dart';
 import 'package:med_meet_flutter/controller/profile_controller.dart';
+import 'package:med_meet_flutter/core/components/cached_network_image.dart';
 import 'package:med_meet_flutter/core/components/custom_app_bar.dart';
 import 'package:med_meet_flutter/core/utils/uitls.dart';
 import 'package:med_meet_flutter/models/prescription_model.dart';
@@ -99,16 +100,10 @@ class PrescriptionList extends StatelessWidget {
           Row(
             children: [
               ClipRRect(
-                borderRadius: BorderRadius.circular(
-                  8,
-                ),
-                child: Image.network(
-                  imageUrl(model.image),
-                  height: 98,
-                  width: 82,
-                  fit: BoxFit.cover,
-                ),
-              ),
+                  borderRadius: BorderRadius.circular(
+                    8,
+                  ),
+                  child: cachedImage(url: model.image, size: 98, width: 82)),
               const SizedBox(
                 width: 14,
               ),
@@ -178,8 +173,8 @@ class PrescriptionList extends StatelessWidget {
               const Spacer(),
               GestureDetector(
                 onTap: () async {
-                  await commonController.getPdforPreview(
-                      fileUrl: imageUrl(model.prescription));
+                  // await commonController.getPdforPreview(
+                  //     fileUrl: imageUrl(model.prescription));
                   Get.to(() => PrescriptionPreviewOnline(
                       pdfUrl: imageUrl(model.prescription)));
                 },

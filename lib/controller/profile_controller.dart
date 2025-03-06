@@ -16,6 +16,7 @@ import 'package:med_meet_flutter/models/prescription_model.dart';
 import 'package:med_meet_flutter/services/api_checker.dart';
 import 'package:med_meet_flutter/services/api_client.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:zego_uikit_prebuilt_call/zego_uikit_prebuilt_call.dart';
 
 class Profilecontroller extends GetxController {
   // display picture holder
@@ -179,7 +180,11 @@ class Profilecontroller extends GetxController {
     }
     Get.context!.loaderOverlay.hide();
   }
+
   // Update Doctor Details
+  void onUserLogout() {
+    ZegoUIKitPrebuiltCallInvitationService().uninit();
+  }
 
   // To Logout
   Future logOut() async {
@@ -190,6 +195,8 @@ class Profilecontroller extends GetxController {
     await PrefsHelper.remove(PrefsKey.role);
     await PrefsHelper.remove(AppConstants.bearerToken);
     Get.context!.loaderOverlay.hide();
+    // TODO: Stage 3
+    onUserLogout();
     Get.offAllNamed(AppRoutes.selectCountryScreen);
   }
 }

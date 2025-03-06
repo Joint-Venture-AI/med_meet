@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1001921189987",
+    "project_id": "zegocloud-edeb2",
+    "storage_bucket": "zegocloud-edeb2.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1001921189987:android:5c0262b6004777845a8056",
+        "android_client_info": {
+          "package_name":"com.example.med_meet_flutter"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDZI0QUQVVvU-Uqk84DNcKnQ5EH8Y60yIs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

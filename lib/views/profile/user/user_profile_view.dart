@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:med_meet_flutter/controller/common_controller.dart';
 import 'package:med_meet_flutter/controller/home_user_controller.dart';
 import 'package:med_meet_flutter/controller/profile_controller.dart';
+import 'package:med_meet_flutter/core/components/cached_network_image.dart';
 import 'package:med_meet_flutter/core/components/custom_app_bar.dart';
 import 'package:med_meet_flutter/core/components/custom_button.dart';
 import 'package:med_meet_flutter/core/helpers/pref_helper.dart';
@@ -87,14 +88,7 @@ class UserProfileView extends StatelessWidget {
                       ),
                       Obx(() {
                         final image = userHomeController.userData.value.image;
-                        return ClipOval(
-                          child: Image.network(
-                            imageUrl(image),
-                            fit: BoxFit.cover,
-                            height: 120,
-                            width: 120,
-                          ),
-                        );
+                        return ClipOval(child: cachedImage(url: image));
                       }),
                       const SizedBox(
                         height: 16,

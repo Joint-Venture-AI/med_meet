@@ -10,10 +10,13 @@ import 'package:med_meet_flutter/core/constants/api_constants.dart';
 import 'package:med_meet_flutter/core/helpers/pref_helper.dart';
 import 'package:med_meet_flutter/core/helpers/route.dart';
 import 'package:med_meet_flutter/core/utils/app_constants.dart';
+import 'package:med_meet_flutter/core/utils/config_files.dart';
 import 'package:med_meet_flutter/models/doctor_model.dart';
 import 'package:med_meet_flutter/services/api_checker.dart';
 import 'package:med_meet_flutter/services/api_client.dart';
 import 'package:med_meet_flutter/views/auth/doctor/doctor_verify_otp.dart';
+import 'package:zego_uikit_prebuilt_call/zego_uikit_prebuilt_call.dart';
+import 'package:zego_uikit_signaling_plugin/zego_uikit_signaling_plugin.dart';
 
 class AuthDoctorsController extends GetxController {
   final RxString imagePath = ''.obs;
@@ -54,6 +57,18 @@ class AuthDoctorsController extends GetxController {
   Rx<File?> idFront = Rx<File?>(null);
   Rx<File?> idBack = Rx<File?>(null);
   Rx<File?> medicalLicense = Rx<File?>(null);
+
+  void onUserLogin() {
+    if (doctorData.value.id != null) {
+      ZegoUIKitPrebuiltCallInvitationService().init(
+        appID: ZegoCloudConfig.appID,
+        appSign: ZegoCloudConfig.appSign,
+        userID: doctorData.value.id!,
+        userName: doctorData.value.name!,
+        plugins: [ZegoUIKitSignalingPlugin()],
+      );
+    }
+  }
 
   void setImage({type}) async {
     final ImagePicker picker = ImagePicker();
@@ -105,7 +120,10 @@ class AuthDoctorsController extends GetxController {
           AppConstants.bearerToken, response.body["data"]["accessToken"]);
       // saving the id and role in shared prefrence
       PrefsHelper.setString(PrefsKey.accountID, doctorData.value.id);
+      PrefsHelper.setString(PrefsKey.accountName, doctorData.value.name);
       PrefsHelper.setString(PrefsKey.role, doctorData.value.role);
+      // TODO: Implement on user login if needs or remove
+      onUserLogin();
       Get.context!.loaderOverlay.hide();
       showCustomSnackBar(response.body["message"],
           isError: !(response.statusCode != 200 || response.statusCode != 201));

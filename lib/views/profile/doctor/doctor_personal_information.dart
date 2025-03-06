@@ -4,11 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:med_meet_flutter/controller/home_doctor_controller.dart';
 import 'package:med_meet_flutter/controller/profile_controller.dart';
+import 'package:med_meet_flutter/core/components/cached_network_image.dart';
 import 'package:med_meet_flutter/core/components/custom_app_bar.dart';
 import 'package:med_meet_flutter/core/components/custom_button.dart';
 import 'package:med_meet_flutter/core/components/custom_text_input.dart';
 import 'package:med_meet_flutter/core/components/date_input.dart';
-import 'package:med_meet_flutter/core/constants/api_constants.dart';
 import 'package:med_meet_flutter/core/utils/app_colors.dart';
 import 'package:med_meet_flutter/core/utils/uitls.dart';
 
@@ -97,14 +97,7 @@ class _DoctorPersonalInformationState extends State<DoctorPersonalInformation> {
                               child: Stack(
                                 alignment: Alignment.center,
                                 children: [
-                                  Image.network(
-                                    doctorRef.image == ""
-                                        ? "https://community.softr.io/uploads/db9110/original/2X/7/74e6e7e382d0ff5d7773ca9a87e6f6f8817a68a6.jpeg"
-                                        : "${ApiConstants.baseAssetUrl}${doctorRef.image}",
-                                    fit: BoxFit.cover,
-                                    height: 120,
-                                    width: 120,
-                                  ),
+                                  cachedImage(url: doctorRef.image, size: 120),
                                   if (isEditing)
                                     if (profileController
                                             .displayPicture.value !=

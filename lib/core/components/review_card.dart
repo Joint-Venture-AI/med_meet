@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:med_meet_flutter/core/constants/api_constants.dart';
+import 'package:med_meet_flutter/core/components/cached_network_image.dart';
 import 'package:med_meet_flutter/core/utils/app_colors.dart';
 import 'package:med_meet_flutter/core/utils/uitls.dart';
 import 'package:med_meet_flutter/models/single_doctor_model.dart';
@@ -24,13 +24,7 @@ class ReviewCard extends StatelessWidget {
                 children: [
                   // Reviewer Image
                   ClipOval(
-                    child: Image.network(
-                      "${ApiConstants.baseAssetUrl}${reviewModel.image}",
-                      height: 48,
-                      width: 48,
-                      fit: BoxFit.cover,
-                    ),
-                  ),
+                      child: cachedImage(url: reviewModel.image, size: 48)),
                   SizedBox(
                     width: 16,
                   ),

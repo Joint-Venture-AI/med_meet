@@ -1,5 +1,6 @@
 class GeneralAppointmentModel {
-  String id;
+  String appointmentID;
+  String userID;
   String status;
   String name;
   String image;
@@ -9,9 +10,10 @@ class GeneralAppointmentModel {
   String endTime;
 
   GeneralAppointmentModel({
-    this.id = "",
+    this.appointmentID = "",
     this.status = "pending",
     this.name = "Unknown",
+    this.userID = "",
     this.image = "",
     this.specialist = "General",
     DateTime? date,
@@ -21,8 +23,9 @@ class GeneralAppointmentModel {
 
   factory GeneralAppointmentModel.fromJson(Map<String, dynamic> json) =>
       GeneralAppointmentModel(
-        id: json["_id"] ?? "",
+        appointmentID: json["_id"] ?? "",
         status: json["status"] ?? "pending",
+        userID: json["accountID"] ?? "",
         name: json["name"] ?? "Unknown",
         image: json["image"] ?? "",
         specialist: json["specialist"] ?? "General",
@@ -34,10 +37,11 @@ class GeneralAppointmentModel {
       );
 
   Map<String, dynamic> toJson() => {
-        "_id": id,
+        "_id": appointmentID,
         "status": status,
         "name": name,
         "image": image,
+        "accountID": userID,
         "specialist": specialist,
         "date": date.toIso8601String(),
         "startTime": startTime,

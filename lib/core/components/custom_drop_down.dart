@@ -41,6 +41,7 @@ class _CustomDropDownState extends State<CustomDropDown> {
           ),
           child: DropdownButton<String>(
             value: widget.initialValue, // Current selected value
+            
             icon: const Icon(Icons.keyboard_arrow_down), // Dropdown arrow icon
             isExpanded: widget.isExpanded,
             padding: EdgeInsets.zero,

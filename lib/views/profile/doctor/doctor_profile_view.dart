@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:med_meet_flutter/controller/home_doctor_controller.dart';
 import 'package:med_meet_flutter/controller/profile_controller.dart';
+import 'package:med_meet_flutter/core/components/cached_network_image.dart';
 import 'package:med_meet_flutter/core/components/custom_button.dart';
 import 'package:med_meet_flutter/core/helpers/route.dart';
 import 'package:med_meet_flutter/core/utils/uitls.dart';
@@ -109,14 +110,7 @@ class DoctorProfileView extends StatelessWidget {
                         Obx(() {
                           final image =
                               homeDoctorController.doctorData.value.image;
-                          return ClipOval(
-                            child: Image.network(
-                              imageUrl(image),
-                              fit: BoxFit.cover,
-                              height: 120,
-                              width: 120,
-                            ),
-                          );
+                          return ClipOval(child: cachedImage(url: image));
                         }),
                         const SizedBox(
                           height: 16,

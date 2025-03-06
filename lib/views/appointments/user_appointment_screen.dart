@@ -28,9 +28,12 @@ class UserAppointmentScreenView extends StatelessWidget {
               : ListView.builder(
                   itemCount: appointmentController.userAppointmentList.length,
                   itemBuilder: (context, index) => DoctorCard(
+                    userID:
+                        appointmentController.userAppointmentList[index].userID,
                     status:
                         appointmentController.userAppointmentList[index].status,
-                    id: appointmentController.userAppointmentList[index].id,
+                    id: appointmentController
+                        .userAppointmentList[index].appointmentID,
                     name: appointmentController.userAppointmentList[index].name,
                     image:
                         appointmentController.userAppointmentList[index].image,

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
-import 'package:med_meet_flutter/core/constants/api_constants.dart';
+import 'package:med_meet_flutter/core/components/cached_network_image.dart';
 import 'package:med_meet_flutter/core/constants/svg_assets.dart';
 import 'package:med_meet_flutter/core/helpers/route.dart';
 import 'package:med_meet_flutter/core/utils/app_colors.dart';
@@ -52,11 +52,7 @@ class DetailsHeaeder extends StatelessWidget {
           Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              CircleAvatar(
-                radius: 46.r,
-                backgroundImage:
-                    NetworkImage("${ApiConstants.baseAssetUrl}$image"),
-              ),
+              cachedImage(url: image, borderRadius: 100),
               SizedBox(
                 height: 16.h,
               ),
@@ -71,7 +67,11 @@ class DetailsHeaeder extends StatelessWidget {
               SizedBox(
                 height: 8.h,
               ),
-              Text(addressOrEmail, style: AppTypography.bodyText1),
+              Text(
+                  addressOrEmail.length > 25
+                      ? "${addressOrEmail.substring(0, 25)}..."
+                      : addressOrEmail,
+                  style: AppTypography.bodyText1),
             ],
           ),
           if (!isAppointment && !isDoctorToDoctor)

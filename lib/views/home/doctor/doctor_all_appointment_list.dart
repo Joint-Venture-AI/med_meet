@@ -26,7 +26,8 @@ class DoctorAllAppointmentList extends StatelessWidget {
                 itemBuilder: (context, index) {
                   final app = appRef[index];
                   return DoctorCard(
-                    id: app.id,
+                    userID: app.userID,
+                    id: app.appointmentID,
                     name: app.name,
                     image: app.image,
                     date: app.date.toString(),
