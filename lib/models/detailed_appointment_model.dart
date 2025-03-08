@@ -80,6 +80,7 @@ class DetailedAppointmentModel {
 }
 
 class Doctor {
+  String id;
   String name;
   String image;
   String country;
@@ -91,6 +92,7 @@ class Doctor {
   int consultationFee;
 
   Doctor({
+    this.id = "unknown",
     this.name = "Unknown",
     this.image = "",
     this.country = "Unknown",
@@ -103,6 +105,7 @@ class Doctor {
   });
 
   factory Doctor.fromJson(Map<String, dynamic> json) => Doctor(
+        id: json["_id"] ?? "Unknown",
         name: json["name"] ?? "Unknown",
         image: json["image"] ?? "",
         country: json["country"] ?? "Unknown",
@@ -115,6 +118,7 @@ class Doctor {
       );
 
   Map<String, dynamic> toJson() => {
+        "_id": id,
         "name": name,
         "image": image,
         "country": country,
@@ -182,12 +186,14 @@ class Review {
 }
 
 class User {
+  String id;
   String name;
   String country;
   String phoneNumber;
   String image;
 
   User({
+    this.id = "Unkown",
     this.name = "Unknown",
     this.country = "Unknown",
     this.phoneNumber = "0000000000",
@@ -195,6 +201,7 @@ class User {
   });
 
   factory User.fromJson(Map<String, dynamic> json) => User(
+        id: json["_id"] ?? "Unkown",
         name: json["name"] ?? "Unknown",
         country: json["country"] ?? "Unknown",
         phoneNumber: json["phoneNumber"] ?? "0000000000",
@@ -202,6 +209,7 @@ class User {
       );
 
   Map<String, dynamic> toJson() => {
+        "_id": id,
         "name": name,
         "country": country,
         "phoneNumber": phoneNumber,

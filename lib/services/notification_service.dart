@@ -29,6 +29,7 @@ class NotificationService {
 
     // Get FCM token
     final token = await _messaging.getToken();
+    // TODO: Send the token to backend
     debugPrint('FCM Token: $token');
   }
 

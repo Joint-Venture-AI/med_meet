@@ -8,6 +8,7 @@ import 'package:med_meet_flutter/core/components/custom_app_bar.dart';
 import 'package:med_meet_flutter/core/components/custom_button.dart';
 import 'package:med_meet_flutter/core/components/details_header.dart';
 import 'package:med_meet_flutter/core/components/patient_information_card.dart';
+import 'package:med_meet_flutter/core/components/zego_call_button.dart';
 import 'package:med_meet_flutter/core/constants/svg_assets.dart';
 import 'package:med_meet_flutter/core/helpers/route.dart';
 import 'package:med_meet_flutter/core/utils/app_colors.dart';
@@ -122,13 +123,24 @@ class AppointmentDetailsView extends StatelessWidget {
                                   SizedBox(
                                     width: 6,
                                   ),
-                                  // TODO: get id for user from the api and implement the button
-                                  // Obx(() {
-                                  //   final appointRef = appointmentController
-                                  //       .appointmentDetails.value;
-
-                                  //   return callButton();
-                                  // })
+                                  SizedBox(
+                                    height: 24,
+                                    width: 24,
+                                    child: MediaQuery.removePadding(
+                                      context: context,
+                                      removeTop: true,
+                                      removeBottom: true,
+                                      removeLeft: true,
+                                      removeRight: true,
+                                      child: Obx(() {
+                                        final ref = appointmentController
+                                            .appointmentDetails.value;
+                                        return callButton(
+                                            targetUserID: ref.user.id,
+                                            targetUserName: ref.user.name);
+                                      }),
+                                    ),
+                                  )
                                 ],
                               )
                           ],
