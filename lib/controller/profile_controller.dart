@@ -195,7 +195,6 @@ class Profilecontroller extends GetxController {
     await PrefsHelper.remove(PrefsKey.role);
     await PrefsHelper.remove(AppConstants.bearerToken);
     Get.context!.loaderOverlay.hide();
-    // TODO: Stage 3
     onUserLogout();
     Get.offAllNamed(AppRoutes.selectCountryScreen);
   }

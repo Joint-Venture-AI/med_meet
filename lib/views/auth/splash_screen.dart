@@ -9,13 +9,12 @@ import 'package:med_meet_flutter/controller/splash_controller.dart';
 import 'package:med_meet_flutter/core/utils/app_typography.dart';
 
 class SplashView extends StatelessWidget {
-   SplashView({super.key});
+  SplashView({super.key});
 
-   final SplashController splashController = Get.put(SplashController());
+  final SplashController splashController = Get.put(SplashController());
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       backgroundColor: Color(0xFF63ACFF),
       body: SizedBox(

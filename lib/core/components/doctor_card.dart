@@ -5,15 +5,14 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:med_meet_flutter/core/components/cached_network_image.dart';
+import 'package:med_meet_flutter/core/components/zego_call_button.dart';
 import 'package:med_meet_flutter/core/constants/svg_assets.dart';
 import 'package:med_meet_flutter/core/helpers/route.dart';
 import 'package:med_meet_flutter/core/utils/app_colors.dart';
 import 'package:med_meet_flutter/core/utils/app_typography.dart';
-import 'package:med_meet_flutter/core/utils/config_files.dart';
 import 'package:med_meet_flutter/views/appointments/appointment_details_screen.dart';
 import 'package:med_meet_flutter/views/common/doctor_details_for_doctor.dart';
 import 'package:med_meet_flutter/views/common/doctors_details_for_user.dart';
-import 'package:zego_uikit_prebuilt_call/zego_uikit_prebuilt_call.dart';
 
 class DoctorCard extends StatelessWidget {
   const DoctorCard({
@@ -295,24 +294,4 @@ class DoctorCard extends StatelessWidget {
 class AppointmentStatus {
   static String upcomming = "upcomming";
   static String completed = "completed";
-}
-
-ZegoSendCallInvitationButton callButton({targetUserID, targetUserName}) {
-  return ZegoSendCallInvitationButton(
-    isVideoCall: true,
-    //You need to use the resourceID that you created in the subsequent steps.
-    //Please continue reading this document.
-    resourceID: ZegoCloudConfig.resourceID,
-    iconSize: Size(24, 24),
-    icon: ButtonIcon(
-      icon: Icon(Icons.videocam, color: Colors.white, size: 16),
-      backgroundColor: Colors.blue,
-    ),
-    invitees: [
-      ZegoUIKitUser(
-        id: targetUserID,
-        name: targetUserName,
-      ),
-    ],
-  );
 }

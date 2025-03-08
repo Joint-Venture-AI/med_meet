@@ -29,7 +29,6 @@ import 'package:med_meet_flutter/views/home/user/home_user.dart';
 import 'package:med_meet_flutter/views/home/user/search_user.dart';
 import 'package:med_meet_flutter/views/home/user/specialty_user.dart';
 import 'package:med_meet_flutter/views/appointments/user_appointment_screen.dart';
-import 'package:med_meet_flutter/views/message_calls/call_screen.dart';
 import 'package:med_meet_flutter/views/message_calls/chat_screen.dart';
 import 'package:med_meet_flutter/views/message_calls/messages.dart';
 import 'package:med_meet_flutter/views/profile/about_us.dart';
@@ -193,7 +192,6 @@ class AppRoutes {
         page: () => const MessagesView(),
         transition: Transition.noTransition),
     GetPage(name: chatScreen, page: () => const ChatScreenView()),
-    GetPage(name: callScreen, page: () => CallScreenView()),
     // Booking Feature
     GetPage(name: bookCardDetails, page: () => BookCardDetailsView()),
     GetPage(

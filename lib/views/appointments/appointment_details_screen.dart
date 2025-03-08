@@ -122,15 +122,13 @@ class AppointmentDetailsView extends StatelessWidget {
                                   SizedBox(
                                     width: 6,
                                   ),
-                                  InkWell(
-                                    onTap: () {
-                                      Get.toNamed(AppRoutes.callScreen);
-                                    },
-                                    child: Icon(
-                                      Icons.videocam,
-                                      color: Color(0xFF1E65FF),
-                                    ),
-                                  ),
+                                  // TODO: get id for user from the api and implement the button
+                                  // Obx(() {
+                                  //   final appointRef = appointmentController
+                                  //       .appointmentDetails.value;
+
+                                  //   return callButton();
+                                  // })
                                 ],
                               )
                           ],

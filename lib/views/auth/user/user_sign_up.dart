@@ -5,7 +5,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:med_meet_flutter/controller/auth_doctor_controller.dart';
 import 'package:med_meet_flutter/controller/auth_user_controller.dart';
 import 'package:med_meet_flutter/core/helpers/route.dart';
-import 'package:med_meet_flutter/core/components/auth_components/circular_checkbox.dart';
+import 'package:med_meet_flutter/core/components/circular_checkbox.dart';
 import 'package:med_meet_flutter/core/components/custom_button.dart';
 import 'package:med_meet_flutter/core/components/custom_text_input.dart';
 import 'package:med_meet_flutter/core/utils/app_typography.dart';

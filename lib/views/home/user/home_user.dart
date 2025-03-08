@@ -44,9 +44,7 @@ class HomeUserView extends StatelessWidget {
                 children: userHomeController.specialtyList
                     .take(5)
                     .map((e) => buildSpecialist(
-                        title: e.name,
-                        assetPath: e.image,
-                        specialtyID: e.id))
+                        title: e.name, assetPath: e.image, specialtyID: e.id))
                     .toList(),
               ),
             ),
@@ -99,7 +97,8 @@ class HomeUserView extends StatelessWidget {
                   children: [
                     Obx(() => cachedImage(
                         url: userHomeController.userData.value.image,
-                        size: 50)),
+                        size: 50,
+                        borderRadius: 100)),
                     SizedBox(
                       width: 12,
                     ),
