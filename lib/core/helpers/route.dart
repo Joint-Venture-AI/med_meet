@@ -191,7 +191,7 @@ class AppRoutes {
         name: messages,
         page: () => const MessagesView(),
         transition: Transition.noTransition),
-    GetPage(name: chatScreen, page: () => const ChatScreenView()),
+    GetPage(name: chatScreen, page: () => ChatScreenView()),
     // Booking Feature
     GetPage(name: bookCardDetails, page: () => BookCardDetailsView()),
     GetPage(

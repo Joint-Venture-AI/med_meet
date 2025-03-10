@@ -4,8 +4,6 @@ import 'package:med_meet_flutter/core/utils/app_colors.dart';
 import 'package:med_meet_flutter/core/utils/uitls.dart';
 
 Widget cachedImage({url, size = 112, width, borderRadius}) {
-  debugPrint(
-      "== image-url =========>>>>>>>> $url \n ==== the size =====>>>>>>>>>>>>>> $size");
   return ClipRRect(
     borderRadius:
         BorderRadius.circular(double.parse((borderRadius ?? 12).toString())),

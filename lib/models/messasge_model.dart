@@ -19,7 +19,7 @@ class MessageModel {
   });
 
   // Factory to handle creating a MessageModel from a Map
-  factory MessageModel.fromMap(Map<String, dynamic> data) {
+  factory MessageModel.fromJson(Map<String, dynamic> data) {
     return MessageModel(
       partnerId: data['partnerId'] ?? "unknown_partner_id",
       name: data['name'] ?? "Unnamed Partner",

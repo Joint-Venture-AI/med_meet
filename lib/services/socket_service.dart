@@ -6,36 +6,72 @@ import "package:med_meet_flutter/core/helpers/pref_helper.dart";
 import "package:med_meet_flutter/core/utils/app_constants.dart";
 import "package:socket_io_client/socket_io_client.dart" as io;
 
+enum SocketConnectionState {
+  connected,
+  disconnected,
+  connecting,
+}
+
 class SocketService {
+  static final SocketService _instance = SocketService._internal();
+  factory SocketService() => _instance;
+  SocketService._internal();
+
   late io.Socket socket;
   // base asseturl is the same as base socket url
   final connectionURL = ApiConstants.baseAssetUrl;
+  SocketConnectionState connectionState = SocketConnectionState.disconnected;
 
-  void socketInitialize() async {
-    try {
-      final authToken = await PrefsHelper.getString(AppConstants.bearerToken);
-      debugPrint(
-          "============>>>>>>>> socket build option with token -> $authToken");
-      final optionBuilder = io.OptionBuilder()
-          .setTransports(['websocket']) // for Flutter or Dart VM
-          .disableAutoConnect() // disable auto-connection
-          .setExtraHeaders({'Authorization': 'Bearer $authToken'}) // optional
-          .build();
+  Future<void> socketInitialize() async {
+    if (connectionState == SocketConnectionState.disconnected) {
+      try {
+        connectionState = SocketConnectionState.connecting;
+        final authToken = await PrefsHelper.getString(AppConstants.bearerToken);
+        debugPrint(
+            "============>>>>>>>> socket build option with token -> $authToken");
+        final optionBuilder = io.OptionBuilder()
+            .setTransports(['websocket']) // for Flutter or Dart VM
+            .disableAutoConnect() // disable auto-connection
+            .setExtraHeaders({'Authorization': 'Bearer $authToken'}) // optional
+            .build();
 
-      socket = io.io(connectionURL, optionBuilder);
-      socket.connect();
-      socket.on('connect', _onConnect);
-      socket.on('disconnect', _onDisconnect);
-      socket.on('connect_error', _onConnectError);
-      socket.on('error', _onError);
-    } catch (e) {
-      debugPrint("============>>>>>>>> Error in Socket \n ===>>>> $e");
+        socket = io.io(connectionURL, optionBuilder);
+        socket.connect();
+        socket.on('connect', _onConnect);
+        socket.on('disconnect', _onDisconnect);
+        socket.on('connect_error', _onConnectError);
+        socket.on('error', _onError);
+      } catch (e) {
+        debugPrint("============>>>>>>>> Error in Socket \n ===>>>> $e");
+        connectionState = SocketConnectionState.disconnected;
+      }
+    } else {
+      debugPrint("Socket Already Connected or being connected");
+    }
+  }
+
+  void emit(String event, dynamic data) {
+    if (connectionState == SocketConnectionState.connected) {
+      socket.emit(event, data);
+    } else {
+      // ignore: avoid_print
+      print('Cannot emit event. Socket is not connected.');
+    }
+  }
+
+  /// Listen for an event from the server
+  void on(String event, Function(dynamic data) callback) {
+    if (connectionState == SocketConnectionState.connected) {
+      socket.on(event, callback);
+    } else {
+      debugPrint("Socket is not connected yet");
     }
   }
 
   void _onConnect(dynamic data) {
+    connectionState = SocketConnectionState.connected;
     // ignore: avoid_print
-    print('Socket connected');
+    print('Socket connected $connectionState');
   }
 
   /// Handle disconnection

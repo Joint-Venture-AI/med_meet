@@ -84,4 +84,8 @@ class ApiConstants {
   // Doctor Endpoints
   static String doctorChangePassword = "/doctor/change-password";
   static String doctorSetSchedule = "/schedule/create";
+
+  // Chat End Points
+  static String getMyChatList(myId) => "/chat/chat/$myId";
+  static String getChatHistory = "/chat";
 }

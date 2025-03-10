@@ -2,69 +2,52 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:med_meet_flutter/controller/message_controller.dart';
 import 'package:med_meet_flutter/core/components/cached_network_image.dart';
 import 'package:med_meet_flutter/core/components/custom_app_bar.dart';
 import 'package:med_meet_flutter/core/components/custom_text_input.dart';
-import 'package:med_meet_flutter/core/constants/image_assets.dart';
 import 'package:med_meet_flutter/core/utils/app_colors.dart';
-import 'package:med_meet_flutter/models/chat_model.dart';
+import 'package:med_meet_flutter/core/utils/uitls.dart';
 
-class ChatScreenView extends StatefulWidget {
-  const ChatScreenView({super.key});
-
-  @override
-  State<ChatScreenView> createState() => _ChatScreenViewState();
-}
-
-class _ChatScreenViewState extends State<ChatScreenView> {
-  List<ChatModel> chats = [
-    ChatModel(
-        userID: "1234", message: "Hi There", time: "10:10 AM", avatarUrl: ""),
-    ChatModel(
-        userID: "1122",
-        message: "lorem Ipsum, lorem korem jaren shugg ",
-        time: "10:10 AM",
-        avatarUrl: ""),
-    ChatModel(
-        userID: "1234",
-        message: "lorem Ipsum, lorem korem jaren shugg ",
-        time: "10:10 AM",
-        avatarUrl: ""),
-    ChatModel(
-        userID: "1122",
-        message: "lorem Ipsum, lorem korem jaren shugg ",
-        time: "10:10 AM",
-        avatarUrl: "",
-        imageUrl:
-            "https://letsenhance.io/static/73136da51c245e80edc6ccfe44888a99/1015f/MainBefore.jpg"),
-    ChatModel(
-        userID: "1234", message: "Hi There", time: "10:10 AM", avatarUrl: ""),
-    ChatModel(
-        userID: "1122", message: "Hi There", time: "10:10 AM", avatarUrl: ""),
-  ];
+class ChatScreenView extends StatelessWidget {
+  ChatScreenView({super.key});
+  final MessageController chatController = Get.put(MessageController());
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: PreferredSize(
           preferredSize: Size.fromHeight(60),
-          child: CustomAppBar(title: "Jene Cooper")),
+          child: Obx(() {
+            final title = chatController.recieverName.value;
+            return CustomAppBar(title: title);
+          })),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Expanded(
             child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: 24),
-                child: ListView.builder(
-                  reverse: true,
-                  itemCount: chats.length,
-                  itemBuilder: (context, index) => MessageBox(
-                    isMe: chats[index].userID == "1234",
-                    message: chats[index].message,
-                    imageUrl: chats[index].imageUrl,
-                  ),
-                )),
+              padding: EdgeInsets.symmetric(horizontal: 24),
+              child: Obx(
+                () {
+                  final chat = chatController.myChatHistory.value;
+                  return ListView.builder(
+                    reverse: true,
+                    itemCount: chat.length,
+                    itemBuilder: (context, index) {
+                      final curr = chat[index];
+                      return MessageBox(
+                        isMe: curr.senderId == chatController.myId.value,
+                        time: curr.createdAt,
+                        message: curr.message!,
+                      );
+                    },
+                  );
+                },
+              ),
+            ),
           ),
           ChatReplyBox(),
           SizedBox(
@@ -77,12 +60,19 @@ class _ChatScreenViewState extends State<ChatScreenView> {
 }
 
 class MessageBox extends StatelessWidget {
-  const MessageBox(
-      {super.key, required this.isMe, this.message = "", this.imageUrl});
+  MessageBox(
+      {super.key,
+      required this.isMe,
+      this.message = "",
+      this.imageUrl,
+      required this.time});
 
   final bool isMe;
   final String message;
   final String? imageUrl;
+  final String time;
+
+  final MessageController chatController = Get.find<MessageController>();
 
   @override
   Widget build(BuildContext context) {
@@ -100,9 +90,11 @@ class MessageBox extends StatelessWidget {
                 isMe ? MainAxisAlignment.end : MainAxisAlignment.start,
             children: [
               if (!isMe)
-                CircleAvatar(
-                  backgroundImage: AssetImage(ImageAssets.doctorImage1),
-                ),
+                Obx(() {
+                  final partnerImage = chatController.recieverImage.value;
+                  return cachedImage(
+                      url: partnerImage, borderRadius: 100, size: 32);
+                }),
               if (!isMe)
                 SizedBox(
                   width: 10.w,
@@ -144,15 +136,16 @@ class MessageBox extends StatelessWidget {
                             cachedImage(url: imageUrl, size: 120, width: 300),
                       ),
                     SizedBox(height: 10.h),
-                    Text("14:00")
+                    Text(getTimeAgo(time))
                   ],
                 ),
               ),
               if (isMe) SizedBox(width: 10.w),
               if (isMe)
-                CircleAvatar(
-                  backgroundImage: AssetImage(ImageAssets.doctorImage1),
-                ),
+                Obx(() {
+                  final myImage = chatController.myImage.value;
+                  return cachedImage(url: myImage, borderRadius: 100, size: 32);
+                }),
             ],
           ),
         ),

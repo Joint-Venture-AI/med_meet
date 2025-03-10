@@ -209,7 +209,7 @@ class _DoctorPersonalInformationState extends State<DoctorPersonalInformation> {
                               renderTitle: false,
                               hintText: "Edit Profile",
                               icon: Icons.edit,
-                              textController: emailController,
+                              textController: TextEditingController(),
                             ),
                           ),
                         ),

@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:loader_overlay/loader_overlay.dart';
+import 'package:med_meet_flutter/controller/message_controller.dart';
 import 'package:med_meet_flutter/core/helpers/route.dart';
 import 'package:med_meet_flutter/core/utils/app_colors.dart';
 import 'package:med_meet_flutter/services/fcm_service.dart';
@@ -23,18 +24,23 @@ void main() async {
   );
   await NotificationService.instance.initialize();
 
+  await SocketService().socketInitialize();
+
   ZegoUIKitPrebuiltCallInvitationService().setNavigatorKey(navigatorKey);
   SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
     statusBarColor: AppColors.scaffoldBackgroundColor,
     statusBarIconBrightness: Brightness.dark,
   ));
+
   ZegoUIKit().initLog().then((value) {
     ZegoUIKitPrebuiltCallInvitationService().useSystemCallingUI(
       [ZegoUIKitSignalingPlugin()],
     );
+
     Get.lazyPut(() => ZegoCloudController());
+    Get.lazyPut(() => MessageController());
+
     FcmService().getFcmTOken();
-    SocketService().socketInitialize();
 
     runApp(
       ScreenUtilInit(

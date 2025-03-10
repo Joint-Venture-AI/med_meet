@@ -1,18 +1,36 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:med_meet_flutter/controller/message_controller.dart';
 import 'package:med_meet_flutter/core/components/cached_network_image.dart';
 import 'package:med_meet_flutter/core/helpers/route.dart';
+import 'package:med_meet_flutter/core/utils/uitls.dart';
 
 class MessageTile extends StatelessWidget {
+  final String image;
+  final String partnerName;
+  final String partnerId;
+  final String lastMessage;
+  final String timeStamp;
+  final bool isMyLastMessage;
+
   const MessageTile({
     super.key,
+    required this.image,
+    required this.partnerId,
+    required this.partnerName,
+    required this.lastMessage,
+    required this.timeStamp,
+    required this.isMyLastMessage,
   });
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {
+      onTap: () async {
         Get.toNamed(AppRoutes.chatScreen);
+        await Get.find<MessageController>().getMyChatHistory(partnerId);
+        Get.find<MessageController>().recieverImage.value = image;
+        Get.find<MessageController>().recieverName.value = partnerName;
       },
       child: Container(
         margin: EdgeInsets.only(bottom: 12),
@@ -23,20 +41,21 @@ class MessageTile extends StatelessWidget {
         child: ListTile(
           leading: CircleAvatar(
             radius: 20,
-            child: cachedImage(url: "", size: 50, borderRadius: 100),
+            child: cachedImage(url: image, size: 50, borderRadius: 100),
           ),
-          // name of the person
-          title: Text('Dr. John Doe'),
+
+          title: Text(partnerName),
           subtitle: Row(
             children: [
-              // if i am the sender
-              Text("You: "),
+              if (isMyLastMessage) Text("You: "),
               // the recent text
-              Text("Hi, how are you?...."),
+              Text(lastMessage.length < 18
+                  ? lastMessage
+                  : "${lastMessage.substring(0, 18)}..."),
             ],
           ),
           // time
-          trailing: Text("10:00 AM"),
+          trailing: Text(getTimeAgo(timeStamp)),
         ),
       ),
     );
