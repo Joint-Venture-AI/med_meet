@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:loader_overlay/loader_overlay.dart';
 import 'package:med_meet_flutter/controller/home_doctor_controller.dart';
@@ -12,14 +13,17 @@ import 'package:med_meet_flutter/services/api_checker.dart';
 import 'package:med_meet_flutter/services/api_client.dart';
 import 'package:med_meet_flutter/services/socket_service.dart';
 
-class MessageController extends GetxController {
+class ChatController extends GetxController {
   RxList<MessageModel> myMessages = <MessageModel>[].obs;
-  RxList<ChatModel> myChatHistory = <ChatModel>[].obs;
+  RxList<ChatModel> chatList = <ChatModel>[].obs;
+
   RxString myRole = "".obs;
   RxString myId = "".obs;
   // These two variable stores chat partner image and name
   RxString recieverImage = "".obs;
   RxString recieverName = "".obs;
+  RxString reciverID = "".obs;
+  RxString recieverRole = "".obs;
 
   RxString myImage = "".obs;
 
@@ -44,7 +48,7 @@ class MessageController extends GetxController {
       myMessages.value = (response.body["data"] as List)
           .map((el) => MessageModel.fromJson(el))
           .toList();
-      print("response => ${myMessages[0].name}");
+      update();
     }
   }
 
@@ -60,19 +64,57 @@ class MessageController extends GetxController {
     Get.context!.loaderOverlay.hide();
     ApiChecker.checkApi(response);
     if (response.statusCode == 200 || response.statusCode == 201) {
-      myChatHistory.value = (response.body["data"] as List)
+      chatList.value = (response.body["data"] as List)
           .map((el) => ChatModel.fromJson(el))
           .toList();
+      update();
     }
   }
 
   void handleIncomingMessage(dynamic message) {
-    print("Socket recieved message");
-
     final chatModel = ChatModel.fromJson(message);
-    myChatHistory.value.add(chatModel);
-    print("message lenght-> ${myChatHistory.length}");
-    myChatHistory.refresh();
+
+    if (chatModel.receiverId == myId.value &&
+        chatModel.senderId == reciverID.value) {
+      chatList.insert(0, chatModel);
+      chatList.refresh();
+    }
+  }
+
+  void handleSendMessage({
+    message,
+    file,
+  }) async {
+    if (message == "" || message == null) {}
+    if (file == null && (message != null || message != "")) {
+      final body = {
+        "senderId": myId.value,
+        "receiverId": reciverID.value,
+        "senderModel": myRole.value == "USER" ? "User" : "Doctor",
+        "receiverModel": recieverRole.value,
+        "message": (message as TextEditingController).text
+      };
+      socketService.emit("sendMessage", jsonEncode(body));
+
+      message.clear();
+
+      chatList.insert(0, ChatModel.fromJson(body));
+      chatList.refresh();
+    }
+  }
+
+  void updateMessageOrder(dynamic message) {
+    if (message == null) return;
+    final model = MessageModel.fromJson(message);
+    // print("message ==>> $message");
+
+    final existingMessageIndex =
+        myMessages.indexWhere((msg) => msg.partnerId == model.partnerId);
+    if (existingMessageIndex != -1) {
+      myMessages.removeAt(existingMessageIndex);
+    }
+    myMessages.insert(0, model);
+    myMessages.refresh();
   }
 
   @override
@@ -84,6 +126,7 @@ class MessageController extends GetxController {
 
     await getAllMessages();
     socketService.on("receiver-$myID", handleIncomingMessage);
+    socketService.on("updated-chat-list-$myID", updateMessageOrder);
     Get.context!.loaderOverlay.hide();
   }
 }

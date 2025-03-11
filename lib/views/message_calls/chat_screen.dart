@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:grouped_list/grouped_list.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:med_meet_flutter/controller/message_controller.dart';
 import 'package:med_meet_flutter/core/components/cached_network_image.dart';
@@ -11,10 +12,11 @@ import 'package:med_meet_flutter/core/components/custom_app_bar.dart';
 import 'package:med_meet_flutter/core/components/custom_text_input.dart';
 import 'package:med_meet_flutter/core/utils/app_colors.dart';
 import 'package:med_meet_flutter/core/utils/uitls.dart';
+import 'package:med_meet_flutter/models/chat_model.dart';
 
 class ChatScreenView extends StatelessWidget {
   ChatScreenView({super.key});
-  final MessageController chatController = Get.put(MessageController());
+  final ChatController chatController = Get.put(ChatController());
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -28,26 +30,21 @@ class ChatScreenView extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Expanded(
-            child: Padding(
-              padding: EdgeInsets.symmetric(horizontal: 24),
-              child: Obx(
-                () {
-                  final chat = chatController.myChatHistory.value;
-                  return ListView.builder(
-                    reverse: true,
-                    itemCount: chat.length,
-                    itemBuilder: (context, index) {
-                      final curr = chat[index];
-                      return MessageBox(
-                        isMe: curr.senderId == chatController.myId.value,
-                        time: curr.createdAt,
-                        message: curr.message!,
-                      );
-                    },
+            child: Obx(() {
+              final chats = chatController.chatList;
+              return ListView.builder(
+                reverse: true,
+                itemCount: chats.length,
+                itemBuilder: (context, index) {
+                  final chat = chats[index];
+                  final myId = chatController.myId.value;
+                  return MessageBox(
+                    isMe: chat.senderId == myId,
+                    chatModel: chat,
                   );
                 },
-              ),
-            ),
+              );
+            }),
           ),
           ChatReplyBox(),
           SizedBox(
@@ -60,19 +57,12 @@ class ChatScreenView extends StatelessWidget {
 }
 
 class MessageBox extends StatelessWidget {
-  MessageBox(
-      {super.key,
-      required this.isMe,
-      this.message = "",
-      this.imageUrl,
-      required this.time});
+  MessageBox({super.key, required this.isMe, required this.chatModel});
 
   final bool isMe;
-  final String message;
-  final String? imageUrl;
-  final String time;
+  final ChatModel chatModel;
 
-  final MessageController chatController = Get.find<MessageController>();
+  final ChatController chatController = Get.find<ChatController>();
 
   @override
   Widget build(BuildContext context) {
@@ -101,42 +91,44 @@ class MessageBox extends StatelessWidget {
                 ),
               Flexible(
                 child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.end,
+                  crossAxisAlignment:
+                      isMe ? CrossAxisAlignment.end : CrossAxisAlignment.start,
                   children: [
-                    if (imageUrl == null)
+                    if (chatModel.message != null)
                       Container(
-                          padding: EdgeInsets.symmetric(
-                            horizontal: 10.w,
-                            vertical: 15.h,
+                        padding: EdgeInsets.symmetric(
+                          horizontal: 10.w,
+                          vertical: 15.h,
+                        ),
+                        decoration: BoxDecoration(
+                          color: isMe
+                              ? AppColors.backgroundChatReciever
+                              : AppColors.backgroundChatSender,
+                          borderRadius: BorderRadius.only(
+                            topLeft: Radius.circular(20),
+                            topRight: Radius.circular(20),
+                            bottomLeft:
+                                isMe ? Radius.circular(20) : Radius.zero,
+                            bottomRight:
+                                isMe ? Radius.zero : Radius.circular(20),
                           ),
-                          decoration: BoxDecoration(
-                            color: isMe
-                                ? AppColors.backgroundChatReciever
-                                : AppColors.backgroundChatSender,
-                            borderRadius: BorderRadius.only(
-                              topLeft: Radius.circular(20),
-                              topRight: Radius.circular(20),
-                              bottomLeft:
-                                  isMe ? Radius.circular(20) : Radius.zero,
-                              bottomRight:
-                                  isMe ? Radius.zero : Radius.circular(20),
-                            ),
-                          ),
-                          child: Text(
-                            message,
-                            style: GoogleFonts.roboto(
-                                fontSize: 14.sp,
-                                fontWeight: FontWeight.w400,
-                                color: isMe ? Colors.white : Color(0xFF5C5C5C)),
-                          )),
-                    if (imageUrl != null)
+                        ),
+                        child: Text(
+                          chatModel.message!,
+                          style: GoogleFonts.roboto(
+                              fontSize: 14.sp,
+                              fontWeight: FontWeight.w400,
+                              color: isMe ? Colors.white : Color(0xFF5C5C5C)),
+                        ),
+                      ),
+                    if (chatModel.file != null)
                       ClipRRect(
                         borderRadius: BorderRadius.circular(12),
                         child:
                             cachedImage(url: imageUrl, size: 120, width: 300),
                       ),
                     SizedBox(height: 10.h),
-                    Text(getTimeAgo(time))
+                    Text(getTimeAgo(chatModel.createdAt))
                   ],
                 ),
               ),
@@ -155,7 +147,9 @@ class MessageBox extends StatelessWidget {
 }
 
 class ChatReplyBox extends StatefulWidget {
-  const ChatReplyBox({super.key});
+  const ChatReplyBox({
+    super.key,
+  });
 
   @override
   State<ChatReplyBox> createState() => _ChatReplyBoxState();
@@ -194,7 +188,7 @@ class _ChatReplyBoxState extends State<ChatReplyBox> {
 
   @override
   Widget build(BuildContext context) {
-    final TextEditingController titleController = TextEditingController();
+    final TextEditingController messageController = TextEditingController();
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 24.w, vertical: 10.h),
       child: Column(
@@ -237,13 +231,18 @@ class _ChatReplyBoxState extends State<ChatReplyBox> {
             children: [
               Flexible(
                 child: CustomTextInput(
-                  textController: titleController,
+                  textController: messageController,
                   title: "title",
                   hintText: "Send message",
                   renderTitle: false,
                   endIconButton: GestureDetector(
                     child: Icon(Icons.send),
-                    onTap: () {},
+                    onTap: () {
+                      // TODO: Apply Send Function
+                      Get.find<ChatController>().handleSendMessage(
+                          file: _pickedImage, message: messageController);
+                      messageController.clear();
+                    },
                   ),
                 ),
               ),

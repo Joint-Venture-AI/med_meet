@@ -113,6 +113,7 @@ class DoctorHomeView extends StatelessWidget {
                                 .map(
                                   (doc) => DoctorCard(
                                     id: doc.id,
+                                    userID: doc.id,
                                     name: doc.name,
                                     image: doc.image,
                                     isDoctorToDoctor: true,
@@ -124,15 +125,7 @@ class DoctorHomeView extends StatelessWidget {
                                 .toList(),
                           );
                   })
-                  // DoctorCard(
-                  //   isDoctorToDoctor: true,
-                  // ),
-                  // DoctorCard(
-                  //   isDoctorToDoctor: true,
-                  // ),
-                  // DoctorCard(
-                  //   isDoctorToDoctor: true,
-                  // ),
+                 
                 ],
               ),
             )

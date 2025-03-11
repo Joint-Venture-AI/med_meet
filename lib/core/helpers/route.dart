@@ -189,7 +189,7 @@ class AppRoutes {
     // Messages feature
     GetPage(
         name: messages,
-        page: () => const MessagesView(),
+        page: () =>  MessagesView(),
         transition: Transition.noTransition),
     GetPage(name: chatScreen, page: () => ChatScreenView()),
     // Booking Feature

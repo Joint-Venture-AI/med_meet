@@ -36,10 +36,7 @@ void main() async {
     ZegoUIKitPrebuiltCallInvitationService().useSystemCallingUI(
       [ZegoUIKitSignalingPlugin()],
     );
-
     Get.lazyPut(() => ZegoCloudController());
-    Get.lazyPut(() => MessageController());
-
     FcmService().getFcmTOken();
 
     runApp(

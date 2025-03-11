@@ -9,6 +9,7 @@ class MessageTile extends StatelessWidget {
   final String image;
   final String partnerName;
   final String partnerId;
+  final String partnerRole;
   final String lastMessage;
   final String timeStamp;
   final bool isMyLastMessage;
@@ -17,6 +18,7 @@ class MessageTile extends StatelessWidget {
     super.key,
     required this.image,
     required this.partnerId,
+    required this.partnerRole,
     required this.partnerName,
     required this.lastMessage,
     required this.timeStamp,
@@ -27,10 +29,12 @@ class MessageTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () async {
+        Get.find<ChatController>().recieverImage.value = image;
+        Get.find<ChatController>().recieverName.value = partnerName;
+        Get.find<ChatController>().reciverID.value = partnerId;
+        Get.find<ChatController>().recieverRole.value = partnerRole;
         Get.toNamed(AppRoutes.chatScreen);
-        await Get.find<MessageController>().getMyChatHistory(partnerId);
-        Get.find<MessageController>().recieverImage.value = image;
-        Get.find<MessageController>().recieverName.value = partnerName;
+        await Get.find<ChatController>().getMyChatHistory(partnerId);
       },
       child: Container(
         margin: EdgeInsets.only(bottom: 12),

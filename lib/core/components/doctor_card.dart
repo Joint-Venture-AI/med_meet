@@ -4,6 +4,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
+import 'package:med_meet_flutter/controller/message_controller.dart';
 import 'package:med_meet_flutter/core/components/cached_network_image.dart';
 import 'package:med_meet_flutter/core/components/zego_call_button.dart';
 import 'package:med_meet_flutter/core/constants/svg_assets.dart';
@@ -104,7 +105,23 @@ class DoctorCard extends StatelessWidget {
                             ? Row(
                                 children: [
                                   GestureDetector(
-                                    onTap: () {
+                                    onTap: () async {
+                                      Get.find<ChatController>()
+                                          .recieverImage
+                                          .value = image;
+                                      Get.find<ChatController>()
+                                          .recieverName
+                                          .value = name;
+                                      Get.find<ChatController>()
+                                          .reciverID
+                                          .value = userID!;
+                                      Get.find<ChatController>()
+                                              .recieverRole
+                                              .value =
+                                          isAppointment ? "User" : "Doctor";
+                                      Get.toNamed(AppRoutes.chatScreen);
+                                      await Get.find<ChatController>()
+                                          .getMyChatHistory(userID);
                                       Get.toNamed(AppRoutes.chatScreen);
                                     },
                                     child: SvgPicture.asset(

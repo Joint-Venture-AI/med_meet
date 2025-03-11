@@ -7,11 +7,11 @@ import 'package:med_meet_flutter/core/components/custom_app_bar.dart';
 import 'package:med_meet_flutter/views/message_calls/components/message_tile.dart';
 
 class MessagesView extends StatelessWidget {
-  const MessagesView({super.key});
+  MessagesView({super.key});
+  final ChatController messages = Get.put(ChatController());
 
   @override
   Widget build(BuildContext context) {
-    final MessageController messages = Get.find<MessageController>();
     return Scaffold(
       body: SafeArea(
         child: Padding(
@@ -38,12 +38,14 @@ class MessagesView extends StatelessWidget {
                           itemBuilder: (context, index) {
                             final chat = ref[index];
                             return MessageTile(
-                                image: chat.image,
-                                partnerId: chat.partnerId,
-                                partnerName: chat.name,
-                                lastMessage: chat.lastMsg,
-                                timeStamp: chat.lastMsgTime,
-                                isMyLastMessage: myId == chat.lastMsgBy);
+                              image: chat.image,
+                              partnerId: chat.partnerId,
+                              partnerName: chat.name,
+                              lastMessage: chat.lastMsg,
+                              timeStamp: chat.lastMsgTime,
+                              isMyLastMessage: myId == chat.lastMsgBy,
+                              partnerRole: chat.partnerRole,
+                            );
                           },
                         );
                 }),

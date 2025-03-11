@@ -1,5 +1,6 @@
 class MessageModel {
   final String partnerId;
+  final String partnerRole;
   final String name;
   final String image;
   final String model;
@@ -10,6 +11,7 @@ class MessageModel {
   // Constructor with default values to ensure meaningful UI
   MessageModel({
     this.partnerId = "unknown_partner_id",
+    this.partnerRole = "unknown_partner_role",
     this.name = "Unnamed Partner",
     this.image = "/images/default.png", // Default placeholder image
     this.model = "Generic Model",
@@ -22,6 +24,7 @@ class MessageModel {
   factory MessageModel.fromJson(Map<String, dynamic> data) {
     return MessageModel(
       partnerId: data['partnerId'] ?? "unknown_partner_id",
+      partnerRole: data['model'] ?? "unknown_partner_role",
       name: data['name'] ?? "Unnamed Partner",
       image: data['image'] ?? "/images/default.png",
       model: data['model'] ?? "Generic Model",
@@ -35,6 +38,7 @@ class MessageModel {
   Map<String, dynamic> toMap() {
     return {
       'partnerId': partnerId,
+      'role': partnerRole,
       'name': name,
       'image': image,
       'model': model,
