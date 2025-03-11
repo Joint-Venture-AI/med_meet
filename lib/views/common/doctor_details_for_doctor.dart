@@ -29,6 +29,8 @@ class DoctorDetailsForDoctor extends StatelessWidget {
               final docRef = homeDoctorController.singleDoctorData.value;
               return DetailsHeaeder(
                 name: docRef.name,
+                accID: docRef.id,
+                role: "Doctor",
                 addressOrEmail: docRef.clinicAddress,
                 image: docRef.image,
                 fee: docRef.consultationFee.toString(),

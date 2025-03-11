@@ -37,6 +37,8 @@ class DoctorsDetailsForUser extends StatelessWidget {
                       addressOrEmail: userHomeController
                           .singleDoctorData.value.clinicAddress,
                       name: userHomeController.singleDoctorData.value.name,
+                      accID: userHomeController.singleDoctorData.value.id,
+                      role: "Doctor",
                       fee: userHomeController
                           .singleDoctorData.value.consultationFee
                           .toString(),

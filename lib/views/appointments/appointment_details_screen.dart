@@ -70,6 +70,8 @@ class AppointmentDetailsView extends StatelessWidget {
                         appointmentController.appointmentDetails.value;
                     if (args) {
                       return DetailsHeaeder(
+                        accID: appointRef.user.id,
+                        role: "User",
                         isAppointment: args,
                         name: appointRef.user.name,
                         image: appointRef.user.image,
@@ -80,6 +82,8 @@ class AppointmentDetailsView extends StatelessWidget {
                     } else {
                       return DetailsHeaeder(
                         isAppointment: args,
+                        accID: appointRef.doctor.id,
+                        role: "Doctor",
                         name: appointRef.doctor.name,
                         image: appointRef.doctor.image,
                         addressOrEmail: appointRef.doctor.clinicAddress,

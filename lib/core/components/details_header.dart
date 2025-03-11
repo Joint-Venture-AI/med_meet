@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:med_meet_flutter/controller/message_controller.dart';
 import 'package:med_meet_flutter/core/components/cached_network_image.dart';
 import 'package:med_meet_flutter/core/constants/svg_assets.dart';
 import 'package:med_meet_flutter/core/helpers/route.dart';
@@ -20,6 +21,8 @@ class DetailsHeaeder extends StatelessWidget {
     this.fee,
     this.specialty,
     this.isDoctorToDoctor = false,
+    required this.accID,
+    required this.role,
   });
 
   final bool isAppointment;
@@ -30,6 +33,8 @@ class DetailsHeaeder extends StatelessWidget {
   final String? fee;
   final String? specialty;
   final bool isDoctorToDoctor;
+  final String accID;
+  final String role;
 
   @override
   Widget build(BuildContext context) {
@@ -79,7 +84,14 @@ class DetailsHeaeder extends StatelessWidget {
           if (isAppointment) SizedBox(),
           if (isDoctorToDoctor)
             GestureDetector(
-              onTap: () => Get.toNamed(AppRoutes.chatScreen),
+              onTap: () async {
+                Get.find<ChatController>().recieverImage.value = image;
+                Get.find<ChatController>().recieverName.value = name;
+                Get.find<ChatController>().reciverID.value = accID;
+                Get.find<ChatController>().recieverRole.value = role;
+                Get.toNamed(AppRoutes.chatScreen);
+                await Get.find<ChatController>().getMyChatHistory(accID);
+              },
               child: Container(
                 padding: EdgeInsets.all(8),
                 decoration: BoxDecoration(

@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:grouped_list/grouped_list.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:med_meet_flutter/controller/message_controller.dart';
 import 'package:med_meet_flutter/core/components/cached_network_image.dart';
@@ -156,45 +155,15 @@ class ChatReplyBox extends StatefulWidget {
 }
 
 class _ChatReplyBoxState extends State<ChatReplyBox> {
-  File? _pickedImage;
-
-  Future<void> _pickImageFromCamera() async {
-    final ImagePicker picker = ImagePicker();
-    final XFile? pickedFile =
-        await picker.pickImage(source: ImageSource.camera);
-
-    setState(() {
-      if (pickedFile != null) {
-        _pickedImage = File(pickedFile.path);
-      } else {
-        debugPrint('No image selected from camera');
-      }
-    });
-  }
-
-  Future<void> _pickImageFromGallery() async {
-    final ImagePicker picker = ImagePicker();
-    final XFile? pickedFile =
-        await picker.pickImage(source: ImageSource.gallery);
-
-    setState(() {
-      if (pickedFile != null) {
-        _pickedImage = File(pickedFile.path);
-      } else {
-        debugPrint('No image selected from gallery');
-      }
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
-    final TextEditingController messageController = TextEditingController();
+    final TextEditingController messageTextController = TextEditingController();
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 24.w, vertical: 10.h),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          if (_pickedImage != null)
+          if (pickedImage != null)
             Container(
                 margin: EdgeInsets.only(left: 4, bottom: 6),
                 height: 60,
@@ -203,7 +172,7 @@ class _ChatReplyBoxState extends State<ChatReplyBox> {
                   children: [
                     ClipRRect(
                       borderRadius: BorderRadius.circular(12),
-                      child: Image.file(_pickedImage!),
+                      child: Image.file(pickedImage!),
                     ),
                     Positioned(
                       right: 10,
@@ -211,7 +180,7 @@ class _ChatReplyBoxState extends State<ChatReplyBox> {
                       child: GestureDetector(
                         onTap: () {
                           setState(() {
-                            _pickedImage = null;
+                            pickedImage = null;
                           });
                         },
                         child: Container(
@@ -231,29 +200,29 @@ class _ChatReplyBoxState extends State<ChatReplyBox> {
             children: [
               Flexible(
                 child: CustomTextInput(
-                  textController: messageController,
+                  textController: messageTextController,
                   title: "title",
                   hintText: "Send message",
                   renderTitle: false,
                   endIconButton: GestureDetector(
                     child: Icon(Icons.send),
                     onTap: () {
-                      // TODO: Apply Send Function
+                      // TODO: Apply Send image
                       Get.find<ChatController>().handleSendMessage(
-                          file: _pickedImage, message: messageController);
-                      messageController.clear();
+                          message: messageTextController);
+                      messageTextController.clear();
                     },
                   ),
                 ),
               ),
               InkWell(
-                onTap: _pickImageFromGallery,
+                onTap: pickImageFromGallery,
                 child: Padding(
                     padding: EdgeInsets.all(5),
                     child: Icon(Icons.image_outlined)),
               ),
               InkWell(
-                onTap: _pickImageFromCamera,
+                onTap: pickImageFromCamera,
                 child: Padding(
                     padding: EdgeInsets.all(5),
                     child: Icon(Icons.camera_alt_outlined)),

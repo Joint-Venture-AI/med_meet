@@ -48,14 +48,16 @@ class MessageTile extends StatelessWidget {
             child: cachedImage(url: image, size: 50, borderRadius: 100),
           ),
 
-          title: Text(partnerName),
+          title: Text(partnerName.length < 15
+              ? partnerName
+              : "${partnerName.substring(0, 15)}..."),
           subtitle: Row(
             children: [
               if (isMyLastMessage) Text("You: "),
               // the recent text
-              Text(lastMessage.length < 18
+              Text(lastMessage.length < 15
                   ? lastMessage
-                  : "${lastMessage.substring(0, 18)}..."),
+                  : "${lastMessage.substring(0, 15)}..."),
             ],
           ),
           // time

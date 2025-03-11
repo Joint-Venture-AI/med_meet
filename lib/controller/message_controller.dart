@@ -1,7 +1,9 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:loader_overlay/loader_overlay.dart';
 import 'package:med_meet_flutter/controller/home_doctor_controller.dart';
 import 'package:med_meet_flutter/controller/home_user_controller.dart';
@@ -16,6 +18,7 @@ import 'package:med_meet_flutter/services/socket_service.dart';
 class ChatController extends GetxController {
   RxList<MessageModel> myMessages = <MessageModel>[].obs;
   RxList<ChatModel> chatList = <ChatModel>[].obs;
+  Rx<File?> pickedImage = Rx<File?>(null);
 
   RxString myRole = "".obs;
   RxString myId = "".obs;
@@ -86,7 +89,7 @@ class ChatController extends GetxController {
     file,
   }) async {
     if (message == "" || message == null) {}
-    if (file == null && (message != null || message != "")) {
+    if (pickedImage.value == null && (message != null || message != "")) {
       final body = {
         "senderId": myId.value,
         "receiverId": reciverID.value,
@@ -128,5 +131,29 @@ class ChatController extends GetxController {
     socketService.on("receiver-$myID", handleIncomingMessage);
     socketService.on("updated-chat-list-$myID", updateMessageOrder);
     Get.context!.loaderOverlay.hide();
+  }
+
+  Future<void> pickImageFromCamera() async {
+    final ImagePicker picker = ImagePicker();
+    final XFile? pickedFile =
+        await picker.pickImage(source: ImageSource.camera);
+
+    if (pickedFile != null) {
+      pickedImage.value = File(pickedFile.path);
+    } else {
+      debugPrint('No image selected from camera');
+    }
+  }
+
+  Future<void> pickImageFromGallery() async {
+    final ImagePicker picker = ImagePicker();
+    final XFile? pickedFile =
+        await picker.pickImage(source: ImageSource.gallery);
+
+    if (pickedFile != null) {
+      pickedImage.value = File(pickedFile.path);
+    } else {
+      debugPrint('No image selected from gallery');
+    }
   }
 }

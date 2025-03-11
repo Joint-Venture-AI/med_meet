@@ -36,6 +36,8 @@ class BookReviewSummaryView extends StatelessWidget {
                     addressOrEmail: doc.clinicAddress,
                     image: doc.image,
                     name: doc.name,
+                    accID: doc.id,
+                    role: "Doctor",
                     fee: doc.consultationFee.toString(),
                     specialty: doc.specialist.name,
                   );
