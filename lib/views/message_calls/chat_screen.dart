@@ -155,6 +155,7 @@ class ChatReplyBox extends StatefulWidget {
 }
 
 class _ChatReplyBoxState extends State<ChatReplyBox> {
+  final ChatController chatController = Get.find<ChatController>();
   @override
   Widget build(BuildContext context) {
     final TextEditingController messageTextController = TextEditingController();
@@ -163,7 +164,7 @@ class _ChatReplyBoxState extends State<ChatReplyBox> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          if (pickedImage != null)
+          if (chatController.pickedImage.value != null)
             Container(
                 margin: EdgeInsets.only(left: 4, bottom: 6),
                 height: 60,
@@ -172,7 +173,7 @@ class _ChatReplyBoxState extends State<ChatReplyBox> {
                   children: [
                     ClipRRect(
                       borderRadius: BorderRadius.circular(12),
-                      child: Image.file(pickedImage!),
+                      child: Image.file(chatController.pickedImage.value!),
                     ),
                     Positioned(
                       right: 10,
@@ -180,7 +181,7 @@ class _ChatReplyBoxState extends State<ChatReplyBox> {
                       child: GestureDetector(
                         onTap: () {
                           setState(() {
-                            pickedImage = null;
+                            chatController.pickedImage.value = null;
                           });
                         },
                         child: Container(
@@ -208,21 +209,21 @@ class _ChatReplyBoxState extends State<ChatReplyBox> {
                     child: Icon(Icons.send),
                     onTap: () {
                       // TODO: Apply Send image
-                      Get.find<ChatController>().handleSendMessage(
-                          message: messageTextController);
+                      Get.find<ChatController>()
+                          .handleSendMessage(message: messageTextController);
                       messageTextController.clear();
                     },
                   ),
                 ),
               ),
               InkWell(
-                onTap: pickImageFromGallery,
+                onTap: chatController.pickImageFromGallery,
                 child: Padding(
                     padding: EdgeInsets.all(5),
                     child: Icon(Icons.image_outlined)),
               ),
               InkWell(
-                onTap: pickImageFromCamera,
+                onTap: chatController.pickImageFromCamera,
                 child: Padding(
                     padding: EdgeInsets.all(5),
                     child: Icon(Icons.camera_alt_outlined)),
