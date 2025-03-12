@@ -88,7 +88,9 @@ class ChatController extends GetxController {
     message,
     file,
   }) async {
-    if (message == "" || message == null) {}
+    if (pickedImage.value != null) {
+      // TODO: Send Form Data
+    }
     if (pickedImage.value == null && (message != null || message != "")) {
       final body = {
         "senderId": myId.value,

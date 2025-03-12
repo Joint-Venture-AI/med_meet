@@ -161,77 +161,78 @@ class _ChatReplyBoxState extends State<ChatReplyBox> {
     final TextEditingController messageTextController = TextEditingController();
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 24.w, vertical: 10.h),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          if (chatController.pickedImage.value != null)
-            Container(
-                margin: EdgeInsets.only(left: 4, bottom: 6),
-                height: 60,
-                width: 60,
-                child: Stack(
-                  children: [
-                    ClipRRect(
-                      borderRadius: BorderRadius.circular(12),
-                      child: Image.file(chatController.pickedImage.value!),
-                    ),
-                    Positioned(
-                      right: 10,
-                      top: 5,
-                      child: GestureDetector(
-                        onTap: () {
-                          setState(() {
-                            chatController.pickedImage.value = null;
-                          });
-                        },
-                        child: Container(
-                          decoration: BoxDecoration(
-                              color: Colors.black, shape: BoxShape.circle),
-                          child: Icon(
-                            Icons.cancel,
-                            color: Colors.white,
-                            size: 16,
+      child: Obx(() {
+        return Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            if (chatController.pickedImage.value != null)
+              Container(
+                  margin: EdgeInsets.only(left: 4, bottom: 6),
+                  height: 60,
+                  width: 60,
+                  child: Stack(
+                    children: [
+                      ClipRRect(
+                        borderRadius: BorderRadius.circular(12),
+                        child: Image.file(chatController.pickedImage.value!),
+                      ),
+                      Positioned(
+                        right: 10,
+                        top: 5,
+                        child: GestureDetector(
+                          onTap: () {
+                            setState(() {
+                              chatController.pickedImage.value = null;
+                            });
+                          },
+                          child: Container(
+                            decoration: BoxDecoration(
+                                color: Colors.black, shape: BoxShape.circle),
+                            child: Icon(
+                              Icons.cancel,
+                              color: Colors.white,
+                              size: 16,
+                            ),
                           ),
                         ),
-                      ),
-                    )
-                  ],
-                )),
-          Row(
-            children: [
-              Flexible(
-                child: CustomTextInput(
-                  textController: messageTextController,
-                  title: "title",
-                  hintText: "Send message",
-                  renderTitle: false,
-                  endIconButton: GestureDetector(
-                    child: Icon(Icons.send),
-                    onTap: () {
-                      // TODO: Apply Send image
-                      Get.find<ChatController>()
-                          .handleSendMessage(message: messageTextController);
-                      messageTextController.clear();
-                    },
+                      )
+                    ],
+                  )),
+            Row(
+              children: [
+                Flexible(
+                  child: CustomTextInput(
+                    textController: messageTextController,
+                    title: "title",
+                    hintText: "Send message",
+                    renderTitle: false,
+                    endIconButton: GestureDetector(
+                      child: Icon(Icons.send),
+                      onTap: () {
+                        Get.find<ChatController>()
+                            .handleSendMessage(message: messageTextController);
+                        messageTextController.clear();
+                      },
+                    ),
                   ),
                 ),
-              ),
-              InkWell(
-                onTap: chatController.pickImageFromGallery,
-                child: Padding(
-                    padding: EdgeInsets.all(5),
-                    child: Icon(Icons.image_outlined)),
-              ),
-              InkWell(
-                onTap: chatController.pickImageFromCamera,
-                child: Padding(
-                    padding: EdgeInsets.all(5),
-                    child: Icon(Icons.camera_alt_outlined)),
-              )
-            ],
-          ),
-        ],
-      ),
+                InkWell(
+                  onTap: chatController.pickImageFromGallery,
+                  child: Padding(
+                      padding: EdgeInsets.all(5),
+                      child: Icon(Icons.image_outlined)),
+                ),
+                InkWell(
+                  onTap: chatController.pickImageFromCamera,
+                  child: Padding(
+                      padding: EdgeInsets.all(5),
+                      child: Icon(Icons.camera_alt_outlined)),
+                )
+              ],
+            ),
+          ],
+        );
+      }),
     );
   }
 }
