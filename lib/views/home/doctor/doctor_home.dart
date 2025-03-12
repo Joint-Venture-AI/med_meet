@@ -8,10 +8,12 @@ import 'package:med_meet_flutter/controller/zego_cloud_controller.dart';
 import 'package:med_meet_flutter/core/components/cached_network_image.dart';
 import 'package:med_meet_flutter/core/components/doctor_card.dart';
 import 'package:med_meet_flutter/core/components/section_header.dart';
+import 'package:med_meet_flutter/core/constants/api_constants.dart';
 
 import 'package:med_meet_flutter/core/helpers/route.dart';
 import 'package:med_meet_flutter/core/utils/app_colors.dart';
 import 'package:med_meet_flutter/core/utils/app_typography.dart';
+import 'package:med_meet_flutter/core/utils/uitls.dart';
 
 class DoctorHomeView extends StatelessWidget {
   DoctorHomeView({super.key});
@@ -90,7 +92,6 @@ class DoctorHomeView extends StatelessWidget {
                             );
                           }).toList());
                   }),
-
                   SizedBox(
                     height: 12,
                   ),
@@ -102,7 +103,6 @@ class DoctorHomeView extends StatelessWidget {
                   SizedBox(
                     height: 12,
                   ),
-
                   Obx(() {
                     return homeDoctorController.allDoctors.isEmpty
                         ? Center(
@@ -125,7 +125,6 @@ class DoctorHomeView extends StatelessWidget {
                                 .toList(),
                           );
                   })
-                 
                 ],
               ),
             )
