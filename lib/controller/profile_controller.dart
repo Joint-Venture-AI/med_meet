@@ -170,6 +170,7 @@ class Profilecontroller extends GetxController {
 
     if (response.statusCode == 200) {
       showCustomSnackBar("Profile Updated Successfully", isError: false);
+      displayPicture.value = "";
       if (role == "DOCTOR") {
         await Get.find<HomeDoctorController>().getDoctorrData();
       } else {

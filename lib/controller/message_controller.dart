@@ -75,10 +75,16 @@ class ChatController extends GetxController {
   }
 
   void handleIncomingMessage(dynamic message) {
+    debugPrint("=======>>>>>> Socket Incoming Message: $message");
     final chatModel = ChatModel.fromJson(message);
+    debugPrint("=======>>>>>> Socket Incoming image: ${chatModel.file}");
 
     if (chatModel.receiverId == myId.value &&
         chatModel.senderId == reciverID.value) {
+      chatList.insert(0, chatModel);
+      chatList.refresh();
+    } else if (chatModel.receiverId == reciverID.value &&
+        chatModel.senderId == myId.value) {
       chatList.insert(0, chatModel);
       chatList.refresh();
     }
@@ -89,9 +95,34 @@ class ChatController extends GetxController {
     file,
   }) async {
     if (pickedImage.value != null) {
-      // TODO: Send Form Data
-    }
-    if (pickedImage.value == null && (message != null || message != "")) {
+      debugPrint("=======>>>>>> sending form data <<<<<<===========");
+      final data = {
+        "senderId": myId.value,
+        "receiverId": reciverID.value,
+        "senderModel": myRole.value == "USER" ? "User" : "Doctor",
+        "receiverModel": recieverRole.value,
+        "message": (message as TextEditingController).text
+      };
+
+      final body = {"data": jsonEncode(data)};
+
+      List<MultipartBody> imageData = <MultipartBody>[
+        MultipartBody("image", pickedImage.value!)
+      ];
+      Get.context!.loaderOverlay.show();
+      Response response = await ApiClient.postMultipartData(
+          ApiConstants.sendChatFormdata, body,
+          multipartBody: imageData);
+      Get.context!.loaderOverlay.hide();
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        pickedImage.value = null;
+        message.clear();
+      } else {
+        ApiChecker.checkApi(response);
+      }
+    } else if (pickedImage.value == null &&
+        (message != null || message != "")) {
+      debugPrint("=======>>>>>> sending Socket data <<<<<<===========");
       final body = {
         "senderId": myId.value,
         "receiverId": reciverID.value,

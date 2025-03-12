@@ -259,4 +259,10 @@ class AuthUserController extends GetxController {
       ApiChecker.checkApi(response);
     }
   }
+
+  @override
+  void onInit() {
+    super.onInit();
+    Get.lazyPut<ZegoCloudController>(() => ZegoCloudController());
+  }
 }

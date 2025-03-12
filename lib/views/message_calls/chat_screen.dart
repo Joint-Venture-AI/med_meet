@@ -1,10 +1,8 @@
-import 'dart:io';
-
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:med_meet_flutter/controller/message_controller.dart';
 import 'package:med_meet_flutter/core/components/cached_network_image.dart';
 import 'package:med_meet_flutter/core/components/custom_app_bar.dart';
@@ -93,7 +91,7 @@ class MessageBox extends StatelessWidget {
                   crossAxisAlignment:
                       isMe ? CrossAxisAlignment.end : CrossAxisAlignment.start,
                   children: [
-                    if (chatModel.message != null)
+                    if (chatModel.message != null && chatModel.message != "")
                       Container(
                         padding: EdgeInsets.symmetric(
                           horizontal: 10.w,
@@ -123,8 +121,13 @@ class MessageBox extends StatelessWidget {
                     if (chatModel.file != null)
                       ClipRRect(
                         borderRadius: BorderRadius.circular(12),
-                        child:
-                            cachedImage(url: imageUrl, size: 120, width: 300),
+                        child: CachedNetworkImage(
+                          imageUrl: imageUrl(chatModel.file),
+                          placeholder: (context, url) =>
+                              CircularProgressIndicator(),
+                          errorWidget: (context, url, error) =>
+                              Icon(Icons.error),
+                        ),
                       ),
                     SizedBox(height: 10.h),
                     Text(getTimeAgo(chatModel.createdAt))
@@ -211,7 +214,6 @@ class _ChatReplyBoxState extends State<ChatReplyBox> {
                       onTap: () {
                         Get.find<ChatController>()
                             .handleSendMessage(message: messageTextController);
-                        messageTextController.clear();
                       },
                     ),
                   ),
