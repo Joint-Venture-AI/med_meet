@@ -40,7 +40,7 @@ class _CreatePrescriptionViewState extends State<CreatePrescriptionView> {
 
   @override
   void initState() {
-    appointmentController.getMedicineSuggestions("am");
+    appointmentController.getMedicineSuggestions("");
     super.initState();
   }
 

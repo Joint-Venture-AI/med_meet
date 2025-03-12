@@ -26,11 +26,12 @@ class NotificationService {
 
     // Setup message handlers
     await _setupMessageHandlers();
+  }
 
-    // Get FCM token
+  Future<String> sendFCMTokenToServer() async {
     final token = await _messaging.getToken();
-    // TODO: Send the token to backend
-    debugPrint('FCM Token: $token');
+
+    return token ?? "";
   }
 
   Future<void> _requestPermission() async {

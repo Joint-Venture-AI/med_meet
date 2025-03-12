@@ -12,6 +12,7 @@ import 'package:med_meet_flutter/core/utils/app_constants.dart';
 import 'package:med_meet_flutter/models/user_model.dart';
 import 'package:med_meet_flutter/services/api_checker.dart';
 import 'package:med_meet_flutter/services/api_client.dart';
+import 'package:med_meet_flutter/services/notification_service.dart';
 import 'package:med_meet_flutter/views/auth/user/user_verify_otp.dart';
 
 class AuthUserController extends GetxController {
@@ -33,6 +34,7 @@ class AuthUserController extends GetxController {
     final body = {
       "uniqueId": email,
       "password": password,
+      "fcmToken": await NotificationService.instance.sendFCMTokenToServer(),
     };
 
     var response =
@@ -94,7 +96,8 @@ class AuthUserController extends GetxController {
       "name": name,
       "email": email,
       "country": country,
-      "password": password
+      "password": password,
+      "fcmToken": await NotificationService.instance.sendFCMTokenToServer(),
     };
 
     Get.context!.loaderOverlay.show();
@@ -108,6 +111,7 @@ class AuthUserController extends GetxController {
             isError:
                 (response.statusCode != 200) || (response.statusCode != 201));
         userData.value = UserModel.fromJson(response.body["data"]);
+
         if (userData.value.verified != null && !userData.value.verified!) {
           requestOTP(userData.value.email, isforgotPass: false);
         } else if (userData.value.isAllFieldsFilled != null &&

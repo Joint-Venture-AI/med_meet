@@ -1,3 +1,4 @@
+import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:loader_overlay/loader_overlay.dart';
 import 'package:med_meet_flutter/controller/common_controller.dart';
@@ -32,11 +33,10 @@ class HomeDoctorController extends GetxController {
   Future getDoctorrData() async {
     // Fetching DoctorData Data
     final docID = await PrefsHelper.getString(PrefsKey.accountID);
-    Response response = await ApiClient.getData(
-        // change later with docID
-        ApiConstants.getSingleDoctor(docID));
+    Response response =
+        await ApiClient.getData(ApiConstants.getSingleDoctor(docID));
 
-    if (response.statusCode == 200) {
+    if (response.statusCode == 200 || response.statusCode == 201) {
       // loading Doctor data in memory
       doctorData.value = SingleDoctorModel.fromJson(response.body["data"]);
     } else {

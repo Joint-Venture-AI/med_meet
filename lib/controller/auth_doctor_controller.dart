@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:file_picker/file_picker.dart';
+import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:loader_overlay/loader_overlay.dart';
@@ -14,6 +15,7 @@ import 'package:med_meet_flutter/core/utils/app_constants.dart';
 import 'package:med_meet_flutter/models/doctor_model.dart';
 import 'package:med_meet_flutter/services/api_checker.dart';
 import 'package:med_meet_flutter/services/api_client.dart';
+import 'package:med_meet_flutter/services/notification_service.dart';
 import 'package:med_meet_flutter/views/auth/doctor/doctor_verify_otp.dart';
 
 class AuthDoctorsController extends GetxController {
@@ -94,7 +96,11 @@ class AuthDoctorsController extends GetxController {
       return;
     }
     Get.context!.loaderOverlay.show();
-    final body = {"uniqueId": email, "password": password};
+    final body = {
+      "uniqueId": email,
+      "password": password,
+      "fcmToken": await NotificationService.instance.sendFCMTokenToServer(),
+    };
     final response =
         await ApiClient.postData(ApiConstants.doctorLogin, jsonEncode(body));
     Get.context!.loaderOverlay.hide();
@@ -112,6 +118,7 @@ class AuthDoctorsController extends GetxController {
       Get.find<ZegoCloudController>().onUserLogin(
           userID: doctorData.value.id, userName: doctorData.value.name);
       Get.context!.loaderOverlay.hide();
+
       showCustomSnackBar(response.body["message"],
           isError: !(response.statusCode != 200 || response.statusCode != 201));
       if (!doctorData.value.verified!) {
@@ -159,7 +166,8 @@ class AuthDoctorsController extends GetxController {
       "email": email,
       "doctorId": doctorID,
       "country": selectedCountry.value,
-      "password": password
+      "password": password,
+      "fcmToken": await NotificationService.instance.sendFCMTokenToServer(),
     };
 
     Response response =

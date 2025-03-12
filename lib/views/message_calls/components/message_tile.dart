@@ -55,9 +55,11 @@ class MessageTile extends StatelessWidget {
             children: [
               if (isMyLastMessage) Text("You: "),
               // the recent text
-              Text(lastMessage.length < 15
-                  ? lastMessage
-                  : "${lastMessage.substring(0, 15)}..."),
+              if (lastMessage.isEmpty) Text("Sent a photo"),
+              if (lastMessage.isNotEmpty)
+                Text(lastMessage.length < 15
+                    ? lastMessage
+                    : "${lastMessage.substring(0, 15)}..."),
             ],
           ),
           // time

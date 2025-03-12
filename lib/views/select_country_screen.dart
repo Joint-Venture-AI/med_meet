@@ -15,6 +15,7 @@ import 'package:med_meet_flutter/core/components/custom_button.dart';
 import 'package:med_meet_flutter/core/utils/app_colors.dart';
 import 'package:med_meet_flutter/core/utils/app_typography.dart';
 import 'package:med_meet_flutter/core/utils/uitls.dart';
+import 'package:med_meet_flutter/services/notification_service.dart';
 
 class SelectCountryScreen extends StatefulWidget {
   const SelectCountryScreen({super.key});
@@ -158,7 +159,7 @@ class _SelectCountryScreenState extends State<SelectCountryScreen> {
     ));
   }
 
-  void showDialogFunc() {
+  void showDialogFunc() async {
     if (countryName == "Select Your country") {
       Get.snackbar("Empty Field", "Please select your country");
       return;

@@ -169,6 +169,7 @@ class Profilecontroller extends GetxController {
         await ApiClient.postMultipartData(url, body, multipartBody: multipart);
 
     if (response.statusCode == 200) {
+      await Future.delayed(Duration(seconds: 2));
       showCustomSnackBar("Profile Updated Successfully", isError: false);
       displayPicture.value = "";
       if (role == "DOCTOR") {

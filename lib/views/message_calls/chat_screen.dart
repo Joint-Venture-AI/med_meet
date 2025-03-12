@@ -23,31 +23,34 @@ class ChatScreenView extends StatelessWidget {
             final title = chatController.recieverName.value;
             return CustomAppBar(title: title);
           })),
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Expanded(
-            child: Obx(() {
-              final chats = chatController.chatList;
-              return ListView.builder(
-                reverse: true,
-                itemCount: chats.length,
-                itemBuilder: (context, index) {
-                  final chat = chats[index];
-                  final myId = chatController.myId.value;
-                  return MessageBox(
-                    isMe: chat.senderId == myId,
-                    chatModel: chat,
-                  );
-                },
-              );
-            }),
-          ),
-          ChatReplyBox(),
-          SizedBox(
-            height: 30,
-          )
-        ],
+      body: Padding(
+        padding: EdgeInsets.symmetric(horizontal: 16.w),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Expanded(
+              child: Obx(() {
+                final chats = chatController.chatList;
+                return ListView.builder(
+                  reverse: true,
+                  itemCount: chats.length,
+                  itemBuilder: (context, index) {
+                    final chat = chats[index];
+                    final myId = chatController.myId.value;
+                    return MessageBox(
+                      isMe: chat.senderId == myId,
+                      chatModel: chat,
+                    );
+                  },
+                );
+              }),
+            ),
+            ChatReplyBox(),
+            SizedBox(
+              height: 30,
+            )
+          ],
+        ),
       ),
     );
   }
