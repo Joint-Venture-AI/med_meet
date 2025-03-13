@@ -122,7 +122,7 @@ class AppointmentController extends GetxController {
     Get.context!.loaderOverlay.hide();
 
     if (response.statusCode == 200) {
-      showCustomSnackBar(response.body['message']);
+      showCustomSnackBar(response.body['message'], isError: false);
     } else {
       ApiChecker.checkApi(response);
     }
@@ -172,7 +172,7 @@ class AppointmentController extends GetxController {
         ApiConstants.sendPrescription(appointmentDetails.value.id), {},
         multipartBody: prescription);
     if (response.statusCode == 200) {
-      showCustomSnackBar("Prescription Sent");
+      showCustomSnackBar("Prescription Sent", isError: false);
     } else {
       ApiChecker.checkApi(response);
     }

@@ -137,7 +137,7 @@ class Settings extends StatelessWidget {
                                                   onPressed: () {
                                                     Get.back();
                                                   },
-                                                  buttonTitle: "Yes, Delete",
+                                                  buttonTitle: "Delete",
                                                   height: 48,
                                                 ),
                                               ),

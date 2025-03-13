@@ -25,13 +25,18 @@ class NotificationView extends StatelessWidget {
                 child: Text("No Notifications Yet"),
               );
             } else {
-              return ListView.builder(
-                itemCount: notis.length,
-                itemBuilder: (context, index) {
-                  final noti = notis[index];
-                  return NotificationTile(
-                      body: noti.body, timeStamp: noti.timeStamp);
+              return RefreshIndicator(
+                onRefresh: () async {
+                  await notifications.getNotifications();
                 },
+                child: ListView.builder(
+                  itemCount: notis.length,
+                  itemBuilder: (context, index) {
+                    final noti = notis[index];
+                    return NotificationTile(
+                        body: noti.body, timeStamp: noti.timeStamp);
+                  },
+                ),
               );
             }
           },

@@ -45,9 +45,7 @@ class AuthUserController extends GetxController {
     if (response.statusCode == 200) {
       if (response.body["success"]) {
         // Show success message
-        showCustomSnackBar(response.body["message"],
-            isError:
-                (response.statusCode != 200) || (response.statusCode != 201));
+        showCustomSnackBar(response.body["message"], isError: false);
 
         // load the data in the user model and save it in the memory
         userData.value = UserModel.fromJson(response.body["data"]["user"]);
@@ -134,9 +132,7 @@ class AuthUserController extends GetxController {
 
     if (response.statusCode == 200) {
       if (response.body["success"]) {
-        showCustomSnackBar(response.body["message"],
-            isError:
-                (response.statusCode != 200) || (response.statusCode != 201));
+        showCustomSnackBar(response.body["message"], isError: false);
         await Get.to(() => UserVerifyOtpView(
               email: email,
               isForgotPass: isforgotPass,
@@ -156,9 +152,7 @@ class AuthUserController extends GetxController {
     Get.context!.loaderOverlay.hide();
     if (response.statusCode == 200) {
       if (response.body["success"]) {
-        showCustomSnackBar(response.body["message"],
-            isError:
-                (response.statusCode != 200) || (response.statusCode != 201));
+        showCustomSnackBar(response.body["message"], isError: false);
         PrefsHelper.setString(PrefsKey.otpToken, response.body["data"]);
         if (isforgetPass) {
           Get.toNamed(AppRoutes.userNewPassword);
@@ -199,9 +193,7 @@ class AuthUserController extends GetxController {
     Get.context!.loaderOverlay.hide();
     if (response.statusCode == 200) {
       if (response.body['success']) {
-        showCustomSnackBar(response.body["message"],
-            isError:
-                (response.statusCode != 200) || (response.statusCode != 201));
+        showCustomSnackBar(response.body["message"], isError: false);
         Get.toNamed(AppRoutes.userSignIn);
       }
     } else {

@@ -44,7 +44,7 @@ class CustomButton extends StatelessWidget {
                 style: isSecondary
                     ? AppTypography.bodyText3white.copyWith(
                         color: Color(0xff8A8A8A),
-                        fontSize: textSize ?? 18,
+                        fontSize: textSize ?? 18.sp,
                         fontWeight: FontWeight.w400,
                       )
                     : AppTypography.bodyText3white.copyWith(

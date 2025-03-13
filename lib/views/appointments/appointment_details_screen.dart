@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:med_meet_flutter/controller/appointment_controller.dart';
 import 'package:med_meet_flutter/controller/home_doctor_controller.dart';
+import 'package:med_meet_flutter/controller/message_controller.dart';
 import 'package:med_meet_flutter/core/components/custom_app_bar.dart';
 import 'package:med_meet_flutter/core/components/custom_button.dart';
 import 'package:med_meet_flutter/core/components/details_header.dart';
@@ -115,15 +116,34 @@ class AppointmentDetailsView extends StatelessWidget {
                             if (args)
                               Row(
                                 children: [
-                                  InkWell(
-                                    onTap: () {
-                                      Get.toNamed(AppRoutes.chatScreen);
-                                    },
-                                    child: SvgPicture.asset(
-                                      SVGAssets.chatOutlined,
-                                      color: Color(0xFF1E65FF),
-                                    ),
-                                  ),
+                                  Obx(() {
+                                    final ref = appointmentController
+                                        .appointmentDetails.value;
+                                    return InkWell(
+                                      onTap: () async {
+                                        Get.find<ChatController>()
+                                            .recieverImage
+                                            .value = ref.user.image;
+                                        Get.find<ChatController>()
+                                            .recieverName
+                                            .value = ref.user.name;
+                                        Get.find<ChatController>()
+                                            .reciverID
+                                            .value = ref.user.id;
+                                        Get.find<ChatController>()
+                                            .recieverRole
+                                            .value = "User";
+                                        Get.toNamed(AppRoutes.chatScreen);
+
+                                        await Get.find<ChatController>()
+                                            .getMyChatHistory(ref.user.id);
+                                      },
+                                      child: SvgPicture.asset(
+                                        SVGAssets.chatOutlined,
+                                        color: Color(0xFF1E65FF),
+                                      ),
+                                    );
+                                  }),
                                   SizedBox(
                                     width: 6,
                                   ),

@@ -52,7 +52,7 @@ class _BookPatientDetialsViewState extends State<BookPatientDetialsView> {
                 child: Column(
                   children: [
                     CustomTextInput(
-                      hintText: "Jonah Smaith",
+                      hintText: "Jonah Smaith......",
                       textController: nameController,
                       title: "Name",
                     ),
@@ -74,7 +74,7 @@ class _BookPatientDetialsViewState extends State<BookPatientDetialsView> {
                     ),
                     CustomTextInput(
                       title: "Age",
-                      hintText: "age",
+                      hintText: "age...",
                       textController: ageController,
                       isPhone: true,
                     ),

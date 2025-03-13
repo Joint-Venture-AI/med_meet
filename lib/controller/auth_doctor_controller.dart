@@ -118,8 +118,7 @@ class AuthDoctorsController extends GetxController {
           userID: doctorData.value.id, userName: doctorData.value.name);
       Get.context!.loaderOverlay.hide();
 
-      showCustomSnackBar(response.body["message"],
-          isError: !(response.statusCode != 200 || response.statusCode != 201));
+      showCustomSnackBar(response.body["message"], isError: false);
       if (!doctorData.value.verified!) {
         // When doctor not verified
         await sendOTP(doctorData.value.email!);
@@ -173,9 +172,7 @@ class AuthDoctorsController extends GetxController {
         await ApiClient.postData(ApiConstants.doctorSignUp, jsonEncode(body));
     Get.context!.loaderOverlay.hide();
     if (response.statusCode == 200) {
-      showCustomSnackBar(response.body["message"],
-          isError:
-              (response.statusCode != 200) || (response.statusCode != 201));
+      showCustomSnackBar(response.body["message"], isError: false);
       if (response.body["success"]) {
         await sendOTP(email, isSignUp: true);
       }
@@ -258,9 +255,7 @@ class AuthDoctorsController extends GetxController {
     Get.context!.loaderOverlay.hide();
     if (response.statusCode == 200) {
       if (response.body["success"]) {
-        showCustomSnackBar(response.body["message"],
-            isError:
-                (response.statusCode != 200) || (response.statusCode != 201));
+        showCustomSnackBar(response.body["message"], isError: false);
 
         Get.toNamed(AppRoutes.doctorSignIn);
       }
@@ -332,9 +327,7 @@ class AuthDoctorsController extends GetxController {
     Get.context!.loaderOverlay.hide();
 
     if (response.statusCode == 200) {
-      showCustomSnackBar(response.body["message"],
-          isError:
-              (response.statusCode != 200) || (response.statusCode != 201));
+      showCustomSnackBar(response.body["message"], isError: false);
       if (response.body["success"]) {
         Get.toNamed(AppRoutes.verifyProgressDoctor);
       }

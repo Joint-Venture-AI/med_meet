@@ -33,6 +33,7 @@ class MessageTile extends StatelessWidget {
         Get.find<ChatController>().recieverName.value = partnerName;
         Get.find<ChatController>().reciverID.value = partnerId;
         Get.find<ChatController>().recieverRole.value = partnerRole;
+        Get.find<ChatController>().chatList.value = [];
         Get.toNamed(AppRoutes.chatScreen);
         await Get.find<ChatController>().getMyChatHistory(partnerId);
       },

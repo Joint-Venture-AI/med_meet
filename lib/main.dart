@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:loader_overlay/loader_overlay.dart';
 import 'package:med_meet_flutter/controller/notification_controller.dart';
 import 'package:med_meet_flutter/core/helpers/route.dart';
+import 'package:med_meet_flutter/core/utils/app_bindings.dart';
 import 'package:med_meet_flutter/core/utils/app_colors.dart';
 import 'package:med_meet_flutter/services/notification_service.dart';
 import 'package:med_meet_flutter/services/socket_service.dart';
@@ -35,10 +36,6 @@ void main() async {
     ZegoUIKitPrebuiltCallInvitationService().useSystemCallingUI(
       [ZegoUIKitSignalingPlugin()],
     );
-    Get.lazyPut(() => ZegoCloudController());
-    Get.lazyPut(() => NotificationController());
-
-
 
     runApp(
       ScreenUtilInit(
@@ -52,6 +49,7 @@ void main() async {
               theme: ThemeData(
                 scaffoldBackgroundColor: AppColors.scaffoldBackgroundColor,
               ),
+              initialBinding: AppBindings.bindings,
               getPages: AppRoutes.pages,
               initialRoute: AppRoutes.splashScreen,
             ),

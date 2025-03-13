@@ -141,7 +141,7 @@ class CommonController extends GetxController {
     Response response = await ApiClient.postData(
         ApiConstants.doctorSetSchedule, jsonEncode(body));
     if (response.statusCode == 200) {
-      showCustomSnackBar(response.body["message"]);
+      showCustomSnackBar(response.body["message"], isError: false);
       Get.back();
     } else {
       ApiChecker.checkApi(response);
@@ -199,6 +199,7 @@ class CommonController extends GetxController {
     if (response.statusCode == 200) {
       confirmAppointmentDialog();
       await Get.find<AppointmentController>().getAllAppointments();
+      Get.offAllNamed(AppRoutes.userApp);
     } else {
       ApiChecker.checkApi(response);
     }
