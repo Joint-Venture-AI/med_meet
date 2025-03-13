@@ -168,7 +168,7 @@ class AppRoutes {
         name: homeUser,
         page: () => HomeUserView(),
         transition: Transition.noTransition),
-    GetPage(name: notifications, page: () => const NotificationView()),
+    GetPage(name: notifications, page: () =>  NotificationView()),
     GetPage(name: searchUser, page: () => const SearchUserView()),
     GetPage(name: specialtyUser, page: () => SpecialtyUserView()),
     GetPage(name: doctorListUser, page: () => DoctorsListView()),

@@ -3,6 +3,9 @@ import 'dart:async';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:get/get.dart';
+import 'package:med_meet_flutter/controller/notification_controller.dart';
+import 'package:med_meet_flutter/models/notification_model.dart';
 
 @pragma('vm:entry-point')
 Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
@@ -114,6 +117,15 @@ class NotificationService {
   Future<void> _setupMessageHandlers() async {
     //foreground message
     FirebaseMessaging.onMessage.listen((message) {
+      // create notification model
+      var notificationModel = NotificationModel(
+          body: message.data["extraData"],
+          timeStamp: message.sentTime?.toIso8601String() ?? '');
+      // Add no notification array
+      Get.find<NotificationController>()
+          .notificationsArray
+          .insert(0, notificationModel);
+
       showNotification(message);
     });
 

@@ -15,7 +15,6 @@ import 'package:med_meet_flutter/core/components/custom_button.dart';
 import 'package:med_meet_flutter/core/utils/app_colors.dart';
 import 'package:med_meet_flutter/core/utils/app_typography.dart';
 import 'package:med_meet_flutter/core/utils/uitls.dart';
-import 'package:med_meet_flutter/services/notification_service.dart';
 
 class SelectCountryScreen extends StatefulWidget {
   const SelectCountryScreen({super.key});

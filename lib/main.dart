@@ -3,9 +3,9 @@ import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:loader_overlay/loader_overlay.dart';
+import 'package:med_meet_flutter/controller/notification_controller.dart';
 import 'package:med_meet_flutter/core/helpers/route.dart';
 import 'package:med_meet_flutter/core/utils/app_colors.dart';
-import 'package:med_meet_flutter/services/fcm_service.dart';
 import 'package:med_meet_flutter/services/notification_service.dart';
 import 'package:med_meet_flutter/services/socket_service.dart';
 import 'package:zego_uikit_prebuilt_call/zego_uikit_prebuilt_call.dart';
@@ -36,7 +36,9 @@ void main() async {
       [ZegoUIKitSignalingPlugin()],
     );
     Get.lazyPut(() => ZegoCloudController());
-    FcmService().getFcmTOken();
+    Get.lazyPut(() => NotificationController());
+
+
 
     runApp(
       ScreenUtilInit(

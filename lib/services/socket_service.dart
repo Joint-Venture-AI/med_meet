@@ -27,8 +27,7 @@ class SocketService {
       try {
         connectionState = SocketConnectionState.connecting;
         final authToken = await PrefsHelper.getString(AppConstants.bearerToken);
-        debugPrint(
-            "============>>>>>>>> socket build option with token -> $authToken");
+
         final optionBuilder = io.OptionBuilder()
             .setTransports(['websocket']) // for Flutter or Dart VM
             .disableAutoConnect() // disable auto-connection

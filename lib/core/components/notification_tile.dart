@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:med_meet_flutter/core/utils/app_colors.dart';
 import 'package:med_meet_flutter/core/utils/app_typography.dart';
+import 'package:med_meet_flutter/core/utils/uitls.dart';
 
 class NotificationTile extends StatelessWidget {
-  const NotificationTile({super.key});
+  const NotificationTile(
+      {super.key, required this.body, required this.timeStamp});
+  final String body;
+  final String timeStamp;
 
   @override
   Widget build(BuildContext context) {
@@ -25,11 +29,11 @@ class NotificationTile extends StatelessWidget {
             ),
           ),
           title: Text(
-            "Notification Title",
+            body,
             style: AppTypography.notificationTitle,
           ),
           subtitle: Text(
-            "1 Day ago",
+            getTimeAgo(timeStamp),
             style: AppTypography.timeStyle,
           ),
         ),

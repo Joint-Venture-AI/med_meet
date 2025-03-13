@@ -89,4 +89,7 @@ class ApiConstants {
   static String getMyChatList(myId) => "/chat/chat/$myId";
   static String getChatHistory = "/chat";
   static String sendChatFormdata = "/chat/chat";
+
+  // Notification End Points
+  static String getNotifications(myId) => "/notification/$myId";
 }
