@@ -192,10 +192,12 @@ class AuthDoctorsController extends GetxController {
     Get.context!.loaderOverlay.hide();
     if (response.statusCode == 200) {
       Get.snackbar("OTP Sent", response.body["message"]);
-      Get.to(() => DoctorVerifyOtp(
-            email: uniqueID,
-            isSignUp: isSignUp,
-          ));
+      Get.to(
+        () => DoctorVerifyOtp(
+          email: uniqueID,
+          isSignUp: isSignUp,
+        ),
+      );
     } else {
       ApiChecker.checkApi(response);
     }
@@ -208,20 +210,17 @@ class AuthDoctorsController extends GetxController {
         ApiConstants.doctorVerifyEmail, jsonEncode(body));
     Get.context!.loaderOverlay.hide();
     if (response.statusCode == 200) {
-      if (response.body["success"]) {
-        PrefsHelper.setString(PrefsKey.otpToken, response.body["data"]);
-        showCustomSnackBar(response.body["message"],
-            isError:
-                (response.statusCode != 200) || (response.statusCode != 201));
-        if (isSignup) {
-          if (doctorData.value.isAllFieldsFilled == null) {
-            Get.toNamed(AppRoutes.doctorDetails);
-          } else {
-            Get.toNamed(AppRoutes.doctorSignIn);
-          }
-        } else {
-          Get.toNamed(AppRoutes.doctorNewPass);
-        }
+      PrefsHelper.setString(PrefsKey.otpToken, response.body["data"]);
+      showCustomSnackBar(response.body["message"], isError: false);
+      if (isSignup) {
+        // if (doctorData.value.isAllFieldsFilled == null) {
+        //   Get.toNamed(AppRoutes.doctorDetails);
+        // } else {
+        //   Get.toNamed(AppRoutes.doctorSignIn);
+        // }
+        Get.toNamed(AppRoutes.doctorSignIn);
+      } else {
+        Get.toNamed(AppRoutes.doctorNewPass);
       }
     } else {
       ApiChecker.checkApi(response);

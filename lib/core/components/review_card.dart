@@ -24,7 +24,7 @@ class ReviewCard extends StatelessWidget {
                 children: [
                   // Reviewer Image
                   ClipOval(
-                      child: cachedImage(url: reviewModel.image, size: 48)),
+                      child: cachedImage(url: reviewModel.image, size: 32)),
                   SizedBox(
                     width: 16,
                   ),

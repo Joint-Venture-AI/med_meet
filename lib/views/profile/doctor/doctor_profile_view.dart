@@ -62,6 +62,7 @@ class DoctorProfileView extends StatelessWidget {
             homeDoctorController.fetchData();
           },
           child: SingleChildScrollView(
+            physics: const AlwaysScrollableScrollPhysics(),
             child: Column(
               children: [
                 Stack(

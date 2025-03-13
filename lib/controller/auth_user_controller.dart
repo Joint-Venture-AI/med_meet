@@ -107,16 +107,13 @@ class AuthUserController extends GetxController {
 
     if (response.statusCode == 200) {
       if (response.body["success"]) {
-        showCustomSnackBar(response.body["message"],
-            isError:
-                (response.statusCode != 200) || (response.statusCode != 201));
+        showCustomSnackBar(response.body["message"], isError: false);
         userData.value = UserModel.fromJson(response.body["data"]);
 
         if (userData.value.verified != null && !userData.value.verified!) {
           requestOTP(userData.value.email, isforgotPass: false);
-        } else if (userData.value.isAllFieldsFilled != null &&
-            !userData.value.isAllFieldsFilled!) {
-          Get.toNamed(AppRoutes.completeProfile);
+        } else {
+          Get.toNamed(AppRoutes.userSignIn);
         }
       } else {
         showCustomSnackBar(response.body["message"]);
@@ -166,10 +163,7 @@ class AuthUserController extends GetxController {
         if (isforgetPass) {
           Get.toNamed(AppRoutes.userNewPassword);
         } else {
-          if (userData.value.isAllFieldsFilled != null &&
-              !userData.value.isAllFieldsFilled!) {
-            Get.toNamed(AppRoutes.completeProfile);
-          }
+          Get.toNamed(AppRoutes.userSignIn);
         }
       } else {
         Get.snackbar("Something went wrong", "please try again later");
@@ -255,9 +249,7 @@ class AuthUserController extends GetxController {
     Get.context!.loaderOverlay.hide();
 
     if (response.statusCode == 200) {
-      showCustomSnackBar(response.body["message"],
-          isError:
-              (response.statusCode != 200) || (response.statusCode != 201));
+      showCustomSnackBar(response.body["message"], isError: false);
       Get.toNamed(AppRoutes.userSignIn);
     } else {
       ApiChecker.checkApi(response);
