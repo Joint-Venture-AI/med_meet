@@ -66,7 +66,8 @@ class _CustomTextInputState extends State<CustomTextInput> {
               ),
               child: Column(
                 children: [
-                  Row(
+                  Row( 
+
                     children: [
                       if (widget.icon != null) Icon(widget.icon),
                       if (widget.icon != null) SizedBox(width: 8.w),

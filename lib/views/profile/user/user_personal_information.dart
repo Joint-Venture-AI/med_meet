@@ -168,18 +168,20 @@ class _UserPersonalInformationState extends State<UserPersonalInformation> {
                         CustomTextInput(
                           renderTitle: false,
                           hintText: user.name,
-                          // isEnabled: isEditing,
+                          isEnabled: isEditing,
                           textController: nameController,
                           icon: Icons.person,
                         ),
                         CustomTextInput(
                           renderTitle: false,
                           hintText: user.email,
+                          isEnabled: isEditing,
                           icon: Icons.mail_rounded,
                           textController: emailController,
                         ),
                         CustomTextInput(
                           renderTitle: false,
+                          isEnabled: isEditing,
                           hintText: DateFormat("dd-MM-yyyy").format(user.dob),
                           icon: Icons.cake_rounded,
                           textController: dobController,
@@ -187,6 +189,7 @@ class _UserPersonalInformationState extends State<UserPersonalInformation> {
                         CustomTextInput(
                           renderTitle: false,
                           hintText: user.address,
+                          isEnabled: isEditing,
                           icon: Icons.location_on_rounded,
                           maxLines: 3,
                           textController: addressController,
