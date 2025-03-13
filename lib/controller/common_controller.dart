@@ -52,6 +52,8 @@ class CommonController extends GetxController {
   // stores the Multiple selected timeslots for doctor schedule
   RxList<TimeSlotModel> selectedTimeslots = <TimeSlotModel>[].obs;
 
+  RxList<MedicalRecordModel> medicalRecords = <MedicalRecordModel>[].obs;
+
 // Holds the patient details for the appointment
   Rx<PatientDetailsModel> patientDetails = PatientDetailsModel(
     age: 0,
@@ -99,8 +101,6 @@ class CommonController extends GetxController {
       pickedFileName.value = result.files.single.name;
     }
   }
-
-  RxList<MedicalRecordModel> medicalRecords = <MedicalRecordModel>[].obs;
 
   Future getAllMedicalRecords(userID) async {
     Get.context!.loaderOverlay.show();

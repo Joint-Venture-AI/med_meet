@@ -20,32 +20,28 @@ class UserAppointmentScreenView extends StatelessWidget {
       ),
       body: Padding(
         padding: EdgeInsets.symmetric(horizontal: 24),
-        child: Obx(
-          () => appointmentController.userAppointmentList.isEmpty
+        child: Obx(() {
+          final ref = appointmentController.userAppointmentList;
+          return ref.isEmpty
               ? Center(
                   child: Text("No Appointments"),
                 )
               : ListView.builder(
-                  itemCount: appointmentController.userAppointmentList.length,
+                  itemCount: ref.length,
                   itemBuilder: (context, index) => DoctorCard(
-                    userID:
-                        appointmentController.userAppointmentList[index].userID,
-                    status:
-                        appointmentController.userAppointmentList[index].status,
+                    userID: ref[index].userID,
+                    status: ref[index].status,
                     id: appointmentController
                         .userAppointmentList[index].appointmentID,
-                    name: appointmentController.userAppointmentList[index].name,
-                    image:
-                        appointmentController.userAppointmentList[index].image,
+                    name: ref[index].name,
+                    image: ref[index].image,
                     specialist: appointmentController
                         .userAppointmentList[index].specialist,
-                    time:
-                        "${appointmentController.userAppointmentList[index].startTime} - ${appointmentController.userAppointmentList[index].endTime}",
-                    date: appointmentController.userAppointmentList[index].date
-                        .toString(),
+                    time: "${ref[index].startTime} - ${ref[index].endTime}",
+                    date: ref[index].date.toString(),
                   ),
-                ),
-        ),
+                );
+        }),
       ),
     );
   }

@@ -14,6 +14,7 @@ import 'package:med_meet_flutter/core/constants/svg_assets.dart';
 import 'package:med_meet_flutter/core/helpers/route.dart';
 import 'package:med_meet_flutter/core/utils/app_colors.dart';
 import 'package:med_meet_flutter/core/utils/app_typography.dart';
+import 'package:med_meet_flutter/models/detailed_appointment_model.dart';
 import 'package:med_meet_flutter/views/appointments/review_appointment.dart';
 
 class AppointmentDetailsView extends StatelessWidget {
@@ -30,7 +31,7 @@ class AppointmentDetailsView extends StatelessWidget {
     // args is false when it comes from user screen and true when it comes from doctor
     final args = Get.arguments ?? false;
     // Fetching the appointment details with appointmendID
-
+    appointmentController.appointmentDetails.value = DetailedAppointmentModel();
     appointmentController.getAppointmentDetails(appointmentID);
     return Scaffold(
       appBar: PreferredSize(

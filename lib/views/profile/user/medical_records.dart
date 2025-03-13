@@ -55,6 +55,7 @@ class MedicalRecords extends StatelessWidget {
                           const Spacer(),
                           GestureDetector(
                             onTap: () {
+                              commonController.pickedFileName.value = "";
                               Get.toNamed(AppRoutes.addMedicalRecords);
                             },
                             behavior: HitTestBehavior.translucent,

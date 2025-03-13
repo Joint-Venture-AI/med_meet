@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:loader_overlay/loader_overlay.dart';
+import 'package:med_meet_flutter/controller/common_controller.dart';
 import 'package:med_meet_flutter/controller/home_doctor_controller.dart';
 import 'package:med_meet_flutter/controller/home_user_controller.dart';
 import 'package:med_meet_flutter/core/components/custom_snack_bar.dart';
@@ -91,6 +92,8 @@ class Profilecontroller extends GetxController {
 
     if (response.statusCode == 200 || response.statusCode == 201) {
       showCustomSnackBar(response.body["message"], isError: false);
+      final userID = await PrefsHelper.getString(PrefsKey.accountID);
+      Get.find<CommonController>().getAllMedicalRecords(userID);
       Get.back();
     } else {
       ApiChecker.checkApi(response);
