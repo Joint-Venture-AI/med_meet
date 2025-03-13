@@ -214,7 +214,6 @@ class AuthUserController extends GetxController {
         phone == "" ||
         gender == "" ||
         dob == "" ||
-        image == null ||
         country == "select your country") {
       showCustomSnackBar("Fields Must not be empty");
       return;
