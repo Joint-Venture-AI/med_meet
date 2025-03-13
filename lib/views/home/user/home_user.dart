@@ -58,23 +58,34 @@ class HomeUserView extends StatelessWidget {
               },
             ),
             Expanded(
-                child: Obx(
-              () => ListView.builder(
-                itemCount: userHomeController.allDoctors.length,
-                itemBuilder: (context, index) => DoctorCard(
-                  id: userHomeController.allDoctors[index].id,
-                  image: userHomeController.allDoctors[index].image,
-                  name: userHomeController.allDoctors[index].name,
-                  avarageRating:
-                      userHomeController.allDoctors[index].avgRating.toString(),
-                  clinic: userHomeController.allDoctors[index].clinic,
-                  fee: userHomeController.allDoctors[index].consultationFee
-                      .toString(),
-                  specialist:
-                      userHomeController.allDoctors[index].specialist.name,
-                ),
+              child: Obx(
+                () {
+                  final doctors = userHomeController.allDoctors;
+                  return doctors.isEmpty
+                      ? Center(
+                          child: Text("No Doctors found yet"),
+                        )
+                      : RefreshIndicator(
+                          onRefresh: () async {
+                            userHomeController.fetchUserData();
+                          },
+                          child: ListView.builder(
+                            itemCount: doctors.length,
+                            itemBuilder: (context, index) => DoctorCard(
+                              id: doctors[index].id,
+                              image: doctors[index].image,
+                              name: doctors[index].name,
+                              avarageRating:
+                                  doctors[index].avgRating.toString(),
+                              clinic: doctors[index].clinic,
+                              fee: doctors[index].consultationFee.toString(),
+                              specialist: doctors[index].specialist.name,
+                            ),
+                          ),
+                        );
+                },
               ),
-            ))
+            )
           ],
         ),
       ),

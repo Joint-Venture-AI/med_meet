@@ -59,71 +59,78 @@ class DoctorHomeView extends StatelessWidget {
               height: 12,
             ),
             Expanded(
-              child: ListView(
-                children: [
-                  SectionHeader(
-                      title: "Recent Appointments",
-                      onTap: () {
-                        Get.toNamed(AppRoutes.doctorAllApointmentLists);
-                      }),
-                  SizedBox(
-                    height: 12,
-                  ),
-                  Obx(() {
-                    final upcomingRef =
-                        homeDoctorController.upcomingAppointments;
-                    return upcomingRef.isEmpty
-                        ? Center(
-                            child: Text("No Appointments Yet"),
-                          )
-                        : Column(
-                            children: upcomingRef.take(2).map((e) {
-                            return DoctorCard(
-                              isAppointment: true,
-                              id: e.appointmentID,
-                              userID: e.userID,
-                              name: e.name,
-                              image: e.image,
-                              specialist: e.specialist,
-                              date: e.date.toString(),
-                              time: "${e.startTime} - ${e.endTime}",
+              child: RefreshIndicator(
+                onRefresh: () async {
+                  homeDoctorController.fetchData();
+                },
+                child: ListView(
+                  physics: const AlwaysScrollableScrollPhysics(),
+                  children: [
+                    SectionHeader(
+                        title: "Recent Appointments",
+                        onTap: () {
+                          Get.toNamed(AppRoutes.doctorAllApointmentLists);
+                        }),
+                    SizedBox(
+                      height: 12,
+                    ),
+                    Obx(() {
+                      final upcomingRef =
+                          homeDoctorController.upcomingAppointments;
+                      return upcomingRef.isEmpty
+                          ? Center(
+                              child: Text("No Appointments Yet"),
+                            )
+                          : Column(
+                              children: upcomingRef.take(2).map((e) {
+                              return DoctorCard(
+                                isAppointment: true,
+                                id: e.appointmentID,
+                                userID: e.userID,
+                                name: e.name,
+                                image: e.image,
+                                specialist: e.specialist,
+                                date: e.date.toString(),
+                                time: "${e.startTime} - ${e.endTime}",
+                              );
+                            }).toList());
+                    }),
+                    SizedBox(
+                      height: 12,
+                    ),
+                    SectionHeader(
+                        title: "Doctor's",
+                        onTap: () {
+                          Get.toNamed(AppRoutes.doctorListUser,
+                              arguments: true);
+                        }),
+                    SizedBox(
+                      height: 12,
+                    ),
+                    Obx(() {
+                      return homeDoctorController.allDoctors.isEmpty
+                          ? Center(
+                              child: Text("No doctors found"),
+                            )
+                          : Column(
+                              children: homeDoctorController.allDoctors
+                                  .map(
+                                    (doc) => DoctorCard(
+                                      id: doc.id,
+                                      userID: doc.id,
+                                      name: doc.name,
+                                      image: doc.image,
+                                      isDoctorToDoctor: true,
+                                      avarageRating: doc.avgRating.toString(),
+                                      specialist: doc.specialist.name,
+                                      clinic: doc.clinic,
+                                    ),
+                                  )
+                                  .toList(),
                             );
-                          }).toList());
-                  }),
-                  SizedBox(
-                    height: 12,
-                  ),
-                  SectionHeader(
-                      title: "Doctor's",
-                      onTap: () {
-                        Get.toNamed(AppRoutes.doctorListUser, arguments: true);
-                      }),
-                  SizedBox(
-                    height: 12,
-                  ),
-                  Obx(() {
-                    return homeDoctorController.allDoctors.isEmpty
-                        ? Center(
-                            child: Text("No doctors found"),
-                          )
-                        : Column(
-                            children: homeDoctorController.allDoctors
-                                .map(
-                                  (doc) => DoctorCard(
-                                    id: doc.id,
-                                    userID: doc.id,
-                                    name: doc.name,
-                                    image: doc.image,
-                                    isDoctorToDoctor: true,
-                                    avarageRating: doc.avgRating.toString(),
-                                    specialist: doc.specialist.name,
-                                    clinic: doc.clinic,
-                                  ),
-                                )
-                                .toList(),
-                          );
-                  })
-                ],
+                    })
+                  ],
+                ),
               ),
             )
           ],

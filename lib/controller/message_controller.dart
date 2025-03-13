@@ -153,9 +153,7 @@ class ChatController extends GetxController {
     myMessages.refresh();
   }
 
-  @override
-  void onInit() async {
-    super.onInit();
+  Future fetchMessageData() async {
     Get.context!.loaderOverlay.show();
     myRole.value = await PrefsHelper.getString(PrefsKey.role);
     final myID = await PrefsHelper.getString(PrefsKey.accountID);
@@ -164,6 +162,12 @@ class ChatController extends GetxController {
     socketService.on("receiver-$myID", handleIncomingMessage);
     socketService.on("updated-chat-list-$myID", updateMessageOrder);
     Get.context!.loaderOverlay.hide();
+  }
+
+  @override
+  void onInit() async {
+    super.onInit();
+    fetchMessageData();
   }
 
   Future<void> pickImageFromCamera() async {

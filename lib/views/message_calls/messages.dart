@@ -33,20 +33,25 @@ class MessagesView extends StatelessWidget {
                       ? Center(
                           child: Text("No Messages yet"),
                         )
-                      : ListView.builder(
-                          itemCount: ref.length,
-                          itemBuilder: (context, index) {
-                            final chat = ref[index];
-                            return MessageTile(
-                              image: chat.image,
-                              partnerId: chat.partnerId,
-                              partnerName: chat.name,
-                              lastMessage: chat.lastMsg,
-                              timeStamp: chat.lastMsgTime,
-                              isMyLastMessage: myId == chat.lastMsgBy,
-                              partnerRole: chat.partnerRole,
-                            );
+                      : RefreshIndicator(
+                          onRefresh: () async {
+                            messages.fetchMessageData();
                           },
+                          child: ListView.builder(
+                            itemCount: ref.length,
+                            itemBuilder: (context, index) {
+                              final chat = ref[index];
+                              return MessageTile(
+                                image: chat.image,
+                                partnerId: chat.partnerId,
+                                partnerName: chat.name,
+                                lastMessage: chat.lastMsg,
+                                timeStamp: chat.lastMsgTime,
+                                isMyLastMessage: myId == chat.lastMsgBy,
+                                partnerRole: chat.partnerRole,
+                              );
+                            },
+                          ),
                         );
                 }),
               )

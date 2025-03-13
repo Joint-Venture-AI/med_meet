@@ -111,10 +111,9 @@ class UserHomeController extends GetxController {
     }
   }
 
-  @override
-  void onInit() async {
+  Future fetchUserData() async {
     Get.context!.loaderOverlay.show();
-    super.onInit();
+
     final role = await PrefsHelper.getString(PrefsKey.role);
     if (role == "USER") {
       await getUserData();
@@ -123,5 +122,11 @@ class UserHomeController extends GetxController {
     await getAllDoctors();
     filteredDoctors.value = allDoctors;
     Get.context!.loaderOverlay.hide();
+  }
+
+  @override
+  void onInit() async {
+    super.onInit();
+    await fetchUserData();
   }
 }

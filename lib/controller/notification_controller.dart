@@ -3,7 +3,6 @@ import 'package:loader_overlay/loader_overlay.dart';
 import 'package:med_meet_flutter/core/constants/api_constants.dart';
 import 'package:med_meet_flutter/core/helpers/pref_helper.dart';
 import 'package:med_meet_flutter/models/notification_model.dart';
-import 'package:med_meet_flutter/services/api_checker.dart';
 import 'package:med_meet_flutter/services/api_client.dart';
 
 class NotificationController extends GetxController {

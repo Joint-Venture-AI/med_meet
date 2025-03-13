@@ -150,9 +150,7 @@ class HomeDoctorController extends GetxController {
     }
   }
 
-  @override
-  void onInit() async {
-    super.onInit();
+  Future fetchData() async {
     Get.context!.loaderOverlay.show();
     final role = await PrefsHelper.getString(PrefsKey.role);
     if (role == "DOCTOR") {
@@ -165,5 +163,11 @@ class HomeDoctorController extends GetxController {
       await Get.find<CommonController>().getAllSpecialty();
     }
     Get.context!.loaderOverlay.hide();
+  }
+
+  @override
+  void onInit() async {
+    super.onInit();
+    await fetchData();
   }
 }
