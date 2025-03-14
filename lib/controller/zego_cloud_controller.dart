@@ -37,6 +37,16 @@ class ZegoCloudController extends GetxController {
                 ? ZegoUIKitPrebuiltCallConfig.oneOnOneVideoCall()
                 : ZegoUIKitPrebuiltCallConfig.oneOnOneVoiceCall();
 
+        // Enable call minimization
+        config.topMenuBar.isVisible = true;
+        config.topMenuBar.buttons
+            .insert(0, ZegoCallMenuBarButtonName.minimizingButton);
+
+        // background pip
+        config.topMenuBar.buttons
+            .insert(0, ZegoCallMenuBarButtonName.pipButton);
+        config.pip.enableWhenBackground = true;
+
         return config;
       },
     );

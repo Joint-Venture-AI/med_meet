@@ -50,6 +50,19 @@ void main() async {
               initialBinding: AppBindings.bindings,
               getPages: AppRoutes.pages,
               initialRoute: AppRoutes.splashScreen,
+              // Bellow is to add minimized video call screen
+              builder: (BuildContext context, child) {
+                return Stack(
+                  children: [
+                    child!,
+                    ZegoUIKitPrebuiltCallMiniOverlayPage(
+                      contextQuery: () {
+                        return navigatorKey.currentState!.context;
+                      },
+                    ),
+                  ],
+                );
+              },
             ),
           );
         },
