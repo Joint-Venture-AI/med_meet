@@ -52,7 +52,7 @@ class _BookPatientDetialsViewState extends State<BookPatientDetialsView> {
                 child: Column(
                   children: [
                     CustomTextInput(
-                      hintText: "Jonah Smaith......",
+                      hintText: "Enter Patient Name...",
                       textController: nameController,
                       title: "Name",
                     ),
@@ -74,7 +74,7 @@ class _BookPatientDetialsViewState extends State<BookPatientDetialsView> {
                     ),
                     CustomTextInput(
                       title: "Age",
-                      hintText: "age...",
+                      hintText: "Enter Age...",
                       textController: ageController,
                       isPhone: true,
                     ),
@@ -82,7 +82,7 @@ class _BookPatientDetialsViewState extends State<BookPatientDetialsView> {
                       height: 10,
                     ),
                     CustomTextInput(
-                      hintText: "Write your problem.........",
+                      hintText: "Write your problem here.........",
                       textController: problemController,
                       title: "Write your problem",
                       maxLines: 6,

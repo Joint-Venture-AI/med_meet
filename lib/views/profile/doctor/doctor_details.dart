@@ -33,6 +33,15 @@ class _DoctorDetailsState extends State<DoctorDetails> {
   @override
   void initState() {
     commonController.getAllSpecialty();
+    experienceController.text =
+        homeDoctorController.doctorData.value.experience.toString();
+    clinicNameController.text = homeDoctorController.doctorData.value.clinic;
+    clinicAddressController.text =
+        homeDoctorController.doctorData.value.clinicAddress;
+    consultationFeeController.text =
+        homeDoctorController.doctorData.value.consultationFee.toString();
+    aboutDoctorController.text =
+        homeDoctorController.doctorData.value.aboutDoctor;
     super.initState();
   }
 
@@ -74,9 +83,7 @@ class _DoctorDetailsState extends State<DoctorDetails> {
                       return CustomTextInput(
                         isPhone: true,
                         title: "Experience",
-                        hintText: homeDoctorController
-                            .doctorData.value.experience
-                            .toString(),
+                        hintText: "Enter your experince",
                         textController: experienceController,
                       );
                     }),
@@ -89,7 +96,7 @@ class _DoctorDetailsState extends State<DoctorDetails> {
                     Obx(() {
                       return CustomTextInput(
                         title: "Clinic Name",
-                        hintText: homeDoctorController.doctorData.value.clinic,
+                        hintText: "Enter your clinic name",
                         textController: clinicNameController,
                       );
                     }),
@@ -99,8 +106,7 @@ class _DoctorDetailsState extends State<DoctorDetails> {
                     Obx(() {
                       return CustomTextInput(
                         title: "Clinic Address",
-                        hintText:
-                            homeDoctorController.doctorData.value.clinicAddress,
+                        hintText: "Enter clinic address",
                         maxLines: 4,
                         textController: clinicAddressController,
                       );
@@ -112,9 +118,7 @@ class _DoctorDetailsState extends State<DoctorDetails> {
                       return CustomTextInput(
                         title: "Set Consultation Fee",
                         isPhone: true,
-                        hintText: homeDoctorController
-                            .doctorData.value.consultationFee
-                            .toString(),
+                        hintText: "Add your fee",
                         textController: consultationFeeController,
                       );
                     }),
@@ -124,8 +128,7 @@ class _DoctorDetailsState extends State<DoctorDetails> {
                     Obx(() {
                       return CustomTextInput(
                         title: "About Doctor",
-                        hintText:
-                            homeDoctorController.doctorData.value.aboutDoctor,
+                        hintText: "Write about yourself...",
                         maxLines: 4,
                         textController: aboutDoctorController,
                       );

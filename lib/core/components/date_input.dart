@@ -13,6 +13,7 @@ class DateInput extends StatefulWidget {
     this.title = "",
     this.iconStart = false,
     this.isLargeIcon = false,
+    this.isEnabled = true,
   });
 
   final TextEditingController dateController;
@@ -21,6 +22,7 @@ class DateInput extends StatefulWidget {
   final String title;
   final bool iconStart;
   final bool isLargeIcon;
+  final bool isEnabled;
 
   @override
   State<DateInput> createState() => _DateInputState();
@@ -66,6 +68,7 @@ class _DateInputState extends State<DateInput> {
               Flexible(
                 // Text Field
                 child: TextFormField(
+                  enabled: widget.isEnabled,
                   controller: widget.dateController,
                   readOnly: true,
                   keyboardType: TextInputType.number,

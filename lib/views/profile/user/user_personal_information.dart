@@ -31,6 +31,16 @@ class _UserPersonalInformationState extends State<UserPersonalInformation> {
   final Profilecontroller profilecontroller = Get.put(Profilecontroller());
 
   @override
+  void initState() {
+    final user = userHomeController.userData.value;
+    nameController.text = user.name;
+    emailController.text = user.email;
+    dobController.text = DateFormat("dd-MM-yyyy").format(user.dob);
+    addressController.text = user.address;
+    super.initState();
+  }
+
+  @override
   void dispose() {
     nameController.dispose();
     emailController.dispose();
@@ -161,20 +171,19 @@ class _UserPersonalInformationState extends State<UserPersonalInformation> {
                     vertical: 24,
                   ),
                   child: Obx(() {
-                    final user = userHomeController.userData.value;
                     return Column(
                       spacing: 16,
                       children: [
                         CustomTextInput(
                           renderTitle: false,
-                          hintText: user.name,
+                          hintText: "Enter your name...",
                           isEnabled: isEditing,
                           textController: nameController,
                           icon: Icons.person,
                         ),
                         CustomTextInput(
                           renderTitle: false,
-                          hintText: user.email,
+                          hintText: "Enter your email...",
                           isEnabled: isEditing,
                           icon: Icons.mail_rounded,
                           textController: emailController,
@@ -182,13 +191,13 @@ class _UserPersonalInformationState extends State<UserPersonalInformation> {
                         CustomTextInput(
                           renderTitle: false,
                           isEnabled: isEditing,
-                          hintText: DateFormat("dd-MM-yyyy").format(user.dob),
+                          hintText: "Enter your date of birth...",
                           icon: Icons.cake_rounded,
                           textController: dobController,
                         ),
                         CustomTextInput(
                           renderTitle: false,
-                          hintText: user.address,
+                          hintText: "Enter your address...",
                           isEnabled: isEditing,
                           icon: Icons.location_on_rounded,
                           maxLines: 3,

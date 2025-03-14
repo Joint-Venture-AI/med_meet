@@ -38,7 +38,7 @@ class AddMedicalRecords extends StatelessWidget {
                     ),
                     CustomTextInput(
                       title: "Name",
-                      hintText: "Andrew Ainsley",
+                      hintText: "Enter your name...",
                       textController: nameController,
                     ),
                     const SizedBox(
@@ -46,7 +46,7 @@ class AddMedicalRecords extends StatelessWidget {
                     ),
                     CustomTextInput(
                       title: "Age",
-                      hintText: "25",
+                      hintText: "Enter your age...",
                       isPhone: true,
                       textController: ageController,
                     ),

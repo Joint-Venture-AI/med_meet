@@ -210,7 +210,7 @@ class _ChatReplyBoxState extends State<ChatReplyBox> {
                   child: CustomTextInput(
                     textController: messageTextController,
                     title: "title",
-                    hintText: "Send message",
+                    hintText: "Send a message...",
                     renderTitle: false,
                     endIconButton: GestureDetector(
                       child: Icon(Icons.send),

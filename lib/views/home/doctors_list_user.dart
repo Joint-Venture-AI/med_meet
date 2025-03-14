@@ -26,7 +26,7 @@ class DoctorsListView extends StatelessWidget {
                 children: [
                   CustomTextInput(
                     title: "Search",
-                    hintText: "Search",
+                    hintText: "Search....",
                     icon: Icons.search,
                     renderTitle: false,
                     textController: userHomeController.searchController,

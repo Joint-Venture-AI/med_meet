@@ -39,25 +39,25 @@ class DoctorWithdraw extends StatelessWidget {
                 ),
               ),
               CustomTextInput(
-                hintText: "Bank name",
+                hintText: "Enter bank name...",
                 title: "Bank Name",
                 textController: bankNameController,
               ),
               CustomTextInput(
-                hintText: "Account type",
+                hintText: "Enter Account type...",
                 title: "Account Type",
                 textController: accountTypeController,
               ),
               CustomTextInput(
-                hintText: "Account number",
+                hintText: "Enter account number...",
                 title: "Account Number",
                 textController: accountNumberController,
               ),
-              CustomTextInput(
-                hintText: "Bank name",
-                title: "Bank Name",
-                textController: bankNameController,
-              ),
+              // CustomTextInput(
+              //   hintText: "Bank name",
+              //   title: "Bank Name",
+              //   textController: bankNameController,
+              // ),
               const Spacer(),
               CustomButton(onPressed: () {}, buttonTitle: "Withdraw"),
             ],

@@ -35,6 +35,17 @@ class _DoctorPersonalInformationState extends State<DoctorPersonalInformation> {
       Get.put(HomeDoctorController());
 
   @override
+  void initState() {
+    final data = homeDoctorController.doctorData.value;
+
+    nameController.text = data.name;
+    emailController.text = data.email;
+    dobController.text = data.dob;
+    addressController.text = data.clinicAddress;
+    super.initState();
+  }
+
+  @override
   void dispose() {
     nameController.dispose();
     emailController.dispose();
@@ -166,24 +177,27 @@ class _DoctorPersonalInformationState extends State<DoctorPersonalInformation> {
                       CustomTextInput(
                         renderTitle: false,
                         hintText: data.name,
-                        // isEnabled: isEditing,
+                        isEnabled: isEditing,
                         textController: nameController,
                         icon: Icons.person,
                       ),
                       CustomTextInput(
                         renderTitle: false,
                         hintText: data.email,
+                        isEnabled: isEditing,
                         icon: Icons.mail_rounded,
                         textController: emailController,
                       ),
                       CustomTextInput(
                         renderTitle: false,
                         hintText: data.phoneNumber,
+                        isEnabled: isEditing,
                         icon: Icons.call_rounded,
                         textController: phoneController,
                       ),
                       DateInput(
                           dateController: dobController,
+                          isEnabled: isEditing,
                           icon: Icons.cake,
                           iconStart: true,
                           isLargeIcon: true,
@@ -191,6 +205,7 @@ class _DoctorPersonalInformationState extends State<DoctorPersonalInformation> {
                       CustomTextInput(
                         renderTitle: false,
                         hintText: data.clinicAddress,
+                        isEnabled: isEditing,
                         icon: Icons.location_on_rounded,
                         maxLines: 2,
                         multiLine: true,
