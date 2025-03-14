@@ -123,6 +123,7 @@ class AppointmentController extends GetxController {
 
     if (response.statusCode == 200) {
       showCustomSnackBar(response.body['message'], isError: false);
+      await getAppointmentDetails(appointmentDetails.value.id);
     } else {
       ApiChecker.checkApi(response);
     }
@@ -156,6 +157,7 @@ class AppointmentController extends GetxController {
       await file.writeAsBytes(await pdf.save());
       Get.context!.loaderOverlay.hide();
       await sendPrescription(file);
+      await updateAppointmentStatus();
       Get.to(
         () => PresprictionPreview(
           pdfPath: file.path,

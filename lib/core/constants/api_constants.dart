@@ -1,6 +1,6 @@
 class ApiConstants {
-  static String baseUrl = "http://192.168.10.99:5010/api/v1";
-  static String baseAssetUrl = "http://192.168.10.99:5010";
+  static String baseUrl = "http://46.202.132.176:5010/api/v1";
+  static String baseAssetUrl = "http://46.202.132.176:5010";
   static String placeHolder =
       "https://media.istockphoto.com/id/1223671392/vector/default-profile-picture-avatar-photo-placeholder-vector-illustration.jpg?s=612x612&w=0&k=20&c=s0aTdmT5aU6b8ot7VKm11DeID6NctRCpB755rA1BIP0=";
 

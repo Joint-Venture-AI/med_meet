@@ -155,21 +155,23 @@ class PrescriptionList extends StatelessWidget {
           ),
           Row(
             children: [
-              GestureDetector(
-                onTap: () {
-                  Get.to(() => PrescriptionNote(note: model.doctorNote));
-                },
-                behavior: HitTestBehavior.translucent,
-                child: Text(
-                  "Notes",
-                  style: TextStyle(
-                    fontSize: 18,
-                    color: Color(0xff1e65ff),
-                    decorationColor: Color(0xff1e65ff),
-                    decoration: TextDecoration.underline,
+              // if "" is returned the button will not render itself
+              if (model.doctorNote != "")
+                GestureDetector(
+                  onTap: () {
+                    Get.to(() => PrescriptionNote(note: model.doctorNote));
+                  },
+                  behavior: HitTestBehavior.translucent,
+                  child: Text(
+                    "Notes",
+                    style: TextStyle(
+                      fontSize: 18,
+                      color: Color(0xff1e65ff),
+                      decorationColor: Color(0xff1e65ff),
+                      decoration: TextDecoration.underline,
+                    ),
                   ),
                 ),
-              ),
               const Spacer(),
               GestureDetector(
                 onTap: () async {
