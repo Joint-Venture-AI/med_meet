@@ -1,4 +1,6 @@
 class ApiConstants {
+  // static String baseUrl = "http://192.168.10.99:5010/api/v1";
+  // static String baseAssetUrl = "http://192.168.10.99:5010";
   static String baseUrl = "http://46.202.132.176:5010/api/v1";
   static String baseAssetUrl = "http://46.202.132.176:5010";
   static String placeHolder =

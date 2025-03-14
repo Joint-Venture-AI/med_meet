@@ -139,7 +139,7 @@ class Profilecontroller extends GetxController {
       specialty}) async {
     final data = {
       "name": name,
-      "email": email,
+      // "email": email,
       "phone": phone,
       "dob": dob,
       "address": address,
@@ -152,8 +152,10 @@ class Profilecontroller extends GetxController {
       "specialty": specialty,
     };
     // remove null values
-    data.removeWhere(
-        (key, value) => value == null || value.toString().trim().isEmpty);
+    data.removeWhere((key, value) =>
+        value == null || // Remove null values
+        (value is String && value.trim().isEmpty) || // Remove empty strings
+        (defaultValues.containsKey(key) && value == defaultValues[key]));
 
     final body = {"data": jsonEncode(data)};
     List<MultipartBody> multipart = [];
@@ -204,3 +206,32 @@ class Profilecontroller extends GetxController {
     Get.offAllNamed(AppRoutes.selectCountryScreen);
   }
 }
+
+const defaultValues = {
+  'id': '',
+  'name': 'Unknown',
+  'role': 'Doctor',
+  'email': '',
+  'country': 'Not specified',
+  'doctorId': '',
+  'status': 'Inactive',
+  'verified': false,
+  'approvedStatus': 'Pending',
+  'isAllFieldsFilled': false,
+  'createdAt': null, // Will be handled by DateTime check below
+  'updatedAt': null, // Will be handled by DateTime check below
+  'aboutDoctor': 'No information provided',
+  'clinic': 'Unknown Clinic',
+  'clinicAddress': 'Not available',
+  'consultationFee': 0,
+  'dob': 'Unknown',
+  'experience': 0,
+  'gender': 'Not specified',
+  'image': '',
+  'medicalLicense': 'Not provided',
+  'phoneNumber': 'Not available',
+  'professionalIdBack': '',
+  'professionalIdFront': '',
+  'avgRating': 0.0,
+  'totalPatientsCount': 0,
+};

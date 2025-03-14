@@ -183,13 +183,6 @@ class _DoctorPersonalInformationState extends State<DoctorPersonalInformation> {
                       ),
                       CustomTextInput(
                         renderTitle: false,
-                        hintText: data.email,
-                        isEnabled: isEditing,
-                        icon: Icons.mail_rounded,
-                        textController: emailController,
-                      ),
-                      CustomTextInput(
-                        renderTitle: false,
                         hintText: data.phoneNumber,
                         isEnabled: isEditing,
                         icon: Icons.call_rounded,

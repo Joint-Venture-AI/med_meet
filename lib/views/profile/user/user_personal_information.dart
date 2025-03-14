@@ -170,66 +170,57 @@ class _UserPersonalInformationState extends State<UserPersonalInformation> {
                     horizontal: 24,
                     vertical: 24,
                   ),
-                  child: Obx(() {
-                    return Column(
-                      spacing: 16,
-                      children: [
-                        CustomTextInput(
-                          renderTitle: false,
-                          hintText: "Enter your name...",
-                          isEnabled: isEditing,
-                          textController: nameController,
-                          icon: Icons.person,
-                        ),
-                        CustomTextInput(
-                          renderTitle: false,
-                          hintText: "Enter your email...",
-                          isEnabled: isEditing,
-                          icon: Icons.mail_rounded,
-                          textController: emailController,
-                        ),
-                        CustomTextInput(
-                          renderTitle: false,
-                          isEnabled: isEditing,
-                          hintText: "Enter your date of birth...",
-                          icon: Icons.cake_rounded,
-                          textController: dobController,
-                        ),
-                        CustomTextInput(
-                          renderTitle: false,
-                          hintText: "Enter your address...",
-                          isEnabled: isEditing,
-                          icon: Icons.location_on_rounded,
-                          maxLines: 3,
-                          textController: addressController,
-                        ),
-                        const SizedBox(
-                          height: 40,
-                        ),
-                        CustomButton(
-                          onPressed: () async {
-                            setState(() {
-                              isEditing = !isEditing;
-                            });
-                            if (!isEditing) {
-                              await profilecontroller.updateProfile(
-                                name: nameController.text,
-                                email: emailController.text,
-                                dob: dobController.text,
-                                address: addressController.text,
-                              );
-                            }
-                          },
-                          buttonTitle:
-                              isEditing ? "Update Profile" : "Edit Profile",
-                          isSecondary: !isEditing,
-                        ),
-                        const SizedBox(
-                          height: 20,
-                        ),
-                      ],
-                    );
-                  }),
+                  child: Column(
+                    spacing: 16,
+                    children: [
+                      CustomTextInput(
+                        renderTitle: false,
+                        hintText: "Enter your name...",
+                        isEnabled: isEditing,
+                        textController: nameController,
+                        icon: Icons.person,
+                      ),
+                      CustomTextInput(
+                        renderTitle: false,
+                        isEnabled: isEditing,
+                        hintText: "Enter your date of birth...",
+                        icon: Icons.cake_rounded,
+                        textController: dobController,
+                      ),
+                      CustomTextInput(
+                        renderTitle: false,
+                        hintText: "Enter your address...",
+                        isEnabled: isEditing,
+                        icon: Icons.location_on_rounded,
+                        maxLines: 3,
+                        textController: addressController,
+                      ),
+                      const SizedBox(
+                        height: 40,
+                      ),
+                      CustomButton(
+                        onPressed: () async {
+                          setState(() {
+                            isEditing = !isEditing;
+                          });
+                          if (!isEditing) {
+                            await profilecontroller.updateProfile(
+                              name: nameController.text,
+                              email: emailController.text,
+                              dob: dobController.text,
+                              address: addressController.text,
+                            );
+                          }
+                        },
+                        buttonTitle:
+                            isEditing ? "Update Profile" : "Edit Profile",
+                        isSecondary: !isEditing,
+                      ),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ],

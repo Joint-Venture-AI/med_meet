@@ -81,6 +81,9 @@ class PrescriptionList extends StatelessWidget {
         horizontal: 8,
         vertical: 16.5,
       ),
+      margin: EdgeInsets.symmetric(
+        vertical: 8.5,
+      ),
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(8),
