@@ -67,14 +67,15 @@ class _CustomTextInputState extends State<CustomTextInput> {
               child: Column(
                 children: [
                   Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    // crossAxisAlignment: widget.maxLines > 1
-                    //     ? CrossAxisAlignment.start
-                    //     : CrossAxisAlignment.center,
+                    crossAxisAlignment: widget.maxLines > 1
+                        ? CrossAxisAlignment.start
+                        : CrossAxisAlignment.center,
                     children: [
                       if (widget.icon != null)
                         Padding(
-                          padding: const EdgeInsets.only(top: 11),
+                          padding: widget.maxLines > 1
+                              ? const EdgeInsets.only(top: 9)
+                              : EdgeInsets.zero,
                           child: Icon(widget.icon),
                         ),
                       if (widget.icon != null) SizedBox(width: 8.w),

@@ -221,29 +221,33 @@ class AppointmentDetailsView extends StatelessWidget {
                 final details = appointmentController.appointmentDetails.value;
                 if (args) {
                   // When doctor
-                  return details.status == 'Completed'
+                  return details.id == ""
                       ? Container()
-                      : CustomButton(
-                          onPressed: () {
-                            Get.toNamed(AppRoutes.createPrescription);
-                          },
-                          buttonTitle: "Send Prescription");
+                      : details.status == 'Completed'
+                          ? Container()
+                          : CustomButton(
+                              onPressed: () {
+                                Get.toNamed(AppRoutes.createPrescription);
+                              },
+                              buttonTitle: "Send Prescription");
                 } else {
                   // When user
-                  return (details.status == 'Completed')
-                      ? details.review.review == "No review"
-                          ? CustomButton(
+                  return details.id == ""
+                      ? Container()
+                      : (details.status == 'Completed')
+                          ? details.review.review == "No review"
+                              ? CustomButton(
+                                  onPressed: () {
+                                    Get.to(() => ReviewAppointmentView(
+                                        appointmentId: details.id));
+                                  },
+                                  buttonTitle: "Send Review")
+                              : Container()
+                          : CustomButton(
                               onPressed: () {
-                                Get.to(() => ReviewAppointmentView(
-                                    appointmentId: details.id));
+                                appointmentController.updateAppointmentStatus();
                               },
-                              buttonTitle: "Send Review")
-                          : Container()
-                      : CustomButton(
-                          onPressed: () {
-                            appointmentController.updateAppointmentStatus();
-                          },
-                          buttonTitle: "Complete Appoinment");
+                              buttonTitle: "Complete Appoinment");
                 }
               },
             ),
