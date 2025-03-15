@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:med_meet_flutter/controller/appointment_controller.dart';
+import 'package:med_meet_flutter/core/components/cached_network_image.dart';
 import 'package:med_meet_flutter/core/components/custom_app_bar.dart';
 import 'package:med_meet_flutter/core/components/custom_button.dart';
 import 'package:med_meet_flutter/core/components/custom_text_input.dart';
@@ -32,24 +33,35 @@ class ReviewAppointmentView extends StatelessWidget {
                     SizedBox(
                       height: 24.h,
                     ),
-                    CircleAvatar(
-                      radius: 80.r,
-                      child: Image(image: AssetImage(ImageAssets.doctorImage2)),
-                    ),
+                    Obx(() {
+                      return CircleAvatar(
+                        radius: 50,
+                        child: cachedImage(
+                          url: appointmentController
+                              .appointmentDetails.value.doctor.image,
+                          borderRadius: 100,
+                          size: 100,
+                        ),
+                      );
+                    }),
                     SizedBox(
                       height: 16.h,
                     ),
-                    FractionallySizedBox(
-                      widthFactor: 0.7,
-                      child: Text(
-                        "How was your experience with Dr. Drake Boeson?",
-                        style: GoogleFonts.roboto(
-                          fontSize: 20.sp,
-                          fontWeight: FontWeight.w400,
+                    Obx(() {
+                      final name = appointmentController
+                          .appointmentDetails.value.doctor.name;
+                      return FractionallySizedBox(
+                        widthFactor: 0.7,
+                        child: Text(
+                          "How was your experience with Dr. $name",
+                          style: GoogleFonts.roboto(
+                            fontSize: 20.sp,
+                            fontWeight: FontWeight.w400,
+                          ),
+                          textAlign: TextAlign.center,
                         ),
-                        textAlign: TextAlign.center,
-                      ),
-                    ),
+                      );
+                    }),
                     SizedBox(
                       height: 16.h,
                     ),

@@ -22,23 +22,23 @@ class SpecialtyListUserView extends StatelessWidget {
       body: Padding(
         padding: EdgeInsets.all(24),
         child: Obx(() {
-          return ListView.builder(
-            itemCount: userHomeController.allSpecialistDoctors.length,
-            itemBuilder: (context, index) => DoctorCard(
-              id: userHomeController.allSpecialistDoctors[index].id,
-              image: userHomeController.allSpecialistDoctors[index].image,
-              name: userHomeController.allSpecialistDoctors[index].name,
-              avarageRating: userHomeController
-                  .allSpecialistDoctors[index].avgRating
-                  .toString(),
-              clinic: userHomeController.allSpecialistDoctors[index].clinic,
-              fee: userHomeController
-                  .allSpecialistDoctors[index].consultationFee
-                  .toString(),
-              specialist: userHomeController
-                  .allSpecialistDoctors[index].specialist.name,
-            ),
-          );
+          final ref = userHomeController.allSpecialistDoctors;
+          return ref.isEmpty
+              ? Center(
+                  child: Text("No Doctors Yet"),
+                )
+              : ListView.builder(
+                  itemCount: ref.length,
+                  itemBuilder: (context, index) => DoctorCard(
+                    id: ref[index].id,
+                    image: ref[index].image,
+                    name: ref[index].name,
+                    avarageRating: ref[index].avgRating.toString(),
+                    clinic: ref[index].clinic,
+                    fee: ref[index].consultationFee.toString(),
+                    specialist: ref[index].specialist.name,
+                  ),
+                );
         }),
       ),
     );

@@ -30,6 +30,13 @@ class _CustomCallenderState extends State<CustomCallender> {
   DateTime? selectedDate;
   List<String> weekdays = ["MO", "TU", "WE", "TH", "FR", "SA", "SU"];
 
+  @override
+  void initState() {
+    super.initState();
+    print("object");
+    selectedDate = today;
+  }
+
   List<Widget> getDates() {
     List<Widget> rtn = [];
 

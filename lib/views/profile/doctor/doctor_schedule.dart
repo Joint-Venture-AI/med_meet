@@ -20,6 +20,14 @@ class _DoctorScheduleState extends State<DoctorSchedule> {
   final CommonController commonController = Get.put(CommonController());
 
   @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    commonController.doctorScheduleDate.value =
+        DateFormat('dd-MM-yyyy').format(DateTime.now());
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
