@@ -106,17 +106,6 @@ class AuthDoctorsController extends GetxController {
     if (response.statusCode == 200) {
       // Getting and saving doctor data in the memory
       doctorData.value = DoctorModel.fromJson(response.body["data"]["user"]);
-      // access token saved in shared pref
-      PrefsHelper.setString(
-          AppConstants.bearerToken, response.body["data"]["accessToken"]);
-      // saving the id and role in shared prefrence
-      PrefsHelper.setString(PrefsKey.accountID, doctorData.value.id);
-      PrefsHelper.setString(PrefsKey.accountName, doctorData.value.name);
-      PrefsHelper.setString(PrefsKey.role, doctorData.value.role);
-      // Finding the controller and initializing the zego cloud
-      Get.find<ZegoCloudController>().onUserLogin(
-          userID: doctorData.value.id, userName: doctorData.value.name);
-      Get.context!.loaderOverlay.hide();
 
       showCustomSnackBar(response.body["message"], isError: false);
       if (!doctorData.value.verified!) {
@@ -134,6 +123,17 @@ class AuthDoctorsController extends GetxController {
         Get.snackbar("Rejected", "Your application has been rejected");
       } else if (doctorData.value.approvedStatus == "approved") {
         // when the doctor has fullfilled all the criteria
+        // access token saved in shared pref
+        PrefsHelper.setString(
+            AppConstants.bearerToken, response.body["data"]["accessToken"]);
+        // saving the id and role in shared prefrence
+        PrefsHelper.setString(PrefsKey.accountID, doctorData.value.id);
+        PrefsHelper.setString(PrefsKey.accountName, doctorData.value.name);
+        PrefsHelper.setString(PrefsKey.role, doctorData.value.role);
+        // Finding the controller and initializing the zego cloud
+        Get.find<ZegoCloudController>().onUserLogin(
+            userID: doctorData.value.id, userName: doctorData.value.name);
+        Get.context!.loaderOverlay.hide();
         Get.offAllNamed(AppRoutes.doctorApp);
       }
     } else {
