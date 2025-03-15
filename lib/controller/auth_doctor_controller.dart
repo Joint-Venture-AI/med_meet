@@ -88,7 +88,7 @@ class AuthDoctorsController extends GetxController {
 
   Future signIn(email, password) async {
     if (email == "" || email == null || password == "" || password == null) {
-      showCustomSnackBar("Please Provide Credentials", getXSnackBar: false);
+      showCustomSnackBar("Please Provide Credentials");
     }
     if (password.length < 8) {
       showCustomSnackBar("Password must be at least 8 characters long");

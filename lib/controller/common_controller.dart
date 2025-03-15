@@ -242,7 +242,7 @@ class CommonController extends GetxController {
         scheduledate.value = slots["date"];
       } else {
         availableSlots.value = [];
-        showCustomSnackBar("No Available Slots", isError: false);
+        showCustomSnackBar("No Available Slots");
       }
     } else {
       ApiChecker.checkApi(response);

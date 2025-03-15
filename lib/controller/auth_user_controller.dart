@@ -138,7 +138,7 @@ class AuthUserController extends GetxController {
               isForgotPass: isforgotPass,
             ));
       }
-      Get.snackbar("Something went wrong", response.body["message"]);
+      showCustomSnackBar(response.body["message"]);
     } else {
       ApiChecker.checkApi(response);
     }

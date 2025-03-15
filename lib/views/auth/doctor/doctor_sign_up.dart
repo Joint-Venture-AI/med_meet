@@ -113,8 +113,7 @@ class SingupDoctorView extends StatelessWidget {
                               passwordController.text);
                         } else {
                           showCustomSnackBar(
-                              "You must agree with our terms and conditions beofre continue",
-                              getXSnackBar: false);
+                              "You must agree with our terms and conditions beofre continue");
                         }
                         // Get.toNamed(AppRoutes.doctorDetails, arguments: true);
                       },

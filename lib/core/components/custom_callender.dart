@@ -33,7 +33,6 @@ class _CustomCallenderState extends State<CustomCallender> {
   @override
   void initState() {
     super.initState();
-    print("object");
     selectedDate = today;
   }
 
@@ -72,7 +71,8 @@ class _CustomCallenderState extends State<CustomCallender> {
     bool isSelected = false;
 
     if (date != null && selectedDate != null) {
-      if (date.day == selectedDate!.day) {
+      if (date.day == selectedDate!.day &&
+          !date.isBefore(today.subtract(Duration(days: 1)))) {
         isSelected = true;
       }
     }
@@ -80,9 +80,13 @@ class _CustomCallenderState extends State<CustomCallender> {
     return GestureDetector(
       onTap: () {
         setState(() {
-          selectedDate = date;
-          if (widget.onClick != null && date != null) {
-            widget.onClick!(date);
+          if (date != null) {
+            if (!date.isBefore(today.subtract(Duration(days: 1)))) {
+              selectedDate = date;
+              if (widget.onClick != null) {
+                widget.onClick!(date);
+              }
+            }
           }
         });
       },
