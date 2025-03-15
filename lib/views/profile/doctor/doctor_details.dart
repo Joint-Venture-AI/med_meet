@@ -79,60 +79,50 @@ class _DoctorDetailsState extends State<DoctorDetails> {
                     SizedBox(
                       height: 12,
                     ),
-                    Obx(() {
-                      return CustomTextInput(
-                        isPhone: true,
-                        title: "Experience",
-                        hintText: "Enter your experince",
-                        textController: experienceController,
-                      );
-                    }),
-                    SizedBox(
-                      height: 12,
+                    CustomTextInput(
+                      isPhone: true,
+                      title: "Experience",
+                      hintText: "Enter your experince",
+                      textController: experienceController,
                     ),
                     SizedBox(
                       height: 12,
                     ),
-                    Obx(() {
-                      return CustomTextInput(
-                        title: "Clinic Name",
-                        hintText: "Enter your clinic name",
-                        textController: clinicNameController,
-                      );
-                    }),
                     SizedBox(
                       height: 12,
                     ),
-                    Obx(() {
-                      return CustomTextInput(
-                        title: "Clinic Address",
-                        hintText: "Enter clinic address",
-                        maxLines: 4,
-                        textController: clinicAddressController,
-                      );
-                    }),
+                    CustomTextInput(
+                      title: "Clinic Name",
+                      hintText: "Enter your clinic name",
+                      textController: clinicNameController,
+                    ),
                     SizedBox(
                       height: 12,
                     ),
-                    Obx(() {
-                      return CustomTextInput(
-                        title: "Set Consultation Fee",
-                        isPhone: true,
-                        hintText: "Add your fee",
-                        textController: consultationFeeController,
-                      );
-                    }),
+                    CustomTextInput(
+                      title: "Clinic Address",
+                      hintText: "Enter clinic address",
+                      maxLines: 4,
+                      textController: clinicAddressController,
+                    ),
                     SizedBox(
                       height: 12,
                     ),
-                    Obx(() {
-                      return CustomTextInput(
-                        title: "About Doctor",
-                        hintText: "Write about yourself...",
-                        maxLines: 4,
-                        textController: aboutDoctorController,
-                      );
-                    }),
+                    CustomTextInput(
+                      title: "Set Consultation Fee",
+                      isPhone: true,
+                      hintText: "Add your fee",
+                      textController: consultationFeeController,
+                    ),
+                    SizedBox(
+                      height: 12,
+                    ),
+                    CustomTextInput(
+                      title: "About Doctor",
+                      hintText: "Write about yourself...",
+                      maxLines: 4,
+                      textController: aboutDoctorController,
+                    ),
                     const SizedBox(
                       height: 48,
                     ),
