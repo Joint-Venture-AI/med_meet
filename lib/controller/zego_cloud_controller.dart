@@ -17,6 +17,7 @@ class ZegoCloudController extends GetxController {
     ZegoUIKitPrebuiltCallInvitationService().init(
       appID: ZegoCloudConfig.appID,
       appSign: ZegoCloudConfig.appSign,
+      
       userID: userID,
       userName: userName,
       notificationConfig: ZegoCallInvitationNotificationConfig(

@@ -26,30 +26,37 @@ class BookCardDetailsView extends StatelessWidget {
         padding: EdgeInsets.all(24),
         child: Column(
           children: [
-            CustomTextInput(
-              hintText: "Card Holder Name",
-              textController: nameController,
-              title: "Card Holder Name",
+            Expanded(
+              child: SingleChildScrollView(
+                child: Column(
+                  children: [
+                    CustomTextInput(
+                      hintText: "Card Holder Name",
+                      textController: nameController,
+                      title: "Card Holder Name",
+                    ),
+                    SizedBox(height: 16),
+                    CustomTextInput(
+                      hintText: "Card Number",
+                      textController: cardNumberController,
+                      title: "Card Number",
+                    ),
+                    SizedBox(height: 16),
+                    DateInput(
+                        title: "Expiry Date",
+                        dateController: expiryDateController,
+                        icon: Icons.calendar_today,
+                        hintText: "Expiry Date"),
+                    SizedBox(height: 16),
+                    CustomTextInput(
+                      hintText: "CCV",
+                      textController: ccvController,
+                      title: "CCV",
+                    ),
+                  ],
+                ),
+              ),
             ),
-            SizedBox(height: 16),
-            CustomTextInput(
-              hintText: "Card Number",
-              textController: cardNumberController,
-              title: "Card Number",
-            ),
-            SizedBox(height: 16),
-            DateInput(
-                title: "Expiry Date",
-                dateController: expiryDateController,
-                icon: Icons.calendar_today,
-                hintText: "Expiry Date"),
-            SizedBox(height: 16),
-            CustomTextInput(
-              hintText: "CCV",
-              textController: ccvController,
-              title: "CCV",
-            ),
-            Spacer(),
             CustomButton(
                 onPressed: () {
                   if (cardNumberController.text.isEmpty ||
