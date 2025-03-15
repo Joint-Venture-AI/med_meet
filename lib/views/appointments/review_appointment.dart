@@ -8,7 +8,6 @@ import 'package:med_meet_flutter/core/components/cached_network_image.dart';
 import 'package:med_meet_flutter/core/components/custom_app_bar.dart';
 import 'package:med_meet_flutter/core/components/custom_button.dart';
 import 'package:med_meet_flutter/core/components/custom_text_input.dart';
-import 'package:med_meet_flutter/core/constants/image_assets.dart';
 
 class ReviewAppointmentView extends StatelessWidget {
   ReviewAppointmentView({super.key, required this.appointmentId});

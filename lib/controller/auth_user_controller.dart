@@ -169,7 +169,7 @@ class AuthUserController extends GetxController {
 
   Future userResetpassword(pass, confirmpass) async {
     if (pass == "" || confirmpass == "") {
-      showCustomSnackBar("Field must not be emptyu");
+      showCustomSnackBar("Field must not be empty");
       return;
     }
     if (pass != confirmpass) {
@@ -247,8 +247,8 @@ class AuthUserController extends GetxController {
     }
   }
 
-  @override
-  void onInit() {
-    super.onInit();
-  }
+  // @override
+  // void onInit() {
+  //   super.onInit();
+  // }
 }

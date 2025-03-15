@@ -1,4 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:easy_image_viewer/easy_image_viewer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -122,14 +123,22 @@ class MessageBox extends StatelessWidget {
                         ),
                       ),
                     if (chatModel.file != null)
-                      ClipRRect(
-                        borderRadius: BorderRadius.circular(12),
-                        child: CachedNetworkImage(
-                          imageUrl: imageUrl(chatModel.file),
-                          placeholder: (context, url) =>
-                              CircularProgressIndicator(),
-                          errorWidget: (context, url, error) =>
-                              Icon(Icons.error),
+                      GestureDetector(
+                        onTap: () {
+                          final imageProvider =
+                              Image.network(imageUrl(chatModel.file)).image;
+                          showImageViewer(context, imageProvider,
+                              onViewerDismissed: () {});
+                        },
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(12),
+                          child: CachedNetworkImage(
+                            imageUrl: imageUrl(chatModel.file),
+                            placeholder: (context, url) =>
+                                CircularProgressIndicator(),
+                            errorWidget: (context, url, error) =>
+                                Icon(Icons.error),
+                          ),
                         ),
                       ),
                     SizedBox(height: 10.h),

@@ -249,6 +249,8 @@ class ApiClient extends GetxService {
         return 'image/gif';
       case 'webp':
         return 'image/webp';
+      case 'heic': // Added support for heic
+        return 'image/heic';
       case 'pdf': // Added support for PDF
         return 'application/pdf';
       default:

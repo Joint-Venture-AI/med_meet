@@ -21,7 +21,6 @@ class _DoctorScheduleState extends State<DoctorSchedule> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     commonController.doctorScheduleDate.value =
         DateFormat('dd-MM-yyyy').format(DateTime.now());
