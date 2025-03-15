@@ -241,7 +241,7 @@ class AuthUserController extends GetxController {
 
     if (response.statusCode == 200) {
       showCustomSnackBar(response.body["message"], isError: false);
-      Get.toNamed(AppRoutes.userSignIn);
+      Get.toNamed(AppRoutes.userApp);
     } else {
       ApiChecker.checkApi(response);
     }
@@ -250,6 +250,5 @@ class AuthUserController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    Get.lazyPut<ZegoCloudController>(() => ZegoCloudController());
   }
 }
