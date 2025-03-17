@@ -13,7 +13,7 @@ class MessageModel {
     this.partnerId = "unknown_partner_id",
     this.partnerRole = "unknown_partner_role",
     this.name = "Unnamed Partner",
-    this.image = "/images/default.png", // Default placeholder image
+    this.image = "", // Default placeholder image
     this.model = "Generic Model",
     this.lastMsg = "No message available",
     this.lastMsgTime = "N/A",
@@ -26,7 +26,7 @@ class MessageModel {
       partnerId: data['partnerId'] ?? "unknown_partner_id",
       partnerRole: data['model'] ?? "unknown_partner_role",
       name: data['name'] ?? "Unnamed Partner",
-      image: data['image'] ?? "/images/default.png",
+      image: data['image'] ?? "",
       model: data['model'] ?? "Generic Model",
       lastMsg: data['lastMsg'] ?? "No message available",
       lastMsgTime: data['lastMsgTime'] ?? "N/A",

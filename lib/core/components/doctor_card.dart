@@ -60,9 +60,11 @@ class DoctorCard extends StatelessWidget {
                 ? Get.to(() => AppointmentDetailsView(appointmentID: id),
                     arguments: false)
                 : isDoctorToDoctor
-                    ? Get.to(() => DoctorDetailsForDoctor(
+                    ? Get.to(
+                        () => DoctorDetailsForDoctor(
                           docID: id,
-                        ))
+                        ),
+                      )
                     : Get.to(() => DoctorsDetailsForUser(doctorId: id));
       },
       child: Container(
@@ -76,13 +78,7 @@ class DoctorCard extends StatelessWidget {
         ),
         child: Row(
           children: [
-            image == ""
-                ? SizedBox(
-                    height: 119.h,
-                    width: 81.w,
-                  )
-                : cachedImage(
-                    url: image, size: 119.h, width: 81.w, borderRadius: 12),
+            cachedImage(url: image, size: 119.h, width: 81.w, borderRadius: 12),
             SizedBox(
               width: 12.w,
             ),

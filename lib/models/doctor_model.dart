@@ -80,7 +80,7 @@ class DoctorModel {
       dob: json['dob'],
       experience: json['experience'],
       gender: json['gender'],
-      image: json['image'],
+      image: json['image'] ?? "",
       medicalLicense: json['medicalLicense'],
       phoneNumber: json['phoneNumber'],
       professionalIdBack: json['professionalIdBack'],

@@ -54,7 +54,7 @@ class UserModel {
       dob: json['dob'] != null ? DateTime.parse(json['dob']) : null,
       gender: json['gender'],
       address: json['address'],
-      image: json['image'],
+      image: json['image'] ?? "",
       phoneNumber: json['phoneNumber'],
     );
   }

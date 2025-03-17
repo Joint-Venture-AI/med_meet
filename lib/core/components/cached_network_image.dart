@@ -8,7 +8,7 @@ Widget cachedImage({url, size = 112, width, borderRadius}) {
         BorderRadius.circular(double.parse((borderRadius ?? 12).toString())),
     child: Image.network(
       (url == null || url == "")
-          ? "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQog6F07PLoVKKgvipRVIFx1ZVocC8Cu03qRtqXej_kGxRH-G-DKPntcb3kxNWD9c_njWE&usqp=CAU"
+          ? "https://static.vecteezy.com/system/resources/thumbnails/020/765/399/small_2x/default-profile-account-unknown-icon-black-silhouette-free-vector.jpg"
           : imageUrl(
               url), // Assuming imageUrl() just returns the URL string; adjust if it does more
       height: double.parse(size.toString()),
