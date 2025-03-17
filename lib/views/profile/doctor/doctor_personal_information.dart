@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import 'package:med_meet_flutter/controller/home_doctor_controller.dart';
 import 'package:med_meet_flutter/controller/profile_controller.dart';
 import 'package:med_meet_flutter/core/components/cached_network_image.dart';
@@ -40,7 +41,8 @@ class _DoctorPersonalInformationState extends State<DoctorPersonalInformation> {
 
     nameController.text = data.name;
     emailController.text = data.email;
-    dobController.text = data.dob;
+    dobController.text =
+        DateFormat("dd-MM-yyyy").format(DateTime.parse(data.dob));
     addressController.text = data.clinicAddress;
     super.initState();
   }
