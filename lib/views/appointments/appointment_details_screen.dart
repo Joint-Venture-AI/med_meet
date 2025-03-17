@@ -17,22 +17,36 @@ import 'package:med_meet_flutter/core/utils/app_typography.dart';
 import 'package:med_meet_flutter/models/detailed_appointment_model.dart';
 import 'package:med_meet_flutter/views/appointments/review_appointment.dart';
 
-class AppointmentDetailsView extends StatelessWidget {
-  AppointmentDetailsView({super.key, required this.appointmentID});
+class AppointmentDetailsView extends StatefulWidget {
+  const AppointmentDetailsView({super.key, required this.appointmentID});
 
   final String appointmentID;
+
+  @override
+  State<AppointmentDetailsView> createState() => _AppointmentDetailsViewState();
+}
+
+class _AppointmentDetailsViewState extends State<AppointmentDetailsView> {
   final AppointmentController appointmentController =
-      Get.put(AppointmentController());
+      Get.find<AppointmentController>();
+
   final HomeDoctorController homeDoctorController =
       Get.put(HomeDoctorController());
 
   @override
-  Widget build(BuildContext context) {
-    // args is false when it comes from user screen and true when it comes from doctor
-    final args = Get.arguments ?? false;
-    // Fetching the appointment details with appointmendID
+  void initState() {
+    super.initState();
     appointmentController.appointmentDetails.value = DetailedAppointmentModel();
-    appointmentController.getAppointmentDetails(appointmentID);
+    appointmentController.getAppointmentDetails(widget.appointmentID);
+  }
+
+  // args is false when it comes from user screen and true when it comes from doctor
+  final args = Get.arguments ?? false;
+
+  @override
+  Widget build(BuildContext context) {
+    // Fetching the appointment details with appointmendID
+
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(60),

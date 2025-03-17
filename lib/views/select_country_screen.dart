@@ -184,7 +184,7 @@ class _SelectCountryScreenState extends State<SelectCountryScreen> {
                       style: TextStyle(fontSize: 29, color: Color(0xff333333)),
                       textAlign: TextAlign.center,
                     ),
-                    const SizedBox(height: 40),
+                    const SizedBox(height: 30),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
@@ -198,7 +198,7 @@ class _SelectCountryScreenState extends State<SelectCountryScreen> {
                             });
                           },
                         ),
-                        const SizedBox(width: 48),
+                        const SizedBox(width: 28),
                         OptionWidget(
                           asset: SVGAssets.doctorIcon,
                           label: "Doctor",
@@ -211,7 +211,7 @@ class _SelectCountryScreenState extends State<SelectCountryScreen> {
                         ),
                       ],
                     ),
-                    const SizedBox(height: 64),
+                    const SizedBox(height: 44),
                     CustomButton(
                       onPressed: () {
                         Navigator.pop(context);
