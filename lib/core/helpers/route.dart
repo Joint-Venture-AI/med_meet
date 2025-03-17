@@ -3,7 +3,6 @@ import 'package:med_meet_flutter/doctor_app.dart';
 import 'package:med_meet_flutter/user_app.dart';
 import 'package:med_meet_flutter/views/appointments/create_prescription.dart';
 import 'package:med_meet_flutter/views/appointments/notes_screen.dart';
-import 'package:med_meet_flutter/views/auth/doctor/doctor_details_auth.dart';
 import 'package:med_meet_flutter/views/auth/doctor/doctor_forget_pass.dart';
 import 'package:med_meet_flutter/views/auth/doctor/doctor_new_pass.dart';
 import 'package:med_meet_flutter/views/auth/doctor/doctor_sign_in.dart';
@@ -150,7 +149,6 @@ class AppRoutes {
 
     GetPage(name: doctorSignIn, page: () => DoctorSignIn()),
     GetPage(name: signUpDoctor, page: () => SingupDoctorView()),
-    GetPage(name: doctorDetails, page: () => DoctorDetailsAuthView()),
     GetPage(name: doctorForgetpass, page: () => DoctorForgetPass()),
     // GetPage(name: doctorVerifyOTP, page: () => const DoctorVerifyOtp()),
     GetPage(name: doctorNewPass, page: () => DoctorNewPass()),
@@ -168,7 +166,7 @@ class AppRoutes {
         name: homeUser,
         page: () => HomeUserView(),
         transition: Transition.noTransition),
-    GetPage(name: notifications, page: () =>  NotificationView()),
+    GetPage(name: notifications, page: () => NotificationView()),
     GetPage(name: searchUser, page: () => const SearchUserView()),
     GetPage(name: specialtyUser, page: () => SpecialtyUserView()),
     GetPage(name: doctorListUser, page: () => DoctorsListView()),
@@ -189,7 +187,7 @@ class AppRoutes {
     // Messages feature
     GetPage(
         name: messages,
-        page: () =>  MessagesView(),
+        page: () => MessagesView(),
         transition: Transition.noTransition),
     GetPage(name: chatScreen, page: () => ChatScreenView()),
     // Booking Feature

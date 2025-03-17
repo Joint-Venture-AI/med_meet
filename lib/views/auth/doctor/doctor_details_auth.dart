@@ -17,7 +17,9 @@ import 'package:med_meet_flutter/core/utils/app_colors.dart';
 import 'package:med_meet_flutter/core/utils/app_typography.dart';
 
 class DoctorDetailsAuthView extends StatelessWidget {
-  DoctorDetailsAuthView({super.key});
+  DoctorDetailsAuthView({super.key, required this.bearerToken});
+
+  final String bearerToken;
 
   final TextEditingController experienceController = TextEditingController();
   final TextEditingController clinicNameController = TextEditingController();
@@ -28,6 +30,7 @@ class DoctorDetailsAuthView extends StatelessWidget {
   final AuthDoctorsController authDoctorsController =
       Get.find<AuthDoctorsController>();
   final CommonController commonController = Get.put(CommonController());
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -195,13 +198,15 @@ class DoctorDetailsAuthView extends StatelessWidget {
               CustomButton(
                   onPressed: () {
                     authDoctorsController.addDetailsAfterSignUp(
-                        aboutDoctor: aboutDoctorController.text,
-                        clinicAddress: clinicAddressController.text,
-                        clinicName: clinicNameController.text,
-                        consultationFree: consultationFeeController.text,
-                        experience: experienceController.text,
-                        specialist: commonController.selectedSpecialty.value,
-                        gender: commonController.selectedGender.value);
+                      aboutDoctor: aboutDoctorController.text,
+                      clinicAddress: clinicAddressController.text,
+                      clinicName: clinicNameController.text,
+                      consultationFree: consultationFeeController.text,
+                      experience: experienceController.text,
+                      specialist: commonController.selectedSpecialty.value,
+                      gender: commonController.selectedGender.value,
+                      bearer: bearerToken,
+                    );
                   },
                   buttonTitle: "Continue")
             ],

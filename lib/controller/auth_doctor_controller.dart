@@ -15,6 +15,7 @@ import 'package:med_meet_flutter/models/doctor_model.dart';
 import 'package:med_meet_flutter/services/api_checker.dart';
 import 'package:med_meet_flutter/services/api_client.dart';
 import 'package:med_meet_flutter/services/notification_service.dart';
+import 'package:med_meet_flutter/views/auth/doctor/doctor_details_auth.dart';
 import 'package:med_meet_flutter/views/auth/doctor/doctor_verify_otp.dart';
 
 class AuthDoctorsController extends GetxController {
@@ -114,7 +115,8 @@ class AuthDoctorsController extends GetxController {
         // await Get.to(() => DoctorVerifyOtp(email: doctorData.value.email!)); Test this
       } else if (!doctorData.value.isAllFieldsFilled!) {
         // When all the fields are not filled
-        Get.toNamed(AppRoutes.doctorDetails);
+        Get.to(() => DoctorDetailsAuthView(
+            bearerToken: response.body["data"]["accessToken"]));
       } else if (doctorData.value.approvedStatus! == "pending") {
         // whem doctor approval is pending
         Get.toNamed(AppRoutes.verifyProgressDoctor);
@@ -272,7 +274,8 @@ class AuthDoctorsController extends GetxController {
       clinicAddress,
       consultationFree,
       aboutDoctor,
-      gender}) async {
+      gender,
+      bearer}) async {
     if (specialist == null ||
         specialist.isEmpty ||
         experience == null ||
@@ -312,11 +315,11 @@ class AuthDoctorsController extends GetxController {
       MultipartBody("medicalLicense", medicalLicense.value!),
     ];
 
-    final bearerToken = await PrefsHelper.getString(AppConstants.bearerToken);
+    // final bearerToken = await PrefsHelper.getString(AppConstants.bearerToken);
 
     var header = {
       'Content-Type': "multipart/form-data",
-      'Authorization': 'Bearer $bearerToken'
+      'Authorization': 'Bearer $bearer'
     };
     Get.context!.loaderOverlay.show();
 
