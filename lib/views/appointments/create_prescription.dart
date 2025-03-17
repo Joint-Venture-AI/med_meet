@@ -36,7 +36,7 @@ class _CreatePrescriptionViewState extends State<CreatePrescriptionView> {
   final List<MedicationDetailsModel> medicines = [];
 
   final AppointmentController appointmentController =
-      Get.put(AppointmentController());
+      Get.find<AppointmentController>();
 
   @override
   void initState() {

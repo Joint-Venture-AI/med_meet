@@ -12,9 +12,28 @@ import 'package:med_meet_flutter/core/utils/app_colors.dart';
 import 'package:med_meet_flutter/core/utils/uitls.dart';
 import 'package:med_meet_flutter/models/chat_model.dart';
 
-class ChatScreenView extends StatelessWidget {
-  ChatScreenView({super.key});
+class ChatScreenView extends StatefulWidget {
+  const ChatScreenView({super.key});
+
+  @override
+  State<ChatScreenView> createState() => _ChatScreenViewState();
+}
+
+class _ChatScreenViewState extends State<ChatScreenView> {
   final ChatController chatController = Get.put(ChatController());
+
+  @override
+  void initState() {
+    chatController.updateRoomStatus(false);
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    chatController.updateRoomStatus(true);
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

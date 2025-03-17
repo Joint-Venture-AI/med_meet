@@ -33,6 +33,17 @@ class ChatController extends GetxController {
   // Socket Instance
   SocketService socketService = SocketService();
 
+  Future updateRoomStatus(isDisPose) async {
+    final body = {
+      "userId": await PrefsHelper.getString(PrefsKey.accountID),
+      "activeChatPartnerId": reciverID.value
+    };
+    if (isDisPose) {
+      body.remove("activeChatPartnerId");
+    }
+    socketService.emit("activeChat", body);
+  }
+
   Future getAllMessages() async {
     // This is to get my dp along with the fetched chat list
     final myRole = await PrefsHelper.getString(PrefsKey.role);
