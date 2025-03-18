@@ -143,7 +143,7 @@ class Profilecontroller extends GetxController {
       "phone": phone,
       "dob": dob,
       "address": address,
-      "experience": experience,
+      "experience": int.parse(experience),
       "medicalLicenseNumber": medicalLicenseNumber,
       "clinicName": clinicName,
       "clinicAddress": clinicAddress,
