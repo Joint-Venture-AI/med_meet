@@ -203,6 +203,7 @@ class _UserPersonalInformationState extends State<UserPersonalInformation> {
                           setState(() {
                             isEditing = !isEditing;
                           });
+
                           if (!isEditing) {
                             await profilecontroller.updateProfile(
                               name: nameController.text,

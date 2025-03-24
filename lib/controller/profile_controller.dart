@@ -143,7 +143,7 @@ class Profilecontroller extends GetxController {
       "phone": phone,
       "dob": dob,
       "address": address,
-      "experience": int.parse(experience),
+      "experience": experience != null ? int.parse(experience) : null,
       "medicalLicenseNumber": medicalLicenseNumber,
       "clinicName": clinicName,
       "clinicAddress": clinicAddress,
@@ -151,6 +151,8 @@ class Profilecontroller extends GetxController {
       "aboutDoctor": aboutDoctor,
       "specialty": specialty,
     };
+
+    print("----------------->>>>>>>>>>>>>>>>>>>> data: $data");
     // remove null values
     data.removeWhere((key, value) =>
         value == null || // Remove null values
