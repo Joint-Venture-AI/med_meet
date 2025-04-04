@@ -43,37 +43,35 @@ class AuthUserController extends GetxController {
     Get.context!.loaderOverlay.hide();
 
     if (response.statusCode == 200) {
-      if (response.body["success"]) {
-        // Show success message
-        showCustomSnackBar(response.body["message"], isError: false);
+      // Show success message
+      showCustomSnackBar(response.body["message"], isError: false);
 
-        // load the data in the user model and save it in the memory
-        userData.value = UserModel.fromJson(response.body["data"]["user"]);
-        // saving the access token
-        PrefsHelper.setString(
-            AppConstants.bearerToken, response.body["data"]["accessToken"]);
+      // load the data in the user model and save it in the memory
+      userData.value = UserModel.fromJson(response.body["data"]["user"]);
+      // saving the access token
+      PrefsHelper.setString(
+          AppConstants.bearerToken, response.body["data"]["accessToken"]);
 
-        // saving the id and role in shared prefrence
-        PrefsHelper.setString(PrefsKey.accountID, userData.value.id);
-        PrefsHelper.setString(PrefsKey.accountName, userData.value.name);
-        PrefsHelper.setString(PrefsKey.role, userData.value.role);
+      // saving the id and role in shared prefrence
+      PrefsHelper.setString(PrefsKey.accountID, userData.value.id);
+      PrefsHelper.setString(PrefsKey.accountName, userData.value.name);
+      PrefsHelper.setString(PrefsKey.role, userData.value.role);
 // Zego Cloud on user login
-        Get.find<ZegoCloudController>().onUserLogin(
-            userID: userData.value.id, userName: userData.value.name);
+      Get.find<ZegoCloudController>().onUserLogin(
+          userID: userData.value.id, userName: userData.value.name);
 
-        if (userData.value.verified != null && !userData.value.verified!) {
-          // when user is not verified OTP is sent
-          await requestOTP(userData.value.email, isforgotPass: false);
-        } else if (userData.value.isAllFieldsFilled != null &&
-            !userData.value.isAllFieldsFilled!) {
-          // If all the fields are not filled
-          Get.toNamed(AppRoutes.completeProfile);
-        } else if (userData.value.id != null &&
-            userData.value.verified! &&
-            userData.value.isAllFieldsFilled!) {
-          // when the user has all fields filled and also verified
-          Get.offAllNamed(AppRoutes.userApp);
-        }
+      if (userData.value.verified != null && !userData.value.verified!) {
+        // when user is not verified OTP is sent
+        await requestOTP(userData.value.email, isforgotPass: false);
+      } else if (userData.value.isAllFieldsFilled != null &&
+          !userData.value.isAllFieldsFilled!) {
+        // If all the fields are not filled
+        Get.toNamed(AppRoutes.completeProfile);
+      } else if (userData.value.id != null &&
+          userData.value.verified! &&
+          userData.value.isAllFieldsFilled!) {
+        // when the user has all fields filled and also verified
+        Get.offAllNamed(AppRoutes.userApp);
       }
     } else {
       ApiChecker.checkApi(response);
