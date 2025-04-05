@@ -41,8 +41,13 @@ class _DoctorPersonalInformationState extends State<DoctorPersonalInformation> {
 
     nameController.text = data.name;
     emailController.text = data.email;
-    dobController.text =
-        DateFormat("dd-MM-yyyy").format(DateTime.parse(data.dob));
+    if (data.dob == "Unknown") {
+      dobController.text = "Unknown";
+    } else {
+      dobController.text =
+          DateFormat("dd-MM-yyyy").format(DateTime.parse(data.dob));
+    }
+
     addressController.text = data.clinicAddress;
     super.initState();
   }
