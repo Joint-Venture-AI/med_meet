@@ -13,11 +13,10 @@ class ZegoCloudController extends GetxController {
     zegoUser.value = ZegoCloudModel(userID: accID, userName: accName);
   }
 
-  void onUserLogin({userID, userName}) {
+  void onUserLogin({required userID, required userName}) {
     ZegoUIKitPrebuiltCallInvitationService().init(
       appID: ZegoCloudConfig.appID,
       appSign: ZegoCloudConfig.appSign,
-      
       userID: userID,
       userName: userName,
       notificationConfig: ZegoCallInvitationNotificationConfig(

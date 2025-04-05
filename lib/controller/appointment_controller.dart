@@ -200,6 +200,8 @@ class AppointmentController extends GetxController {
   }
 
   Future generatePDF({medicines, summary}) async {
+    
+
     pdf = pw.Document();
     Get.context!.loaderOverlay.show();
 

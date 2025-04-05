@@ -152,7 +152,7 @@ class Profilecontroller extends GetxController {
       "specialty": specialty,
     };
 
-    print("----------------->>>>>>>>>>>>>>>>>>>> data: $data");
+  
     // remove null values
     data.removeWhere((key, value) =>
         value == null || // Remove null values

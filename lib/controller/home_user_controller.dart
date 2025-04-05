@@ -85,7 +85,7 @@ class UserHomeController extends GetxController {
         await ApiClient.getData(ApiConstants.getSingleDoctor(docID));
     Get.context!.loaderOverlay.hide();
     if (response.statusCode == 200) {
-      print("data: ${response.body["data"]}");
+     
       // loading doctor details by id for user
       singleDoctorData.value =
           SingleDoctorModel.fromJson(response.body["data"]);
