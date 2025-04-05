@@ -101,6 +101,7 @@ class AuthDoctorsController extends GetxController {
       "password": password,
       "fcmToken": await NotificationService.instance.sendFCMTokenToServer(),
     };
+    Get.context!.loaderOverlay.show();
     final response =
         await ApiClient.postData(ApiConstants.doctorLogin, jsonEncode(body));
     Get.context!.loaderOverlay.hide();

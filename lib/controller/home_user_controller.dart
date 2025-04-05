@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:loader_overlay/loader_overlay.dart';
@@ -77,11 +79,13 @@ class UserHomeController extends GetxController {
   }
 
   // Get Single Doctor Info with ID
-  Future getSingleDoctor(docID) async {
+  Future getSingleDoctor(String docID) async {
     Get.context!.loaderOverlay.show();
     Response response =
         await ApiClient.getData(ApiConstants.getSingleDoctor(docID));
+    Get.context!.loaderOverlay.hide();
     if (response.statusCode == 200) {
+      print("data: ${response.body["data"]}");
       // loading doctor details by id for user
       singleDoctorData.value =
           SingleDoctorModel.fromJson(response.body["data"]);
@@ -89,7 +93,6 @@ class UserHomeController extends GetxController {
     } else {
       ApiChecker.checkApi(response);
     }
-    Get.context!.loaderOverlay.hide();
   }
 
   Future getSpecialistDoctor(specialistID) async {

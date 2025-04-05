@@ -21,55 +21,55 @@ class HomeUserView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: buildCustomAppBar(),
-      body: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 24),
-        child: Column(
-          children: [
-            SizedBox(
-              height: 24,
-            ),
-            SearchField(),
-            SizedBox(
-              height: 12,
-            ),
-            SectionHeader(
-              title: "Specialist",
-              onTap: () {
-                Get.toNamed(AppRoutes.specialtyUser);
-              },
-            ),
-            Obx(
-              () => Row(
-                spacing: 20,
-                children: userHomeController.specialtyList
-                    .take(5)
-                    .map((e) => buildSpecialist(
-                        title: e.name, assetPath: e.image, specialtyID: e.id))
-                    .toList(),
+      body: RefreshIndicator(
+        onRefresh: () async {
+          await userHomeController.fetchUserData();
+        },
+        child: Padding(
+          padding: EdgeInsets.symmetric(horizontal: 24),
+          child: Column(
+            children: [
+              SizedBox(
+                height: 24,
               ),
-            ),
-            SizedBox(
-              height: 12.h,
-            ),
-            SectionHeader(
-              title: "Doctors",
-              onTap: () {
-                Get.toNamed(AppRoutes.doctorListUser);
-              },
-            ),
-            Expanded(
-              child: Obx(
-                () {
-                  final doctors = userHomeController.allDoctors;
-                  return doctors.isEmpty
-                      ? Center(
-                          child: Text("No Doctors found yet"),
-                        )
-                      : RefreshIndicator(
-                          onRefresh: () async {
-                            userHomeController.fetchUserData();
-                          },
-                          child: ListView.builder(
+              SearchField(),
+              SizedBox(
+                height: 12,
+              ),
+              SectionHeader(
+                title: "Specialist",
+                onTap: () {
+                  Get.toNamed(AppRoutes.specialtyUser);
+                },
+              ),
+              Obx(
+                () => Row(
+                  spacing: 20,
+                  children: userHomeController.specialtyList
+                      .take(5)
+                      .map((e) => buildSpecialist(
+                          title: e.name, assetPath: e.image, specialtyID: e.id))
+                      .toList(),
+                ),
+              ),
+              SizedBox(
+                height: 12.h,
+              ),
+              SectionHeader(
+                title: "Doctors",
+                onTap: () {
+                  Get.toNamed(AppRoutes.doctorListUser);
+                },
+              ),
+              Expanded(
+                child: Obx(
+                  () {
+                    final doctors = userHomeController.allDoctors;
+                    return doctors.isEmpty
+                        ? Center(
+                            child: Text("No Doctors found yet"),
+                          )
+                        : ListView.builder(
                             itemCount: doctors.length,
                             itemBuilder: (context, index) => DoctorCard(
                               id: doctors[index].id,
@@ -81,12 +81,12 @@ class HomeUserView extends StatelessWidget {
                               fee: doctors[index].consultationFee.toString(),
                               specialist: doctors[index].specialist.name,
                             ),
-                          ),
-                        );
-                },
-              ),
-            )
-          ],
+                          );
+                  },
+                ),
+              )
+            ],
+          ),
         ),
       ),
     );
