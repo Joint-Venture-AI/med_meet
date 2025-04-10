@@ -14,6 +14,8 @@ class ZegoCloudController extends GetxController {
   }
 
   void onUserLogin({required userID, required userName}) {
+    print("===========>>>>>>>>>>>>>>>>>>> Zego User ID: $userID");
+    print("================>>>>>>>>>>>>>>>>> Zego User Name: $userName");
     ZegoUIKitPrebuiltCallInvitationService().init(
       appID: ZegoCloudConfig.appID,
       appSign: ZegoCloudConfig.appSign,
